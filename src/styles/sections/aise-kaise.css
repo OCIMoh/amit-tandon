@@ -1,0 +1,339 @@
+.tour-section {
+  position: relative;
+  background: var(--bg-dark);
+  color: var(--ink-inverse);
+  padding-bottom: 5.5rem;
+}
+
+.tour-header-backdrop {
+  position: relative;
+  min-height: clamp(340px, 48vh, 480px);
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  padding: 4rem 0 3.5rem;
+}
+
+.tour-bg-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  filter: brightness(0.38) contrast(1.15) saturate(0.85);
+  transform: scale(1.04);
+  transition: transform 1.2s ease-out;
+}
+
+.tour-overlay-gradient {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 80% 20%, rgba(217, 45, 32, 0.22), transparent 50%),
+    linear-gradient(180deg, rgba(18, 16, 14, 0.3) 0%, rgba(18, 16, 14, 0.7) 50%, var(--bg-dark) 100%);
+}
+
+.tour-header-content {
+  position: relative;
+  z-index: 2;
+}
+
+.tour-head-title {
+  font-size: clamp(3rem, 7vw, 5.8rem);
+  color: #fff;
+  margin: 0 0 0.8rem;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+}
+
+.tour-head-lead {
+  font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+  color: #d8cebf;
+  max-width: 48ch;
+  margin: 0 0 1.6rem;
+  line-height: 1.5;
+}
+
+.tour-meta-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.t-meta-pill {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  letter-spacing: 0.05em;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #f3ece2;
+  padding: 0.4rem 0.85rem;
+  border-radius: 30px;
+}
+
+/* Tour Body & Controls */
+.tour-body {
+  position: relative;
+  z-index: 3;
+  margin-top: 1.5rem;
+}
+
+.tour-controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.2rem;
+  margin-bottom: 1.8rem;
+}
+
+.tour-filter-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.filter-tab {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #d1c6b6;
+  font-family: var(--font-sans);
+  font-size: 0.86rem;
+  font-weight: 500;
+  padding: 0.55rem 1rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-tab:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+.filter-tab.is-active {
+  background: var(--red);
+  color: #fff;
+  border-color: var(--red);
+  font-weight: 600;
+  box-shadow: 0 4px 14px rgba(217, 45, 32, 0.35);
+}
+
+.tour-search-wrap {
+  min-width: 260px;
+}
+
+.tour-search {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 0.6rem 1rem;
+  border-radius: var(--radius-sm);
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.tour-search:focus {
+  border-color: var(--red);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.tour-search::placeholder {
+  color: #8c8275;
+}
+
+/* Tour Table Card */
+.tour-table-card {
+  background: var(--bg-dark-surface);
+  border: 1px solid var(--border-dark);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+}
+
+.tour-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.tour-table th {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #8f8578;
+  padding: 1.1rem 1.6rem;
+  border-bottom: 1px solid var(--border-dark);
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.tour-row {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  transition: background 0.2s ease;
+}
+
+.tour-row:last-child {
+  border-bottom: none;
+}
+
+.tour-row:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.tour-row td {
+  padding: 1.3rem 1.6rem;
+  vertical-align: middle;
+}
+
+.tour-cell-date {
+  width: 24%;
+}
+
+.date-main {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: -0.01em;
+}
+
+.time-sub {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: #9c9183;
+  margin-top: 0.15rem;
+}
+
+.tour-cell-city {
+  width: 38%;
+}
+
+.city-name {
+  display: block;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #f7f3ec;
+}
+
+.venue-hint {
+  display: inline-block;
+  font-size: 0.85rem;
+  color: #f0a79f;
+  margin-top: 0.2rem;
+}
+
+.tour-cell-status {
+  width: 18%;
+}
+
+.tour-badge {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.6rem;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.badge-upcoming {
+  background: rgba(34, 197, 94, 0.15);
+  color: #4ade80;
+  border: 1px solid rgba(34, 197, 94, 0.25);
+}
+
+.badge-fast {
+  background: rgba(249, 115, 22, 0.15);
+  color: #fb923c;
+  border: 1px solid rgba(249, 115, 22, 0.3);
+}
+
+.badge-prestige {
+  background: rgba(217, 45, 32, 0.2);
+  color: #fca5a5;
+  border: 1px solid rgba(217, 45, 32, 0.4);
+}
+
+.tour-cell-action {
+  text-align: right;
+  width: 20%;
+}
+
+.btn-tour-ticket {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--red);
+  color: #fff;
+  border: 1px solid var(--red);
+  padding: 0.55rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  transition: all 0.2s ease;
+}
+
+.btn-tour-ticket:hover {
+  background: var(--red-hover);
+  border-color: var(--red-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(217, 45, 32, 0.4);
+}
+
+.tour-footer-help {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 0.88rem;
+  color: #8c8275;
+}
+
+.tour-footer-help a {
+  color: #f2ebe1;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.tour-footer-help a:hover {
+  color: var(--red);
+}
+
+/* Mobile & Tablet Tour Responsiveness */
+@media (max-width: 820px) {
+  .tour-table thead {
+    display: none;
+  }
+
+  .tour-row {
+    display: flex;
+    flex-direction: column;
+    padding: 1.2rem;
+    gap: 0.6rem;
+  }
+
+  .tour-row td {
+    padding: 0;
+    width: 100% !important;
+  }
+
+  .tour-cell-action {
+    text-align: left;
+    margin-top: 0.6rem;
+  }
+
+  .btn-tour-ticket {
+    width: 100%;
+    justify-content: center;
+    padding: 0.75rem;
+  }
+}

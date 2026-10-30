@@ -1,0 +1,80 @@
+export type Credit = {
+  label: string;
+  value: string;
+};
+
+export type StatItem = {
+  value: string;
+  label: string;
+  sub: string;
+};
+
+export type GyanBite = {
+  quote: string;
+  context: string;
+};
+
+export type CorporateContent = {
+  title: string;
+  tagline: string;
+  bio: string;
+  bullets: string[];
+};
+
+export type SiteContent = {
+  project: string;
+  concept: string;
+  tagline: string;
+  subject: string;
+  officialSite: string;
+  showsHub: string;
+  contact: {
+    email: string;
+    phone: string;
+    whatsapp: string;
+  };
+  social: {
+    instagram: string;
+    youtube: string;
+    facebook: string;
+    x: string;
+  };
+  currentShow: {
+    title: string;
+    sub?: string;
+    theme: string;
+  };
+  stats?: StatItem[];
+  gyanBites?: GyanBite[];
+  corporate?: CorporateContent;
+  about: {
+    short: string;
+    journeyLine: string;
+    credits: Credit[];
+  };
+};
+
+export type ShowEvent = {
+  date: string;
+  time: string;
+  city: string;
+  show: string;
+  href: string;
+  venueHint?: string;
+};
+
+export type MaterialItem = {
+  title: string;
+  role: "featured" | "list" | "split";
+  platform: string;
+  href: string;
+  note?: string;
+  image?: string;
+  ytId?: string;
+};
+
+export type ShowsFile = {
+  source: string;
+  scrapedAt: string;
+  events: ShowEvent[];
+};

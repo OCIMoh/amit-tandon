@@ -1,0 +1,122 @@
+{
+  "status": "LOCKED_FOR_POC",
+  "locked_at": "2026-10-29",
+  "concept": "Common Sense, Under Review",
+  "publish_note": "Instagram and YouTube stills remain candidates until final publish approval. Official portrait approved for POC use.",
+  "brand": {
+    "choice": null,
+    "fallback": "Name set in type"
+  },
+  "selections": {
+    "opening": [
+      {
+        "id": "OFF1",
+        "file": "assets/locked/opening/OFF1-official-portrait.jpg",
+        "title": "Official site portrait",
+        "rights": "POC ok; confirm launch rights"
+      }
+    ],
+    "material": [
+      {
+        "id": "IG03",
+        "file": "assets/locked/material/IG03-teen-patti.jpg",
+        "title": "Teen Patti clip still",
+        "rights": "candidate"
+      },
+      {
+        "id": "IG04",
+        "file": "assets/locked/material/IG04-photography.jpg",
+        "title": "Photography with Wife vs Daughters",
+        "rights": "candidate"
+      },
+      {
+        "id": "IG07",
+        "file": "assets/locked/material/IG07-clip-still.jpg",
+        "title": "Recent comedy clip still",
+        "rights": "candidate"
+      },
+      {
+        "id": "YT1",
+        "file": "assets/locked/material/YT1-family-tandoncies.jpg",
+        "title": "Family Tandoncies",
+        "rights": "candidate",
+        "href": "https://www.youtube.com/watch?v=C7b0TAg0xMU"
+      },
+      {
+        "id": "YT2",
+        "file": "assets/locked/material/YT2-too-much-technology.jpg",
+        "title": "Too Much Technology Right Now",
+        "rights": "candidate",
+        "href": "https://www.youtube.com/watch?v=frXoue9evqw"
+      },
+      {
+        "id": "YT3",
+        "file": "assets/locked/material/YT3-paisa-aa-gaya.jpg",
+        "title": "Paisa Aa Gaya\u2026 Class Nahi Aayi!",
+        "rights": "candidate",
+        "href": "https://www.youtube.com/watch?v=FgHw42e-3qE"
+      },
+      {
+        "id": "YT4",
+        "file": "assets/locked/material/YT4-masala-sandwich.jpg",
+        "title": "Masala Sandwich",
+        "rights": "candidate",
+        "href": "https://www.youtube.com/watch?v=Rl41e71vObE"
+      },
+      {
+        "id": "YT5",
+        "file": "assets/locked/material/YT5-daughter.jpg",
+        "title": "Daughter",
+        "rights": "candidate",
+        "href": "https://www.youtube.com/watch?v=hxnylPAUm3I"
+      },
+      {
+        "id": "YT6",
+        "file": "assets/locked/material/YT6-bathroom-ka-evolution.jpg",
+        "title": "Bathroom ka Evolution",
+        "rights": "candidate",
+        "href": "https://www.youtube.com/watch?v=YX0KqqY2ZMI"
+      }
+    ],
+    "live": [
+      {
+        "id": "IG06",
+        "file": "assets/locked/live/IG06-dubai-opera.jpg",
+        "title": "Dubai Opera / Comedy Festival still",
+        "rights": "candidate"
+      }
+    ],
+    "person": [
+      {
+        "id": "IG09",
+        "file": "assets/locked/person/IG09-new-york.jpg",
+        "title": "New York travel photos",
+        "rights": "candidate"
+      }
+    ],
+    "reference": [
+      {
+        "id": "MO2",
+        "file": "assets/locked/reference/MO2-material-mood.png",
+        "title": "Material mood guide",
+        "rights": "reference only"
+      }
+    ]
+  },
+  "rejected_or_unused_this_pass": [
+    "OFF2",
+    "IGP",
+    "IG01",
+    "IG02",
+    "IG05",
+    "IG08",
+    "IG10",
+    "IG11",
+    "IG12",
+    "AP01",
+    "AP02",
+    "MO1",
+    "MO3",
+    "MO4"
+  ]
+}

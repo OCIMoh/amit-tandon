@@ -1,0 +1,67 @@
+/* Soft handoffs between chapters — laptop pacing first */
+
+.chapter-bridge {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  padding: clamp(2.8rem, 7vh, 4.6rem) 1.5rem;
+  text-align: center;
+  overflow: hidden;
+}
+
+.chapter-bridge p {
+  margin: 0;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.35rem, 3.2vw, 2.35rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  max-width: 22ch;
+}
+
+.bridge-to-live {
+  margin-top: 0.5rem;
+  background: linear-gradient(
+    180deg,
+    rgba(239, 230, 216, 0) 0%,
+    #3a2c24 28%,
+    #2a221c 55%,
+    var(--stage) 100%
+  );
+  color: #f2ebe1;
+}
+
+.bridge-to-live::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 18%;
+  width: min(42vw, 280px);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(180, 42, 31, 0.75), transparent);
+  transform: translateX(-50%);
+}
+
+.bridge-to-person {
+  background: linear-gradient(
+    180deg,
+    var(--stage) 0%,
+    #1c1411 48%,
+    #120f0c 100%
+  );
+  color: #f2ebe1;
+  border-top: 1px solid rgba(180, 42, 31, 0.35);
+}
+
+.bridge-to-person::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(180, 42, 31, 0.16), transparent 55%);
+  pointer-events: none;
+}
+
+.live {
+  margin-top: 0;
+}

@@ -1,0 +1,44 @@
+[
+  {
+    "title": "Family Tandoncies",
+    "role": "featured",
+    "platform": "Netflix",
+    "href": "https://www.youtube.com/watch?v=C7b0TAg0xMU",
+    "note": "A special about the logic of family life — and how it frays under inspection."
+  },
+  {
+    "title": "Too Much Technology Right Now",
+    "role": "list",
+    "platform": "YouTube",
+    "href": "https://www.youtube.com/watch?v=frXoue9evqw",
+    "note": "From Hamare Zamane Mein era material"
+  },
+  {
+    "title": "Paisa Aa Gaya\u2026 Class Nahi Aayi!",
+    "role": "list",
+    "platform": "YouTube",
+    "href": "https://www.youtube.com/watch?v=FgHw42e-3qE",
+    "note": "Middle-class upgrade contradictions"
+  },
+  {
+    "title": "Masala Sandwich",
+    "role": "list",
+    "platform": "YouTube",
+    "href": "https://www.youtube.com/watch?v=Rl41e71vObE",
+    "note": "Full ~80 min show release"
+  },
+  {
+    "title": "Daughter",
+    "role": "split",
+    "platform": "YouTube",
+    "href": "https://www.youtube.com/watch?v=hxnylPAUm3I",
+    "note": "Parenting / teenage daughter bit"
+  },
+  {
+    "title": "Bathroom ka Evolution",
+    "role": "split",
+    "platform": "YouTube",
+    "href": "https://www.youtube.com/watch?v=YX0KqqY2ZMI",
+    "note": "Everyday domestic upgrades"
+  }
+]

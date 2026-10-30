@@ -1,0 +1,233 @@
+{
+  "source": "https://www.tandonamit.com/shows",
+  "scrapedAt": "2026-10-28",
+  "events": [
+    {
+      "date": "2026-11-12",
+      "time": "19:30",
+      "city": "Cardiff, UK",
+      "show": "Aise Kaise",
+      "href": "https://www.tickettailor.com/events/soulfulevents/2327471"
+    },
+    {
+      "date": "2026-11-13",
+      "time": "19:00",
+      "city": "Milton Keynes, UK",
+      "show": "Aise Kaise",
+      "href": "https://www.tickettailor.com/events/soulfulevents/2327475"
+    },
+    {
+      "date": "2026-11-14",
+      "time": "16:00",
+      "city": "London, UK",
+      "show": "Aise Kaise",
+      "venueHint": "Southbank Centre",
+      "href": "https://www.southbankcentre.co.uk/whats-on/amit-tandon-aise-kaise/"
+    },
+    {
+      "date": "2026-11-14",
+      "time": "19:30",
+      "city": "London, UK",
+      "show": "Aise Kaise",
+      "venueHint": "Southbank Centre",
+      "href": "https://www.southbankcentre.co.uk/whats-on/amit-tandon-aise-kaise/"
+    },
+    {
+      "date": "2026-11-15",
+      "time": "18:00",
+      "city": "Manchester, UK",
+      "show": "Aise Kaise",
+      "href": "https://www.tickettailor.com/events/soulfulevents/2327474"
+    },
+    {
+      "date": "2026-11-18",
+      "time": "19:30",
+      "city": "Geneva, Switzerland",
+      "show": "Aise Kaise",
+      "href": "https://www.tickettailor.com/events/soulfuleventseurope/2479421"
+    },
+    {
+      "date": "2026-11-19",
+      "time": "19:30",
+      "city": "Cambridge, UK",
+      "show": "Aise Kaise",
+      "href": "https://www.tickettailor.com/events/soulfulevents/2343091"
+    },
+    {
+      "date": "2026-11-20",
+      "time": "19:30",
+      "city": "Birmingham, UK",
+      "show": "Aise Kaise",
+      "href": "https://www.tickettailor.com/events/soulfulevents/2327473"
+    },
+    {
+      "date": "2026-11-21",
+      "time": "16:30",
+      "city": "Slough, UK",
+      "show": "Aise Kaise",
+      "href": "https://www.tickettailor.com/events/soulfulevents/2343056"
+    },
+    {
+      "date": "2026-11-21",
+      "time": "19:30",
+      "city": "Slough, UK",
+      "show": "Aise Kaise",
+      "href": "https://www.tickettailor.com/events/soulfulevents/2327472"
+    },
+    {
+      "date": "2026-11-22",
+      "time": "15:00",
+      "city": "Reading, UK",
+      "show": "Aise Kaise",
+      "href": "https://www.tickettailor.com/events/soulfulevents/2326942"
+    },
+    {
+      "date": "2026-11-22",
+      "time": "18:00",
+      "city": "Reading, UK",
+      "show": "Aise Kaise",
+      "href": "https://www.tickettailor.com/events/soulfulevents/2327463"
+    },
+    {
+      "date": "2026-11-25",
+      "time": "18:30",
+      "city": "Helsinki, Finland",
+      "show": "Aise Kaise",
+      "href": "https://buytickets.at/soulfuleventseurope/2465785"
+    },
+    {
+      "date": "2026-11-26",
+      "time": "19:00",
+      "city": "Eindhoven, Netherlands",
+      "show": "Aise Kaise",
+      "href": "https://www.tickettailor.com/events/soulfuleventseurope/2430471"
+    },
+    {
+      "date": "2026-11-27",
+      "time": "18:00",
+      "city": "Munich, Germany",
+      "show": "Aise Kaise",
+      "href": "https://www.tickettailor.com/events/soulfuleventseurope/2424203"
+    },
+    {
+      "date": "2026-11-28",
+      "time": "17:30",
+      "city": "Basel, Switzerland",
+      "show": "Aise Kaise",
+      "href": "https://www.tickettailor.com/events/soulfuleventseurope/2419911"
+    },
+    {
+      "date": "2026-11-29",
+      "time": "16:00",
+      "city": "Frankfurt, Germany",
+      "show": "Aise Kaise",
+      "href": "https://www.tickettailor.com/events/soulfuleventseurope/2335667"
+    },
+    {
+      "date": "2026-11-29",
+      "time": "19:00",
+      "city": "Frankfurt, Germany",
+      "show": "Aise Kaise",
+      "href": "https://www.tickettailor.com/events/soulfuleventseurope/2343171"
+    },
+    {
+      "date": "2026-12-11",
+      "time": "21:00",
+      "city": "Doha, Qatar",
+      "show": "Amit Tandon Live",
+      "href": "https://doha.platinumlist.net/event-tickets/107571/amit-tandon-comedy-night-live-in-qatar"
+    },
+    {
+      "date": "2026-12-19",
+      "time": "15:30",
+      "city": "Delhi, India",
+      "show": "Aise Kaise",
+      "href": "https://in.bookmyshow.com/events/aise-kaise-by-amit-tandon/ET00506884"
+    },
+    {
+      "date": "2026-12-19",
+      "time": "19:00",
+      "city": "Delhi, India",
+      "show": "Aise Kaise",
+      "href": "https://in.bookmyshow.com/events/aise-kaise-by-amit-tandon/ET00506884"
+    },
+    {
+      "date": "2026-12-20",
+      "time": "19:00",
+      "city": "Jaipur, India",
+      "show": "Aise Kaise",
+      "href": "https://in.bookmyshow.com/events/aise-kaise-by-amit-tandon/ET00491707"
+    },
+    {
+      "date": "2026-12-25",
+      "time": "16:00",
+      "city": "Mumbai, India",
+      "show": "Aise Kaise",
+      "href": "https://in.bookmyshow.com/events/aise-kaise-by-amit-tandon/ET00491707"
+    },
+    {
+      "date": "2027-01-23",
+      "time": "19:00",
+      "city": "Ludhiana, India",
+      "show": "Aise Kaise",
+      "href": "https://in.bookmyshow.com/events/aise-kaise-by-amit-tandon/ET00491707"
+    },
+    {
+      "date": "2027-01-24",
+      "time": "19:00",
+      "city": "Chandigarh, India",
+      "show": "Aise Kaise",
+      "href": "https://in.bookmyshow.com/events/aise-kaise-by-amit-tandon/ET00491707"
+    },
+    {
+      "date": "2027-01-31",
+      "time": "19:00",
+      "city": "Kolkata, India",
+      "show": "Aise Kaise",
+      "href": "https://in.bookmyshow.com/events/aise-kaise-by-amit-tandon/ET00491707"
+    },
+    {
+      "date": "2027-05-14",
+      "time": "20:00",
+      "city": "Adelaide, Australia",
+      "show": "Aise Kaise",
+      "href": "https://www.eventbrite.com.au/e/aise-kaise-by-amit-tandon-live-in-adelaide-tickets-1997508759471?aff=oddtdtcreator"
+    },
+    {
+      "date": "2027-05-15",
+      "time": "19:00",
+      "city": "Canberra, Australia",
+      "show": "Aise Kaise",
+      "href": "https://www.eventbrite.com.au/e/aise-kaise-by-amit-tandon-live-canberra-tickets-1993182365109?aff=oddtdtcreator"
+    },
+    {
+      "date": "2027-05-16",
+      "time": "20:30",
+      "city": "Sydney, Australia",
+      "show": "Aise Kaise",
+      "venueHint": "Sydney Opera House",
+      "href": "https://www.sydneyoperahouse.com/comedy/aise-kaise-amit-tandon"
+    },
+    {
+      "date": "2027-05-29",
+      "time": "19:00",
+      "city": "Auckland, New Zealand",
+      "show": "Aise Kaise",
+      "href": "https://www.eventbrite.com.au/e/aise-kaise-a-brand-new-show-amit-tandon-live-in-auckland-tickets-1992792741735?aff=oddtdtcreator"
+    },
+    {
+      "date": "2027-05-30",
+      "time": "18:30",
+      "city": "Melbourne, Australia",
+      "show": "Aise Kaise",
+      "href": "https://mpac.monash.edu/event/amit-tandon/"
+    },
+    {
+      "date": "2027-07-10",
+      "time": "19:00",
+      "city": "Singapore",
+      "show": "Aise Kaise",
+      "href": "https://www.sistic.com.sg/events/comedy0727"
+    }
+  ]
+}

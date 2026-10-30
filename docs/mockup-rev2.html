@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Amit Tandon — Common Sense, Under Review (Composition Rev 2)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --paper: #f3eee6;
+    --paper-deep: #e6ddd0;
+    --ink: #12110f;
+    --ink-soft: #3a3732;
+    --mute: #6e685e;
+    --line: rgba(18, 17, 15, 0.16);
+    --vermilion: #c0392b;
+    --vermilion-deep: #9b2c22;
+    --max: 1120px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background:
+      linear-gradient(90deg, transparent 0, transparent calc(50% - 560px), rgba(18,17,15,0.035) calc(50% - 560px), rgba(18,17,15,0.035) calc(50% - 559px), transparent calc(50% - 559px)),
+      linear-gradient(180deg, #f8f3eb 0%, var(--paper) 40%, #efe7da 100%);
+    color: var(--ink);
+    font-family: "Instrument Sans", system-ui, sans-serif;
+    font-size: 17px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  img { max-width: 100%; display: block; }
+  .wrap { width: min(var(--max), calc(100% - 2.25rem)); margin-inline: auto; }
+  .eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--mute);
+  }
+  .display {
+    font-family: Fraunces, Georgia, serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    letter-spacing: -0.035em;
+    line-height: 0.94;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    background: var(--ink);
+    color: var(--paper);
+    text-decoration: none;
+    padding: 0.85rem 1.15rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border: 1px solid var(--ink);
+    transition: transform 180ms ease, background 180ms ease;
+  }
+  .btn:hover { transform: translateY(-1px); background: #000; }
+  .btn-ghost {
+    background: transparent;
+    color: var(--ink);
+  }
+  .btn-ghost:hover { background: rgba(18,17,15,0.06); }
+  .btn-red {
+    background: var(--vermilion);
+    border-color: var(--vermilion);
+  }
+  .btn-red:hover { background: var(--vermilion-deep); border-color: var(--vermilion-deep); }
+
+  .nav {
+    position: sticky; top: 0; z-index: 40;
+    backdrop-filter: blur(10px);
+    background: rgba(243,238,230,0.9);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.85rem 0; gap: 1rem;
+  }
+  .brand {
+    font-family: Fraunces, serif;
+    font-weight: 700;
+    font-size: 1.35rem;
+    text-decoration: none;
+    letter-spacing: -0.03em;
+  }
+  .nav-links {
+    display: flex; gap: 1.35rem; align-items: center;
+    list-style: none; margin: 0; padding: 0;
+    font-size: 0.92rem; font-weight: 500;
+  }
+  .nav-links a { text-decoration: none; color: var(--ink-soft); }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-cta { display: none; }
+  @media (min-width: 820px) {
+    .nav-cta { display: inline-flex; padding: 0.55rem 0.9rem; font-size: 0.85rem; }
+  }
+  @media (max-width: 819px) {
+    .nav-links { display: none; }
+  }
+
+  /* Opening — observation interrupted by portrait */
+  .hero {
+    padding: 2.4rem 0 0;
+    position: relative;
+  }
+  .hero-top {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: 0;
+    align-items: stretch;
+    min-height: min(78vh, 720px);
+  }
+  @media (max-width: 900px) {
+    .hero-top { grid-template-columns: 1fr; min-height: 0; }
+  }
+  .hero-copy {
+    padding: 1.2rem 1.5rem 2rem 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+  }
+  .hero-kicker {
+    display: flex; gap: 0.7rem; align-items: center; margin-bottom: 1.15rem;
+  }
+  .hero-kicker .dot {
+    width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--vermilion);
+  }
+  .hero h1 {
+    margin: 0 0 1.15rem;
+    font-size: clamp(2.7rem, 7.2vw, 5.1rem);
+  }
+  .hero h1 .strike {
+    text-decoration: line-through;
+    text-decoration-thickness: 0.055em;
+    text-decoration-color: var(--vermilion);
+    color: var(--mute);
+    font-weight: 500;
+  }
+  .hero h1 .rewrite {
+    display: inline-block;
+    color: var(--ink);
+    font-style: italic;
+    font-weight: 500;
+    font-size: 0.42em;
+    letter-spacing: -0.01em;
+    vertical-align: middle;
+    margin-left: 0.15em;
+    border-bottom: 2px solid var(--vermilion);
+    padding-bottom: 0.05em;
+  }
+  .hero-lead {
+    max-width: 32rem;
+    font-size: 1.08rem;
+    color: var(--ink-soft);
+    margin: 0 0 1.45rem;
+  }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 0.7rem; }
+  .hero-media {
+    position: relative;
+    margin-right: calc(-1 * max(0px, (100vw - var(--max)) / 2 - 0px));
+  }
+  @media (max-width: 900px) {
+    .hero-media { margin-right: 0; min-height: 380px; }
+  }
+  .hero-photo {
+    width: 100%;
+    height: 100%;
+    min-height: 520px;
+    object-fit: cover;
+    filter: grayscale(0.12) contrast(1.06);
+  }
+  @media (max-width: 900px) {
+    .hero-photo { min-height: 380px; }
+  }
+  .margin-note {
+    position: absolute;
+    width: min(15rem, 72vw);
+    background: var(--paper);
+    border: 1px solid var(--ink);
+    padding: 0.75rem 0.85rem;
+    font-size: 0.86rem;
+    line-height: 1.4;
+    box-shadow: 5px 5px 0 rgba(18,17,15,0.07);
+    z-index: 3;
+  }
+  .margin-note .tag {
+    display: block;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--vermilion);
+    margin-bottom: 0.25rem;
+  }
+  .mn-1 {
+    top: 12%;
+    left: -12%;
+    transform: rotate(-2.2deg);
+  }
+  .mn-2 {
+    bottom: 14%;
+    right: 6%;
+    transform: rotate(1.6deg);
+  }
+  @media (max-width: 900px) {
+    .mn-1 { left: 4%; top: 6%; }
+    .mn-2 { right: 4%; }
+  }
+
+  .interrupt-bar {
+    display: grid;
+    grid-template-columns: 7.5rem 1fr;
+    gap: 1.1rem;
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+    margin: 0;
+    padding: 1.15rem 0;
+    align-items: start;
+  }
+  .interrupt-bar .label {
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--vermilion);
+    padding-top: 0.35rem;
+  }
+  .interrupt-bar p {
+    margin: 0;
+    font-family: Fraunces, serif;
+    font-size: clamp(1.2rem, 2.5vw, 1.65rem);
+    line-height: 1.32;
+    font-weight: 500;
+  }
+  .interrupt-bar em {
+    font-style: italic;
+    color: var(--vermilion);
+  }
+
+  /* Material — editorial, not cards */
+  .material {
+    padding: 3.8rem 0 4.2rem;
+    position: relative;
+  }
+  .sec-intro {
+    display: grid;
+    grid-template-columns: 1fr minmax(12rem, 18rem);
+    gap: 1.5rem;
+    align-items: end;
+    margin-bottom: 2.4rem;
+    padding-bottom: 1.2rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .sec-intro h2 {
+    margin: 0.4rem 0 0;
+    font-size: clamp(2rem, 4.4vw, 3.15rem);
+    max-width: 18ch;
+  }
+  .sec-intro .aside {
+    font-size: 0.95rem;
+    color: var(--mute);
+    margin: 0;
+    text-align: right;
+  }
+  @media (max-width: 700px) {
+    .sec-intro { grid-template-columns: 1fr; }
+    .sec-intro .aside { text-align: left; }
+  }
+
+  .ledger {
+    display: grid;
+    gap: 0;
+  }
+  .entry {
+    position: relative;
+    display: grid;
+    grid-template-columns: 4.5rem minmax(0, 1fr) minmax(9rem, 14rem);
+    gap: 1.25rem;
+    padding: 1.65rem 0;
+    border-bottom: 1px solid var(--line);
+    align-items: start;
+    text-decoration: none;
+    color: inherit;
+    transition: background 160ms ease;
+  }
+  .entry:hover { background: rgba(255,255,255,0.28); }
+  .entry .idx {
+    font-family: Fraunces, serif;
+    font-size: 1.05rem;
+    color: var(--mute);
+    padding-top: 0.35rem;
+  }
+  .entry h3 {
+    font-family: Fraunces, serif;
+    font-size: clamp(1.45rem, 3vw, 2.05rem);
+    line-height: 1.08;
+    margin: 0 0 0.55rem;
+    letter-spacing: -0.025em;
+  }
+  .entry .blurb {
+    margin: 0;
+    color: var(--ink-soft);
+    max-width: 38rem;
+  }
+  .entry .meta-col {
+    text-align: right;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--mute);
+    font-weight: 600;
+    padding-top: 0.45rem;
+  }
+  .entry .meta-col .watch {
+    display: inline-block;
+    margin-top: 0.65rem;
+    color: var(--ink);
+    letter-spacing: 0.04em;
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 0.08rem;
+    text-transform: none;
+    font-size: 0.9rem;
+    font-weight: 650;
+  }
+  @media (max-width: 760px) {
+    .entry {
+      grid-template-columns: 2.6rem 1fr;
+      gap: 0.75rem 1rem;
+    }
+    .entry .meta-col {
+      grid-column: 2;
+      text-align: left;
+      padding-top: 0;
+    }
+  }
+
+  /* Featured interruption — breaks the ledger rhythm */
+  .break-entry {
+    margin: 1.75rem 0 0.5rem;
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 0;
+    border: 1px solid var(--ink);
+    background: #fffdf8;
+    position: relative;
+  }
+  .break-entry .body {
+    padding: 1.6rem 1.5rem 1.7rem;
+  }
+  .break-entry .body .eyebrow { color: var(--vermilion); }
+  .break-entry h3 {
+    font-family: Fraunces, serif;
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    line-height: 0.98;
+    margin: 0.45rem 0 0.9rem;
+    letter-spacing: -0.03em;
+  }
+  .break-entry p { margin: 0 0 1rem; color: var(--ink-soft); max-width: 34rem; }
+  .break-entry .correction {
+    display: inline-block;
+    font-family: Fraunces, serif;
+    font-style: italic;
+    font-size: 1.15rem;
+    border-left: 3px solid var(--vermilion);
+    padding-left: 0.85rem;
+    margin: 0.4rem 0 1.2rem;
+  }
+  .break-visual {
+    position: relative;
+    background: #1a1714;
+    min-height: 100%;
+    display: flex;
+    align-items: flex-end;
+    padding: 1.4rem;
+    overflow: hidden;
+  }
+  .break-visual::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 70% 20%, rgba(192,57,43,0.35), transparent 50%),
+      linear-gradient(160deg, #2a241f, #12100e);
+  }
+  .break-visual .quote {
+    position: relative;
+    color: #f4efe7;
+    font-family: Fraunces, serif;
+    font-size: clamp(1.25rem, 2.4vw, 1.7rem);
+    line-height: 1.25;
+    margin: 0;
+  }
+  .break-visual .quote span {
+    display: block;
+    margin-top: 0.85rem;
+    font-family: "Instrument Sans", sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(244,239,231,0.55);
+  }
+  .stamp-float {
+    position: absolute;
+    top: -0.7rem;
+    right: 1.2rem;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--vermilion);
+    border: 1.5px solid var(--vermilion);
+    padding: 0.25rem 0.45rem;
+    background: var(--paper);
+    transform: rotate(5deg);
+    z-index: 2;
+  }
+  @media (max-width: 860px) {
+    .break-entry { grid-template-columns: 1fr; }
+    .break-visual { min-height: 180px; }
+  }
+
+  .side-interrupt {
+    margin: 2rem 0 0.5rem;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    gap: 2rem;
+    align-items: center;
+  }
+  .side-interrupt .pull {
+    font-family: Fraunces, serif;
+    font-size: clamp(1.55rem, 3.2vw, 2.25rem);
+    line-height: 1.15;
+    margin: 0;
+    letter-spacing: -0.02em;
+  }
+  .side-interrupt .pull em { color: var(--vermilion); font-style: italic; }
+  .side-interrupt .pair {
+    display: grid;
+    gap: 0;
+    border-top: 1px solid var(--ink);
+  }
+  .side-interrupt .pair a {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1rem;
+    padding: 1.05rem 0;
+    border-bottom: 1px solid var(--line);
+    text-decoration: none;
+    align-items: baseline;
+  }
+  .side-interrupt .pair h3 {
+    font-family: Fraunces, serif;
+    font-size: 1.35rem;
+    margin: 0 0 0.3rem;
+    letter-spacing: -0.02em;
+  }
+  .side-interrupt .pair p {
+    margin: 0;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+  }
+  .side-interrupt .pair .go {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--vermilion);
+    white-space: nowrap;
+  }
+  @media (max-width: 800px) {
+    .side-interrupt { grid-template-columns: 1fr; gap: 1.25rem; }
+  }
+
+  /* Tour */
+  .tour {
+    background: linear-gradient(145deg, #171412 0%, #2a241f 52%, #141210 100%);
+    color: #f4efe7;
+    padding: 4rem 0 3.5rem;
+  }
+  .tour .eyebrow { color: rgba(244,239,231,0.62); }
+  .tour-intro {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    align-items: end;
+  }
+  @media (max-width: 860px) {
+    .tour-intro { grid-template-columns: 1fr; }
+  }
+  .tour-title {
+    font-family: Fraunces, serif;
+    font-size: clamp(2.7rem, 7vw, 4.7rem);
+    line-height: 0.92;
+    margin: 0.35rem 0 0;
+    letter-spacing: -0.03em;
+  }
+  .tour-title span { color: #e07a6c; }
+  .tour-copy { color: rgba(244,239,231,0.78); max-width: 28rem; margin: 0; }
+  .dates {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0;
+    border-top: 1px solid rgba(244,239,231,0.18);
+  }
+  @media (max-width: 700px) {
+    .dates { grid-template-columns: 1fr; }
+  }
+  .date-row {
+    display: grid;
+    grid-template-columns: 6.2rem 1fr auto;
+    gap: 0.85rem;
+    align-items: center;
+    padding: 1rem 0.2rem;
+    border-bottom: 1px solid rgba(244,239,231,0.14);
+    text-decoration: none;
+    color: inherit;
+    transition: background 160ms ease;
+  }
+  .date-row:hover { background: rgba(255,255,255,0.04); }
+  .date-row .d {
+    font-family: Fraunces, serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+  }
+  .date-row .c { font-weight: 600; }
+  .date-row .t { font-size: 0.88rem; color: rgba(244,239,231,0.58); }
+  .date-row .buy {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #f0a79d;
+  }
+  .tour-foot {
+    margin-top: 1.5rem;
+    display: flex; flex-wrap: wrap; gap: 0.85rem; align-items: center;
+    justify-content: space-between;
+  }
+  .tour-foot p { margin: 0; color: rgba(244,239,231,0.62); font-size: 0.9rem; }
+
+  /* Person — quieter, no résumé stats */
+  .bio {
+    padding: 4.2rem 0 3.5rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .bio-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
+    gap: 2.5rem;
+    align-items: start;
+  }
+  @media (max-width: 860px) {
+    .bio-layout { grid-template-columns: 1fr; }
+  }
+  .bio-photo-wrap {
+    position: relative;
+  }
+  .bio-photo {
+    width: 100%;
+    aspect-ratio: 4/5;
+    object-fit: cover;
+    filter: grayscale(0.18) contrast(1.04);
+    border: 1px solid var(--line);
+  }
+  .bio-caption {
+    margin: 0.75rem 0 0;
+    font-size: 0.86rem;
+    color: var(--mute);
+  }
+  .bio h2 {
+    margin: 0.35rem 0 1rem;
+    font-size: clamp(2.1rem, 4vw, 3rem);
+  }
+  .bio .lede {
+    font-family: Fraunces, serif;
+    font-size: clamp(1.2rem, 2.2vw, 1.45rem);
+    line-height: 1.35;
+    margin: 0 0 1.1rem;
+    max-width: 34rem;
+  }
+  .bio p { color: var(--ink-soft); margin: 0 0 1rem; max-width: 38rem; }
+  .credits {
+    margin-top: 1.6rem;
+    border-top: 1px solid var(--ink);
+  }
+  .credit {
+    display: grid;
+    grid-template-columns: 7.5rem 1fr;
+    gap: 0.85rem;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 0.96rem;
+  }
+  .credit dt {
+    color: var(--mute);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+    padding-top: 0.15rem;
+  }
+  .credit dd { margin: 0; font-weight: 550; }
+
+  footer { padding: 2.4rem 0 3rem; }
+  .foot-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 1.5rem;
+    align-items: end;
+  }
+  @media (max-width: 700px) {
+    .foot-grid { grid-template-columns: 1fr; }
+  }
+  .foot-brand {
+    font-family: Fraunces, serif;
+    font-size: 2rem;
+    margin: 0 0 0.35rem;
+  }
+  .foot-meta { color: var(--mute); font-size: 0.9rem; margin: 0; }
+  .foot-links {
+    display: flex; flex-wrap: wrap; gap: 1rem;
+    justify-content: flex-end;
+  }
+  .foot-links a { text-decoration: none; font-weight: 600; border-bottom: 1px solid var(--line); }
+  .poc-banner {
+    margin-top: 1.6rem;
+    padding: 0.8rem 1rem;
+    border: 1px dashed rgba(18,17,15,0.28);
+    background: rgba(255,255,255,0.35);
+    font-size: 0.84rem;
+    color: var(--mute);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .hero h1, .break-entry, .tour-title {
+      animation: rise 720ms ease both;
+    }
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: none; }
+    }
+  }
+</style>
+</head>
+<body>
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="#top">Amit Tandon</a>
+      <ul class="nav-links">
+        <li><a href="#material">Comedy</a></li>
+        <li><a href="#live">Live shows</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <a class="btn btn-red nav-cta" href="#live">Get tickets</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="wrap">
+        <div class="hero-top">
+          <div class="hero-copy">
+            <div class="hero-kicker">
+              <span class="dot" aria-hidden="true"></span>
+              <span class="eyebrow">An observation</span>
+            </div>
+            <h1 class="display">
+              People have<br />
+              explanations<br />
+              for <span class="strike">everything</span><br />
+              <span class="rewrite">almost everything</span>
+            </h1>
+            <p class="hero-lead">
+              Amit Tandon finds humour in the logic people apply to ordinary life — friends, family, rituals, and the stories we tell ourselves about how it all works.
+            </p>
+            <div class="hero-actions">
+              <a class="btn btn-red" href="#live">See Aise Kaise dates</a>
+              <a class="btn btn-ghost" href="#material">Browse the material</a>
+            </div>
+          </div>
+          <div class="hero-media">
+            <img class="hero-photo" src="https://bynder.southbankcentre.co.uk/transform/6c7b646e-7343-4fb5-ad0f-cf5f7fbb7959/Aise-Kaise-By-Amit-Tandon?io=transform%3Afill%2Cwidth%3A1200%2Cheight%3A1500" alt="Amit Tandon — Aise Kaise promotional photograph" width="800" height="1000" />
+            <aside class="margin-note mn-1">
+              <span class="tag">Margin note</span>
+              Clean comedy. Messy human logic.
+            </aside>
+            <aside class="margin-note mn-2">
+              <span class="tag">Now touring</span>
+              Aise Kaise — UK, Europe, India, Australia and more
+            </aside>
+          </div>
+        </div>
+        <div class="interrupt-bar">
+          <div class="label">Under review</div>
+          <p>
+            The more closely you examine everyday explanations, the more <em>contradictions</em> you find. That gap is the joke — and the page keeps interrupting itself the same way.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="material" id="material">
+      <div class="wrap">
+        <div class="sec-intro">
+          <div>
+            <div class="eyebrow">02 · The material</div>
+            <h2 class="display">Contradictions, as found in real life</h2>
+          </div>
+          <p class="aside">Real titles from Amit’s library. Each row opens the actual clip or special — not a made-up topic card.</p>
+        </div>
+
+        <div class="break-entry">
+          <span class="stamp-float">First Hindi solo</span>
+          <div class="body">
+            <div class="eyebrow">Featured · Netflix</div>
+            <h3>Family Tandoncies</h3>
+            <p>Marriage, parenting, and the everyday contradictions that somehow still feel normal — India’s Top 10 for 15 days.</p>
+            <div class="correction">“We all have reasons. Some of them just don’t survive daylight.”</div>
+            <a class="btn btn-red" href="https://www.youtube.com/watch?v=C7b0TAg0xMU">Watch the trailer</a>
+          </div>
+          <div class="break-visual" aria-hidden="true">
+            <p class="quote">
+              Organised on the surface.<br />Interrupted by what people actually do.
+              <span>Design rule · same as the comedy</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="ledger" style="margin-top:1.75rem">
+          <a class="entry" href="https://www.youtube.com/watch?v=frXoue9evqw">
+            <div class="idx">01</div>
+            <div>
+              <h3>Too Much Technology Right Now</h3>
+              <p class="blurb">Progress was fine — until it wasn’t. A set about upgrades that outran common sense, from <em>Hamare Zamane Mein</em>.</p>
+            </div>
+            <div class="meta-col">Clip · YouTube<span class="watch">Watch</span></div>
+          </a>
+          <a class="entry" href="https://www.youtube.com/watch?v=FgHw42e-3qE">
+            <div class="idx">02</div>
+            <div>
+              <h3>Paisa Aa Gaya… Class Nahi Aayi!</h3>
+              <p class="blurb">Money moved. Habits didn’t. Airport gifts, Louis Vuitton, and the middle-class upgrade era under review.</p>
+            </div>
+            <div class="meta-col">Clip · YouTube<span class="watch">Watch</span></div>
+          </a>
+          <a class="entry" href="https://www.youtube.com/watch?v=Rl41e71vObE">
+            <div class="idx">03</div>
+            <div>
+              <h3>Masala Sandwich</h3>
+              <p class="blurb">A full observational show for people who want the complete arc in one sitting — not a highlight reel.</p>
+            </div>
+            <div class="meta-col">Full show · YouTube<span class="watch">Watch</span></div>
+          </a>
+        </div>
+
+        <div class="side-interrupt">
+          <p class="pull">Two more everyday audits — <em>parenting</em> and <em>the bathroom</em> — where the logic falls apart fastest.</p>
+          <div class="pair">
+            <a href="https://www.youtube.com/watch?v=hxnylPAUm3I">
+              <div>
+                <h3>Daughter</h3>
+                <p>Teenage daughters are magical — which is exactly why they’re impossible to explain with a straight face.</p>
+              </div>
+              <span class="go">Watch →</span>
+            </a>
+            <a href="https://www.youtube.com/watch?v=YX0KqqY2ZMI">
+              <div>
+                <h3>Bathroom ka Evolution</h3>
+                <p>Towels, sensors, toiletries — the most underrated room in the house gets the full logic audit.</p>
+              </div>
+              <span class="go">Watch →</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="tour" id="live">
+      <div class="wrap">
+        <div class="tour-intro">
+          <div>
+            <div class="eyebrow">03 · The live experience</div>
+            <h2 class="tour-title">Aise <span>Kaise?</span></h2>
+          </div>
+          <p class="tour-copy">
+            Amit’s current touring show turns everyday absurdities, social rituals, and unwritten rules into clean, intelligent comedy — including the contradictions in his own behaviour.
+          </p>
+        </div>
+        <div class="dates" aria-label="Upcoming Aise Kaise dates">
+          <a class="date-row" href="https://www.tickettailor.com/events/soulfulevents/2327471"><span class="d">12 Nov</span><span><span class="c">Cardiff, UK</span><br /><span class="t">Aise Kaise · 7:30 PM</span></span><span class="buy">Tickets</span></a>
+          <a class="date-row" href="https://www.tickettailor.com/events/soulfulevents/2327475"><span class="d">13 Nov</span><span><span class="c">Milton Keynes, UK</span><br /><span class="t">Aise Kaise · 7:00 PM</span></span><span class="buy">Tickets</span></a>
+          <a class="date-row" href="https://www.southbankcentre.co.uk/whats-on/amit-tandon-aise-kaise/"><span class="d">14 Nov</span><span><span class="c">London, UK</span><br /><span class="t">Southbank · 4:00 &amp; 7:30 PM</span></span><span class="buy">Tickets</span></a>
+          <a class="date-row" href="https://www.tickettailor.com/events/soulfulevents/2327474"><span class="d">15 Nov</span><span><span class="c">Manchester, UK</span><br /><span class="t">Aise Kaise · 6:00 PM</span></span><span class="buy">Tickets</span></a>
+          <a class="date-row" href="https://www.tickettailor.com/events/soulfuleventseurope/2479421"><span class="d">18 Nov</span><span><span class="c">Geneva, Switzerland</span><br /><span class="t">Aise Kaise · 7:30 PM</span></span><span class="buy">Tickets</span></a>
+          <a class="date-row" href="https://www.tickettailor.com/events/soulfulevents/2343091"><span class="d">19 Nov</span><span><span class="c">Cambridge, UK</span><br /><span class="t">Aise Kaise · 7:30 PM</span></span><span class="buy">Tickets</span></a>
+          <a class="date-row" href="https://www.tickettailor.com/events/soulfulevents/2327473"><span class="d">20 Nov</span><span><span class="c">Birmingham, UK</span><br /><span class="t">Aise Kaise · 7:30 PM</span></span><span class="buy">Tickets</span></a>
+          <a class="date-row" href="https://www.tickettailor.com/events/soulfulevents/2343056"><span class="d">21 Nov</span><span><span class="c">Slough, UK</span><br /><span class="t">Aise Kaise · 4:30 &amp; 7:30 PM</span></span><span class="buy">Tickets</span></a>
+          <a class="date-row" href="https://in.bookmyshow.com/events/aise-kaise-by-amit-tandon/ET00506884"><span class="d">19 Dec</span><span><span class="c">Delhi, India</span><br /><span class="t">Aise Kaise · 3:30 &amp; 7:00 PM</span></span><span class="buy">Tickets</span></a>
+          <a class="date-row" href="https://www.sydneyoperahouse.com/comedy/aise-kaise-amit-tandon"><span class="d">16 May</span><span><span class="c">Sydney, Australia</span><br /><span class="t">Opera House · 8:30 PM</span></span><span class="buy">Tickets</span></a>
+        </div>
+        <div class="tour-foot">
+          <p>More cities across Europe, India, Australia, New Zealand, and Singapore are listed on the official shows page.</p>
+          <a class="btn" style="background:#f4efe7;color:#171412;border-color:#f4efe7" href="https://tandonamit-web.vercel.app/shows">All dates &amp; tickets</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="bio" id="about">
+      <div class="wrap">
+        <div class="sec-intro">
+          <div>
+            <div class="eyebrow">04 · The person</div>
+            <h2 class="display">Amit Tandon</h2>
+          </div>
+          <p class="aside">A quieter close — credibility without a résumé wall.</p>
+        </div>
+        <div class="bio-layout">
+          <div class="bio-photo-wrap">
+            <img class="bio-photo" src="https://tandonamit-web.vercel.app/opengraph-image" alt="Amit Tandon" width="640" height="800" />
+            <p class="bio-caption">Production should replace this with approved performance stills. Public promotional imagery only for this mockup.</p>
+          </div>
+          <div>
+            <p class="lede">Observational comedy that families actually sit through together — specific, clean, and rooted in how people behave, including Amit himself.</p>
+            <p>
+              He has taken that voice to Netflix with <strong>Family Tandoncies</strong>, the first Hindi stand-up solo on the platform; to television with <strong>Good Night India</strong> on Sony SAB; to podcasting with <strong>Andar ki Baat</strong>; and to stages across more than thirty countries.
+            </p>
+            <p>
+              The website keeps the career facts, but it does not turn them into a scoreboard. The point is the perspective, not the tally.
+            </p>
+            <dl class="credits">
+              <div class="credit"><dt>Netflix</dt><dd>Family Tandoncies</dd></div>
+              <div class="credit"><dt>Television</dt><dd>Good Night India — Sony SAB</dd></div>
+              <div class="credit"><dt>Podcast</dt><dd>Andar ki Baat — Spotify Original</dd></div>
+              <div class="credit"><dt>Also</dt><dd>IPL 2021 commentary — Hotstar</dd></div>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contact">
+    <div class="wrap">
+      <div class="foot-grid">
+        <div>
+          <p class="foot-brand">Amit Tandon</p>
+          <p class="foot-meta">hello@tandonamit.com · +91-9004040003</p>
+        </div>
+        <div class="foot-links">
+          <a href="https://tandonamit-web.vercel.app/shows">Shows</a>
+          <a href="https://tandonamit-web.vercel.app/content">Content</a>
+          <a href="https://www.tandonamit.com">Official site</a>
+        </div>
+      </div>
+      <div class="poc-banner">
+        Composition revision 2 · Creative direction unchanged: <strong>Common Sense, Under Review</strong>. Judge whether the interruptions now feel structural, and whether the page still reads as Amit’s observational voice.
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

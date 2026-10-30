@@ -1,0 +1,164 @@
+.about-section {
+  padding: clamp(3.5rem, 7vh, 6rem) 0 clamp(4rem, 8vh, 6.5rem);
+  background: var(--bg-canvas);
+}
+
+.about-hero-banner {
+  position: relative;
+  min-height: clamp(320px, 45vh, 460px);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  padding: clamp(2rem, 4vw, 3.5rem);
+  box-shadow: 0 20px 45px rgba(18, 16, 14, 0.12);
+  margin-bottom: clamp(3rem, 6vh, 4.5rem);
+}
+
+.about-hero-banner img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 25%;
+  filter: brightness(0.48) contrast(1.1);
+}
+
+.about-hero-gradient {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 80% 20%, rgba(217, 45, 32, 0.2), transparent 50%),
+    linear-gradient(180deg, rgba(18, 16, 14, 0.2) 0%, rgba(18, 16, 14, 0.85) 100%);
+}
+
+.about-hero-text {
+  position: relative;
+  z-index: 2;
+  color: #fff;
+  max-width: 60ch;
+}
+
+.about-head-title {
+  font-size: clamp(2.4rem, 4.6vw, 3.8rem);
+  color: #fff;
+  margin: 0 0 0.6rem;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+}
+
+.about-head-sub {
+  font-family: var(--font-mono);
+  font-size: clamp(0.85rem, 1.4vw, 1rem);
+  color: #e5ded4;
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+/* About Narrative & Milestone Grid */
+.about-body-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+  align-items: start;
+}
+
+.narrative-title {
+  font-size: clamp(2rem, 3.2vw, 2.6rem);
+  color: var(--ink-primary);
+  margin: 0 0 1.2rem;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+
+.narrative-p {
+  color: var(--ink-secondary);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  margin: 0 0 1.4rem;
+}
+
+.about-social-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.social-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--bg-card);
+  padding: 0.65rem 1.1rem;
+  border-radius: 30px;
+  border: 1px solid var(--border-subtle);
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--ink-primary);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  transition: all 0.2s ease;
+}
+
+.social-pill:hover {
+  background: var(--ink-primary);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Credits & Milestones Box */
+.credits-box {
+  background: var(--bg-card);
+  padding: clamp(1.8rem, 3vw, 2.4rem);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 10px 30px rgba(18, 16, 14, 0.04);
+}
+
+.credits-box-title {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--ink-primary);
+  margin: 0 0 1.5rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.credits-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.3rem;
+}
+
+.bio-credit-item {
+  position: relative;
+  padding-left: 1rem;
+  border-left: 2px solid var(--red);
+}
+
+.credit-platform {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--red);
+  font-weight: 700;
+  margin-bottom: 0.2rem;
+}
+
+.credit-detail {
+  font-size: 0.92rem;
+  color: var(--ink-secondary);
+  line-height: 1.45;
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .about-body-grid {
+    grid-template-columns: 1fr;
+  }
+}

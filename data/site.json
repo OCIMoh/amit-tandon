@@ -1,0 +1,88 @@
+{
+  "project": "amit-tandon-official",
+  "concept": "The Method in the Madness",
+  "tagline": "The questionable logic of ordinary life, deconstructed.",
+  "subject": "Amit Tandon",
+  "officialSite": "https://www.tandonamit.com/",
+  "showsHub": "https://www.tandonamit.com/shows",
+  "contact": {
+    "email": "hello@tandonamit.com",
+    "phone": "+91-9004040003",
+    "whatsapp": "https://wa.me/919004040003"
+  },
+  "social": {
+    "instagram": "https://www.instagram.com/amitandon17/",
+    "youtube": "https://www.youtube.com/@TandonAmit",
+    "facebook": "https://www.facebook.com/AmitTheComic",
+    "x": "https://x.com/amitandon"
+  },
+  "currentShow": {
+    "title": "Aise Kaise",
+    "sub": "Brand New World Tour",
+    "theme": "Changing times, domestic rituals, and the questionable logic behind how friends, family, and Amit himself behave."
+  },
+  "stats": [
+    { "value": "200M+", "label": "YouTube Views", "sub": "Across global digital specials" },
+    { "value": "30+", "label": "Countries", "sub": "Sold-out arenas & prestigious halls" },
+    { "value": "2,000+", "label": "Live Shows", "sub": "15+ years of relentless touring" },
+    { "value": "#1", "label": "Netflix India", "sub": "Top 10 solo special for 15 days" }
+  ],
+  "gyanBites": [
+    {
+      "quote": "My wife said we need to talk. Which means she will talk, and I will nod at calculated intervals.",
+      "context": "On Domestic Harmony"
+    },
+    {
+      "quote": "Middle-class upgrade rule: You know you have arrived in life when you stop opening the car window for toll tickets.",
+      "context": "Paisa Aa Gaya... Class Nahi Aayi!"
+    },
+    {
+      "quote": "In India, parents don't ask you what you want to become. They tell you the two engineering colleges you are applying to.",
+      "context": "On Career Counseling"
+    },
+    {
+      "quote": "Aise Kaise?! You bought a 4K OLED TV to watch 360p WhatsApp forwards at full volume.",
+      "context": "Too Much Technology"
+    }
+  ],
+  "corporate": {
+    "title": "Corporate Keynotes & Private Galas",
+    "tagline": "Boardroom-smart. Family-clean. Zero HR liabilities.",
+    "bio": "An engineering graduate with an MBA from IIT Delhi and a decade of corporate entrepreneurship running recruitment enterprises, Amit Tandon bridges boardroom wit with relatable storytelling.",
+    "bullets": [
+      "Customized sets for leadership retreats, global CXO summits, and annual galas",
+      "Strictly 100% clean, inclusive humor safe for multi-tiered corporate audiences",
+      "Trusted by Fortune 500 multinationals and leading industry associations worldwide"
+    ]
+  },
+  "about": {
+    "short": "Observational Hindi stand-up comedian known for clean, universal humor deconstructing marriage, parenting, middle-class upgrades, and human contradictions.",
+    "journeyLine": "Mechanical Engineer → IIT Delhi MBA → Corporate Entrepreneur → Global Touring Comedian.",
+    "credits": [
+      {
+        "label": "Netflix Special",
+        "value": "Family Tandoncies — The first Hindi solo stand-up special on Netflix; charted in India's Top 10 for 15 days."
+      },
+      {
+        "label": "Sony SAB",
+        "value": "Good Night India — Lead host across 126 primetime episodes."
+      },
+      {
+        "label": "SonyLiv",
+        "value": "Chalo Koi Baat Nahin — Creator and writer for the acclaimed satire series."
+      },
+      {
+        "label": "Spotify Original",
+        "value": "Andar ki Baat — Top 10 podcast exploring life behind the scenes."
+      },
+      {
+        "label": "YouTube",
+        "value": "Chaar Yaar — Creator & host comedy podcast."
+      },
+      {
+        "label": "Hotstar",
+        "value": "IPL 2021 — Hindi guest commentator."
+      }
+    ]
+  }
+}

@@ -1,6 +1,7 @@
 import Lenis from "lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { svgs } from "../content/svgs";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -20,44 +21,16 @@ export async function setupMotion(): Promise<void> {
   });
   gsap.ticker.lagSmoothing(0);
 
-  // Setup sub-systems
-  setupNavThemeSync();
+  // Setup interactive sub-systems
   setupScrollReveals(reduce);
+  setupPunchlineTrigger();
+  setupGyanSoundboard();
   setupTourInteractions();
+  setupSlotMachine();
   setupCinemaModal();
 }
 
-/** Sync nav dark mode dynamically when crossing dark stage sections */
-function setupNavThemeSync(): void {
-  const nav = document.querySelector<HTMLElement>(".nav");
-  if (!nav) return;
-
-  const darkSections = gsap.utils.toArray<HTMLElement>(".tour-section");
-
-  const sync = () => {
-    const scrollY = window.scrollY + 60;
-    let isDark = false;
-    for (const sec of darkSections) {
-      const top = sec.offsetTop;
-      const bottom = top + sec.offsetHeight;
-      if (scrollY >= top && scrollY < bottom) {
-        isDark = true;
-        break;
-      }
-    }
-    nav.classList.toggle("is-dark", isDark);
-  };
-
-  ScrollTrigger.create({
-    start: 0,
-    end: "max",
-    onUpdate: sync,
-    onRefresh: sync,
-  });
-  sync();
-}
-
-/** Fluid, non-blocking staggered reveals without scroll-trapping */
+/** Non-blocking staggered reveals without scroll-trapping */
 function setupScrollReveals(reduce: boolean): void {
   const reveals = document.querySelectorAll<HTMLElement>("[data-reveal]");
   if (reduce) {
@@ -69,16 +42,16 @@ function setupScrollReveals(reduce: boolean): void {
   }
 
   // Hero section instant entrance
-  const heroReveals = document.querySelectorAll<HTMLElement>(".hero-section [data-reveal]");
+  const heroReveals = document.querySelectorAll<HTMLElement>(".pop-hero-section [data-reveal]");
   if (heroReveals.length) {
     gsap.fromTo(
       heroReveals,
-      { autoAlpha: 0, y: 26 },
+      { autoAlpha: 0, y: 24 },
       {
         autoAlpha: 1,
         y: 0,
         stagger: 0.08,
-        duration: 0.85,
+        duration: 0.8,
         ease: "power3.out",
         delay: 0.1,
       }
@@ -87,20 +60,20 @@ function setupScrollReveals(reduce: boolean): void {
 
   // Other section batch reveals
   const otherReveals = gsap.utils.toArray<HTMLElement>(
-    "section:not(.hero-section) [data-reveal]"
+    "section:not(.pop-hero-section) [data-reveal]"
   );
 
   ScrollTrigger.batch(otherReveals, {
-    start: "top 88%",
+    start: "top 90%",
     onEnter: (batch) => {
       gsap.fromTo(
         batch,
-        { autoAlpha: 0, y: 24 },
+        { autoAlpha: 0, y: 22 },
         {
           autoAlpha: 1,
           y: 0,
-          stagger: 0.06,
-          duration: 0.65,
+          stagger: 0.07,
+          duration: 0.75,
           ease: "power3.out",
           overwrite: "auto",
         }
@@ -110,97 +83,292 @@ function setupScrollReveals(reduce: boolean): void {
   });
 }
 
-/** Tour Ledger tab filtering & search */
-function setupTourInteractions(): void {
-  const tabs = document.querySelectorAll<HTMLButtonElement>(".filter-tab");
-  const searchInput = document.querySelector<HTMLInputElement>("#tourSearchInput");
-  const rows = document.querySelectorAll<HTMLTableRowElement>(".tour-row");
+/** Interactive Punchline Trigger: Spawns floating comic badges */
+function setupPunchlineTrigger(): void {
+  const btn = document.querySelector<HTMLButtonElement>("#trigger-punchline-btn");
+  const dock = document.querySelector<HTMLDivElement>("#punchline-bubble-dock");
+  if (!btn || !dock) return;
 
-  if (!tabs.length || !rows.length) return;
+  const punchlines = [
+    "“Bas 5 minute mein aayi!” — World's longest unit of time.",
+    "“Sharma Ji ka beta scored 97%. Log kya kahenge?!”",
+    "“Wife packed 4 suitcases for a 2-day Goa wedding.”",
+    "“AC set to 16°C: Middle-class Everest simulation.”",
+    "“Papa on WhatsApp: FORWARDED MANY TIMES.”",
+    "“Aise kaise bhai?! Logic has left the flat!”"
+  ];
 
-  let currentRegion = "all";
-  let currentSearch = "";
+  const soundWords = ["*WHISTLE!*", "*HAHA!*", "*TAALIYAN!*", "*WAH WAH!*", "*AISE KAISE?!*"];
 
-  const applyFilters = () => {
-    rows.forEach((row) => {
-      const region = row.getAttribute("data-region") || "";
-      const text = row.innerText.toLowerCase();
+  let lastIndex = -1;
 
-      const matchesRegion = currentRegion === "all" || region === currentRegion;
-      const matchesSearch = !currentSearch || text.includes(currentSearch);
+  const trigger = (e: MouseEvent) => {
+    e.preventDefault();
 
-      if (matchesRegion && matchesSearch) {
-        row.style.display = "";
-      } else {
-        row.style.display = "none";
+    // Pick a fresh punchline
+    let idx = Math.floor(Math.random() * punchlines.length);
+    if (idx === lastIndex) idx = (idx + 1) % punchlines.length;
+    lastIndex = idx;
+
+    // Pick a random sound word
+    const sound = soundWords[Math.floor(Math.random() * soundWords.length)];
+
+    // Create floating comic badge
+    const bubble = document.createElement("div");
+    bubble.className = "floating-punchline-bubble tilt-left";
+    bubble.innerHTML = `
+      <span class="fp-sound">${sound}</span>
+      <span class="fp-quote">${punchlines[idx]}</span>
+    `;
+
+    // Position around center/mouse
+    const x = Math.min(Math.max(e.clientX - 140, 20), window.innerWidth - 300);
+    const y = e.clientY - 60;
+    bubble.style.position = "fixed";
+    bubble.style.left = `${x}px`;
+    bubble.style.top = `${y}px`;
+    bubble.style.zIndex = "9999";
+
+    document.body.appendChild(bubble);
+
+    gsap.fromTo(
+      bubble,
+      { scale: 0.5, y: 0, opacity: 0 },
+      {
+        scale: 1,
+        y: -40,
+        opacity: 1,
+        duration: 0.35,
+        ease: "back.out(2)",
+        onComplete: () => {
+          gsap.to(bubble, {
+            y: -80,
+            opacity: 0,
+            duration: 0.5,
+            delay: 1.8,
+            ease: "power2.in",
+            onComplete: () => bubble.remove(),
+          });
+        },
       }
-    });
-    ScrollTrigger.refresh();
+    );
   };
 
-  tabs.forEach((tab) => {
+  btn.addEventListener("click", trigger);
+
+  // Also hook the hero speech bubbles
+  const speechBubbles = document.querySelectorAll(".comic-bubble-anchor, .bubble-speech");
+  speechBubbles.forEach(b => {
+    b.addEventListener("click", (e) => trigger(e as MouseEvent));
+  });
+}
+
+/** Gyan Bites Soundboard Pill Switcher */
+function setupGyanSoundboard(): void {
+  const pills = document.querySelectorAll<HTMLButtonElement>(".gyan-pill");
+  const quoteText = document.querySelector<HTMLElement>("#gyan-active-text");
+  const quoteTag = document.querySelector<HTMLElement>("#gyan-active-tag");
+
+  pills.forEach((pill) => {
+    pill.addEventListener("click", () => {
+      pills.forEach((p) => p.classList.remove("is-active"));
+      pill.classList.add("is-active");
+
+      const quote = pill.dataset.quote;
+      const context = pill.dataset.context;
+
+      if (quoteText && quote) {
+        gsap.fromTo(
+          quoteText,
+          { opacity: 0, y: 6 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.25,
+            onStart: () => {
+              quoteText.textContent = `“${quote}”`;
+            },
+          }
+        );
+      }
+
+      if (quoteTag && context) {
+        quoteTag.textContent = context;
+      }
+    });
+  });
+}
+
+/** Tour Filters & Expander Drawer */
+function setupTourInteractions(): void {
+  const filterTabs = document.querySelectorAll<HTMLButtonElement>(".filter-tab");
+  const tickets = document.querySelectorAll<HTMLElement>(".concert-ticket");
+  const schedCards = document.querySelectorAll<HTMLElement>(".schedule-card");
+  const expandBtn = document.querySelector<HTMLButtonElement>("#toggle-full-schedule-btn");
+  const drawer = document.querySelector<HTMLDivElement>("#full-schedule-drawer");
+  const btnText = document.querySelector<HTMLElement>("#expand-btn-text");
+
+  filterTabs.forEach((tab) => {
     tab.addEventListener("click", () => {
-      tabs.forEach((t) => t.classList.remove("is-active"));
+      filterTabs.forEach((t) => t.classList.remove("is-active"));
       tab.classList.add("is-active");
-      currentRegion = tab.getAttribute("data-filter") || "all";
-      applyFilters();
+
+      const filter = tab.dataset.regionFilter || "all";
+
+      // Filter featured tickets
+      tickets.forEach((ticket) => {
+        const reg = ticket.dataset.region;
+        const match = filter === "all" || reg === filter;
+        ticket.style.display = match ? "flex" : "none";
+      });
+
+      // Filter schedule cards
+      schedCards.forEach((card) => {
+        const reg = card.dataset.region;
+        const match = filter === "all" || reg === filter;
+        card.style.display = match ? "flex" : "none";
+      });
     });
   });
 
-  if (searchInput) {
-    searchInput.addEventListener("input", (e) => {
-      currentSearch = (e.target as HTMLInputElement).value.toLowerCase().trim();
-      applyFilters();
+  // Toggle 33 cities drawer
+  if (expandBtn && drawer) {
+    expandBtn.addEventListener("click", () => {
+      const isClosed = drawer.style.display === "none";
+      drawer.style.display = isClosed ? "block" : "none";
+      if (btnText) {
+        btnText.innerHTML = isClosed 
+          ? "HIDE FULL SCHEDULE &uarr;" 
+          : "VIEW ALL 33 GLOBAL TOUR DATES &darr;";
+      }
     });
   }
 }
 
-/** Inline Cinema Player Modal without bouncing to external YouTube */
+/** The Aise Kaise? Machine: Interactive 3-Reel Slot Machine */
+function setupSlotMachine(): void {
+  const spinBtn = document.querySelector<HTMLButtonElement>("#generate-dilemma-btn");
+  const lever = document.querySelector<HTMLElement>("#lever-assembly");
+  const leverDock = document.querySelector<HTMLElement>("#slot-lever-dock");
+
+  const reel1Text = document.querySelector<HTMLElement>("#reel-1-content .reel-text");
+  const reel1Illus = document.querySelector<HTMLElement>("#reel-1-illus");
+  const reel2Text = document.querySelector<HTMLElement>("#reel-2-content .reel-text");
+  const reel2Illus = document.querySelector<HTMLElement>("#reel-2-illus");
+  const obsText = document.querySelector<HTMLElement>("#obs-quote-text");
+
+  if (!spinBtn) return;
+
+  const optionsWho = [
+    { illus: svgs.cartoonWife, label: "WIFE" },
+    { illus: svgs.cartoonSharmaJi, label: "SHARMA JI" },
+    { illus: svgs.cartoonWife, label: "MOTHER-IN-LAW" },
+    { illus: svgs.cartoonSharmaJi, label: "DELHI AUTO WALA" },
+    { illus: svgs.cartoonSharmaJi, label: "SOCIETY UNCLE" }
+  ];
+
+  const optionsSituation = [
+    { illus: svgs.cartoonSuitcases, label: "2-DAY TRIP.<br/>4 SUITCASES." },
+    { illus: svgs.cartoonSuitcases, label: "SCORED 95%<br/>IN PRE-BOARDS." },
+    { illus: svgs.cartoonSuitcases, label: "REQUEST TO GO<br/>ON GOA TRIP." },
+    { illus: svgs.cartoonSuitcases, label: "AC TEMPERATURE<br/>SET TO 16°C." },
+    { illus: svgs.cartoonSuitcases, label: "“BAS 5 MINUTE<br/>MEIN AAYI.”" }
+  ];
+
+  const optionsObservation = [
+    "“THE LOGIC HAS LEFT THE CHAT.”",
+    "“ERROR 404: SHARMA JI'S SON SCORED 97%.”",
+    "“MISSION ABORTED: ZERO PARENTAL FUNDING.”",
+    "“RELATIVISTIC TIME DILATION CONFIRMED.”",
+    "“MUMMY DECLARES: 'NAHI! KABHI NAHI!'”",
+    "“NOW CALLING 42 WHATSAPP GROUP ADMINS.”"
+  ];
+
+  let spinning = false;
+
+  const spin = () => {
+    if (spinning) return;
+    spinning = true;
+
+    // Pull lever animation
+    if (lever) {
+      lever.classList.add("is-pulled");
+      setTimeout(() => lever.classList.remove("is-pulled"), 300);
+    }
+
+    // Add spin blur class to reels
+    const reels = document.querySelectorAll(".reel-content");
+    reels.forEach(r => r.classList.add("is-spinning"));
+
+    // Randomize results after 450ms
+    setTimeout(() => {
+      const who = optionsWho[Math.floor(Math.random() * optionsWho.length)];
+      const sit = optionsSituation[Math.floor(Math.random() * optionsSituation.length)];
+      const obs = optionsObservation[Math.floor(Math.random() * optionsObservation.length)];
+
+      if (reel1Illus && reel1Text) {
+        reel1Illus.innerHTML = who.illus;
+        reel1Text.textContent = who.label;
+      }
+
+      if (reel2Illus && reel2Text) {
+        reel2Illus.innerHTML = sit.illus;
+        reel2Text.innerHTML = sit.label;
+      }
+
+      if (obsText) {
+        obsText.textContent = obs;
+      }
+
+      reels.forEach(r => r.classList.remove("is-spinning"));
+      spinning = false;
+    }, 450);
+  };
+
+  spinBtn.addEventListener("click", spin);
+  if (leverDock) {
+    leverDock.addEventListener("click", spin);
+  }
+}
+
+/** Inline Cinema Player Modal Controller */
 function setupCinemaModal(): void {
-  const modal = document.querySelector<HTMLElement>("#videoModal");
+  const modal = document.querySelector<HTMLDivElement>("#videoModal");
   const iframe = document.querySelector<HTMLIFrameElement>("#videoModalIframe");
   const closeBtn = document.querySelector<HTMLButtonElement>("#videoModalClose");
-  const triggers = document.querySelectorAll<HTMLElement>("[data-video-id]");
 
-  if (!modal || !iframe) return;
+  if (!modal || !iframe || !closeBtn) return;
 
-  const openModal = (videoId: string) => {
-    iframe.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`;
+  const open = (videoId: string) => {
+    iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
     modal.classList.add("is-active");
     modal.setAttribute("aria-hidden", "false");
     document.body.style.overflow = "hidden";
   };
 
-  const closeModal = () => {
+  const close = () => {
+    iframe.src = "";
     modal.classList.remove("is-active");
     modal.setAttribute("aria-hidden", "true");
-    iframe.src = "";
     document.body.style.overflow = "";
   };
 
-  triggers.forEach((btn) => {
-    btn.addEventListener("click", (e) => {
+  document.querySelectorAll<HTMLElement>("[data-video-id]").forEach((el) => {
+    el.addEventListener("click", (e) => {
       e.preventDefault();
-      const videoId = btn.getAttribute("data-video-id");
-      if (videoId) {
-        openModal(videoId);
-      }
+      const videoId = el.getAttribute("data-video-id");
+      if (videoId) open(videoId);
     });
   });
 
-  if (closeBtn) {
-    closeBtn.addEventListener("click", closeModal);
-  }
-
+  closeBtn.addEventListener("click", close);
   modal.addEventListener("click", (e) => {
-    if (e.target === modal) {
-      closeModal();
-    }
+    if (e.target === modal) close();
   });
 
   window.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && modal.classList.contains("is-active")) {
-      closeModal();
+      close();
     }
   });
 }

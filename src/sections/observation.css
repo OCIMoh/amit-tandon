@@ -1,0 +1,376 @@
+/* Neo-Brutalist Pop-Art Hero Stage Styles (Image 1) */
+
+.pop-hero-section {
+  position: relative;
+  background-color: var(--bg-dark);
+  color: #ffffff;
+  padding: 3rem 0 4rem;
+  overflow: hidden;
+  border-bottom: var(--border-brutal-thick);
+}
+
+.hero-stage-backdrop {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.spotlight-cone {
+  position: absolute;
+  top: -20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 700px;
+  height: 900px;
+  background: radial-gradient(ellipse at 50% 20%, rgba(255, 229, 0, 0.18) 0%, rgba(0, 240, 255, 0.08) 45%, transparent 75%);
+  filter: blur(40px);
+}
+
+.halftone-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1.5px, transparent 1.5px);
+  background-size: 14px 14px;
+}
+
+.hero-pop-container {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* Stencil Headline & Crown */
+.hero-title-group {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.crown-badge {
+  width: 58px;
+  height: 44px;
+  margin-bottom: -10px;
+  transform: rotate(-6deg);
+  filter: drop-shadow(3px 3px 0px #0c0b0e);
+  z-index: 4;
+}
+
+.doodle-crown {
+  width: 100%;
+  height: 100%;
+}
+
+.hero-headline {
+  margin: 0;
+  font-size: clamp(3.2rem, 9vw, 6.8rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 0.88;
+  color: #ffffff;
+  text-shadow: 
+    -3px -3px 0 #0c0b0e,  
+     3px -3px 0 #0c0b0e,
+    -3px  3px 0 #0c0b0e,
+     3px  3px 0 #0c0b0e,
+     6px  6px 0 #0c0b0e;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.headline-amit {
+  color: #ffffff;
+}
+
+.headline-tandon {
+  color: #ffffff;
+}
+
+.hero-subbanner {
+  background: var(--yellow);
+  color: #0c0b0e;
+  border: var(--border-brutal);
+  box-shadow: var(--shadow-brutal);
+  padding: 0.35rem 1.4rem;
+  margin-top: 0.5rem;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(0.95rem, 2.4vw, 1.35rem);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.hero-cta-wrapper {
+  margin-top: 1.4rem;
+}
+
+.hero-punchline-btn {
+  font-size: 1.05rem;
+  padding: 0.85rem 1.8rem;
+  letter-spacing: 0.04em;
+}
+
+/* Character & Props Stage */
+.hero-character-stage {
+  position: relative;
+  width: min(720px, 100%);
+  height: 480px;
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.amit-character-wrapper {
+  position: relative;
+  width: 380px;
+  max-width: 85%;
+  height: 440px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  z-index: 3;
+}
+
+.amit-cutout-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: 180px 180px 20px 20px;
+  border: 4px solid #ffffff;
+  box-shadow: 0 0 0 3px #0c0b0e, 0 15px 35px rgba(0, 0, 0, 0.7);
+  background: #18171b;
+}
+
+/* Pressure Cooker Prop */
+.prop-cooker {
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 170px;
+  z-index: 5;
+  filter: drop-shadow(4px 4px 0px rgba(12, 11, 14, 0.9));
+}
+
+.cooker-container {
+  position: relative;
+  width: 100%;
+}
+
+.cooker-svg {
+  width: 100%;
+  height: auto;
+}
+
+@keyframes steamPuff1 {
+  0% { transform: translateY(0) scale(1); opacity: 0.8; }
+  50% { transform: translateY(-8px) scale(1.2); opacity: 1; }
+  100% { transform: translateY(-16px) scale(1.4); opacity: 0; }
+}
+
+@keyframes steamPuff2 {
+  0% { transform: translateY(0) scale(1); opacity: 0.7; }
+  50% { transform: translateY(-10px) scale(1.25); opacity: 0.9; }
+  100% { transform: translateY(-20px) scale(1.5); opacity: 0; }
+}
+
+.steam-1 {
+  animation: steamPuff1 1.8s infinite ease-out;
+  transform-origin: center bottom;
+}
+
+.steam-2 {
+  animation: steamPuff2 1.4s infinite ease-out 0.3s;
+  transform-origin: center bottom;
+}
+
+.steam-3 {
+  animation: steamPuff1 1.6s infinite ease-out 0.6s;
+  transform-origin: center bottom;
+}
+
+/* Floating Comic Speech Bubbles */
+.bubble-speech {
+  position: absolute;
+  padding: 0.55rem 1.1rem;
+  border-radius: var(--radius-pill);
+  border: var(--border-brutal-thick);
+  font-family: var(--font-comic);
+  font-size: 1.1rem;
+  letter-spacing: 0.03em;
+  box-shadow: var(--shadow-brutal);
+  z-index: 6;
+  white-space: nowrap;
+  user-select: none;
+  cursor: pointer;
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.bubble-speech:hover {
+  transform: scale(1.1) rotate(0deg);
+}
+
+.bubble-red {
+  top: 15px;
+  left: 20%;
+  background: var(--red);
+  color: #ffffff;
+}
+
+.bubble-cyan {
+  top: 25px;
+  right: 18%;
+  background: var(--cyan);
+  color: #0c0b0e;
+}
+
+.bubble-yellow {
+  top: 95px;
+  right: 12%;
+  background: var(--yellow);
+  color: #0c0b0e;
+  font-size: 0.95rem;
+}
+
+.handwritten-scribble {
+  position: absolute;
+  top: 8px;
+  right: 2%;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #e4e3dd;
+  opacity: 0.8;
+  transform: rotate(4deg);
+  text-align: left;
+  line-height: 1.25;
+}
+
+/* Retro TV Frame on the Right */
+.hero-retro-tv {
+  position: absolute;
+  right: -10px;
+  bottom: 80px;
+  width: 140px;
+  background: #25242a;
+  border: 3px solid #0c0b0e;
+  border-radius: 8px;
+  padding: 6px;
+  box-shadow: 5px 5px 0px #0c0b0e;
+  z-index: 4;
+}
+
+.tv-casing {
+  display: flex;
+  gap: 5px;
+}
+
+.tv-screen {
+  position: relative;
+  width: 95px;
+  height: 70px;
+  background: #000;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 2px solid #0c0b0e;
+}
+
+.tv-screen-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(100%) contrast(140%);
+}
+
+.tv-scanlines {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(rgba(0,0,0,0) 0px, rgba(0,0,0,0) 2px, rgba(0,0,0,0.4) 3px);
+  pointer-events: none;
+}
+
+.tv-dials {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+}
+
+.dial-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #555;
+  border: 1.5px solid #0c0b0e;
+}
+
+/* Sound Effect Tags */
+.comic-sound-tag {
+  position: absolute;
+  bottom: 25px;
+  font-family: var(--font-comic);
+  font-size: 0.82rem;
+  padding: 0.3rem 0.75rem;
+  border: 2px solid #0c0b0e;
+  box-shadow: 3px 3px 0px #0c0b0e;
+  z-index: 6;
+  text-transform: uppercase;
+}
+
+.tag-whistle {
+  right: 180px;
+  bottom: 10px;
+  background: var(--red);
+  color: #fff;
+}
+
+.tag-haha {
+  right: 95px;
+  bottom: 12px;
+  background: var(--cyan);
+  color: #0c0b0e;
+}
+
+.tag-taaliyan {
+  right: 5px;
+  bottom: 10px;
+  background: var(--yellow);
+  color: #0c0b0e;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .hero-headline {
+    font-size: 3.5rem;
+  }
+  .hero-character-stage {
+    height: 400px;
+  }
+  .amit-character-wrapper {
+    width: 290px;
+    height: 350px;
+  }
+  .prop-cooker {
+    width: 130px;
+    bottom: -10px;
+  }
+  .hero-retro-tv {
+    display: none;
+  }
+  .bubble-red {
+    left: 5%;
+    top: 5px;
+  }
+  .bubble-cyan {
+    right: 5%;
+    top: 15px;
+  }
+}

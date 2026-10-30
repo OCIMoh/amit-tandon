@@ -1,0 +1,345 @@
+/* Next Stop: Your City. (4-Colored Perforated Concert Tickets) Styles */
+
+.tour-tickets-section {
+  position: relative;
+  background-color: var(--bg-dark);
+  color: #ffffff;
+  padding: 4.5rem 0 5rem;
+  border-bottom: var(--border-brutal-thick);
+}
+
+.tour-section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.tour-head-title {
+  margin: 0 0 0.5rem;
+  font-size: clamp(2.4rem, 6vw, 4.2rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  color: #ffffff;
+  line-height: 0.95;
+}
+
+.highlight-yellow {
+  color: var(--yellow);
+}
+
+.tour-subhead-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  padding: 0.35rem 0.9rem;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  color: #ffffff;
+}
+
+.tour-scribble {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 700;
+  color: #a5a2ad;
+  transform: rotate(-3deg);
+  display: inline-block;
+  line-height: 1.25;
+}
+
+/* Filter Tabs */
+.ticket-filter-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 2.5rem;
+}
+
+.filter-tab {
+  background: transparent;
+  color: #ffffff;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 2px 2px 0px #000;
+  padding: 0.55rem 1.1rem;
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  border-radius: var(--radius-sticker);
+  transition: all 0.15s ease;
+}
+
+.filter-tab:hover {
+  border-color: var(--yellow);
+  color: var(--yellow);
+  transform: translateY(-2px);
+}
+
+.filter-tab.is-active {
+  background: var(--yellow);
+  color: #0c0b0e;
+  border-color: #0c0b0e;
+  box-shadow: 4px 4px 0px #000;
+}
+
+/* 2x2 Grid of Featured Tickets */
+.featured-tickets-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+/* Concert Ticket Primitive */
+.concert-ticket {
+  position: relative;
+  display: flex;
+  border: var(--border-brutal-thick);
+  box-shadow: var(--shadow-brutal-lg);
+  border-radius: 6px;
+  overflow: hidden;
+  color: #0c0b0e;
+  min-height: 165px;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.concert-ticket:hover {
+  transform: translateY(-6px) perspective(800px) rotateX(2deg);
+  box-shadow: 10px 10px 0px #000;
+}
+
+.ticket-yellow {
+  background: var(--yellow);
+}
+
+.ticket-gray {
+  background: var(--mumbai-gray);
+}
+
+.ticket-cyan {
+  background: var(--cyan);
+}
+
+.ticket-red {
+  background: var(--red);
+}
+
+.ticket-body {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 1.2rem 1.5rem;
+  gap: 1.5rem;
+}
+
+.ticket-landmark {
+  width: 75px;
+  height: 85px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.landmark-svg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.ticket-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.4rem;
+}
+
+.ticket-city {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3.2vw, 2.4rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: #0c0b0e;
+}
+
+.ticket-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.meta-live {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  background: rgba(12, 11, 14, 0.12);
+  padding: 0.15rem 0.45rem;
+  border-radius: 2px;
+}
+
+.status-pill {
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 0.2rem 0.55rem;
+  border-radius: 2px;
+  border: 1.5px solid #0c0b0e;
+  letter-spacing: 0.04em;
+}
+
+.status-red {
+  background: var(--red);
+  color: #ffffff;
+}
+
+.status-yellow {
+  background: var(--yellow);
+  color: #0c0b0e;
+}
+
+.ticket-cta-btn {
+  margin-top: 0.4rem;
+  padding: 0.4rem 0.95rem;
+  font-size: 0.78rem;
+}
+
+/* Perforated Right Stub */
+.ticket-perforated-stub {
+  position: relative;
+  width: 78px;
+  flex-shrink: 0;
+  border-left: 2.5px dashed #0c0b0e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.notch {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  background: var(--bg-dark);
+  border-radius: 50%;
+  border: 2.5px solid #0c0b0e;
+  z-index: 2;
+}
+
+.notch-top {
+  top: -11px;
+  left: -11px;
+}
+
+.notch-bottom {
+  bottom: -11px;
+  left: -11px;
+}
+
+.stub-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  transform: rotate(-90deg);
+}
+
+.barcode-svg {
+  width: 65px;
+  height: 24px;
+}
+
+.stub-code {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.stub-plane {
+  font-size: 0.8rem;
+}
+
+/* Full 33 Cities Schedule Drawer */
+.tour-expander-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.tour-expand-btn {
+  padding: 0.85rem 2rem;
+  font-size: 1rem;
+  box-shadow: 6px 6px 0px #000;
+}
+
+.full-schedule-drawer {
+  width: 100%;
+  margin-top: 2rem;
+  background: #18171b;
+  border: var(--border-brutal);
+  border-radius: var(--radius-sticker);
+  padding: 1.5rem;
+}
+
+.schedule-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.schedule-card {
+  background: #222026;
+  border: 1.5px solid rgba(255, 255, 255, 0.1);
+  padding: 1rem;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.sched-date {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: var(--yellow);
+}
+
+.sched-city-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #fff;
+}
+
+.sched-venue {
+  display: block;
+  font-size: 0.78rem;
+  color: #a5a2ad;
+}
+
+.sched-btn {
+  width: 100%;
+  text-align: center;
+  margin-top: 0.3rem;
+}
+
+/* Responsive Tickets */
+@media (max-width: 900px) {
+  .featured-tickets-grid {
+    grid-template-columns: 1fr;
+  }
+}

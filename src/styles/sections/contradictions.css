@@ -1,181 +1,180 @@
-.material-section {
-  padding: clamp(4rem, 8vh, 6.5rem) 0;
+/* Comedy. Extra Masala. Styles (Image 1) */
+
+.masala-section {
   position: relative;
-  background: var(--bg-canvas);
+  background-color: var(--bg-canvas);
+  padding: 4.5rem 0 5rem;
+  border-bottom: var(--border-brutal-thick);
 }
 
-.section-head {
-  margin-bottom: clamp(2.5rem, 5vh, 3.8rem);
-}
-
-.section-title {
-  font-size: clamp(2.4rem, 4.8vw, 3.8rem);
-  margin: 0 0 0.8rem;
-  letter-spacing: -0.035em;
-  line-height: 1.05;
-  color: var(--ink-primary);
-}
-
-.section-sub {
-  font-size: clamp(1rem, 1.6vw, 1.15rem);
-  color: var(--ink-secondary);
-  max-width: 52ch;
-  margin: 0;
-}
-
-/* Featured Special Hero Showcase */
-.featured-special-hero {
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  box-shadow: 0 16px 40px rgba(18, 16, 14, 0.06);
-  margin-bottom: clamp(3rem, 6vh, 4.5rem);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.featured-special-hero:hover {
-  box-shadow: 0 24px 50px rgba(18, 16, 14, 0.1);
-}
-
-.f-media-wrap {
-  position: relative;
-  min-height: 380px;
-  background: #000;
+.masala-head {
   display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.f-media-wrap img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: contrast(1.05);
-}
-
-.hero-cinema-play {
-  position: absolute;
-  width: 72px;
-  height: 72px;
-  border-radius: 50%;
-  background: var(--red);
-  color: #fff;
-  border: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), background 0.25s;
-  box-shadow: 0 10px 25px rgba(217, 45, 32, 0.5);
-  z-index: 4;
-}
-
-.hero-cinema-play:hover {
-  transform: scale(1.1);
-  background: var(--red-hover);
-}
-
-.hero-cinema-play svg {
-  margin-left: 3px;
-}
-
-.f-content {
-  padding: clamp(2rem, 4vw, 3.2rem);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.f-eyebrow {
-  display: flex;
-  align-items: center;
-  gap: 0.85rem;
-  margin-bottom: 0.85rem;
-}
-
-.netflix-red {
-  color: #e50914;
-  font-family: var(--font-mono);
-  font-weight: 700;
-  font-size: 0.78rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.f-record {
-  font-family: var(--font-mono);
-  font-size: 0.76rem;
-  color: var(--ink-muted);
-}
-
-.f-title {
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 3.2vw, 2.8rem);
-  margin: 0 0 1rem;
-  letter-spacing: -0.03em;
-  color: var(--ink-primary);
-  line-height: 1.1;
-}
-
-.f-desc {
-  color: var(--ink-secondary);
-  font-size: 1rem;
-  line-height: 1.6;
-  margin: 0 0 1.8rem;
-}
-
-.f-actions {
-  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 2.5rem;
   flex-wrap: wrap;
-  gap: 0.85rem;
+  gap: 1.5rem;
 }
 
-/* Video Grid Catalog */
-.video-grid {
+.masala-title {
+  margin: 0;
+  font-size: clamp(2.4rem, 6vw, 4.4rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  color: var(--ink-primary);
+}
+
+.highlight-red {
+  color: var(--red);
+}
+
+.masala-handwritten {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 700;
+  color: #7a7685;
+  transform: rotate(3deg);
+  line-height: 1.25;
+}
+
+/* 3-Column Comic Grid */
+.masala-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 1.8rem;
-  margin-bottom: clamp(4rem, 8vh, 6rem);
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  align-items: stretch;
 }
 
-.video-catalog-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  box-shadow: 0 4px 16px rgba(18, 16, 14, 0.03);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+.comic-panel {
+  position: relative;
+  background: #ffffff;
+  border: var(--border-brutal-thick);
+  box-shadow: var(--shadow-brutal);
+  border-radius: var(--radius-sticker);
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.video-catalog-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 28px rgba(18, 16, 14, 0.08);
+.comic-panel:hover {
+  transform: translateY(-4px) rotate(0deg);
+  box-shadow: 8px 8px 0px #0c0b0e;
 }
 
-.card-thumb-wrap {
+/* Panel 1: Retro CRT TV */
+.panel-tv {
+  background: #18171b;
+  color: #ffffff;
+  padding-top: 2.2rem;
+}
+
+.crt-tv-bezel {
   position: relative;
-  aspect-ratio: 16 / 9;
-  background: #111;
-  overflow: hidden;
+  background: #25242a;
+  border: 3.5px solid #0c0b0e;
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8), 4px 4px 0px #0c0b0e;
+  overflow: visible;
 }
 
-.card-thumb-wrap img {
+.tv-top-antenna {
+  position: absolute;
+  top: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.antenna-v {
+  position: relative;
+  width: 54px;
+  height: 24px;
+}
+
+.antenna-v::before,
+.antenna-v::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  width: 3.5px;
+  height: 24px;
+  background: #ffffff;
+  border: 1px solid #0c0b0e;
+  border-radius: 2px;
+}
+
+.antenna-v::before {
+  left: 24px;
+  transform: rotate(-32deg);
+  transform-origin: bottom center;
+}
+
+.antenna-v::after {
+  right: 24px;
+  transform: rotate(32deg);
+  transform-origin: bottom center;
+}
+
+.crt-screen-wrap {
+  position: relative;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 2.5px solid #0c0b0e;
+  background: #000;
+  aspect-ratio: 16 / 10;
+}
+
+.crt-poster-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.4s ease;
 }
 
-.video-catalog-card:hover .card-thumb-wrap img {
-  transform: scale(1.04);
+.panel-tv:hover .crt-poster-img {
+  transform: scale(1.05);
 }
 
-.cinema-play-btn {
+.crt-scanline-mesh {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) 2px, rgba(0, 0, 0, 0.45) 3px);
+  pointer-events: none;
+}
+
+.crt-content-overlay {
+  position: absolute;
+  bottom: 10px;
+  left: 12px;
+  z-index: 2;
+  text-shadow: 2px 2px 0px #000;
+}
+
+.crt-special-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+}
+
+.crt-special-sub {
+  margin: 2px 0 0;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--yellow);
+  letter-spacing: 0.1em;
+}
+
+.crt-play-button {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -183,164 +182,303 @@
   width: 52px;
   height: 52px;
   border-radius: 50%;
-  background: rgba(18, 16, 14, 0.85);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: var(--red);
+  color: #ffffff;
+  border: 2.5px solid #0c0b0e;
+  box-shadow: 3px 3px 0px #0c0b0e;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: transform 0.2s, background 0.2s;
+  z-index: 3;
+  transition: transform 0.15s ease;
 }
 
-.cinema-play-btn:hover {
+.crt-play-button:hover {
   transform: translate(-50%, -50%) scale(1.12);
+  background: var(--yellow);
+  color: #0c0b0e;
+}
+
+.tv-control-panel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1.5px solid #3c3a44;
+}
+
+.tv-control-dial {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #ffffff 0%, #a0a0a0 45%, #2a2a2a 100%);
+  border: 2px solid #0c0b0e;
+  box-shadow: 1.5px 1.5px 0px #0c0b0e;
+}
+
+.tv-speaker-slits {
+  display: flex;
+  gap: 4px;
+}
+
+.tv-speaker-slits span {
+  width: 18px;
+  height: 3px;
+  background: #3c3a44;
+  border-radius: 2px;
+}
+
+.sticker-netflix {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   background: var(--red);
-  border-color: var(--red);
+  color: #ffffff;
+  border: var(--border-brutal);
+  box-shadow: var(--shadow-brutal-sm);
+  padding: 0.5rem 1rem;
+  margin-top: 1.2rem;
+  text-align: center;
+  border-radius: var(--radius-sticker);
+  transition: transform 0.12s ease;
 }
 
-.platform-badge {
-  position: absolute;
-  top: 0.8rem;
-  right: 0.8rem;
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  color: #fff;
+.sticker-netflix:hover {
+  transform: translate(-2px, -2px) rotate(-1deg);
+  box-shadow: 5px 5px 0px #0c0b0e;
+}
+
+.sticker-sub {
   font-family: var(--font-mono);
-  font-size: 0.7rem;
-  padding: 0.2rem 0.5rem;
-  border-radius: 4px;
-  letter-spacing: 0.04em;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
 }
 
-.card-info {
-  padding: 1.4rem;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-
-.card-title {
+.sticker-main {
   font-family: var(--font-display);
-  font-size: 1.3rem;
-  font-weight: 600;
-  margin: 0 0 0.5rem;
-  letter-spacing: -0.02em;
-  color: var(--ink-primary);
-  line-height: 1.2;
-}
-
-.card-note {
-  color: var(--ink-muted);
-  font-size: 0.88rem;
-  margin: 0 0 1.2rem;
-  line-height: 1.45;
-  flex: 1;
-}
-
-.btn-text-watch {
-  background: transparent;
-  border: none;
-  padding: 0;
-  font-family: var(--font-sans);
-  font-size: 0.88rem;
-  font-weight: 600;
-  color: var(--red);
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  cursor: pointer;
-  align-self: flex-start;
-  transition: gap 0.2s ease;
-}
-
-.btn-text-watch:hover {
-  gap: 0.6rem;
-  color: var(--red-hover);
-}
-
-/* Gyan Bites Grid */
-.gyan-bites-container {
-  padding-top: clamp(2rem, 5vh, 3.5rem);
-  border-top: 1px solid var(--border-subtle);
-}
-
-.gyan-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
-}
-
-.gyan-card {
-  position: relative;
-  background: var(--bg-card);
-  padding: 2.2rem 1.8rem 1.6rem;
-  border-radius: var(--radius-md);
-  border: 1px solid var(--border-subtle);
-  box-shadow: 0 4px 14px rgba(18, 16, 14, 0.02);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  transition: transform 0.25s, box-shadow 0.25s;
-}
-
-.gyan-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 24px rgba(18, 16, 14, 0.06);
-}
-
-.gyan-quote-mark {
-  position: absolute;
-  top: 0.8rem;
-  left: 1.2rem;
-  font-family: var(--font-display);
-  font-size: 3.5rem;
+  font-size: 1.35rem;
+  font-weight: 900;
+  letter-spacing: 0.05em;
   line-height: 1;
-  color: rgba(217, 45, 32, 0.15);
-  pointer-events: none;
 }
 
-.gyan-text {
+/* Panel 2: Masala Sandwich */
+.panel-sandwich {
+  background: var(--yellow);
+  color: #0c0b0e;
+}
+
+.sandwich-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.8rem;
+}
+
+.sandwich-crown {
+  width: 28px;
+  height: 22px;
+}
+
+.sandwich-title {
+  margin: 0;
   font-family: var(--font-display);
-  font-size: 1.15rem;
-  font-style: italic;
-  color: var(--ink-primary);
-  line-height: 1.45;
-  margin: 0 0 1.5rem;
-  position: relative;
-  z-index: 2;
+  font-size: 1.55rem;
+  font-weight: 900;
+  letter-spacing: -0.03em;
 }
 
-.gyan-meta {
+.sandwich-artwork-wrap {
+  position: relative;
+  border: 2.5px solid #0c0b0e;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 3px 3px 0px #0c0b0e;
+  aspect-ratio: 16 / 10;
+  background: #fdfcf7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sandwich-graphic-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+}
+
+.sandwich-svg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(2px 2px 0px rgba(0, 0, 0, 0.15));
+  transition: transform 0.3s ease;
+}
+
+.panel-sandwich:hover .sandwich-svg {
+  transform: scale(1.06) rotate(-1deg);
+}
+
+.sandwich-play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #0c0b0e;
+  border: 2.5px solid #0c0b0e;
+  box-shadow: 3px 3px 0px #0c0b0e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.sandwich-play-btn:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+  background: var(--red);
+  color: #ffffff;
+}
+
+.sandwich-badge-row {
+  display: flex;
+  gap: 0.5rem;
+  margin: 1rem 0 0.8rem;
+}
+
+.badge-chef-special {
+  background: var(--red);
+  color: #ffffff;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.72rem;
+  padding: 0.25rem 0.6rem;
+  border: 1.5px solid #0c0b0e;
+  border-radius: 3px;
+  letter-spacing: 0.05em;
+}
+
+.badge-relatable {
+  background: #ffffff;
+  color: #0c0b0e;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.72rem;
+  padding: 0.25rem 0.6rem;
+  border: 1.5px solid #0c0b0e;
+  border-radius: 3px;
+}
+
+.sandwich-caption {
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin: 0;
+  font-weight: 600;
+  color: #2b2930;
+}
+
+/* Panel 3: Gyan Bites Soundboard */
+.panel-gyan {
+  background: var(--cyan);
+  color: #0c0b0e;
+}
+
+.gyan-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 0.85rem;
-  border-top: 1px solid rgba(18, 16, 14, 0.06);
+  margin-bottom: 1.2rem;
 }
 
-.gyan-context {
-  font-size: 0.8rem;
+.gyan-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+}
+
+.gyan-reactions {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.reaction-emoji {
+  font-size: 1.3rem;
+  user-select: none;
+}
+
+.gyan-pill-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin-bottom: 1.2rem;
+}
+
+.gyan-pill {
+  background: #ffffff;
+  color: #0c0b0e;
+  border: 2px solid #0c0b0e;
+  box-shadow: 3px 3px 0px #0c0b0e;
+  padding: 0.65rem 1rem;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-display);
+  font-size: 0.88rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.12s ease, background 0.12s ease;
+}
+
+.gyan-pill:hover,
+.gyan-pill.is-active {
+  background: var(--yellow);
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0px #0c0b0e;
+}
+
+.gyan-quote-display {
+  background: #ffffff;
+  border: 2px solid #0c0b0e;
+  border-radius: 6px;
+  padding: 1rem;
+  box-shadow: 3px 3px 0px #0c0b0e;
+  margin-top: auto;
+}
+
+.gyan-active-quote {
+  margin: 0 0 0.5rem;
+  font-size: 0.92rem;
   font-weight: 600;
-  color: var(--ink-secondary);
+  line-height: 1.45;
+  color: #0c0b0e;
+  font-style: italic;
 }
 
-.gyan-index {
+.gyan-active-tag {
+  display: inline-block;
   font-family: var(--font-mono);
   font-size: 0.72rem;
-  color: var(--red);
   font-weight: 700;
+  color: var(--red);
+  text-transform: uppercase;
 }
 
-@media (max-width: 900px) {
-  .featured-special-hero {
+/* Responsive grid */
+@media (max-width: 960px) {
+  .masala-grid {
     grid-template-columns: 1fr;
-  }
-
-  .f-media-wrap {
-    min-height: 240px;
+    gap: 2rem;
   }
 }

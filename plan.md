@@ -1,197 +1,222 @@
-# Amit Tandon Website Master Redesign Plan
-## From Experimental Broadside to Awwwards SOTD Contender
-**Target Project:** `amit-tandon-common-sense`  
-**Subject:** Amit Tandon (Stand-up Comedian, Writer, TV Host, IIT Delhi MBA)  
-**Status:** Approved for Implementation  
-**Created:** October 2026  
+# Neo-Brutalist Pop-Art Website Redesign Plan (Image 1 Exact Implementation)
+
+> **Goal:** Transform the Amit Tandon website into the exact "Neo-Brutalist Pop-Art Comic Machine" design from Image 1, featuring interactive physics, 4-color perforated concert tickets, an interactive 3-reel "Aise Kaise?" slot machine, a ringing retro red corporate telephone, and a Sunday comic strip special showcase.
+> 
+> **Architecture:** Vanilla CSS Neo-Brutalist design system (hard offset shadows, halftone dot matrix, sticker rotations) + componentized TypeScript modules + Lenis smooth scrolling + zero-dependency interactive micro-games.
+> 
+> **Tech Stack:** Vite, TypeScript, Vanilla CSS, Lucide icons, Canvas Confetti / CSS Animations, Lenis.
 
 ---
 
-## 1. Executive Vision: The Creative Pivot
+## 1. Design Tokens & Visual DNA Specification (`src/styles/tokens.css`)
 
-### The Shift: From "Forensic Crime Dossier" to "The Analytical Comic"
-The original POC pursued an interesting editorial premise (*"Common Sense, Under Review"*), but skewed too far into a cold, clinical, almost criminal investigation aesthetic (*"Evidence from the stage"*, *"The Person. Under review"*, *"Enough evidence. Walk into the room"*).
+### Color Palette Matrix (Exact from Mockup 1):
+- **Base Obsidian Black:** `#0C0B0E` (Stage backdrop, text in tickets, borders)
+- **Paper Canvas Off-White:** `#F6F3EB` (Warm comic newsprint ground)
+- **Electric Acid Saffron:** `#FFE500` (Hero headline accents, trigger punchline CTA, London ticket)
+- **Theatrical Vermilion / Hot Red:** `#FF3B1D` (Headline accents, red rotary phone, Sydney ticket, lever knob)
+- **Neon Cyan / Electric Blue:** `#00F0FF` (Dubai ticket, speech bubbles, Gyan Bites soundboard)
+- **Mumbai Concrete Light Gray:** `#E4E3DD` (Mumbai Gateway ticket, neutral pill badges)
+- **Chalkboard Charcoal:** `#18181B` (Corporate section backing)
 
-```
-[Old Concept] ──▶ Forensic Autopsy, Cold Dossier, Random Skewed Zine Cuts, Syrupy Scroll-Pins
-       ▼
-[New Vision]  ──▶ "The Method in the Madness"
-                  The analytical mind of an IIT Delhi engineer deconstructing
-                  the hilarious, illogical quirks of middle-class Indian domestic life.
-```
+### Brutalist Shadow & Border Tokens:
+- `--border-brutal: 2.5px solid #0C0B0E`
+- `--shadow-brutal-sm: 3px 3px 0px #0C0B0E`
+- `--shadow-brutal-md: 5px 5px 0px #0C0B0E`
+- `--shadow-brutal-lg: 8px 8px 0px #0C0B0E`
+- `--shadow-brutal-yellow: 5px 5px 0px #FFE500`
+- `--shadow-brutal-cyan: 5px 5px 0px #00F0FF`
+- `--shadow-brutal-red: 5px 5px 0px #FF3B1D`
 
-### Core Design Pillars:
-1. **Intelligent & Analytical Yet Warm:** Retain the editorial typography and broadsheet discipline, but infuse it with Amit's authentic comedic voice, observational warmth, and Hindi cultural cadence (*"Aise Kaise?!"*, *"Hamare Zamane Mein"*, *"Paisa Aa Gaya... Class Nahi Aayi!"*).
-2. **Instant Stature (The 5-Second Test):** A multi-generational headliner who has performed 2,000+ shows across 30+ countries and charted #1 on Netflix should command immediate authority.
-3. **Frictionless Conversion:** Live tour bookings and high-value corporate inquiries must be 1-click accessible without scroll traps or confusing layouts.
-4. **Cinematic, Snappy Micro-Interactions:** Web motion that honors the snappy rhythm and cadence of stand-up comedy instead of sluggish scroll-jacking.
-
----
-
-## 2. Structural & Architectural Plan
-
-### Section 1: Hero — The Analytical Comic (Opening)
-- **Problem Fixed:** Eliminates the desktop scroll-trap (`pin: stage` scrubbing through 34% of scroll space).
-- **Visuals:** Uses the newly extracted high-resolution [`hero1.jpg`](file:///d:/projects/amit-tandon/amit-tandon/assets/website%20assets/images/hero1.jpg) (Amit onstage commanding the mic under warm theatrical lighting) with an ambient Ken Burns parallax reveal.
-- **Copy:** 
-  - Headline: *"The logic of everyday life. Deconstructed."* (Set in oversized `Fraunces` serif).
-  - Subtitle: *"Observational Hindi stand-up from an engineer who never stopped taking notes."*
-- **Stats Counter Bar:** Instant credibility baseline:
-  - **200M+** YouTube Views
-  - **30+** Countries Toured
-  - **2,000+** Live Performances
-- **Dual Action CTAs:**
-  - `[ See Tour Dates (33 Cities) ↓ ]` (Primary Vermilion Button)
-  - `[ Corporate & Keynote Bookings → ]` (Secondary Ghost Button)
-
----
-
-### Section 2: Global Tour Ledger — *Aise Kaise Live*
-- **Problem Fixed:** Replaces the messy, tilted paper cards and faux CSS Scotch tape with an architectural, high-end Tour Ledger.
-- **Data Source:** Wired to the 33 live tour events in [`extracted_shows.json`](file:///d:/projects/amit-tandon/amit-tandon/assets/website%20assets/content/extracted_shows.json) across UK, Europe, India, Australia, and the Middle East.
-- **Interactive Global Schedule:**
-  - **Filtering Tabs:** `All Shows (33)` · `UK & Europe (18)` · `India (7)` · `Australia & NZ (5)` · `Middle East & Asia (3)`.
-  - **Row Architecture:**
-    - Column 1: Date & Time (`14 Nov 2026 · 19:30`)
-    - Column 2: City & Country (`London, UK`)
-    - Column 3: Prestige Venue (`Southbank Centre` / `Sydney Opera House` / `Dubai Opera`)
-    - Column 4: Availability Badge (`Selling Fast` / `Limited Seats`)
-    - Column 5: Direct Ticket CTA (`Get Tickets →`)
-- **Venue Bloom Interaction:**
-  - Hovering a tour row smoothly reveals a subtle, warm-tinted atmospheric image of the venue in the ledger background.
-- **Mobile Experience:** Converts into full-width thumb-friendly booking cards with instant tap targets.
-
----
-
-### Section 3: Material & The Inline Cinema Theater
-- **Problem Fixed:** Stops kicking visitors off-site to YouTube when clicking specials or clips.
-- **Inline Cinema Drawer / Modal:**
-  - Clicking any special (*"Family Tandoncies"*, *"Masala Sandwich"*, *"Bathroom ka Evolution"*) smoothly dims the page and launches an immersive, borderless 16:9 cinema player.
-- **The "Gyan Bites" Punchline Showcase:**
-  - Interactive quote cards based on his funniest observational one-liners:
-    - *"My wife said we need to talk. Which means she talks, and I nod at calculated intervals."*
-    - *"Middle class upgrade rule: You have arrived in life when you stop opening the car window for toll tickets."*
-  - Hovering a punchline subtly previews the video clip timestamp.
-
----
-
-### Section 4: Corporate Keynotes & Private Galas (The B2B Revenue Driver)
-- **Problem Fixed:** Solves the complete omission of Amit's lucrative corporate comedy market.
-- **The Value Proposition:**
-  - Emphasizes his engineering background & IIT Delhi MBA credentials.
-  - Positioned as the gold standard for Fortune 500 summits, leadership retreats, and CXO galas.
-  - Tagline: *"Boardroom-smart, family-clean comedy tailored for enterprise summits. Guaranteed zero HR liabilities."*
-- **Client Roster Badges:** Highlighting corporate trust across major industry leaders.
-- **Direct Management Channel:**
-  - One-click direct WhatsApp connection (`+91-9004040003`)
-  - Fast corporate inquiry form modal (`hello@tandonamit.com`).
-
----
-
-### Section 5: The Person — Bio & Milestones
-- **Visuals:** Uses the clean high-resolution [`about.jpg`](file:///d:/projects/amit-tandon/amit-tandon/assets/website%20assets/images/about.jpg) and [`amit.jpg`](file:///d:/projects/amit-tandon/amit-tandon/assets/website%20assets/images/amit.jpg).
-- **Narrative Arc:**
-  - The Engineer's Pivot: IIT Delhi MBA → Startup Founder → Stage Pioneer.
-  - Netflix Milestone: First Hindi stand-up solo special (*Family Tandoncies*), Top 10 India for 15 days.
-  - Creative Breadth: Sony SAB's *Good Night India* (126 episodes), SonyLiv's *Chalo Koi Baat Nahin*, Spotify Original *Andar ki Baat*.
-
----
-
-### Section 6: Footer & Quick Navigation
-- **Streamlined Navigation:** Global tour shortcut, corporate booking link, full social channel links (YouTube, Instagram, X, Facebook).
-- **Brand Consistency:** Official brand mark and copyright notice.
-
----
-
-## 3. Motion & Animation Taste Guidelines
-
-| Element | Old Implementation | New Awwwards-Calibrated Direction |
-| :--- | :--- | :--- |
-| **Smooth Scroll** | `Lenis` with `duration: 1.05` (sluggish, syrupy) | `Lenis` with `duration: 0.8` and `smoothWheel: true` (crisp, tactile, responsive). |
-| **Hero Entrance** | Pinned scrub timeline (`pin: stage`, `scrub: 0.35`) | Fluid staggered reveal (`power4.out`, duration `0.85s`) with letter/line masking. No mouse trapping. |
-| **Tour Ledger** | 12 cards with conflicting CSS `--r` tilts and hover transforms | Stable architectural grid with subtle row lift (`y: -2px`) and background venue bloom (`opacity: 0` to `0.18`). |
-| **Card Rotations** | Gratuitous random tilts on every button, stamp, and image | Zero random tilts. Strict, clean grid structure. Hand-drawn accents used only for singular focal emphasis. |
-| **Easing Functions** | Linear scrubs (`ease: "none"`) | Comedic timing eases: `power3.out` for reveals, `back.out(1.15)` for interactive clicks. |
-
----
-
-## 4. Visual Design System & Asset Manifest
-
-### Color Palette Tokens
+### Halftone & Dot Matrix Background:
 ```css
-:root {
-  /* Surface & Canvas */
-  --bg-canvas: #FBF8F3;         /* Warm editorial linen / ivory */
-  --bg-card: #FFFFFF;           /* Crisp surface white */
-  --bg-dark: #12100E;           /* Deep obsidian carbon */
-  --bg-dark-surface: #1E1B18;   /* Elevated dark card */
-
-  /* Ink & Typography */
-  --ink-primary: #12100E;       /* Deep warm black */
-  --ink-secondary: #5A544D;     /* Muted editorial lead */
-  --ink-muted: #8F867C;         /* Subtle caption grey */
-  --ink-inverse: #F4EFE6;       /* White-warm for dark sections */
-
-  /* Stage Accent */
-  --red-stage: #D92D20;         /* Theatrical Crimson Vermilion */
-  --red-hover: #B42318;         /* Deep crimson hover */
-  --gold-accent: #D4AF37;       /* Subtle prestige gold for milestones */
-
-  /* Borders & Dividers */
-  --border-subtle: rgba(18, 16, 14, 0.08);
-  --border-dark: rgba(244, 239, 230, 0.12);
+.bg-halftone {
+  background-image: radial-gradient(rgba(12, 11, 14, 0.12) 1.5px, transparent 1.5px);
+  background-size: 10px 10px;
+}
+.bg-halftone-dark {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1.5px, transparent 1.5px);
+  background-size: 10px 10px;
 }
 ```
 
-### Typography Hierarchy
-- **Display Headlines:** `Fraunces` (Variable 9..144pt serif) — conveys intellectual wit, editorial elegance, and human warmth.
-- **Body & UI Elements:** `Instrument Sans` / `Plus Jakarta Sans` — ultra-legible, modern geometric sans for dates, tables, buttons, and bios.
-- **Numbers & Metrics:** Clean tabular figures for tour dates and numerical statistics.
+---
 
-### Verified Asset Allocations
-- **Hero Image:** [`assets/website assets/images/hero1.jpg`](file:///d:/projects/amit-tandon/amit-tandon/assets/website%20assets/images/hero1.jpg) (237 KB, 1920×1080 stage mic portrait).
-- **Tour Background:** [`assets/website assets/images/hero3.jpg`](file:///d:/projects/amit-tandon/amit-tandon/assets/website%20assets/images/hero3.jpg) (157 KB wide auditorium crowd shot).
-- **About Section:** [`assets/website assets/images/about.jpg`](file:///d:/projects/amit-tandon/amit-tandon/assets/website%20assets/images/about.jpg) and [`assets/website assets/images/amit.jpg`](file:///d:/projects/amit-tandon/amit-tandon/assets/website%20assets/images/amit.jpg).
-- **Brand Icons:** [`assets/website assets/images/icon.png`](file:///d:/projects/amit-tandon/amit-tandon/assets/website%20assets/images/icon.png) & [`apple-icon.png`](file:///d:/projects/amit-tandon/amit-tandon/assets/website%20assets/images/apple-icon.png).
-- **Social Cards:** [`assets/website assets/images/opengraph-image.png`](file:///d:/projects/amit-tandon/amit-tandon/assets/website%20assets/images/opengraph-image.png).
+## 2. Section-by-Section Implementation Breakdown
+
+### Phase 1: Design System & Tokens
+**Files:**
+- Modify: `d:\projects\amit-tandon\amit-tandon\src\styles\tokens.css`
+- Modify: `d:\projects\amit-tandon\amit-tandon\src\styles\base.css`
+- Modify: `d:\projects\amit-tandon\amit-tandon\index.html` (Import `Space Grotesk`, `Bungee` / `Cabinet Grotesk`, `Space Mono`)
+
+**Tasks:**
+1. Define all neo-brutalist CSS custom properties: colors, hard offset shadows, sticker tilt classes (`.tilt-left`, `.tilt-right`), and halftone patterns.
+2. Load Google Fonts: `Space Grotesk` (700/900 weight for punchy brutalist titles) and `Space Mono` (for data/barcodes).
+3. Reset base styling: Remove soft luxury serif defaults; enforce crisp, comic, high-contrast typography and paper borders.
 
 ---
 
-## 5. Technical Implementation Roadmap
+### Phase 2: Navigation Bar & Ticker Tape
+**Files:**
+- Modify: `d:\projects\amit-tandon\amit-tandon\src\sections\nav.ts`
+- Create: `d:\projects\amit-tandon\amit-tandon\src\sections\ticker.ts`
 
-```text
-Phase 1: Foundation & Asset Swap
-  ├── Step 1.1: Replace public image links with high-res files from 'website assets/images/'
-  ├── Step 1.2: Refactor 'src/styles/tokens.css' with the new refined palette & typography tokens
-  └── Step 1.3: Update 'src/styles/base.css' for crisp layout defaults without overflow bugs
-
-Phase 2: Hero & Navigation Refactor
-  ├── Step 2.1: Rebuild 'src/sections/nav.ts' with Corporate Booking & Tour shortcuts
-  ├── Step 2.2: Rebuild 'src/sections/observation.ts' -> 'src/sections/hero.ts'
-  └── Step 2.3: Integrate instant milestone counters (200M+ views, 30+ countries, 2000+ shows)
-
-Phase 3: The Global Tour Ledger
-  ├── Step 3.1: Rebuild 'src/sections/aise-kaise.ts' -> 'src/sections/tour.ts'
-  ├── Step 3.2: Load and render 33 events from 'extracted_shows.json'
-  ├── Step 3.3: Implement tabbed regional filtering (UK/Europe, India, Australia, Middle East)
-  └── Step 3.4: Style interactive hover blooms and mobile-first ticket booking cards
-
-Phase 4: Material & Inline Video Theater
-  ├── Step 4.1: Rebuild 'src/sections/contradictions.ts' into an interactive video showcase
-  ├── Step 4.2: Implement fluid inline video modal (preventing YouTube bounce)
-  └── Step 4.3: Add interactive "Gyan Bites" punchline quote drawer
-
-Phase 5: Corporate Channel & About
-  ├── Step 5.1: Create 'src/sections/corporate.ts' for executive keynote bookings
-  └── Step 5.2: Polish 'src/sections/person.ts' with verified credentials (IIT, Netflix, Sony SAB)
-
-Phase 6: Motion & Performance Tuning
-  ├── Step 6.1: Tune 'src/motion/setup.ts' (Lenis to 0.8s, responsive eases, eliminate scrub pins)
-  ├── Step 6.2: Validate 60fps scroll performance and zero layout shift on mobile viewports
-  └── Step 6.3: Run production build check ('npm run build')
-```
+**Specifications:**
+- **Navigation (Sticky Black Bar):**
+  - Left: `AMIT TANDON` in distressed stencil brutalist font with tiny crown icon doodle.
+  - Center: Pill links `[ SPECIALS ]` `[ TOUR ]` `[ CORPORATE ]`.
+  - Right: High-visibility Vermilion Pill: `[ BOOK AMIT → ]` with `--shadow-brutal-sm`.
+- **Marquee Ticker (Hazard Strip):**
+  - Yellow background bar with top/bottom 2px black borders.
+  - Continuous infinite loop:
+    `▶ 200M+ VIEWS ★ 🌐 30+ COUNTRIES ★ 🎫 2,000+ SHOWS ★ 👨‍👩‍👧‍👦 NO UNCLE WAS HARMED ★ 📺 #1 NETFLIX INDIA ★`
 
 ---
 
-## 6. Expected Outcome
-Executing this plan will transform the website from a confusing, pinned prototype into a **cohesive, high-converting, Awwwards-worthy flagship experience** that properly reflects Amit Tandon's caliber as one of the world's premier Indian stand-up comedians.
+### Phase 3: The Hero Section ("The Method in the Madness")
+**Files:**
+- Modify: `d:\projects\amit-tandon\amit-tandon\src\sections\observation.ts`
+- Create/Modify: `d:\projects\amit-tandon\amit-tandon\src\sections\hero.css`
+
+**Visual Composition:**
+1. **Title Cluster:**
+   - Massive stencil text `AMIT TANDON` (white fill, 3px black stroke, drop shadow) with yellow crown doodle.
+   - Yellow banner label: `THE METHOD IN THE MADNESS` (tilted -2deg).
+2. **Central Character & Stickers:**
+   - Cutout of Amit Tandon holding a microphone with white sticker border outline.
+   - **Floating Pressure Cooker:** Whistling pressure cooker illustration positioned at his lower torso with CSS animated cyan steam clouds (`@keyframes puff`).
+   - **Comic Speech Bubbles:**
+     - Red circle: `AISE KAISE?!`
+     - Cyan cloud bubble: `HUH?`
+     - Yellow comic bubble: `WHY?`
+     - White handwritten scribble: *"Same people, different problems"*.
+   - **Vintage CRT TV Monitor:** Small TV set on the right showing a looping black-and-white face clip.
+3. **Interactive Trigger:**
+   - **`[ TRIGGER PUNCHLINE → ]` Button**: Large yellow brutalist button with hard black shadow.
+   - **Action:** Clicking fires audio/comic reaction tags (`*WHISTLE!*`, `*HAHA!*`, `*TAALIYAN!*`) floating across the hero with bouncy spring physics!
+
+---
+
+### Phase 4: "Comedy. Extra Masala." (Sunday Comic Strip Specials)
+**Files:**
+- Modify: `d:\projects\amit-tandon\amit-tandon\src\sections\contradictions.ts`
+- Modify: `d:\projects\amit-tandon\amit-tandon\src\sections\contradictions.css`
+
+**Visual Composition (3-Column Comic Grid):**
+1. **Section Header:**
+   - `COMEDY. EXTRA MASALA.` (Heavy black text with `EXTRA MASALA` in hot vermilion red) + handwritten note *"Same family. Different drama."*
+2. **Card 1: Retro CRT TV (*Family Tandoncies*)**:
+   - Styled like a real 90s television with dark metallic bezel, speaker grill, twin tuning knobs, and glass scanlines.
+   - Screen displays Amit's Netflix special artwork with glowing red badge: `NOW STREAMING ON NETFLIX`.
+   - Hovering triggers video preview in an authentic CRT cinema overlay.
+3. **Card 2: Masala Sandwich (*Chef's Special*)**:
+   - Tilted yellow comic card featuring an illustrated multi-layer club sandwich wrapped in newsprint paper.
+   - Badges: `CHEF'S SPECIAL - 100% RELATABLE`.
+   - Details: *"Three generations. One house. Infinite opinions."*
+4. **Card 3: Gyan Bites Soundboard**:
+   - Electric cyan brutalist card with 3 interactive audio pills:
+     - `[ BAS 5 MINUTE ⏱️ ]`
+     - `[ SHARMA JI KA BETA 🎓 ]`
+     - `[ FAMILY WHATSAPP 📱 ]`
+   - Clicking each pill updates the comic reaction bubble and reveals the hilarious quote with sound effect.
+
+---
+
+### Phase 5: "Next Stop: Your City" (The 4 Colored Perforated Gig Tickets)
+**Files:**
+- Modify: `d:\projects\amit-tandon\amit-tandon\src\sections\aise-kaise.ts`
+- Modify: `d:\projects\amit-tandon\amit-tandon\src\sections\aise-kaise.css`
+
+**Visual Composition:**
+1. **Section Header & Region Tabs:**
+   - `NEXT STOP: YOUR CITY.` + World Tour 2026 badge.
+   - Filter Buttons: `[ ALL DATES (33) ]`, `[ UK & EUROPE ]`, `[ INDIA ]`, `[ DUBAI & SE ASIA ]`, `[ AUSTRALIA ]`.
+2. **The 4 Featured Graphic Concert Tickets (2x2 Grid):**
+   - **London (Electric Yellow `#FFE500`):**
+     - Left: Big Ben architectural line-art illustration + `LIVE ON STAGE`.
+     - Center: `LONDON` in massive black grotesque type.
+     - Badge: `SELLING FAST` (red pill).
+     - Right: Perforated tear-line with circular notch cutouts + scannable barcode + `[ GRAB TICKETS → ]` button.
+   - **Mumbai (Concrete White/Gray `#E4E3DD`):**
+     - Left: Gateway of India line-art illustration.
+     - Center: `MUMBAI` + `LIMITED SEATS` badge.
+     - Right: Perforated barcode stub + `[ GRAB TICKETS → ]`.
+   - **Dubai (Neon Cyan `#00F0FF`):**
+     - Left: Burj Al Arab line-art illustration.
+     - Center: `DUBAI` + `LAST FEW TICKETS` badge.
+     - Right: Perforated barcode stub + `[ GRAB TICKETS → ]`.
+   - **Sydney (Coral Red `#FF3B1D`):**
+     - Left: Sydney Opera House line-art illustration.
+     - Center: `SYDNEY` + `SELLING FAST` badge.
+     - Right: Perforated barcode stub + `[ GRAB TICKETS → ]`.
+3. **Full 33-City Ledger Drawer:**
+   - A toggle button `[ VIEW ALL 33 GLOBAL TOUR DATES ↓ ]` smoothly expands the complete international schedule with search and direct booking links.
+
+---
+
+### Phase 6: "Corporate, But Make It Funny" (The Red Rotary Phone)
+**Files:**
+- Modify: `d:\projects\amit-tandon\amit-tandon\src\sections\corporate.ts`
+- Modify: `d:\projects\amit-tandon\amit-tandon\src\sections\corporate.css`
+
+**Visual Composition:**
+1. **Left Column (The Chalkboard Formula):**
+   - Dark chalkboard banner: `CORPORATE, BUT MAKE IT FUNNY.` with doodle: *"Less boring people, please."*
+   - Illustrated formula boxes with connecting mathematical symbols:
+     `[ 🎓 Engineering Degree ] × [ 🪑 Corporate Life ] = [ 📢 Unfiltered Truths ]`
+   - Feature checkmarks: *Leadership Summits*, *Offsite Retreats*, *Team Events*, *Custom Sessions*.
+2. **Right Column (The Vintage Red Rotary Telephone):**
+   - Illustrated bright vermilion rotary telephone with coiled cord.
+   - Speech bubble / handset plaque: `BOOK A CORPORATE SHOW`.
+   - Direct dial plaque: `+91 9004040003`.
+   - **Interaction:** Hovering makes the phone jiggle/ring (`@keyframes ring`). Clicking launches WhatsApp chat directly to his management with a pre-filled corporate inquiry message.
+
+---
+
+### Phase 7: "The Aise Kaise? Machine" (Interactive 3-Reel Slot Machine)
+**Files:**
+- Create: `d:\projects\amit-tandon\amit-tandon\src\sections\slot-machine.ts`
+- Create: `d:\projects\amit-tandon\amit-tandon\src\sections\slot-machine.css`
+
+**Visual Composition:**
+1. **Headline:** `THE AISE KAISE? MACHINE.` (Yellow banner) + *"Real situations. Questionable logic."*
+2. **The Slot Machine Housing:**
+   - Chrome retro casing with curved glass display windows.
+   - **Red Ball Pull Lever** on the left side that pivots down when clicked.
+   - **Three Digital Display Reels:**
+     - **Reel 1: WHO?** (Illustrated characters): `Wife` | `Sharma Ji` | `Teenage Son` | `Delhi Auto Wala` | `Society Uncle`
+     - **Reel 2: SITUATION** (Dilemmas): `2-day trip, 4 suitcases` | `Scores 95% in exam` | `Asks for Goa permission` | `AC set to 16°C` | `Bas 5 minutes mein aayi`
+     - **Reel 3: AMIT'S OBSERVATION** (Punchlines): `"The logic has left the chat."` | `"Error 404: Sharma Ji ka beta scored 97%"` | `"Mission aborted: Zero funding"` | `"Relativistic time dilation confirmed"`
+3. **Interactive Mechanics:**
+   - Clicking `[ GENERATE DILEMMA → ]` pulls the lever down, spins the reels with motion blur, plays mechanical tick sounds, and stops on a hilarious randomized combination.
+   - A comic speech bubble pops up with: `"HAHA!"` and `"AISE KAISE?!"`.
+
+---
+
+### Phase 8: Neo-Brutalist Marquee Footer
+**Files:**
+- Modify: `d:\projects\amit-tandon\amit-tandon\src\sections\footer.ts`
+
+**Visual Composition:**
+- Solid black footer bar with bold stencil text: `AMIT TANDON LIVE •`
+- High-contrast social pill badges:
+  - Red Pill: `▶ 1.8M SUBSCRIBERS`
+  - Magenta Gradient Pill: `📷 1M FOLLOWERS`
+  - Red/Black Pill: `NETFLIX NOW STREAMING`
+- Quick booking & representation credits.
+
+---
+
+## 3. Step-by-Step Execution Checklist
+
+- [ ] **Step 1:** Update `index.html` with fonts (`Space Grotesk`, `Space Mono`) and set page title.
+- [ ] **Step 2:** Update `src/styles/tokens.css` with exact Image 1 color codes, brutalist shadows, and halftone utilities.
+- [ ] **Step 3:** Implement the sticky brutalist Navigation Bar and Hazard Marquee Ticker.
+- [ ] **Step 4:** Rebuild the Hero section with the comic collage composition, whistling pressure cooker, and `[ TRIGGER PUNCHLINE ]` confetti micro-interaction.
+- [ ] **Step 5:** Rebuild the Specials section into the 3-panel Sunday comic strip (Retro CRT TV, Masala Sandwich wrapper, Gyan Bites soundboard).
+- [ ] **Step 6:** Build the 4-color perforated concert tickets for London, Mumbai, Dubai, and Sydney with barcodes, landmark line drawings, and the 33-city schedule expander.
+- [ ] **Step 7:** Build the Corporate module with the illustrated chalkboard formula and ringing red rotary phone.
+- [ ] **Step 8:** Build the interactive 3-reel "Aise Kaise?" Slot Machine with pull lever and randomized dilemma generator.
+- [ ] **Step 9:** Style the Marquee Footer with social subscriber badges.
+- [ ] **Step 10:** Run `npm run build` to verify zero errors and validate live layout in browser on `http://localhost:5173/`.

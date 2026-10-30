@@ -1,0 +1,420 @@
+/* Comedy. Extra Masala. Styles (Image 1) */
+
+.masala-section {
+  position: relative;
+  background-color: var(--bg-canvas);
+  padding: 4.5rem 0 5rem;
+  border-bottom: var(--border-brutal-thick);
+}
+
+.masala-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.masala-title {
+  margin: 0;
+  font-size: clamp(2.4rem, 6vw, 4.4rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  color: var(--ink-primary);
+}
+
+.highlight-red {
+  color: var(--red);
+}
+
+.masala-handwritten {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 700;
+  color: #7a7685;
+  transform: rotate(3deg);
+  line-height: 1.25;
+}
+
+/* 3-Column Comic Grid */
+.masala-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  align-items: stretch;
+}
+
+.comic-panel {
+  position: relative;
+  background: #ffffff;
+  border: var(--border-brutal-thick);
+  box-shadow: var(--shadow-brutal);
+  border-radius: var(--radius-sticker);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.comic-panel:hover {
+  transform: translateY(-4px) rotate(0deg);
+  box-shadow: 8px 8px 0px #0c0b0e;
+}
+
+/* Panel 1: Retro CRT TV */
+.panel-tv {
+  background: #18171b;
+  color: #ffffff;
+}
+
+.crt-tv-bezel {
+  background: #25242a;
+  border: 3px solid #0c0b0e;
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8);
+}
+
+.crt-screen-wrap {
+  position: relative;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 2.5px solid #0c0b0e;
+  background: #000;
+  aspect-ratio: 16 / 10;
+}
+
+.crt-poster-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.panel-tv:hover .crt-poster-img {
+  transform: scale(1.05);
+}
+
+.crt-scanline-mesh {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) 2px, rgba(0, 0, 0, 0.45) 3px);
+  pointer-events: none;
+}
+
+.crt-content-overlay {
+  position: absolute;
+  bottom: 10px;
+  left: 12px;
+  z-index: 2;
+  text-shadow: 2px 2px 0px #000;
+}
+
+.crt-special-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+}
+
+.crt-special-sub {
+  margin: 2px 0 0;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--yellow);
+  letter-spacing: 0.1em;
+}
+
+.crt-play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--red);
+  color: #ffffff;
+  border: 2.5px solid #0c0b0e;
+  box-shadow: 3px 3px 0px #0c0b0e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 3;
+  transition: transform 0.15s ease;
+}
+
+.crt-play-button:hover {
+  transform: translate(-50%, -50%) scale(1.12);
+  background: var(--yellow);
+  color: #0c0b0e;
+}
+
+.tv-control-panel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1.5px solid #3c3a44;
+}
+
+.tv-control-dial {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #444;
+  border: 1.5px solid #0c0b0e;
+}
+
+.tv-speaker-slits {
+  display: flex;
+  gap: 4px;
+}
+
+.tv-speaker-slits span {
+  width: 18px;
+  height: 3px;
+  background: #3c3a44;
+  border-radius: 2px;
+}
+
+.sticker-netflix {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--red);
+  color: #ffffff;
+  border: var(--border-brutal);
+  box-shadow: var(--shadow-brutal-sm);
+  padding: 0.5rem 1rem;
+  margin-top: 1.2rem;
+  text-align: center;
+  border-radius: var(--radius-sticker);
+  transition: transform 0.12s ease;
+}
+
+.sticker-netflix:hover {
+  transform: translate(-2px, -2px) rotate(-1deg);
+  box-shadow: 5px 5px 0px #0c0b0e;
+}
+
+.sticker-sub {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.sticker-main {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  line-height: 1;
+}
+
+/* Panel 2: Masala Sandwich */
+.panel-sandwich {
+  background: var(--yellow);
+  color: #0c0b0e;
+}
+
+.sandwich-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.8rem;
+}
+
+.sandwich-crown {
+  width: 28px;
+  height: 22px;
+}
+
+.sandwich-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.55rem;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+}
+
+.sandwich-artwork-wrap {
+  position: relative;
+  border: 2.5px solid #0c0b0e;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 3px 3px 0px #0c0b0e;
+  aspect-ratio: 16 / 10;
+  background: #fff;
+}
+
+.sandwich-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.sandwich-play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #0c0b0e;
+  border: 2.5px solid #0c0b0e;
+  box-shadow: 3px 3px 0px #0c0b0e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.sandwich-play-btn:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+  background: var(--red);
+  color: #ffffff;
+}
+
+.sandwich-badge-row {
+  display: flex;
+  gap: 0.5rem;
+  margin: 1rem 0 0.8rem;
+}
+
+.badge-chef-special {
+  background: var(--red);
+  color: #ffffff;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.72rem;
+  padding: 0.25rem 0.6rem;
+  border: 1.5px solid #0c0b0e;
+  border-radius: 3px;
+  letter-spacing: 0.05em;
+}
+
+.badge-relatable {
+  background: #ffffff;
+  color: #0c0b0e;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.72rem;
+  padding: 0.25rem 0.6rem;
+  border: 1.5px solid #0c0b0e;
+  border-radius: 3px;
+}
+
+.sandwich-caption {
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin: 0;
+  font-weight: 600;
+  color: #2b2930;
+}
+
+/* Panel 3: Gyan Bites Soundboard */
+.panel-gyan {
+  background: var(--cyan);
+  color: #0c0b0e;
+}
+
+.gyan-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.2rem;
+}
+
+.gyan-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+}
+
+.gyan-reactions {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.reaction-emoji {
+  font-size: 1.3rem;
+  user-select: none;
+}
+
+.gyan-pill-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin-bottom: 1.2rem;
+}
+
+.gyan-pill {
+  background: #ffffff;
+  color: #0c0b0e;
+  border: 2px solid #0c0b0e;
+  box-shadow: 3px 3px 0px #0c0b0e;
+  padding: 0.65rem 1rem;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-display);
+  font-size: 0.88rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.12s ease, background 0.12s ease;
+}
+
+.gyan-pill:hover,
+.gyan-pill.is-active {
+  background: var(--yellow);
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0px #0c0b0e;
+}
+
+.gyan-quote-display {
+  background: #ffffff;
+  border: 2px solid #0c0b0e;
+  border-radius: 6px;
+  padding: 1rem;
+  box-shadow: 3px 3px 0px #0c0b0e;
+  margin-top: auto;
+}
+
+.gyan-active-quote {
+  margin: 0 0 0.5rem;
+  font-size: 0.92rem;
+  font-weight: 600;
+  line-height: 1.45;
+  color: #0c0b0e;
+  font-style: italic;
+}
+
+.gyan-active-tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--red);
+  text-transform: uppercase;
+}
+
+/* Responsive grid */
+@media (max-width: 960px) {
+  .masala-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}

@@ -1,0 +1,270 @@
+/* The Aise Kaise? Machine (Interactive 3-Reel Slot Machine) Styles */
+
+.slot-machine-section {
+  position: relative;
+  background-color: var(--yellow);
+  color: #0c0b0e;
+  padding: 5rem 0 6rem;
+  border-bottom: var(--border-brutal-thick);
+}
+
+.slot-section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.slot-head-title {
+  margin: 0;
+  font-size: clamp(2.4rem, 6vw, 4.4rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  color: #0c0b0e;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.slot-title-badge {
+  background: var(--red);
+  color: #ffffff;
+  padding: 0.25rem 0.85rem;
+  border: var(--border-brutal);
+  box-shadow: 4px 4px 0px #0c0b0e;
+  border-radius: 4px;
+  display: inline-block;
+  transform: rotate(-1.5deg);
+}
+
+.slot-scribble {
+  font-family: var(--font-sans);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #2b2930;
+  transform: rotate(3deg);
+  display: inline-block;
+  line-height: 1.3;
+}
+
+/* Machine Chassis & Mechanical Lever Dock */
+.slot-chassis-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin-top: 1.5rem;
+}
+
+/* Lever on Left physically connected to chassis */
+.slot-lever-dock {
+  position: relative;
+  cursor: pointer;
+  width: 72px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+  margin-right: -4px;
+}
+
+.lever-mount-bracket {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 22px;
+  height: 42px;
+  background: #0c0b0e;
+  border: 2.5px solid #ffffff;
+  border-right: none;
+  border-radius: 6px 0 0 6px;
+  box-shadow: -2px 2px 0px rgba(0, 0, 0, 0.3);
+}
+
+.lever-assembly {
+  width: 54px;
+  transform-origin: 25% 75%;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lever-assembly.is-pulled {
+  transform: rotate(45deg) scaleY(0.85);
+}
+
+.lever-svg {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(4px 4px 0px #0c0b0e);
+}
+
+/* Main Slot Enclosure with Rounded Chrome Bezel */
+.slot-machine-body {
+  flex: 1;
+  max-width: 900px;
+  background: linear-gradient(180deg, #2b2a30 0%, #141316 100%);
+  border: 4.5px solid #0c0b0e;
+  box-shadow: 10px 10px 0px #0c0b0e;
+  border-radius: 22px;
+  padding: 2.2rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  position: relative;
+}
+
+/* 3 Reels Row */
+.slot-reels-row {
+  display: grid;
+  grid-template-columns: 1fr 1.25fr 1.6fr;
+  gap: 1.25rem;
+  align-items: stretch;
+}
+
+.slot-reel-box {
+  display: flex;
+  flex-direction: column;
+  background: #18171b;
+  border: 3.5px solid #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.4), 4px 4px 0px #0c0b0e;
+}
+
+.reel-label-badge {
+  background: var(--yellow);
+  color: #0c0b0e;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-align: center;
+  padding: 0.4rem 0.5rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-bottom: 2px solid #0c0b0e;
+}
+
+.reel-window {
+  min-height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem 0.8rem;
+  position: relative;
+  background: #f6f3eb;
+  overflow: hidden;
+}
+
+.reel-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.4rem;
+  width: 100%;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+}
+
+.reel-illus {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 68px;
+  height: 68px;
+  margin: 0 auto;
+}
+
+.reel-illustration-svg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(2px 2px 0px rgba(0, 0, 0, 0.15));
+}
+
+.reel-content.is-spinning {
+  animation: reelSpin 0.4s ease infinite;
+}
+
+@keyframes reelSpin {
+  0% { transform: translateY(-30px); opacity: 0.3; filter: blur(2px); }
+  50% { transform: translateY(0); opacity: 1; filter: blur(0); }
+  100% { transform: translateY(30px); opacity: 0.3; filter: blur(2px); }
+}
+
+.reel-icon {
+  font-size: 2.2rem;
+  line-height: 1;
+}
+
+.reel-text {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 900;
+  color: #0c0b0e;
+  line-height: 1.15;
+}
+
+/* Observation Reel Bubble */
+.observation-bubble {
+  background: var(--yellow);
+  border: 2.5px solid #0c0b0e;
+  border-radius: 6px;
+  padding: 0.85rem 1rem;
+  box-shadow: 3px 3px 0px #0c0b0e;
+  width: 100%;
+}
+
+.obs-quote {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 900;
+  color: #0c0b0e;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+
+/* Controls Row */
+.slot-controls-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.slot-spin-btn {
+  padding: 1rem 2.6rem;
+  font-size: 1.15rem;
+  box-shadow: 4px 4px 0px var(--yellow), 6px 6px 0px #000;
+}
+
+.slot-haha-tag {
+  position: static;
+  background: var(--cyan);
+  color: #0c0b0e;
+  border: 2.5px solid #0c0b0e;
+  box-shadow: 3px 3px 0px #0c0b0e;
+  padding: 0.45rem 1rem;
+  font-size: 1rem;
+  font-family: var(--font-comic);
+  font-weight: 900;
+}
+
+/* Responsive adjustments */
+@media (max-width: 800px) {
+  .slot-reels-row {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .slot-lever-dock {
+    display: none;
+  }
+  .slot-machine-body {
+    padding: 1.5rem;
+  }
+}
+

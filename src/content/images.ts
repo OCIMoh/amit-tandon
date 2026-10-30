@@ -4,7 +4,9 @@ export const images = {
   heroStage: "/images/hero3.jpg",
   heroInteraction: "/images/hero2.jpg",
   aboutBanner: "/images/about.jpg",
-  portrait: "/images/amit.jpg",
+  portrait: "/images/amit-cutout.png",
+  portraitComic: "/images/amit-cutout-comic.png",
+  portraitPhoto: "/images/amit-cutout-photo.png",
   icon: "/images/icon.png",
   appleIcon: "/images/apple-icon.png",
   material: {

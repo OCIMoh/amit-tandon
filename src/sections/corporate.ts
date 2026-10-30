@@ -1,63 +1,91 @@
 import type { SiteContent } from "../lib/types";
-import { images } from "../content/images";
+import { svgs } from "../content/svgs";
 
-export function renderCorporate(site: SiteContent): string {
-  const corp = site.corporate;
-  if (!corp) return "";
-
-  const bulletsHtml = corp.bullets
-    .map(
-      (b) => `
-    <li class="corp-bullet-item">
-      <div class="corp-check-icon">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-      </div>
-      <span>${b}</span>
-    </li>`
-    )
-    .join("");
+export function renderCorporate(_site: SiteContent): string {
+  const whatsappUrl = "https://wa.me/919004040003?text=Hi%20Amit%20Tandon%20Management,%20we%20would%20like%20to%20inquire%20about%20a%20corporate%20keynote%20show.";
 
   return `
-<section class="corporate-section" id="corporate" aria-label="Corporate Keynotes and Private Events">
-  <div class="wrap corporate-card" data-reveal>
-    <div class="corp-grid">
-      <div class="corp-left">
-        <div class="chapter-tag" style="color:#d4af37">Executive & Keynote Booking</div>
-        <h2 class="display corp-title">${corp.title}</h2>
-        <p class="corp-tagline">${corp.tagline}</p>
-        <p class="corp-bio">${corp.bio}</p>
-
-        <ul class="corp-bullets">
-          ${bulletsHtml}
-        </ul>
-
-        <div class="corp-actions">
-          <a class="btn btn-primary" href="${site.contact.whatsapp}" target="_blank" rel="noopener noreferrer">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.301-.15-1.78-.877-2.056-.977-.275-.1-.476-.15-.676.15-.2.301-.776.977-.951 1.178-.176.2-.351.226-.652.075-.301-.15-1.27-.468-2.42-1.492-.894-.797-1.498-1.78-1.674-2.081-.176-.301-.019-.464.132-.614.136-.135.301-.351.452-.527.15-.176.2-.301.3-.502.1-.2.05-.376-.025-.526-.075-.15-.676-1.63-.927-2.232-.244-.587-.492-.507-.676-.516l-.577-.01c-.2 0-.526.075-.802.376-.275.301-1.053 1.028-1.053 2.508 0 1.48 1.078 2.91 1.229 3.11.15.2 2.121 3.238 5.137 4.542.718.31 1.278.496 1.716.635.72.229 1.376.196 1.895.119.578-.087 1.78-.727 2.031-1.43.25-.702.25-1.304.175-1.43-.075-.125-.276-.201-.577-.351z"/></svg>
-            <span>WhatsApp Management Direct</span>
-          </a>
-          <a class="btn btn-secondary" href="mailto:${site.contact.email}?subject=Corporate%20Booking%20Inquiry%20-%20Amit%20Tandon">
-            <span>Email Official Inquiry</span>
-          </a>
-        </div>
-      </div>
-
-      <div class="corp-right">
-        <div class="corp-portrait-frame">
-          <img src="${images.portrait}" alt="Amit Tandon corporate headshot" width="800" height="1000" loading="lazy" />
-          <div class="corp-credentials-overlay">
-            <div class="cred-badge">
-              <strong>IIT Delhi MBA</strong>
-              <span>Mechanical Engineering</span>
-            </div>
-            <div class="cred-badge">
-              <strong>10+ Years Corporate</strong>
-              <span>Entrepreneur & Managing Director</span>
-            </div>
+<section class="corporate-pop-section" id="corporate" aria-label="Corporate Keynotes and Private Shows">
+  <div class="wrap">
+    
+    <div class="corporate-pop-grid" data-reveal>
+      
+      <!-- Left Column: Chalkboard Equation -->
+      <div class="corp-chalkboard-card tilt-left-sm">
+        <div class="corp-title-row">
+          <h2 class="display corp-pop-title">
+            <span>CORPORATE, </span>
+            <span class="highlight-red">BUT MAKE IT FUNNY.</span>
+          </h2>
+          <div class="corp-doodle-note">
+            <span>Less boring people, please.</span>
           </div>
         </div>
+
+        <!-- The Equation -->
+        <div class="corp-equation-row">
+          <!-- Box 1 -->
+          <div class="eq-box">
+            <span class="eq-icon">🎓</span>
+            <span class="eq-label">ENGINEERING DEGREE</span>
+          </div>
+
+          <div class="eq-operator">&times;</div>
+
+          <!-- Box 2 -->
+          <div class="eq-box">
+            <span class="eq-icon">🪑</span>
+            <span class="eq-label">CORPORATE LIFE</span>
+          </div>
+
+          <div class="eq-operator">=</div>
+
+          <!-- Box 3 -->
+          <div class="eq-box eq-result">
+            <span class="eq-icon">📢</span>
+            <span class="eq-label">UNFILTERED TRUTHS</span>
+          </div>
+        </div>
+
+        <!-- Event Types Checklist -->
+        <div class="corp-features-list">
+          <span class="corp-tag-check"><span class="check-mark">&#10003;</span> LEADERSHIP SUMMITS</span>
+          <span class="corp-tag-check"><span class="check-mark">&#10003;</span> OFFSITE RETREATS</span>
+          <span class="corp-tag-check"><span class="check-mark">&#10003;</span> TEAM EVENTS</span>
+          <span class="corp-tag-check"><span class="check-mark">&#10003;</span> CUSTOM SESSIONS</span>
+        </div>
       </div>
+
+      <!-- Right Column: Vintage Red Rotary Telephone Hotline -->
+      <div class="corp-phone-card tilt-right-sm">
+        <div class="corp-coiled-cord-wrap">
+          ${svgs.coiledCord}
+        </div>
+        <a 
+          href="${whatsappUrl}" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          class="phone-hotline-link"
+          aria-label="Book Corporate Show via WhatsApp Hotline"
+        >
+          <div class="phone-wrapper-interactive">
+            ${svgs.redRotaryPhone}
+            
+            <div class="phone-handset-plaque">
+              <span class="plaque-sub">CLICK TO INQUIRE</span>
+              <span class="plaque-main">BOOK A CORPORATE SHOW</span>
+            </div>
+          </div>
+
+          <div class="phone-number-badge">
+            <span class="phone-icon-tel">&#9742;</span>
+            <span class="phone-digits">+91 9004040003</span>
+          </div>
+        </a>
+      </div>
+
     </div>
+
   </div>
 </section>`;
 }

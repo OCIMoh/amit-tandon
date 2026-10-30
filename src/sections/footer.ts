@@ -4,44 +4,40 @@ export function renderFooter(site: SiteContent): string {
   const currentYear = new Date().getFullYear();
 
   return `
-<footer class="site-footer" role="contentinfo">
-  <div class="wrap">
-    <div class="footer-top">
-      <div class="footer-brand">
-        <h3>${site.subject}</h3>
-        <p>Bringing relatable, clean observational comedy to families and corporate summits across 30+ countries worldwide.</p>
-        <div class="footer-actions">
-          <a class="btn btn-primary" href="#tour">Book Tour Tickets</a>
-        </div>
-      </div>
-
-      <div class="footer-col">
-        <h4>Navigation</h4>
-        <ul>
-          <li><a href="#tour">Aise Kaise World Tour</a></li>
-          <li><a href="#material">Comedy Specials & Netflix</a></li>
-          <li><a href="#gyan">Gyan Bites & Quotes</a></li>
-          <li><a href="#corporate">Corporate Keynotes & Galas</a></li>
-          <li><a href="#about">Biography & Milestones</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col">
-        <h4>Management & Inquiries</h4>
-        <ul>
-          <li><strong>Email:</strong> <a href="mailto:${site.contact.email}">${site.contact.email}</a></li>
-          <li><strong>WhatsApp / Phone:</strong> <a href="${site.contact.whatsapp}" target="_blank" rel="noopener noreferrer">${site.contact.phone}</a></li>
-          <li><strong>Location:</strong> Mumbai, India · Global Touring</li>
-          <li><strong>Social:</strong> <a href="${site.social.instagram}" target="_blank" rel="noopener noreferrer">Instagram</a> · <a href="${site.social.youtube}" target="_blank" rel="noopener noreferrer">YouTube</a> · <a href="${site.social.x}" target="_blank" rel="noopener noreferrer">Twitter/X</a></li>
-        </ul>
-      </div>
+<footer class="brutal-site-footer" role="contentinfo">
+  <div class="wrap footer-marquee-bar">
+    <div class="footer-title-badge">
+      <span class="f-title-text">AMIT TANDON LIVE</span>
+      <span class="f-star-dot">•</span>
     </div>
 
-    <div class="footer-bottom">
-      <p>© ${currentYear} Amit Tandon. All rights reserved.</p>
-      <div class="footer-legal-links">
-        <span>Clean Hindi Observational Stand-Up</span>
-      </div>
+    <!-- Social Badges Row from Image 1 -->
+    <div class="footer-social-pills">
+      <a href="${site.social.youtube}" target="_blank" rel="noopener noreferrer" class="social-pill pill-yt">
+        <span class="pill-play-icon">▶</span>
+        <span class="pill-stat">1.8M</span>
+        <span class="pill-sub">SUBSCRIBERS</span>
+      </a>
+
+      <a href="${site.social.instagram}" target="_blank" rel="noopener noreferrer" class="social-pill pill-ig">
+        <span class="pill-camera-icon">📷</span>
+        <span class="pill-stat">1M</span>
+        <span class="pill-sub">FOLLOWERS</span>
+      </a>
+
+      <a href="https://www.netflix.com/title/81077759" target="_blank" rel="noopener noreferrer" class="social-pill pill-netflix">
+        <span class="pill-n-logo">NETFLIX</span>
+        <span class="pill-sub">NOW STREAMING</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="wrap footer-bottom-meta">
+    <p>© ${currentYear} Amit Tandon. World Tour 2026. All rights reserved.</p>
+    <div class="footer-contact-quick">
+      <a href="${site.contact.whatsapp}" target="_blank" rel="noopener noreferrer">WhatsApp: +91 9004040003</a>
+      <span>•</span>
+      <a href="mailto:${site.contact.email}">${site.contact.email}</a>
     </div>
   </div>
 </footer>

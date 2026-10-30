@@ -1,38 +1,49 @@
 :root {
-  /* Surface & Canvas Tokens */
-  --bg-canvas: #fbf8f3;
+  /* Surface & Canvas Tokens (Image 1 Palette) */
+  --bg-canvas: #f6f3eb;
   --bg-card: #ffffff;
-  --bg-card-alt: #f5efe6;
-  --bg-dark: #12100e;
-  --bg-dark-surface: #1e1b18;
-  --bg-dark-card: #25221e;
+  --bg-dark: #0c0b0e;
+  --bg-dark-card: #18171b;
+  --bg-dark-surface: #222026;
+
+  /* Pop Art Neon Accents */
+  --yellow: #ffe500;
+  --yellow-hover: #ecd500;
+  --red: #ff3b1d;
+  --red-hover: #e02f14;
+  --cyan: #00f0ff;
+  --cyan-hover: #00d2e0;
+  --mumbai-gray: #e4e3dd;
+  --chalkboard: #151518;
 
   /* Ink & Typography */
-  --ink-primary: #12100e;
-  --ink-secondary: #4a443d;
-  --ink-muted: #7c7367;
-  --ink-inverse: #f7f3ec;
-  --ink-inverse-muted: #b5aba0;
+  --ink-primary: #0c0b0e;
+  --ink-secondary: #2b2930;
+  --ink-muted: #6a6673;
+  --ink-inverse: #ffffff;
+  --ink-inverse-muted: #a5a2ad;
 
-  /* Borders & Dividers */
-  --border-subtle: rgba(18, 16, 14, 0.09);
-  --border-strong: rgba(18, 16, 14, 0.2);
-  --border-dark: rgba(247, 243, 236, 0.12);
-
-  /* Theatrical Vermilion Accent */
-  --red: #d92d20;
-  --red-hover: #b42318;
-  --red-soft: rgba(217, 45, 32, 0.12);
-  --gold: #d4af37;
+  /* Neo-Brutalist Borders & Shadows */
+  --border-brutal: 2.5px solid #0c0b0e;
+  --border-brutal-thick: 3.5px solid #0c0b0e;
+  --border-brutal-white: 2.5px solid #ffffff;
+  
+  --shadow-brutal-sm: 3px 3px 0px #0c0b0e;
+  --shadow-brutal: 5px 5px 0px #0c0b0e;
+  --shadow-brutal-lg: 8px 8px 0px #0c0b0e;
+  --shadow-yellow: 5px 5px 0px #ffe500;
+  --shadow-cyan: 5px 5px 0px #00f0ff;
+  --shadow-red: 5px 5px 0px #ff3b1d;
+  --shadow-white: 5px 5px 0px #ffffff;
 
   /* Layout */
-  --max: 1240px;
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 16px;
+  --max: 1200px;
+  --radius-sticker: 4px;
+  --radius-pill: 9999px;
 
   /* Typography */
-  --font-sans: "Instrument Sans", system-ui, -apple-system, sans-serif;
-  --font-display: Fraunces, Georgia, "Times New Roman", serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --font-display: "Space Grotesk", system-ui, -apple-system, sans-serif;
+  --font-comic: "Bungee", cursive, sans-serif;
+  --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --font-mono: "Space Mono", ui-monospace, monospace;
 }

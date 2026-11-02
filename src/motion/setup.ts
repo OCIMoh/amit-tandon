@@ -51,7 +51,7 @@ function setupNavScroll(): void {
   onScroll();
 }
 
-/** Theatrical Arena Hero Controller (Interactive Routine Console + Volumetric Lighting) */
+/** Theatrical Arena Hero Controller (Asymmetric Stage + Interactive Gyan Card Deck) */
 function setupPosterHero(reduce: boolean): void {
   const heroSection = document.querySelector<HTMLElement>(".theatrical-hero-section");
   if (!heroSection) return;
@@ -84,10 +84,10 @@ function setupPosterHero(reduce: boolean): void {
     }
   };
 
-  // Wire up the interactive Comedy Routine Console
-  setupHeroRoutineConsole(playTactileFeedback);
+  // Wire up the interactive Gyan Card Deck on right flank
+  setupGyanCardDeck(playTactileFeedback);
 
-  // Interactive Cursor Spotlight
+  // Interactive Follow-Spotlight & Mouse Physics
   if (!reduce) {
     let targetX = 50;
     let currentX = 50;
@@ -137,16 +137,17 @@ function setupPosterHero(reduce: boolean): void {
 
   // Entrance Stagger Animation
   if (!reduce) {
-    const eyebrow = heroSection.querySelector(".theatrical-eyebrow-row");
-    const titleWords = heroSection.querySelectorAll(".theatrical-hero-title .title-word");
-    const tagline = heroSection.querySelector(".theatrical-hero-tagline");
-    const consoleEl = heroSection.querySelector(".theatrical-routine-console");
-    const ctas = heroSection.querySelector(".theatrical-cta-cluster");
-    const ticker = heroSection.querySelector(".theatrical-tour-ticker");
-    const stats = heroSection.querySelector(".theatrical-stat-strip");
+    const badges = heroSection.querySelector(".hero-badges-row");
+    const titleWords = heroSection.querySelectorAll(".hero-headliner-title .title-word");
+    const tagline = heroSection.querySelector(".hero-tagline");
+    const lead = heroSection.querySelector(".hero-lead-text");
+    const ctas = heroSection.querySelector(".hero-cta-cluster");
+    const departure = heroSection.querySelector(".hero-departure-strip");
+    const cardItem = heroSection.querySelector(".gyan-card-item");
+    const dock = heroSection.querySelector(".hero-unified-base-dock");
 
     const tl = gsap.timeline({ delay: 0.1 });
-    if (eyebrow) tl.fromTo(eyebrow, { autoAlpha: 0, y: -20 }, { autoAlpha: 1, y: 0, duration: 0.6, ease: "power2.out" });
+    if (badges) tl.fromTo(badges, { autoAlpha: 0, y: -20 }, { autoAlpha: 1, y: 0, duration: 0.6, ease: "power2.out" });
     if (titleWords.length > 0) {
       tl.fromTo(
         titleWords,
@@ -156,163 +157,183 @@ function setupPosterHero(reduce: boolean): void {
       );
     }
     if (tagline) tl.fromTo(tagline, { autoAlpha: 0, y: 15 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: "power2.out" }, "-=0.4");
-    if (consoleEl) tl.fromTo(consoleEl, { autoAlpha: 0, scale: 0.96, y: 30 }, { autoAlpha: 1, scale: 1, y: 0, duration: 0.85, ease: "power2.out" }, "-=0.5");
-    if (ctas) tl.fromTo(ctas, { autoAlpha: 0, scale: 0.92, y: 20 }, { autoAlpha: 1, scale: 1, y: 0, duration: 0.7, ease: "back.out(1.5)" }, "-=0.4");
-    if (ticker) tl.fromTo(ticker, { autoAlpha: 0, y: 15 }, { autoAlpha: 1, y: 0, duration: 0.6, ease: "power2.out" }, "-=0.3");
-    if (stats) tl.fromTo(stats, { autoAlpha: 0, y: 15 }, { autoAlpha: 1, y: 0, duration: 0.6, ease: "power2.out" }, "-=0.3");
+    if (lead) tl.fromTo(lead, { autoAlpha: 0, y: 15 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: "power2.out" }, "-=0.3");
+    if (ctas) tl.fromTo(ctas, { autoAlpha: 0, scale: 0.94, y: 20 }, { autoAlpha: 1, scale: 1, y: 0, duration: 0.7, ease: "back.out(1.4)" }, "-=0.3");
+    if (departure) tl.fromTo(departure, { autoAlpha: 0, y: 15 }, { autoAlpha: 1, y: 0, duration: 0.6, ease: "power2.out" }, "-=0.3");
+    if (cardItem) tl.fromTo(cardItem, { autoAlpha: 0, scale: 0.9, y: 35 }, { autoAlpha: 1, scale: 1, y: 0, duration: 0.9, ease: "back.out(1.2)" }, "-=0.6");
+    if (dock) tl.fromTo(dock, { autoAlpha: 0, y: 15 }, { autoAlpha: 1, y: 0, duration: 0.6, ease: "power2.out" }, "-=0.3");
   }
 }
 
-/** Theatrical Arena Routine Console Controller */
-function setupHeroRoutineConsole(onSoundFeedback?: () => void): void {
-  const consoleEl = document.querySelector<HTMLElement>("#theatrical-routine-console");
-  if (!consoleEl) return;
+/** Interactive Gyan Card Stage Deck Controller */
+function setupGyanCardDeck(onSoundFeedback?: () => void): void {
+  const cardItem = document.querySelector<HTMLElement>("#gyan-card-item");
+  const dealBtn = document.querySelector<HTMLButtonElement>("#btn-deal-gyan");
+  const activeImg = document.querySelector<HTMLImageElement>("#gyan-active-img");
+  const activeTag = document.querySelector<HTMLElement>("#gyan-active-tag");
+  const activeCounter = document.querySelector<HTMLElement>("#gyan-num");
+  const activeCaption = document.querySelector<HTMLElement>("#gyan-caption-text");
+  const activeShares = document.querySelector<HTMLElement>("#gyan-active-shares");
+  const whatsappBtn = document.querySelector<HTMLAnchorElement>("#btn-gyan-whatsapp");
+  const clipBtn = document.querySelector<HTMLButtonElement>("#btn-gyan-clip");
 
-  const pills = consoleEl.querySelectorAll<HTMLButtonElement>(".routine-pill");
-  const shuffleBtn = consoleEl.querySelector<HTMLButtonElement>("#btn-hero-shuffle");
-  const tagEl = consoleEl.querySelector<HTMLElement>("#hero-routine-tag");
-  const quoteEl = consoleEl.querySelector<HTMLElement>("#hero-routine-quote");
-  const numEl = consoleEl.querySelector<HTMLElement>("#hero-routine-num");
-  const sharesEl = consoleEl.querySelector<HTMLElement>("#hero-routine-shares");
-  const clipBtn = consoleEl.querySelector<HTMLButtonElement>("#btn-hero-clip");
-  const shareBtn = consoleEl.querySelector<HTMLAnchorElement>("#hero-routine-share");
+  if (!cardItem || !dealBtn || !activeImg || !activeCaption) return;
 
-  if (!quoteEl) return;
-
-  const routines = [
+  const cards = [
     {
       id: 1,
-      tag: "MARRIAGE CLIMATE CONTROL",
-      caption: "AC Temperature Diplomacy: 18°C is Arctic tundra, 24°C is Sahara desert, 22°C is a pending court case.",
-      shares: "88K Shares",
-      videoId: "C7b0TAg0xMU",
-    },
-    {
-      id: 2,
-      tag: "THE MARRIED GUY RULE",
-      caption: "Apologizing to your wife is not an admission of guilt; it is a tactical military ceasefire.",
-      shares: "110K Shares",
-      videoId: "C7b0TAg0xMU",
-    },
-    {
-      id: 3,
       tag: "WHATSAPP FAMILY DIPLOMACY",
-      caption: "WhatsApp Family Groups: 42 members, 120 Good Morning forwards by 7 AM, zero replies to genuine questions.",
+      title: "Family WhatsApp Groups",
+      caption: "42 members, 120 Good Morning forwards by 7 AM, zero replies to genuine questions.",
+      image: "/gyan/gyan-1.jpg",
       shares: "45K Shares",
       videoId: "2WkO1nJ3u1Y",
     },
     {
-      id: 4,
-      tag: "INDIAN FLIGHT ANNOUNCEMENTS",
-      caption: "Flight Announcements: Indian uncle unbuckling his seatbelt the microsecond the aircraft tire touches the runway.",
-      shares: "77K Shares",
-      videoId: "C7b0TAg0xMU",
-    },
-    {
-      id: 5,
+      id: 2,
       tag: "NORTH INDIAN LOGIC",
-      caption: "Punjabis in Agra: If the monument doesn't have butter chicken within 200 meters, why did Shah Jahan even build it?",
+      title: "Butter Chicken in Agra",
+      caption: "If the monument doesn't have butter chicken within 200 meters, why did Shah Jahan even build it?",
+      image: "/gyan/gyan-2.jpg",
       shares: "62K Shares",
       videoId: "2WkO1nJ3u1Y",
     },
     {
-      id: 6,
+      id: 3,
+      tag: "MARRIAGE CLIMATE CONTROL",
+      title: "AC Temperature Diplomacy",
+      caption: "AC Temperature Diplomacy: 18°C is Arctic tundra, 24°C is Sahara desert, 22°C is a pending court case.",
+      image: "/gyan/gyan-3.jpg",
+      shares: "88K Shares",
+      videoId: "C7b0TAg0xMU",
+    },
+    {
+      id: 4,
       tag: "PARENTING GEN-Z",
-      caption: "Parenting Gen-Z: You pay ₹4 lakh school fees so they can reply 'bruh' to your earnest life advice.",
+      title: "The ₹4 Lakh 'Bruh'",
+      caption: "You pay ₹4 lakh school fees so they can reply 'bruh' to your earnest life advice.",
+      image: "/gyan/gyan-4.jpg",
       shares: "71K Shares",
       videoId: "C7b0TAg0xMU",
     },
     {
-      id: 7,
+      id: 5,
       tag: "THE 5-MINUTE ELASTICITY",
-      caption: "The 5-Minute Myth: 'Bas 5 minute mein tayar ho rahi hoon' violates Einstein's theory of general relativity.",
+      title: "The 5-Minute Myth",
+      caption: "'Bas 5 minute mein tayar ho rahi hoon' violates Einstein's theory of general relativity.",
+      image: "/gyan/gyan-5.jpg",
       shares: "94K Shares",
       videoId: "2WkO1nJ3u1Y",
     },
     {
-      id: 8,
+      id: 6,
       tag: "DELHI DIET RESOLUTIONS",
-      caption: "Diet in Delhi: Starting a strict diet on Monday, ordering 2 plates of Chole Bhature on Tuesday morning.",
+      title: "Chole Bhature Tuesday",
+      caption: "Starting a strict diet on Monday, ordering 2 plates of Chole Bhature on Tuesday morning.",
+      image: "/gyan/gyan-6.jpg",
       shares: "53K Shares",
       videoId: "C7b0TAg0xMU",
     },
     {
-      id: 9,
+      id: 7,
       tag: "MALL EXPEDITIONS",
-      caption: "Shopping with Wife: Walking 14 kilometers inside a mall to buy a hair clip that was available at the entrance.",
+      title: "14-Kilometer Hair Clip",
+      caption: "Walking 14 kilometers inside a mall to buy a hair clip that was available right at the entrance.",
+      image: "/gyan/gyan-7.jpg",
       shares: "83K Shares",
       videoId: "2WkO1nJ3u1Y",
     },
     {
+      id: 8,
+      tag: "MARRIAGE CEASEFIRE",
+      title: "The Married Guy Rule",
+      caption: "Apologizing to your wife is not an admission of guilt; it is a tactical military ceasefire.",
+      image: "/gyan/gyan-8.jpg",
+      shares: "110K Shares",
+      videoId: "C7b0TAg0xMU",
+    },
+    {
+      id: 9,
+      tag: "INDIAN FLIGHT ANNOUNCEMENTS",
+      title: "Touchdown Seatbelt Click",
+      caption: "Indian uncle unbuckling his seatbelt the exact microsecond the aircraft tire touches the runway.",
+      image: "/gyan/gyan-9.jpg",
+      shares: "77K Shares",
+      videoId: "C7b0TAg0xMU",
+    },
+    {
       id: 10,
       tag: "THE SHAGUN LEDGER",
-      caption: "Wedding Envelopes: Tracking exactly how much Sharma ji gave in 2011 so we can return ₹501 in 2026.",
+      title: "The ₹501 Wedding Audit",
+      caption: "Tracking exactly how much Sharma ji gave in 2011 so we can return ₹501 in 2026.",
+      image: "/gyan/gyan-10.jpg",
       shares: "65K Shares",
       videoId: "C7b0TAg0xMU",
     },
   ];
 
-  let currentId = 1;
+  let currentIndex = 2; // Initial card is index 2 (item 3: AC Temperature)
 
-  const displayRoutine = (routineId: number) => {
-    const item = routines.find((r) => r.id === routineId) || routines[0];
-    currentId = item.id;
+  // 3D Parallax Tilt Physics on Mouse Move
+  cardItem.addEventListener("pointermove", (e: PointerEvent) => {
+    const rect = cardItem.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    const rotX = -(y / (rect.height / 2)) * 7;
+    const rotY = (x / (rect.width / 2)) * 7;
+    cardItem.style.transform = `perspective(1000px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) scale(1.02)`;
+  });
+
+  cardItem.addEventListener("pointerleave", () => {
+    cardItem.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)";
+  });
+
+  // Deal Next Card with Tactile Spin & 3D Flip
+  const dealNextCard = () => {
+    let nextIdx = Math.floor(Math.random() * cards.length);
+    if (nextIdx === currentIndex) {
+      nextIdx = (nextIdx + 1) % cards.length;
+    }
+    currentIndex = nextIdx;
+    const item = cards[currentIndex];
     onSoundFeedback?.();
 
-    // Update active pill styling
-    pills.forEach((p) => {
-      const pId = Number(p.getAttribute("data-routine-id"));
-      if (pId === currentId) {
-        p.classList.add("is-active");
-      } else {
-        p.classList.remove("is-active");
-      }
-    });
+    // Spin dice icon
+    const dice = dealBtn.querySelector(".shuffle-dice");
+    if (dice) {
+      gsap.fromTo(dice, { rotation: 0 }, { rotation: 360, duration: 0.35, ease: "power2.out" });
+    }
 
-    // Morph quote
-    gsap.to(quoteEl, {
+    // Card 3D Flip Transition
+    gsap.to(activeImg, {
+      scale: 0.92,
       opacity: 0,
-      y: -6,
-      duration: 0.16,
+      rotateY: 90,
+      duration: 0.18,
       ease: "power2.in",
       onComplete: () => {
-        quoteEl.textContent = `“${item.caption}”`;
-        if (tagEl) tagEl.textContent = item.tag;
-        if (numEl) numEl.textContent = String(item.id).padStart(2, "0");
-        if (sharesEl) sharesEl.textContent = item.shares.toUpperCase();
+        activeImg.src = item.image;
+        if (activeTag) activeTag.textContent = item.tag;
+        if (activeCounter) activeCounter.textContent = String(item.id).padStart(2, "0");
+        activeCaption.textContent = `“${item.caption}”`;
+        if (activeShares) activeShares.textContent = item.shares;
         if (clipBtn) clipBtn.setAttribute("data-video-id", item.videoId);
-        if (shareBtn) {
-          shareBtn.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(
-            `Amit Tandon Comedy Bit: "${item.caption}" (amittandon.in)`
+        if (whatsappBtn) {
+          whatsappBtn.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(
+            `Amit Tandon Gyan Bite: "${item.caption}" (amittandon.in)`
           )}`;
         }
-        gsap.fromTo(quoteEl, { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.26, ease: "power2.out" });
+
+        gsap.fromTo(
+          activeImg,
+          { scale: 0.92, opacity: 0, rotateY: -90 },
+          { scale: 1, opacity: 1, rotateY: 0, duration: 0.28, ease: "back.out(1.2)" }
+        );
       },
     });
   };
 
-  // Wire up category pill clicks
-  pills.forEach((pill) => {
-    pill.addEventListener("click", () => {
-      const id = Number(pill.getAttribute("data-routine-id"));
-      if (id && id !== currentId) {
-        displayRoutine(id);
-      }
-    });
-  });
-
-  // Wire up shuffle button
-  shuffleBtn?.addEventListener("click", () => {
-    const icon = shuffleBtn.querySelector(".shuffle-icon");
-    if (icon) {
-      gsap.fromTo(icon, { rotation: 0 }, { rotation: 360, duration: 0.35, ease: "power2.out" });
-    }
-    const remaining = routines.filter((r) => r.id !== currentId);
-    const randomItem = remaining[Math.floor(Math.random() * remaining.length)];
-    if (randomItem) {
-      displayRoutine(randomItem.id);
-    }
-  });
+  dealBtn.addEventListener("click", dealNextCard);
 }
 
 

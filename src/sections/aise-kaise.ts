@@ -1,5 +1,4 @@
 import type { ShowEvent, SiteContent } from "../lib/types";
-import { svgs } from "../content/svgs";
 import { formatShowDate } from "../lib/format";
 
 function getRegion(city: string): "uk-europe" | "india" | "australia" | "middle-east" {
@@ -26,19 +25,22 @@ export function renderAiseKaise(_site: SiteContent, events: ShowEvent[]): string
   const allRowsHtml = events
     .map((e) => {
       const region = getRegion(e.city);
+      const cleanCity = e.city.toLowerCase();
+      const cleanVenue = (e.venueHint || "").toLowerCase();
       return `
-      <div class="schedule-card" data-region="${region}">
-        <div class="sched-date">
-          <span class="sched-date-main">${formatShowDate(e.date)}</span>
-          <span class="sched-time">${e.time}</span>
+      <div class="tour-row-card" data-region="${region}" data-city="${cleanCity}" data-venue="${cleanVenue}">
+        <div class="tour-date-cell">
+          <span class="tour-date-main">${formatShowDate(e.date)}</span>
+          <span class="tour-time-sub mono">${e.time}</span>
         </div>
-        <div class="sched-city">
-          <span class="sched-city-title">${e.city}</span>
-          ${e.venueHint ? `<span class="sched-venue">${e.venueHint}</span>` : ""}
+        <div class="tour-venue-cell">
+          <span class="tour-city-name">${e.city}</span>
+          ${e.venueHint ? `<span class="tour-venue-name">${e.venueHint}</span>` : `<span class="tour-venue-name muted">Auditorium to be announced</span>`}
         </div>
-        <div class="sched-action">
-          <a class="btn btn-sm btn-yellow sched-btn" href="${e.href}" target="_blank" rel="noopener noreferrer">
+        <div class="tour-action-cell">
+          <a class="btn btn-primary btn-sm tour-ticket-cta" href="${e.href}" target="_blank" rel="noopener noreferrer">
             <span>GET TICKETS</span>
+            <span class="btn-arrow">&rarr;</span>
           </a>
         </div>
       </div>`;
@@ -46,164 +48,204 @@ export function renderAiseKaise(_site: SiteContent, events: ShowEvent[]): string
     .join("");
 
   return `
-<section class="tour-tickets-section" id="tour" aria-label="Aise Kaise World Tour Dates">
+<section class="tour-schedule-section" id="live-shows" aria-label="Amit Tandon World Tour Dates">
+  <span id="tour" style="position: absolute; top: -80px;"></span>
   <div class="wrap">
     
     <!-- Section Header -->
-    <div class="tour-section-head" data-reveal>
-      <div class="tour-head-left">
-        <h2 class="display tour-head-title">
-          <span>NEXT STOP: </span>
-          <span class="highlight-yellow">YOUR CITY.</span>
-        </h2>
-        <div class="tour-subhead-pill">
-          <span class="tour-globe-icon">🌐</span>
-          <span>WORLD TOUR 2026</span>
-        </div>
+    <div class="tour-header" data-reveal>
+      <div class="section-eyebrow">
+        <span class="eyebrow-dot"></span>
+        <span class="mono">LIVE STAND-UP TOUR · 33 CITIES WORLDWIDE</span>
       </div>
-      <div class="tour-head-right">
-        <span class="tour-scribble">New people.<br/>Same jokes.</span>
+      <div class="tour-title-row">
+        <h2 class="display tour-title">
+          <span>FIND AMIT </span>
+          <span class="highlight-red">IN YOUR CITY.</span>
+        </h2>
+        <p class="tour-lead-copy">
+          Join multi-generational families packing theatres worldwide for clean, hysterical, observational stand-up. Select your city to secure verified tickets directly.
+        </p>
       </div>
     </div>
 
     <!-- Region Filter Tabs -->
-    <div class="ticket-filter-tabs" data-reveal>
-      <button class="filter-tab is-active" data-region-filter="all">ALL DATES (33)</button>
-      <button class="filter-tab" data-region-filter="uk-europe">UK & EUROPE</button>
-      <button class="filter-tab" data-region-filter="india">INDIA</button>
-      <button class="filter-tab" data-region-filter="middle-east">DUBAI & SE ASIA</button>
-      <button class="filter-tab" data-region-filter="australia">AUSTRALIA</button>
+    <div class="tour-region-tabs" data-reveal role="tablist" aria-label="Filter Tour Dates by Region">
+      <button class="region-tab is-active" data-region-filter="all">ALL DATES (33)</button>
+      <button class="region-tab" data-region-filter="uk-europe">UK & EUROPE</button>
+      <button class="region-tab" data-region-filter="india">INDIA</button>
+      <button class="region-tab" data-region-filter="middle-east">DUBAI & SE ASIA</button>
+      <button class="region-tab" data-region-filter="australia">AUSTRALIA</button>
     </div>
 
-    <!-- The 4 Featured Colored Concert Tickets (2x2 Grid) -->
-    <div class="featured-tickets-grid">
+    <!-- 4 Featured Premium Tour Announcements (2x2 Grid) -->
+    <div class="featured-cities-grid">
       
-      <!-- Ticket 1: London (Electric Yellow) -->
-      <div class="concert-ticket ticket-yellow tilt-left-sm" data-region="uk-europe">
-        <div class="ticket-body">
-          <div class="ticket-landmark">
-            ${svgs.bigBen}
+      <!-- Featured 1: London -->
+      <article class="featured-tour-card" data-region="uk-europe">
+        <div class="tour-card-edge-perforation" aria-hidden="true"></div>
+        <div class="tour-card-body">
+          <div class="tour-card-top">
+            <span class="tour-card-flag mono">🇬🇧 UNITED KINGDOM</span>
+            <span class="tour-status-pill status-amber mono">SELLING FAST</span>
           </div>
-          <div class="ticket-info">
-            <h3 class="ticket-city">LONDON</h3>
-            <div class="ticket-meta-row">
-              <span class="meta-live">LIVE ON STAGE</span>
-              <span class="status-pill status-red">SELLING FAST</span>
-            </div>
-            <a class="btn btn-sm btn-dark ticket-cta-btn" href="${londonEv.href}" target="_blank" rel="noopener noreferrer">
-              <span>GRAB TICKETS &rarr;</span>
+          <h3 class="tour-card-city">LONDON</h3>
+          <p class="tour-card-venue">${londonEv.venueHint || "O2 Shepherd's Bush Empire"}</p>
+          <div class="tour-card-meta">
+            <span class="tour-meta-date mono">${formatShowDate(londonEv.date)}</span>
+            <span class="tour-meta-time mono">${londonEv.time}</span>
+          </div>
+          <div class="tour-card-action">
+            <a class="btn btn-primary btn-sm tour-card-btn" href="${londonEv.href}" target="_blank" rel="noopener noreferrer">
+              <span>BUY TICKETS</span>
+              <span class="btn-arrow">&rarr;</span>
             </a>
           </div>
         </div>
+      </article>
 
-        <div class="ticket-perforated-stub">
-          <div class="notch notch-top"></div>
-          <div class="stub-content">
-            ${svgs.barcode}
-            <span class="stub-code">LON-2026</span>
-            <span class="stub-plane">✈</span>
+      <!-- Featured 2: Mumbai -->
+      <article class="featured-tour-card" data-region="india">
+        <div class="tour-card-edge-perforation" aria-hidden="true"></div>
+        <div class="tour-card-body">
+          <div class="tour-card-top">
+            <span class="tour-card-flag mono">🇮🇳 INDIA</span>
+            <span class="tour-status-pill status-amber mono">LIMITED SEATS</span>
           </div>
-          <div class="notch notch-bottom"></div>
-        </div>
-      </div>
-
-      <!-- Ticket 2: Mumbai (Concrete Gray) -->
-      <div class="concert-ticket ticket-gray tilt-right-sm" data-region="india">
-        <div class="ticket-body">
-          <div class="ticket-landmark">
-            ${svgs.gatewayOfIndia}
+          <h3 class="tour-card-city">MUMBAI</h3>
+          <p class="tour-card-venue">${mumbaiEv.venueHint || "NCPA Tata Theatre / St. Andrew's"}</p>
+          <div class="tour-card-meta">
+            <span class="tour-meta-date mono">${formatShowDate(mumbaiEv.date)}</span>
+            <span class="tour-meta-time mono">${mumbaiEv.time}</span>
           </div>
-          <div class="ticket-info">
-            <h3 class="ticket-city">MUMBAI</h3>
-            <div class="ticket-meta-row">
-              <span class="meta-live">LIVE ON STAGE</span>
-              <span class="status-pill status-red">LIMITED SEATS</span>
-            </div>
-            <a class="btn btn-sm btn-dark ticket-cta-btn" href="${mumbaiEv.href}" target="_blank" rel="noopener noreferrer">
-              <span>GRAB TICKETS &rarr;</span>
+          <div class="tour-card-action">
+            <a class="btn btn-primary btn-sm tour-card-btn" href="${mumbaiEv.href}" target="_blank" rel="noopener noreferrer">
+              <span>BUY TICKETS</span>
+              <span class="btn-arrow">&rarr;</span>
             </a>
           </div>
         </div>
+      </article>
 
-        <div class="ticket-perforated-stub">
-          <div class="notch notch-top"></div>
-          <div class="stub-content">
-            ${svgs.barcode}
-            <span class="stub-code">BOM-2026</span>
-            <span class="stub-plane">✈</span>
+      <!-- Featured 3: Dubai -->
+      <article class="featured-tour-card" data-region="middle-east">
+        <div class="tour-card-edge-perforation" aria-hidden="true"></div>
+        <div class="tour-card-body">
+          <div class="tour-card-top">
+            <span class="tour-card-flag mono">🇦🇪 UAE</span>
+            <span class="tour-status-pill status-amber mono">HIGH DEMAND</span>
           </div>
-          <div class="notch notch-bottom"></div>
-        </div>
-      </div>
-
-      <!-- Ticket 3: Dubai (Neon Cyan) -->
-      <div class="concert-ticket ticket-cyan tilt-right-sm" data-region="middle-east">
-        <div class="ticket-body">
-          <div class="ticket-landmark">
-            ${svgs.burjAlArab}
+          <h3 class="tour-card-city">DUBAI</h3>
+          <p class="tour-card-venue">${dubaiEv.venueHint || "Dubai Opera / Sheikh Rashid Hall"}</p>
+          <div class="tour-card-meta">
+            <span class="tour-meta-date mono">${formatShowDate(dubaiEv.date)}</span>
+            <span class="tour-meta-time mono">${dubaiEv.time}</span>
           </div>
-          <div class="ticket-info">
-            <h3 class="ticket-city">DUBAI</h3>
-            <div class="ticket-meta-row">
-              <span class="meta-live">LIVE ON STAGE</span>
-              <span class="status-pill status-red">LAST FEW TICKETS</span>
-            </div>
-            <a class="btn btn-sm btn-dark ticket-cta-btn" href="${dubaiEv.href}" target="_blank" rel="noopener noreferrer">
-              <span>GRAB TICKETS &rarr;</span>
+          <div class="tour-card-action">
+            <a class="btn btn-primary btn-sm tour-card-btn" href="${dubaiEv.href}" target="_blank" rel="noopener noreferrer">
+              <span>BUY TICKETS</span>
+              <span class="btn-arrow">&rarr;</span>
             </a>
           </div>
         </div>
+      </article>
 
-        <div class="ticket-perforated-stub">
-          <div class="notch notch-top"></div>
-          <div class="stub-content">
-            ${svgs.barcode}
-            <span class="stub-code">DXB-2026</span>
-            <span class="stub-plane">✈</span>
+      <!-- Featured 4: Sydney -->
+      <article class="featured-tour-card" data-region="australia">
+        <div class="tour-card-edge-perforation" aria-hidden="true"></div>
+        <div class="tour-card-body">
+          <div class="tour-card-top">
+            <span class="tour-card-flag mono">🇦🇺 AUSTRALIA</span>
+            <span class="tour-status-pill status-amber mono">TOUR FINALE</span>
           </div>
-          <div class="notch notch-bottom"></div>
-        </div>
-      </div>
-
-      <!-- Ticket 4: Sydney (Coral / Vermilion) -->
-      <div class="concert-ticket ticket-red tilt-left-sm" data-region="australia">
-        <div class="ticket-body">
-          <div class="ticket-landmark">
-            ${svgs.sydneyOpera}
+          <h3 class="tour-card-city">SYDNEY</h3>
+          <p class="tour-card-venue">${sydneyEv.venueHint || "State Theatre / Enmore Theatre"}</p>
+          <div class="tour-card-meta">
+            <span class="tour-meta-date mono">${formatShowDate(sydneyEv.date)}</span>
+            <span class="tour-meta-time mono">${sydneyEv.time}</span>
           </div>
-          <div class="ticket-info">
-            <h3 class="ticket-city">SYDNEY</h3>
-            <div class="ticket-meta-row">
-              <span class="meta-live">LIVE ON STAGE</span>
-              <span class="status-pill status-yellow">SELLING FAST</span>
-            </div>
-            <a class="btn btn-sm btn-dark ticket-cta-btn" href="${sydneyEv.href}" target="_blank" rel="noopener noreferrer">
-              <span>GRAB TICKETS &rarr;</span>
+          <div class="tour-card-action">
+            <a class="btn btn-primary btn-sm tour-card-btn" href="${sydneyEv.href}" target="_blank" rel="noopener noreferrer">
+              <span>BUY TICKETS</span>
+              <span class="btn-arrow">&rarr;</span>
             </a>
           </div>
         </div>
-
-        <div class="ticket-perforated-stub">
-          <div class="notch notch-top"></div>
-          <div class="stub-content">
-            ${svgs.barcode}
-            <span class="stub-code">SYD-2026</span>
-            <span class="stub-plane">✈</span>
-          </div>
-          <div class="notch notch-bottom"></div>
-        </div>
-      </div>
+      </article>
 
     </div>
 
-    <!-- Expander for Full 33 Cities Schedule -->
+    <!-- Expander for Full 33 Cities Schedule with Instant Search -->
     <div class="tour-expander-wrap" data-reveal>
-      <button class="btn btn-yellow btn-lg tour-expand-btn" id="toggle-full-schedule-btn">
-        <span id="expand-btn-text">VIEW ALL 33 GLOBAL TOUR DATES &darr;</span>
+      <button class="btn btn-secondary btn-lg tour-expand-btn" id="toggle-full-schedule-btn" aria-expanded="false" aria-controls="full-schedule-drawer">
+        <span id="expand-btn-text">EXPLORE ALL 33 GLOBAL TOUR DATES &darr;</span>
       </button>
 
       <div class="full-schedule-drawer" id="full-schedule-drawer" style="display: none;">
-        <div class="schedule-grid">
+        
+        <!-- Live Instant Search & Filter Bar -->
+        <div class="tour-search-bar-wrap">
+          <div class="tour-search-field">
+            <svg class="search-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input 
+              type="text" 
+              id="tour-search-input" 
+              class="tour-search-input" 
+              placeholder="Search by city, country, or venue (e.g. London, Delhi, Dubai, Sydney, Berlin)..."
+              autocomplete="off"
+              spellcheck="false"
+              aria-label="Search tour cities and venues"
+            />
+            <button type="button" id="tour-search-clear" class="tour-search-clear" aria-label="Clear search query" style="display: none;">
+              &times;
+            </button>
+          </div>
+
+          <div class="tour-search-meta">
+            <span class="tour-search-count mono" id="tour-search-count">SHOWING 33 OF 33 DATES</span>
+          </div>
+        </div>
+
+        <!-- Popular City Quick Filter Chips -->
+        <div class="tour-quick-chips">
+          <span class="quick-chip-label mono">POPULAR CITIES:</span>
+          <button type="button" class="tour-city-chip" data-search-term="London">London</button>
+          <button type="button" class="tour-city-chip" data-search-term="Mumbai">Mumbai</button>
+          <button type="button" class="tour-city-chip" data-search-term="Delhi">Delhi</button>
+          <button type="button" class="tour-city-chip" data-search-term="Dubai">Dubai</button>
+          <button type="button" class="tour-city-chip" data-search-term="Sydney">Sydney</button>
+          <button type="button" class="tour-city-chip" data-search-term="Melbourne">Melbourne</button>
+          <button type="button" class="tour-city-chip" data-search-term="Berlin">Berlin</button>
+          <button type="button" class="tour-city-chip" data-search-term="Amsterdam">Amsterdam</button>
+        </div>
+
+        <!-- No Results Feedback State -->
+        <div class="tour-no-results" id="tour-no-results" style="display: none;">
+          <div class="no-results-icon">🎟️</div>
+          <h4 class="no-results-title">No tour dates found for "<span id="no-results-query"></span>"</h4>
+          <p class="no-results-desc">
+            Amit is continually announcing new international cities for the world tour. You can request a date or inquire about corporate/private shows directly with management.
+          </p>
+          <div class="no-results-actions">
+            <button type="button" class="btn btn-secondary btn-sm" id="reset-tour-search-btn">
+              <span>CLEAR SEARCH & VIEW ALL DATES</span>
+            </button>
+            <a 
+              href="https://wa.me/919004040003?text=Hi%20Amit%20Tandon%20Management,%20please%20bring%20the%20tour%20to%20my%20city!" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              class="btn btn-primary btn-sm"
+            >
+              <span>REQUEST AMIT IN YOUR CITY &rarr;</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Scannable Schedule Cards Grid -->
+        <div class="tour-schedule-grid" id="schedule-cards-grid">
           ${allRowsHtml}
         </div>
       </div>

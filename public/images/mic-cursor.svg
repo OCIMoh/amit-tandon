@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
+  <defs>
+    <!-- Neo-brutalist hard drop shadow -->
+    <filter id="neoShadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="1.5" dy="1.8" stdDeviation="0.4" flood-color="#000000" flood-opacity="0.95"/>
+    </filter>
+  </defs>
+
+  <!-- Centered at tip (4.5, 4.5), rotated -45 deg to point top-left with body extending down-right -->
+  <g transform="translate(4.5, 4.5) rotate(-45)" filter="url(#neoShadow)">
+    
+    <!-- XLR Base Plug & Pin -->
+    <rect x="-1.8" y="26.5" width="3.6" height="3.2" rx="0.8" fill="#111111" stroke="#FFFFFF" stroke-width="0.8"/>
+    <circle cx="0" cy="30" r="1.1" fill="#E50914" stroke="#000000" stroke-width="0.5"/>
+
+    <!-- Tapered Handle (Cinema Obsidian) -->
+    <path d="M -3 16.5 L 3 16.5 L 2.2 26.5 L -2.2 26.5 Z" fill="#181818" stroke="#FFFFFF" stroke-width="0.9" stroke-linejoin="round"/>
+    
+    <!-- Grip Ribs -->
+    <line x1="-2.7" y1="21.5" x2="2.7" y2="21.5" stroke="#333333" stroke-width="0.8" stroke-linecap="round"/>
+    <line x1="-2.5" y1="24" x2="2.5" y2="24" stroke="#333333" stroke-width="0.8" stroke-linecap="round"/>
+    
+    <!-- Red Accent Collar Band -->
+    <rect x="-2.9" y="17.2" width="5.8" height="1.5" rx="0.3" fill="#E50914"/>
+
+    <!-- Netflix Mic Flag (Neo-Brutalist Square Box) -->
+    <rect x="-5.5" y="9.8" width="11" height="6.6" rx="1" fill="#141414" stroke="#FFFFFF" stroke-width="1.0"/>
+    
+    <!-- Iconic Netflix "N" Logo on Flag -->
+    <!-- Left Stem (Dark Crimson) -->
+    <rect x="-2.6" y="10.8" width="1.2" height="4.6" rx="0.2" fill="#B80710"/>
+    <!-- Right Stem (Dark Crimson) -->
+    <rect x="1.4" y="10.8" width="1.2" height="4.6" rx="0.2" fill="#B80710"/>
+    <!-- Canonical Netflix Red Diagonal Ribbon -->
+    <polygon points="-2.6,10.8 -1.4,10.8 2.6,15.4 1.4,15.4" fill="#E50914"/>
+
+    <!-- Collar Chrome Ring -->
+    <rect x="-4" y="8" width="8" height="1.8" rx="0.4" fill="#E2E2E2" stroke="#000000" stroke-width="0.7"/>
+
+    <!-- Netflix Red Foam Pop Filter / Microphone Capsule (Hotspot tip at 0, 0) -->
+    <path d="M -4.6 5 C -4.6 1.8, -2.6 0, 0 0 C 2.6 0, 4.6 1.8, 4.6 5 L 4.6 8 L -4.6 8 Z" fill="#E50914" stroke="#FFFFFF" stroke-width="1.1" stroke-linejoin="round"/>
+    
+    <!-- Pop Filter Grille Seam -->
+    <line x1="-4.4" y1="5.2" x2="4.4" y2="5.2" stroke="#B80710" stroke-width="0.8"/>
+    
+    <!-- Specular Highlight Sheen -->
+    <path d="M -2.8 2.2 C -3.6 3.4, -3.6 5, -3.6 6.2" stroke="#FFFFFF" stroke-width="0.85" stroke-linecap="round" opacity="0.8"/>
+  </g>
+</svg>

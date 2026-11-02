@@ -1,49 +1,89 @@
 :root {
-  /* Surface & Canvas Tokens (Image 1 Palette) */
-  --bg-canvas: #f6f3eb;
-  --bg-card: #ffffff;
-  --bg-dark: #0c0b0e;
-  --bg-dark-card: #18171b;
-  --bg-dark-surface: #222026;
+  /* ==========================================================================
+     CANONICAL NETFLIX COMEDY SPECIAL PALETTE
+     Cinema Black (#141414) · Netflix Crimson (#E50914) · Crisp White (#FFFFFF)
+     ========================================================================== */
+  --color-cinema-black: #141414;
+  --color-cinema-void: #0A0A0A;
+  --color-cinema-surface: #181818;
+  --color-cinema-elevated: #242424;
+  --color-cinema-card-hover: #2E2E2E;
 
-  /* Pop Art Neon Accents */
-  --yellow: #ffe500;
-  --yellow-hover: #ecd500;
-  --red: #ff3b1d;
-  --red-hover: #e02f14;
-  --cyan: #00f0ff;
-  --cyan-hover: #00d2e0;
-  --mumbai-gray: #e4e3dd;
-  --chalkboard: #151518;
+  /* Typography Colors */
+  --color-white: #FFFFFF;
+  --color-silver: #A3A3A3;
+  --color-smoke: #737373;
+  --color-bone: #F5F5F5;
 
-  /* Ink & Typography */
-  --ink-primary: #0c0b0e;
-  --ink-secondary: #2b2930;
-  --ink-muted: #6a6673;
-  --ink-inverse: #ffffff;
-  --ink-inverse-muted: #a5a2ad;
+  /* Netflix Signature Crimson */
+  --color-netflix-red: #E50914;
+  --color-netflix-red-hover: #F40612;
+  --color-netflix-red-glow: rgba(229, 9, 20, 0.45);
+  --color-netflix-badge: rgba(229, 9, 20, 0.16);
+  --color-netflix-dark-red: #B81D24;
 
-  /* Neo-Brutalist Borders & Shadows */
-  --border-brutal: 2.5px solid #0c0b0e;
-  --border-brutal-thick: 3.5px solid #0c0b0e;
-  --border-brutal-white: 2.5px solid #ffffff;
-  
-  --shadow-brutal-sm: 3px 3px 0px #0c0b0e;
-  --shadow-brutal: 5px 5px 0px #0c0b0e;
-  --shadow-brutal-lg: 8px 8px 0px #0c0b0e;
-  --shadow-yellow: 5px 5px 0px #ffe500;
-  --shadow-cyan: 5px 5px 0px #00f0ff;
-  --shadow-red: 5px 5px 0px #ff3b1d;
-  --shadow-white: 5px 5px 0px #ffffff;
+  /* Surfaces & Canvases */
+  --bg-primary: var(--color-cinema-black);
+  --bg-card: var(--color-cinema-surface);
+  --bg-surface: var(--color-cinema-elevated);
+  --bg-card-hover: var(--color-cinema-card-hover);
+  --bg-stone-soft: rgba(255, 255, 255, 0.05);
+
+  /* Primary Typography */
+  --text-primary: var(--color-white);
+  --text-muted: var(--color-silver);
+  --text-dim: var(--color-smoke);
+  --text-accent: var(--color-netflix-red);
+  --text-netflix: var(--color-netflix-red);
+
+  /* Borders & Accents */
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-medium: rgba(255, 255, 255, 0.16);
+  --border-red: rgba(229, 9, 20, 0.45);
+  --border-amber: var(--border-red);
+
+  /* Shadows */
+  --shadow-cinematic: 0 20px 50px -10px rgba(0, 0, 0, 0.95);
+  --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.8);
+  --shadow-red: 0 8px 26px -4px rgba(229, 9, 20, 0.5);
+  --shadow-amber: var(--shadow-red);
 
   /* Layout */
-  --max: 1200px;
-  --radius-sticker: 4px;
+  --max: 1280px;
+  --max-narrow: 1040px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 14px;
   --radius-pill: 9999px;
 
   /* Typography */
-  --font-display: "Space Grotesk", system-ui, -apple-system, sans-serif;
-  --font-comic: "Bungee", cursive, sans-serif;
-  --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
-  --font-mono: "Space Mono", ui-monospace, monospace;
+  --font-display: "Archivo Black", system-ui, -apple-system, sans-serif;
+  --font-sans: "Manrope", system-ui, -apple-system, sans-serif;
+  --font-editorial: "Newsreader", Georgia, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* Aliases for strict backward compatibility: all routed to Netflix Red & Black */
+  --color-charcoal: var(--color-cinema-black);
+  --color-espresso: var(--color-cinema-surface);
+  --color-ivory: var(--color-white);
+  --color-stone: var(--color-silver);
+  --color-tobacco: #2E2E2E;
+  --color-amber: var(--color-netflix-red);
+  --color-amber-hover: var(--color-netflix-red-hover);
+  --color-tungsten: var(--color-netflix-red);
+  --color-tungsten-soft: #FF4D55;
+  --color-tungsten-glow: var(--color-netflix-red-glow);
+  --color-terracotta: var(--color-netflix-dark-red);
+
+  --stage-black: var(--color-cinema-black);
+  --stage-surface: var(--bg-surface);
+  --stage-card: var(--bg-card);
+  --stage-card-hover: var(--bg-card-hover);
+  --stage-border: var(--border-subtle);
+  --amber-gold: var(--color-netflix-red);
+  --amber-light: #FF4D55;
+  --amber-glow: var(--color-netflix-red-glow);
+  --text-cream: var(--color-white);
+  --yellow: var(--color-netflix-red);
+  --yellow-hover: var(--color-netflix-red-hover);
 }

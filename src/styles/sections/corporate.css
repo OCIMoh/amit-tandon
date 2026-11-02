@@ -1,268 +1,241 @@
-/* Corporate, But Make It Funny. (Chalkboard Equation & Red Rotary Phone) Styles */
-
-.corporate-pop-section {
+/* ==========================================================================
+   CORPORATE BOOKINGS SECTION (SECTION 9)
+   ========================================================================== */
+.corporate-section {
+  padding: 8rem 0;
+  background-color: var(--color-charcoal);
   position: relative;
-  background-color: var(--bg-canvas);
-  padding: 4.5rem 0 5rem;
-  border-bottom: var(--border-brutal-thick);
+  border-top: 1px solid var(--border-subtle);
 }
 
-.corporate-pop-grid {
-  display: grid;
-  grid-template-columns: 1.35fr 1fr;
-  gap: 2.5rem;
-  align-items: center;
+.corp-header {
+  margin-bottom: 3.5rem;
+  max-width: 820px;
 }
 
-/* Left Column: Chalkboard Equation Card */
-.corp-chalkboard-card {
-  background: var(--chalkboard);
-  color: #ffffff;
-  border: var(--border-brutal-thick);
-  box-shadow: var(--shadow-brutal-lg);
-  border-radius: var(--radius-sticker);
-  padding: 2.2rem;
-  position: relative;
+.corp-main-title {
+  font-size: clamp(2.6rem, 5vw, 4.4rem);
+  line-height: 0.98;
+  color: var(--color-ivory);
+  margin: 0.6rem 0 1rem;
 }
 
-.corp-title-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 2rem;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-.corp-pop-title {
-  margin: 0;
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 900;
-  letter-spacing: -0.03em;
-  line-height: 1;
-}
-
-.corp-doodle-note {
-  font-family: var(--font-sans);
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: #a5a2ad;
-  transform: rotate(3deg);
-  line-height: 1.25;
-}
-
-/* Equation Boxes */
-.corp-equation-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem;
-  margin-bottom: 2rem;
-  background: rgba(255, 255, 255, 0.04);
-  padding: 1.2rem;
-  border: 1.5px dashed rgba(255, 255, 255, 0.2);
-  border-radius: 6px;
-}
-
-.eq-box {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 0.4rem;
-  background: #222026;
-  border: 2px solid #0c0b0e;
-  box-shadow: 3px 3px 0px #000;
-  padding: 0.8rem 0.6rem;
-  border-radius: 4px;
-  flex: 1;
-}
-
-.eq-result {
-  background: var(--yellow);
-  color: #0c0b0e;
-}
-
-.eq-result .eq-label {
-  color: #0c0b0e;
-}
-
-.eq-icon {
-  font-size: 1.6rem;
-}
-
-.eq-label {
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  color: #ffffff;
-  line-height: 1.2;
-}
-
-.eq-operator {
-  font-family: var(--font-display);
-  font-size: 1.6rem;
-  font-weight: 900;
-  color: var(--yellow);
-  user-select: none;
-}
-
-/* Checkmarks List */
-.corp-features-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.8rem;
-}
-
-.corp-tag-check {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  color: #e4e3dd;
-  background: rgba(255, 255, 255, 0.06);
-  padding: 0.35rem 0.75rem;
-  border-radius: 3px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-}
-
-.check-mark {
-  color: var(--yellow);
-  font-weight: 900;
-}
-
-/* Right Column: Vintage Red Rotary Telephone Card */
-.corp-phone-card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.corp-coiled-cord-wrap {
-  position: absolute;
-  left: -80px;
-  bottom: 95px;
-  width: 140px;
-  z-index: 1;
-  pointer-events: none;
-}
-
-.phone-cord-svg {
-  width: 100%;
-  height: auto;
-  filter: drop-shadow(2px 2px 0px rgba(0, 0, 0, 0.3));
-}
-
-.phone-hotline-link {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-decoration: none;
-  cursor: pointer;
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.phone-wrapper-interactive {
-  position: relative;
-  width: 285px;
-  filter: drop-shadow(8px 8px 0px #0c0b0e);
-}
-
-.phone-svg {
-  width: 100%;
-  height: auto;
-  transition: transform 0.15s ease;
-}
-
-/* Ringing animation on hover */
-@keyframes phoneRing {
-  0% { transform: rotate(0deg); }
-  20% { transform: rotate(-6deg) scale(1.02); }
-  40% { transform: rotate(6deg) scale(1.02); }
-  60% { transform: rotate(-4deg); }
-  80% { transform: rotate(4deg); }
-  100% { transform: rotate(0deg); }
-}
-
-.phone-hotline-link:hover .phone-svg {
-  animation: phoneRing 0.5s ease infinite;
-}
-
-.phone-handset-plaque {
-  position: absolute;
-  top: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--yellow);
-  color: #0c0b0e;
-  border: 2px solid #0c0b0e;
-  box-shadow: 3px 3px 0px #0c0b0e;
-  padding: 0.35rem 0.8rem;
-  border-radius: 4px;
-  text-align: center;
-  white-space: nowrap;
-  pointer-events: none;
-}
-
-.plaque-sub {
-  display: block;
-  font-family: var(--font-mono);
-  font-size: 0.58rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  color: var(--red);
-}
-
-.plaque-main {
-  font-family: var(--font-display);
-  font-size: 0.78rem;
-  font-weight: 900;
-  letter-spacing: 0.02em;
-}
-
-.phone-number-badge {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  background: #ffffff;
-  color: #0c0b0e;
-  border: var(--border-brutal-thick);
-  box-shadow: var(--shadow-brutal);
-  padding: 0.75rem 1.6rem;
-  border-radius: var(--radius-sticker);
-  margin-top: 1.2rem;
-  transition: transform 0.15s ease, background 0.15s ease;
-}
-
-.phone-hotline-link:hover .phone-number-badge {
-  transform: translateY(-3px);
-  background: var(--yellow);
-  box-shadow: 7px 7px 0px #0c0b0e;
-}
-
-.phone-icon-tel {
-  font-size: 1.2rem;
-  color: var(--red);
-}
-
-.phone-digits {
-  font-family: var(--font-mono);
+.corp-lead-copy {
   font-size: 1.15rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
+  color: var(--color-stone);
+  line-height: 1.6;
 }
 
-/* Responsive adjustment */
-@media (max-width: 900px) {
-  .corporate-pop-grid {
+/* 2-Column Corporate Grid */
+.corp-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+/* Left Card: Formats & Pillars */
+.corp-formats-card {
+  background: var(--color-espresso);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 2.75rem;
+  box-shadow: var(--shadow-card);
+}
+
+.card-eyebrow {
+  display: block;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: var(--color-stone);
+  margin-bottom: 2rem;
+}
+
+.format-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+.format-item {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+.format-num {
+  font-size: 1.1rem;
+  color: var(--color-netflix-red, #E50914);
+  opacity: 0.9;
+  flex-shrink: 0;
+  padding-top: 0.15rem;
+}
+
+.format-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  letter-spacing: -0.01em;
+  color: var(--color-ivory);
+  margin: 0 0 0.5rem 0;
+}
+
+.format-desc {
+  font-size: 0.95rem;
+  color: var(--color-stone);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Trust Strip */
+.corp-trust-strip {
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.trust-title {
+  display: block;
+  font-size: 0.68rem;
+  color: var(--color-stone);
+  letter-spacing: 0.1em;
+  margin-bottom: 1rem;
+}
+
+.trust-marquee-row {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+  color: var(--color-ivory);
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.trust-dot {
+  color: var(--color-netflix-red, #E50914);
+  opacity: 0.8;
+}
+
+/* Right Card: Direct Management Desk */
+.corp-desk-card {
+  background: #181818;
+  border: 1px solid rgba(229, 9, 20, 0.4);
+  border-radius: var(--radius-lg);
+  padding: 2.75rem;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 0 0 30px rgba(229, 9, 20, 0.12);
+}
+
+.desk-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.desk-sla {
+  font-size: 0.72rem;
+  color: var(--color-stone);
+  background: rgba(17, 17, 15, 0.6);
+  padding: 0.3rem 0.65rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+}
+
+.desk-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 2.2vw, 2.1rem);
+  letter-spacing: -0.01em;
+  color: var(--color-ivory);
+  margin: 0 0 0.75rem 0;
+  text-transform: uppercase;
+}
+
+.desk-lead {
+  color: var(--color-stone);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0 0 2rem 0;
+}
+
+.desk-spec-table {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+  padding: 1.5rem;
+  background: rgba(17, 17, 15, 0.6);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+}
+
+.desk-spec-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.88rem;
+}
+
+.spec-name {
+  color: var(--color-stone);
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+}
+
+.spec-value {
+  color: var(--color-ivory);
+  font-weight: 600;
+  text-align: right;
+}
+
+.desk-action-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.desk-cta-btn {
+  width: 100%;
+}
+
+.desk-direct-contact {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  font-size: 0.8rem;
+  color: var(--color-stone);
+  flex-wrap: wrap;
+}
+
+.direct-contact-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.direct-label {
+  font-size: 0.68rem;
+}
+
+.direct-val {
+  color: var(--color-ivory);
+  transition: color 0.2s ease;
+}
+
+.direct-val:hover {
+  color: var(--color-amber);
+  text-decoration: underline;
+}
+
+.direct-contact-sep {
+  opacity: 0.3;
+}
+
+/* Responsive */
+@media (max-width: 960px) {
+  .corp-grid {
     grid-template-columns: 1fr;
-    gap: 3rem;
+    gap: 2.5rem;
   }
 }

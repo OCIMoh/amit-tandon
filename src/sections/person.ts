@@ -5,63 +5,132 @@ export function renderPerson(site: SiteContent): string {
   const credits = site.about.credits
     .map(
       (c) => `
-      <div class="bio-credit-item" data-reveal>
-        <span class="credit-platform">${c.label}</span>
+      <div class="bio-credit-item">
+        <span class="credit-platform mono">${c.label}</span>
         <p class="credit-detail">${c.value}</p>
       </div>`
     )
     .join("");
 
   return `
-<section class="about-section" id="about" aria-label="About Amit Tandon">
+<section class="about-editorial-section" id="about" aria-label="About Amit Tandon - The Person Behind the Comedy">
   <div class="wrap">
-    <div class="about-hero-banner" data-reveal>
-      <img src="${images.aboutBanner}" alt="Amit Tandon smiling on stage" width="1600" height="600" loading="lazy" />
-      <div class="about-hero-gradient"></div>
-      <div class="about-hero-text">
-        <div class="chapter-tag" style="color:#fca5a5">Biography & Roots</div>
-        <h2 class="display about-head-title">From IIT Delhi to Global Stages</h2>
-        <p class="about-head-sub">${site.about.journeyLine}</p>
+    
+    <!-- Section Header -->
+    <div class="about-header" data-reveal>
+      <div class="section-eyebrow">
+        <span class="eyebrow-dot"></span>
+        <span class="mono">BIOGRAPHY & STORYTELLING · THE PERSON BEHIND THE COMEDY</span>
+      </div>
+      <div class="about-title-row">
+        <h2 class="display about-main-title">
+          <span>THE PERSON </span>
+          <span class="highlight-red">BEHIND THE COMEDY.</span>
+        </h2>
+        <p class="about-lead-copy">
+          Before packing auditoriums in London, Dubai, and Sydney, Amit spent 15 years in boardrooms, engineering labs, and the quiet absurdities of middle-class domestic life.
+        </p>
       </div>
     </div>
 
-    <div class="about-body-grid">
-      <div class="about-narrative" data-reveal>
-        <h3 class="display narrative-title">Finding the Joke in the Everyday</h3>
-        <p class="narrative-p">
-          Amit Tandon pioneered clean, middle-class observational stand-up comedy in India. Before taking the stage full-time, he earned his degree in Mechanical Engineering, completed his MBA from IIT Delhi, and spent over a decade running successful corporate recruitment startups.
-        </p>
-        <p class="narrative-p">
-          His comedy deliberately avoids shock humor, vulgarity, or partisan rage. Instead, he zeroes in on the hilarious contradictions of married life, parenting teenage children, navigating Indian relatives, and the cultural absurdities that emerge when middle-class households get upgraded.
-        </p>
-        <p class="narrative-p">
-          Today, with over 200 million YouTube views and 2,000+ live shows across 30+ countries, multi-generational families—from teenagers to grandparents—pack his shows together worldwide.
-        </p>
+    <!-- 2-Column Editorial Story Grid -->
+    <div class="about-story-grid">
+      
+      <!-- Left Column: 5 Narrative Chapters -->
+      <div class="about-narrative-col" data-reveal>
+        
+        <!-- Chapter 1 -->
+        <article class="story-chapter-card">
+          <span class="chapter-num mono">CHAPTER 01</span>
+          <h3 class="chapter-title">The Engineering & Boardroom Years</h3>
+          <p class="chapter-body">
+            Armed with a degree in Mechanical Engineering and an MBA from IIT Delhi, Amit spent over a decade climbing corporate ranks, eventually serving as a corporate Vice President and launching successful executive recruitment ventures. He knows boardroom diplomacy because he lived it.
+          </p>
+        </article>
 
-        <div class="about-social-row">
-          <a class="social-pill" href="${site.social.youtube}" target="_blank" rel="noopener noreferrer">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-            <span>YouTube (2M+)</span>
-          </a>
-          <a class="social-pill" href="${site.social.instagram}" target="_blank" rel="noopener noreferrer">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-            <span>Instagram (@amitandon17)</span>
-          </a>
-          <a class="social-pill" href="${site.social.x}" target="_blank" rel="noopener noreferrer">
-            <span>X / Twitter</span>
-          </a>
-        </div>
+        <!-- Chapter 2 -->
+        <article class="story-chapter-card">
+          <span class="chapter-num mono">CHAPTER 02</span>
+          <h3 class="chapter-title">The Everyday Observations</h3>
+          <p class="chapter-body">
+            While corporate meetings were about quarterly projections, real life was happening in joint-family WhatsApp groups, Sharma Ji comparisons, and the unsolvable mysteries of marriage. He began jotting down observations about ordinary domestic interactions that everyone experienced but nobody spoke aloud.
+          </p>
+        </article>
+
+        <!-- Chapter 3 -->
+        <article class="story-chapter-card">
+          <span class="chapter-num mono">CHAPTER 03</span>
+          <h3 class="chapter-title">The First Open Mic</h3>
+          <p class="chapter-body">
+            In his mid-30s, Amit stepped onto Delhi’s comedy club stages. Unlike the aggressive, shock-driven humor popular at the time, Amit spoke about parenting teenagers, buying vegetables with his wife, and middle-class frugality. Audiences laughed not at the absurdity of the performer, but at the reflection of their own living rooms.
+          </p>
+        </article>
+
+        <!-- Chapter 4 -->
+        <article class="story-chapter-card">
+          <span class="chapter-num mono">CHAPTER 04</span>
+          <h3 class="chapter-title">The Domestic Core: Clean Comedy</h3>
+          <p class="chapter-body">
+            Amit pioneered clean observational comedy in India. His shows became rare cultural events where three generations—teenagers, parents, and grandparents—could sit side-by-side without anyone feeling embarrassed. Clean comedy wasn’t a restriction; it was his superpower.
+          </p>
+        </article>
+
+        <!-- Chapter 5 -->
+        <article class="story-chapter-card">
+          <span class="chapter-num mono">CHAPTER 05</span>
+          <h3 class="chapter-title">The World Stage</h3>
+          <p class="chapter-body">
+            Today, with over 200 Million online views, 2,000+ live shows across 30+ countries, and a breakout worldwide Netflix Original special (<em>Family Tandoncies</em>), Amit continues touring globally with his hit solo tour <em>Aise Kaise</em>.
+          </p>
+        </article>
+
       </div>
 
-      <div class="about-credits-column" data-reveal>
-        <div class="credits-box">
-          <h4 class="credits-box-title">Creative Milestones</h4>
-          <div class="credits-list">
+      <!-- Right Column: Visual Anchor & Verified Milestones -->
+      <div class="about-visual-col" data-reveal>
+        <div class="about-portrait-frame">
+          <img 
+            src="${images.aboutBanner}" 
+            alt="Amit Tandon smiling on stage" 
+            class="about-portrait-img"
+            width="800" 
+            height="500"
+            loading="lazy"
+          />
+          <div class="about-portrait-overlay" aria-hidden="true"></div>
+          <div class="about-portrait-caption">
+            <span class="caption-quote editorial-italic">“If you can make a family laugh together in the same room, you've done something meaningful.”</span>
+            <span class="caption-author mono">— AMIT TANDON</span>
+          </div>
+        </div>
+
+        <!-- Verified Milestones Box -->
+        <div class="about-milestones-box">
+          <span class="milestones-heading mono">VERIFIED CAREER MILESTONES</span>
+          <div class="milestones-list">
             ${credits}
           </div>
         </div>
+
+        <!-- Social Connect Row -->
+        <div class="about-social-strip">
+          <a class="social-btn" href="${site.social.youtube}" target="_blank" rel="noopener noreferrer">
+            <span>YouTube (2M+)</span>
+            <span class="btn-arrow">&rarr;</span>
+          </a>
+          <a class="social-btn" href="${site.social.instagram}" target="_blank" rel="noopener noreferrer">
+            <span>Instagram (@amitandon17)</span>
+            <span class="btn-arrow">&rarr;</span>
+          </a>
+          <a class="social-btn" href="${site.social.x}" target="_blank" rel="noopener noreferrer">
+            <span>X / Twitter</span>
+            <span class="btn-arrow">&rarr;</span>
+          </a>
+        </div>
       </div>
+
     </div>
+
   </div>
 </section>`;
 }

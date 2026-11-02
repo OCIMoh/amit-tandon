@@ -1,16 +1,15 @@
 import Lenis from "lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { svgs } from "../content/svgs";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export async function setupMotion(): Promise<void> {
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  // Initialize smooth scrolling with snappy natural duration
+  // Initialize smooth scrolling with natural duration
   const lenis = new Lenis({
-    duration: reduce ? 0 : 0.8,
+    duration: reduce ? 0 : 0.85,
     smoothWheel: true,
     touchMultiplier: 1.15,
   });
@@ -21,16 +20,500 @@ export async function setupMotion(): Promise<void> {
   });
   gsap.ticker.lagSmoothing(0);
 
-  // Setup interactive sub-systems
+  // Setup sub-systems
+  setupNavScroll();
+  setupPosterHero(reduce);
   setupScrollReveals(reduce);
-  setupPunchlineTrigger();
-  setupGyanSoundboard();
+  setupPerspectiveShift(reduce);
   setupTourInteractions();
   setupSlotMachine();
+  setupGyanDeck();
   setupCinemaModal();
+  setupMagneticPlayheads(reduce);
+  setupAmbientSpotlight(reduce);
+  setupMicAudioWaveClick();
 }
 
-/** Non-blocking staggered reveals without scroll-trapping */
+/** Section 11.A: Compact Dark Navigation on Scroll */
+function setupNavScroll(): void {
+  const nav = document.querySelector<HTMLElement>("#main-nav");
+  if (!nav) return;
+
+  const onScroll = () => {
+    if (window.scrollY > 40) {
+      nav.classList.add("scrolled");
+    } else {
+      nav.classList.remove("scrolled");
+    }
+  };
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+}
+
+/** Theatrical Arena Hero Controller (Interactive Routine Console + Volumetric Lighting) */
+function setupPosterHero(reduce: boolean): void {
+  const heroSection = document.querySelector<HTMLElement>(".theatrical-hero-section");
+  if (!heroSection) return;
+
+  const magneticPrimary = heroSection.querySelector<HTMLElement>("#btn-hero-tickets");
+  const magneticSecondary = heroSection.querySelector<HTMLElement>("#btn-hero-trailer");
+
+  // Subtle acoustic sound on interaction
+  let audioCtx: AudioContext | null = null;
+  const playTactileFeedback = () => {
+    try {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext)();
+      }
+      if (audioCtx.state === "suspended") {
+        void audioCtx.resume();
+      }
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(1200, audioCtx.currentTime);
+      gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.02);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.02);
+    } catch {
+      // Audio autoplay fallback
+    }
+  };
+
+  // Wire up the interactive Comedy Routine Console
+  setupHeroRoutineConsole(playTactileFeedback);
+
+  // Interactive Cursor Spotlight
+  if (!reduce) {
+    let targetX = 50;
+    let currentX = 50;
+
+    const handlePointerMove = (e: PointerEvent) => {
+      const rect = heroSection.getBoundingClientRect();
+      const px = ((e.clientX - rect.left) / rect.width) * 100;
+      targetX = Math.max(15, Math.min(85, px));
+    };
+
+    heroSection.addEventListener("pointermove", handlePointerMove, { passive: true });
+
+    const updateSpotlight = () => {
+      currentX += (targetX - currentX) * 0.08;
+      const tilt = ((currentX - 50) / 50) * 12;
+      heroSection.style.setProperty("--spotlight-x", `${currentX.toFixed(2)}%`);
+      heroSection.style.setProperty("--spotlight-tilt", `${tilt.toFixed(2)}deg`);
+      requestAnimationFrame(updateSpotlight);
+    };
+
+    requestAnimationFrame(updateSpotlight);
+
+    // Magnetic CTA Button Physics
+    const bindMagnetic = (el: HTMLElement | null, strength = 0.3) => {
+      if (!el) return;
+      el.addEventListener("pointermove", (e: PointerEvent) => {
+        const rect = el.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        const dx = (e.clientX - centerX) * strength;
+        const dy = (e.clientY - centerY) * strength;
+        gsap.to(el, { x: dx, y: dy, duration: 0.2, ease: "power2.out" });
+      });
+
+      el.addEventListener("pointerenter", () => {
+        playTactileFeedback();
+      });
+
+      el.addEventListener("pointerleave", () => {
+        gsap.to(el, { x: 0, y: 0, duration: 0.6, ease: "elastic.out(1.2, 0.4)" });
+      });
+    };
+
+    bindMagnetic(magneticPrimary, 0.32);
+    bindMagnetic(magneticSecondary, 0.22);
+  }
+
+  // Entrance Stagger Animation
+  if (!reduce) {
+    const eyebrow = heroSection.querySelector(".theatrical-eyebrow-row");
+    const titleWords = heroSection.querySelectorAll(".theatrical-hero-title .title-word");
+    const tagline = heroSection.querySelector(".theatrical-hero-tagline");
+    const consoleEl = heroSection.querySelector(".theatrical-routine-console");
+    const ctas = heroSection.querySelector(".theatrical-cta-cluster");
+    const ticker = heroSection.querySelector(".theatrical-tour-ticker");
+    const stats = heroSection.querySelector(".theatrical-stat-strip");
+
+    const tl = gsap.timeline({ delay: 0.1 });
+    if (eyebrow) tl.fromTo(eyebrow, { autoAlpha: 0, y: -20 }, { autoAlpha: 1, y: 0, duration: 0.6, ease: "power2.out" });
+    if (titleWords.length > 0) {
+      tl.fromTo(
+        titleWords,
+        { autoAlpha: 0, y: 40, scale: 0.94 },
+        { autoAlpha: 1, y: 0, scale: 1, duration: 0.85, stagger: 0.1, ease: "power3.out" },
+        "-=0.4"
+      );
+    }
+    if (tagline) tl.fromTo(tagline, { autoAlpha: 0, y: 15 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: "power2.out" }, "-=0.4");
+    if (consoleEl) tl.fromTo(consoleEl, { autoAlpha: 0, scale: 0.96, y: 30 }, { autoAlpha: 1, scale: 1, y: 0, duration: 0.85, ease: "power2.out" }, "-=0.5");
+    if (ctas) tl.fromTo(ctas, { autoAlpha: 0, scale: 0.92, y: 20 }, { autoAlpha: 1, scale: 1, y: 0, duration: 0.7, ease: "back.out(1.5)" }, "-=0.4");
+    if (ticker) tl.fromTo(ticker, { autoAlpha: 0, y: 15 }, { autoAlpha: 1, y: 0, duration: 0.6, ease: "power2.out" }, "-=0.3");
+    if (stats) tl.fromTo(stats, { autoAlpha: 0, y: 15 }, { autoAlpha: 1, y: 0, duration: 0.6, ease: "power2.out" }, "-=0.3");
+  }
+}
+
+/** Theatrical Arena Routine Console Controller */
+function setupHeroRoutineConsole(onSoundFeedback?: () => void): void {
+  const consoleEl = document.querySelector<HTMLElement>("#theatrical-routine-console");
+  if (!consoleEl) return;
+
+  const pills = consoleEl.querySelectorAll<HTMLButtonElement>(".routine-pill");
+  const shuffleBtn = consoleEl.querySelector<HTMLButtonElement>("#btn-hero-shuffle");
+  const tagEl = consoleEl.querySelector<HTMLElement>("#hero-routine-tag");
+  const quoteEl = consoleEl.querySelector<HTMLElement>("#hero-routine-quote");
+  const numEl = consoleEl.querySelector<HTMLElement>("#hero-routine-num");
+  const sharesEl = consoleEl.querySelector<HTMLElement>("#hero-routine-shares");
+  const clipBtn = consoleEl.querySelector<HTMLButtonElement>("#btn-hero-clip");
+  const shareBtn = consoleEl.querySelector<HTMLAnchorElement>("#hero-routine-share");
+
+  if (!quoteEl) return;
+
+  const routines = [
+    {
+      id: 1,
+      tag: "MARRIAGE CLIMATE CONTROL",
+      caption: "AC Temperature Diplomacy: 18°C is Arctic tundra, 24°C is Sahara desert, 22°C is a pending court case.",
+      shares: "88K Shares",
+      videoId: "C7b0TAg0xMU",
+    },
+    {
+      id: 2,
+      tag: "THE MARRIED GUY RULE",
+      caption: "Apologizing to your wife is not an admission of guilt; it is a tactical military ceasefire.",
+      shares: "110K Shares",
+      videoId: "C7b0TAg0xMU",
+    },
+    {
+      id: 3,
+      tag: "WHATSAPP FAMILY DIPLOMACY",
+      caption: "WhatsApp Family Groups: 42 members, 120 Good Morning forwards by 7 AM, zero replies to genuine questions.",
+      shares: "45K Shares",
+      videoId: "2WkO1nJ3u1Y",
+    },
+    {
+      id: 4,
+      tag: "INDIAN FLIGHT ANNOUNCEMENTS",
+      caption: "Flight Announcements: Indian uncle unbuckling his seatbelt the microsecond the aircraft tire touches the runway.",
+      shares: "77K Shares",
+      videoId: "C7b0TAg0xMU",
+    },
+    {
+      id: 5,
+      tag: "NORTH INDIAN LOGIC",
+      caption: "Punjabis in Agra: If the monument doesn't have butter chicken within 200 meters, why did Shah Jahan even build it?",
+      shares: "62K Shares",
+      videoId: "2WkO1nJ3u1Y",
+    },
+    {
+      id: 6,
+      tag: "PARENTING GEN-Z",
+      caption: "Parenting Gen-Z: You pay ₹4 lakh school fees so they can reply 'bruh' to your earnest life advice.",
+      shares: "71K Shares",
+      videoId: "C7b0TAg0xMU",
+    },
+    {
+      id: 7,
+      tag: "THE 5-MINUTE ELASTICITY",
+      caption: "The 5-Minute Myth: 'Bas 5 minute mein tayar ho rahi hoon' violates Einstein's theory of general relativity.",
+      shares: "94K Shares",
+      videoId: "2WkO1nJ3u1Y",
+    },
+    {
+      id: 8,
+      tag: "DELHI DIET RESOLUTIONS",
+      caption: "Diet in Delhi: Starting a strict diet on Monday, ordering 2 plates of Chole Bhature on Tuesday morning.",
+      shares: "53K Shares",
+      videoId: "C7b0TAg0xMU",
+    },
+    {
+      id: 9,
+      tag: "MALL EXPEDITIONS",
+      caption: "Shopping with Wife: Walking 14 kilometers inside a mall to buy a hair clip that was available at the entrance.",
+      shares: "83K Shares",
+      videoId: "2WkO1nJ3u1Y",
+    },
+    {
+      id: 10,
+      tag: "THE SHAGUN LEDGER",
+      caption: "Wedding Envelopes: Tracking exactly how much Sharma ji gave in 2011 so we can return ₹501 in 2026.",
+      shares: "65K Shares",
+      videoId: "C7b0TAg0xMU",
+    },
+  ];
+
+  let currentId = 1;
+
+  const displayRoutine = (routineId: number) => {
+    const item = routines.find((r) => r.id === routineId) || routines[0];
+    currentId = item.id;
+    onSoundFeedback?.();
+
+    // Update active pill styling
+    pills.forEach((p) => {
+      const pId = Number(p.getAttribute("data-routine-id"));
+      if (pId === currentId) {
+        p.classList.add("is-active");
+      } else {
+        p.classList.remove("is-active");
+      }
+    });
+
+    // Morph quote
+    gsap.to(quoteEl, {
+      opacity: 0,
+      y: -6,
+      duration: 0.16,
+      ease: "power2.in",
+      onComplete: () => {
+        quoteEl.textContent = `“${item.caption}”`;
+        if (tagEl) tagEl.textContent = item.tag;
+        if (numEl) numEl.textContent = String(item.id).padStart(2, "0");
+        if (sharesEl) sharesEl.textContent = item.shares.toUpperCase();
+        if (clipBtn) clipBtn.setAttribute("data-video-id", item.videoId);
+        if (shareBtn) {
+          shareBtn.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(
+            `Amit Tandon Comedy Bit: "${item.caption}" (amittandon.in)`
+          )}`;
+        }
+        gsap.fromTo(quoteEl, { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.26, ease: "power2.out" });
+      },
+    });
+  };
+
+  // Wire up category pill clicks
+  pills.forEach((pill) => {
+    pill.addEventListener("click", () => {
+      const id = Number(pill.getAttribute("data-routine-id"));
+      if (id && id !== currentId) {
+        displayRoutine(id);
+      }
+    });
+  });
+
+  // Wire up shuffle button
+  shuffleBtn?.addEventListener("click", () => {
+    const icon = shuffleBtn.querySelector(".shuffle-icon");
+    if (icon) {
+      gsap.fromTo(icon, { rotation: 0 }, { rotation: 360, duration: 0.35, ease: "power2.out" });
+    }
+    const remaining = routines.filter((r) => r.id !== currentId);
+    const randomItem = remaining[Math.floor(Math.random() * remaining.length)];
+    if (randomItem) {
+      displayRoutine(randomItem.id);
+    }
+  });
+}
+
+
+
+/** Section 1.3 & 1.6: What I Said / What She Heard Seam Controller */
+export function setupSplitHeroSeam(reduce: boolean): void {
+  const stage = document.querySelector<HTMLElement>(".split-hero-stage");
+  const divider = document.querySelector<HTMLElement>("#hero-seam-divider");
+  const pills = document.querySelectorAll<HTMLButtonElement>("#mobile-perspective-pills .m-pill");
+
+  const captionLeft = document.querySelector<HTMLElement>("#caption-left-text");
+  const captionRight = document.querySelector<HTMLElement>("#caption-right-text");
+  const counter = document.querySelector<HTMLElement>("#caption-counter");
+  const prevBtn = document.querySelector<HTMLButtonElement>("#caption-prev-btn");
+  const nextBtn = document.querySelector<HTMLButtonElement>("#caption-next-btn");
+
+  if (!stage) return;
+
+  const captionPairs = [
+    { said: "“Nice dinner, thanks.”", heard: "“Your cooking is terrible.”" },
+    { said: "“I'm not angry.”", heard: "“I'm furious.”" },
+    { said: "“Do whatever you like.”", heard: "“You'll regret this.”" },
+    { said: "“I'll be ready in five minutes.”", heard: "“Start without me.”" },
+    { said: "“Fine.”", heard: "“Nothing is fine.”" },
+  ];
+
+  let currentIdx = 0;
+  let captionInterval: number | null = null;
+  let isHovered = false;
+
+  const updateCaption = (idx: number) => {
+    currentIdx = (idx + captionPairs.length) % captionPairs.length;
+    const pair = captionPairs[currentIdx];
+
+    if (counter) counter.textContent = `${currentIdx + 1} / ${captionPairs.length}`;
+
+    if (captionLeft && captionRight) {
+      gsap.to([captionLeft, captionRight], {
+        opacity: 0.2,
+        y: -4,
+        duration: 0.15,
+        onComplete: () => {
+          captionLeft.textContent = pair.said;
+          captionRight.textContent = pair.heard;
+          gsap.to([captionLeft, captionRight], {
+            opacity: 1,
+            y: 0,
+            duration: 0.25,
+            ease: "power2.out",
+          });
+        },
+      });
+    }
+  };
+
+  if (prevBtn) {
+    prevBtn.addEventListener("click", () => {
+      updateCaption(currentIdx - 1);
+    });
+  }
+  if (nextBtn) {
+    nextBtn.addEventListener("click", () => {
+      updateCaption(currentIdx + 1);
+    });
+  }
+
+  // Automatic 6-second rotation (pauses on hover per Section 1.6)
+  const startCaptionTimer = () => {
+    if (captionInterval) clearInterval(captionInterval);
+    captionInterval = window.setInterval(() => {
+      if (!isHovered) {
+        updateCaption(currentIdx + 1);
+      }
+    }, 6000);
+  };
+  startCaptionTimer();
+
+  stage.addEventListener("mouseenter", () => {
+    isHovered = true;
+  });
+  stage.addEventListener("mouseleave", () => {
+    isHovered = false;
+  });
+
+  // Seam State Variables
+  let targetSeam = 50;
+  let currentSeam = 50;
+  let isDragging = false;
+  let isInteracting = false;
+  let lastActivityTime = Date.now();
+
+  const setSeamTarget = (val: number) => {
+    lastActivityTime = Date.now();
+    isInteracting = true;
+    // Magnetic Snap check (0%, 50%, 100%)
+    if (val < 7) {
+      targetSeam = 0;
+    } else if (val > 93) {
+      targetSeam = 100;
+    } else if (Math.abs(val - 50) < 4) {
+      targetSeam = 50;
+    } else {
+      targetSeam = Math.max(0, Math.min(100, val));
+    }
+  };
+
+  const updateLoop = () => {
+    const now = Date.now();
+
+    // Idle drift after 3 seconds of inactivity (Section 1.3)
+    if (!isInteracting && !isDragging && !reduce && now - lastActivityTime > 3000) {
+      const elapsed = (now - lastActivityTime - 3000) * 0.001;
+      targetSeam = 50 + Math.sin(elapsed * 1.2) * 8.5;
+    }
+
+    // Lerp smoothing (lerp ~0.14)
+    currentSeam += (targetSeam - currentSeam) * (reduce ? 1 : 0.14);
+
+    // Apply CSS variable and divider position
+    stage.style.setProperty("--seam", `${currentSeam.toFixed(2)}%`);
+    if (divider) {
+      divider.style.left = `${currentSeam.toFixed(2)}%`;
+      divider.setAttribute("aria-valuenow", Math.round(currentSeam).toString());
+    }
+
+    requestAnimationFrame(updateLoop);
+  };
+
+  requestAnimationFrame(updateLoop);
+
+  // Desktop Pointer / Cursor Follow
+  const onPointerMove = (e: PointerEvent) => {
+    if (window.innerWidth < 768) return;
+    const rect = stage.getBoundingClientRect();
+    if (e.clientX >= rect.left && e.clientX <= rect.right) {
+      const relX = ((e.clientX - rect.left) / rect.width) * 100;
+      setSeamTarget(relX);
+    }
+  };
+
+  stage.addEventListener("pointermove", onPointerMove, { passive: true });
+
+  // Handle Dragging
+  if (divider) {
+    const onDragStart = (e: PointerEvent) => {
+      isDragging = true;
+      isInteracting = true;
+      divider.setPointerCapture(e.pointerId);
+    };
+
+    const onDragMove = (e: PointerEvent) => {
+      if (!isDragging) return;
+      const rect = stage.getBoundingClientRect();
+      const relX = ((e.clientX - rect.left) / rect.width) * 100;
+      setSeamTarget(relX);
+    };
+
+    const onDragEnd = (e: PointerEvent) => {
+      isDragging = false;
+      try {
+        divider.releasePointerCapture(e.pointerId);
+      } catch {
+        // Safe fallback
+      }
+    };
+
+    divider.addEventListener("pointerdown", onDragStart);
+    divider.addEventListener("pointermove", onDragMove);
+    divider.addEventListener("pointerup", onDragEnd);
+    divider.addEventListener("pointercancel", onDragEnd);
+
+    // Keyboard navigation (ArrowLeft, ArrowRight, Home, End)
+    divider.addEventListener("keydown", (e: KeyboardEvent) => {
+      if (e.key === "ArrowLeft") {
+        setSeamTarget(targetSeam - 5);
+        e.preventDefault();
+      } else if (e.key === "ArrowRight") {
+        setSeamTarget(targetSeam + 5);
+        e.preventDefault();
+      } else if (e.key === "Home") {
+        setSeamTarget(0);
+        e.preventDefault();
+      } else if (e.key === "End") {
+        setSeamTarget(100);
+        e.preventDefault();
+      }
+    });
+  }
+
+  // Mobile Pills
+  pills.forEach((pill) => {
+    pill.addEventListener("click", () => {
+      pills.forEach((p) => p.classList.remove("is-active"));
+      pill.classList.add("is-active");
+      const targetVal = parseFloat(pill.dataset.target || "50");
+      setSeamTarget(targetVal);
+    });
+  });
+}
+
+/** Non-blocking staggered batch reveals for all downstream sections */
 function setupScrollReveals(reduce: boolean): void {
   const reveals = document.querySelectorAll<HTMLElement>("[data-reveal]");
   if (reduce) {
@@ -41,39 +524,21 @@ function setupScrollReveals(reduce: boolean): void {
     return;
   }
 
-  // Hero section instant entrance
-  const heroReveals = document.querySelectorAll<HTMLElement>(".pop-hero-section [data-reveal]");
-  if (heroReveals.length) {
-    gsap.fromTo(
-      heroReveals,
-      { autoAlpha: 0, y: 24 },
-      {
-        autoAlpha: 1,
-        y: 0,
-        stagger: 0.08,
-        duration: 0.8,
-        ease: "power3.out",
-        delay: 0.1,
-      }
-    );
-  }
-
-  // Other section batch reveals
-  const otherReveals = gsap.utils.toArray<HTMLElement>(
-    "section:not(.pop-hero-section) [data-reveal]"
+  const downstream = gsap.utils.toArray<HTMLElement>(
+    "section:not(.domestic-hero-section) [data-reveal]"
   );
 
-  ScrollTrigger.batch(otherReveals, {
-    start: "top 90%",
+  ScrollTrigger.batch(downstream, {
+    start: "top 88%",
     onEnter: (batch) => {
       gsap.fromTo(
         batch,
-        { autoAlpha: 0, y: 22 },
+        { autoAlpha: 0, y: 24 },
         {
           autoAlpha: 1,
           y: 0,
-          stagger: 0.07,
-          duration: 0.75,
+          stagger: 0.08,
+          duration: 0.7,
           ease: "power3.out",
           overwrite: "auto",
         }
@@ -83,255 +548,814 @@ function setupScrollReveals(reduce: boolean): void {
   });
 }
 
-/** Interactive Punchline Trigger: Spawns floating comic badges */
-function setupPunchlineTrigger(): void {
-  const btn = document.querySelector<HTMLButtonElement>("#trigger-punchline-btn");
-  const dock = document.querySelector<HTMLDivElement>("#punchline-bubble-dock");
-  if (!btn || !dock) return;
+/** Subtle acoustic UI click using Web Audio API */
+function playTactileSwitchClick(): void {
+  try {
+    const AudioCtx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+    if (!AudioCtx) return;
+    const ctx = new AudioCtx();
+    if (ctx.state === "suspended") ctx.resume();
 
-  const punchlines = [
-    "“Bas 5 minute mein aayi!” — World's longest unit of time.",
-    "“Sharma Ji ka beta scored 97%. Log kya kahenge?!”",
-    "“Wife packed 4 suitcases for a 2-day Goa wedding.”",
-    "“AC set to 16°C: Middle-class Everest simulation.”",
-    "“Papa on WhatsApp: FORWARDED MANY TIMES.”",
-    "“Aise kaise bhai?! Logic has left the flat!”"
-  ];
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    const filter = ctx.createBiquadFilter();
 
-  const soundWords = ["*WHISTLE!*", "*HAHA!*", "*TAALIYAN!*", "*WAH WAH!*", "*AISE KAISE?!*"];
+    osc.type = "sine";
+    osc.frequency.setValueAtTime(360, ctx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(70, ctx.currentTime + 0.035);
 
-  let lastIndex = -1;
+    filter.type = "bandpass";
+    filter.frequency.setValueAtTime(720, ctx.currentTime);
+    filter.Q.setValueAtTime(4, ctx.currentTime);
 
-  const trigger = (e: MouseEvent) => {
-    e.preventDefault();
+    gain.gain.setValueAtTime(0.04, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.035);
 
-    // Pick a fresh punchline
-    let idx = Math.floor(Math.random() * punchlines.length);
-    if (idx === lastIndex) idx = (idx + 1) % punchlines.length;
-    lastIndex = idx;
+    osc.connect(filter);
+    filter.connect(gain);
+    gain.connect(ctx.destination);
 
-    // Pick a random sound word
-    const sound = soundWords[Math.floor(Math.random() * soundWords.length)];
+    osc.start(ctx.currentTime);
+    osc.stop(ctx.currentTime + 0.035);
 
-    // Create floating comic badge
-    const bubble = document.createElement("div");
-    bubble.className = "floating-punchline-bubble tilt-left";
-    bubble.innerHTML = `
-      <span class="fp-sound">${sound}</span>
-      <span class="fp-quote">${punchlines[idx]}</span>
-    `;
+    setTimeout(() => {
+      ctx.close();
+    }, 80);
+  } catch {
+    // Audio safe fallback
+  }
+}
 
-    // Position around center/mouse
-    const x = Math.min(Math.max(e.clientX - 140, 20), window.innerWidth - 300);
-    const y = e.clientY - 60;
-    bubble.style.position = "fixed";
-    bubble.style.left = `${x}px`;
-    bubble.style.top = `${y}px`;
-    bubble.style.zIndex = "9999";
+/** Section 5: Signature Interaction 1 - The Perspective Shift: Jaipur Luggage Audit */
+function setupPerspectiveShift(reduce: boolean): void {
+  const section = document.querySelector<HTMLElement>("#perspective");
+  if (!section) return;
 
-    document.body.appendChild(bubble);
+  const slider = document.querySelector<HTMLInputElement>("#luggage-balance-slider");
+  const needleArm = document.querySelector<HTMLElement>("#dial-needle-arm");
+  const plateImg = document.querySelector<HTMLElement>("#audit-plate-img");
+  const glowHis = document.querySelector<HTMLElement>("#glow-his");
+  const glowHer = document.querySelector<HTMLElement>("#glow-her");
+  const hudBtnHis = document.querySelector<HTMLButtonElement>("#hud-btn-his");
+  const hudBtnHer = document.querySelector<HTMLButtonElement>("#hud-btn-her");
+  const telemetryText = document.querySelector<HTMLElement>("#telemetry-text");
+  const truthBanner = document.querySelector<HTMLElement>("#shared-truth-banner");
+  const btnBalanceTruth = document.querySelector<HTMLButtonElement>("#btn-balance-truth");
+  const btnResumeAudit = document.querySelector<HTMLButtonElement>("#btn-resume-audit");
 
-    gsap.fromTo(
-      bubble,
-      { scale: 0.5, y: 0, opacity: 0 },
-      {
-        scale: 1,
-        y: -40,
-        opacity: 1,
-        duration: 0.35,
-        ease: "back.out(2)",
-        onComplete: () => {
-          gsap.to(bubble, {
-            y: -80,
-            opacity: 0,
-            duration: 0.5,
-            delay: 1.8,
-            ease: "power2.in",
-            onComplete: () => bubble.remove(),
-          });
-        },
-      }
-    );
+  const markerHis = document.querySelector<HTMLButtonElement>("#marker-his");
+  const markerTruth = document.querySelector<HTMLButtonElement>("#marker-truth");
+  const markerHer = document.querySelector<HTMLButtonElement>("#marker-her");
+
+  const popover = document.querySelector<HTMLElement>("#audit-popover");
+  const popoverSideBadge = document.querySelector<HTMLElement>("#popover-side-badge");
+  const popoverTitle = document.querySelector<HTMLElement>("#popover-title");
+  const popoverQuote = document.querySelector<HTMLElement>("#popover-quote");
+  const popoverWeight = document.querySelector<HTMLElement>("#popover-weight");
+  const popoverStat = document.querySelector<HTMLElement>("#popover-stat");
+  const popoverTime = document.querySelector<HTMLElement>("#popover-time");
+  const popoverCloseBtn = document.querySelector<HTMLButtonElement>("#popover-close-btn");
+
+  const pins = document.querySelectorAll<HTMLButtonElement>(".hotspot-pin");
+  const pills = document.querySelectorAll<HTMLButtonElement>(".audit-pill");
+
+  interface AuditItemData {
+    side: "his" | "her";
+    badge: string;
+    title: string;
+    quote: string;
+    weight: string;
+    stat: string;
+    time: string;
+  }
+
+  const AUDIT_ITEMS: Record<string, AuditItemData> = {
+    toothbrush: {
+      side: "his",
+      badge: "HIS REALITY · AUDIT ITEM #01",
+      title: "Toothbrush in Outer Mesh Pocket",
+      quote: "“Survived 3 weddings, 2 corporate offsites, and 4 years of domestic diplomacy without replacement. Total weight: 18 grams. Ready in 4 seconds.”",
+      weight: "0.018 KG",
+      stat: "100% EFFICIENT",
+      time: "4 SECONDS",
+    },
+    charger: {
+      side: "his",
+      badge: "HIS REALITY · AUDIT ITEM #02",
+      title: "The Universal Tangled Multi-Cable",
+      quote: "“Powers 4 phones, 2 iPads, the car dashcam, and possibly the hotel elevator. Rolled with zero geometric discipline into a ball of pure optimism.”",
+      weight: "0.120 KG",
+      stat: "8/10 KNOT COMPLEXITY",
+      time: "10 SECONDS",
+    },
+    kurta: {
+      side: "his",
+      badge: "HIS REALITY · AUDIT ITEM #03",
+      title: "The Emergency Linen Kurta Roll",
+      quote: "“Worn at my cousin’s Roka in 2019. Rolled into a tight cylinder so it fits beside the socks. Will iron with the hotel hair-dryer if aunties notice.”",
+      weight: "0.350 KG",
+      stat: "NEEDS HAIR-DRYER",
+      time: "1 MINUTE",
+    },
+    steamer: {
+      side: "her",
+      badge: "HER REALITY · AUDIT ITEM #04",
+      title: "Industrial Handheld Garment Steamer",
+      quote: "“Because hotel irons have questionable moral integrity and leave scorch marks on Raw Silk. Packed with 3 spare nozzle attachments.”",
+      weight: "1.450 KG",
+      stat: "NON-NEGOTIABLE",
+      time: "3 DAYS PREP",
+    },
+    safetypins: {
+      side: "her",
+      badge: "HER REALITY · AUDIT ITEM #05",
+      title: "Strategic 140-Pin Metal Reserve",
+      quote: "“Enough architectural steel to anchor the Howrah Bridge or salvage an auntie’s saree pallu collapse during the Bhangra entrance.”",
+      weight: "0.250 KG",
+      stat: "DEFENSE GRADE",
+      time: "2 WEEKS PREP",
+    },
+    lehenga: {
+      side: "her",
+      badge: "HER REALITY · AUDIT ITEM #06",
+      title: "The 14kg Sangeet Showstopper Lehenga",
+      quote: "“Hand-embroidered zardozi work with real metal wire. Cannot be repeated across any photo album in five northern states. Resale value: 1 BHK in Noida.”",
+      weight: "14.20 KG",
+      stat: "MANDATORY / NO REPEATS",
+      time: "3 WEEKS PREP",
+    },
+    shoes: {
+      side: "her",
+      badge: "HER REALITY · AUDIT ITEM #07",
+      title: "Terrain-Specific Footwear Array",
+      quote: "“Lawn stilettos with anti-sink caps, indoor marble kitten heels, and gold juttis in case the DJ plays 'Gud Naal Ishq Mitha'. 35% of total luggage volume.”",
+      weight: "4.800 KG",
+      stat: "TERRAIN-OPTIMIZED",
+      time: "4 DAYS PREP",
+    },
   };
 
-  btn.addEventListener("click", trigger);
+  const inspectItem = (pinId: string, triggerSound = true) => {
+    const data = AUDIT_ITEMS[pinId];
+    if (!data || !popover) return;
 
-  // Also hook the hero speech bubbles
-  const speechBubbles = document.querySelectorAll(".comic-bubble-anchor, .bubble-speech");
-  speechBubbles.forEach(b => {
-    b.addEventListener("click", (e) => trigger(e as MouseEvent));
-  });
-}
+    if (triggerSound) playTactileSwitchClick();
 
-/** Gyan Bites Soundboard Pill Switcher */
-function setupGyanSoundboard(): void {
-  const pills = document.querySelectorAll<HTMLButtonElement>(".gyan-pill");
-  const quoteText = document.querySelector<HTMLElement>("#gyan-active-text");
-  const quoteTag = document.querySelector<HTMLElement>("#gyan-active-tag");
+    // Update active pin states
+    pins.forEach((p) => {
+      p.classList.toggle("is-inspected", p.dataset.pin === pinId);
+    });
 
-  pills.forEach((pill) => {
-    pill.addEventListener("click", () => {
-      pills.forEach((p) => p.classList.remove("is-active"));
-      pill.classList.add("is-active");
+    // Update quick pills
+    pills.forEach((pill) => {
+      pill.classList.toggle("is-active", pill.dataset.targetPin === pinId);
+    });
 
-      const quote = pill.dataset.quote;
-      const context = pill.dataset.context;
+    // Update popover content
+    if (popoverSideBadge) popoverSideBadge.textContent = data.badge;
+    if (popoverTitle) popoverTitle.textContent = data.title;
+    if (popoverQuote) popoverQuote.textContent = data.quote;
+    if (popoverWeight) popoverWeight.textContent = data.weight;
+    if (popoverStat) popoverStat.textContent = data.stat;
+    if (popoverTime) popoverTime.textContent = data.time;
 
-      if (quoteText && quote) {
-        gsap.fromTo(
-          quoteText,
-          { opacity: 0, y: 6 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.25,
-            onStart: () => {
-              quoteText.textContent = `“${quote}”`;
-            },
-          }
-        );
+    popover.classList.toggle("side-her", data.side === "her");
+    popover.classList.add("is-open");
+    popover.setAttribute("aria-hidden", "false");
+
+    // Close shared truth if open
+    if (truthBanner) {
+      truthBanner.classList.remove("is-active");
+      truthBanner.setAttribute("aria-hidden", "true");
+    }
+
+    if (!reduce) {
+      gsap.fromTo(
+        popover,
+        { autoAlpha: 0.2, y: 12, scale: 0.97 },
+        { autoAlpha: 1, y: 0, scale: 1, duration: 0.3, ease: "back.out(1.5)" }
+      );
+    }
+  };
+
+  const closePopover = () => {
+    if (!popover) return;
+    popover.classList.remove("is-open");
+    popover.setAttribute("aria-hidden", "true");
+    pins.forEach((p) => p.classList.remove("is-inspected"));
+    pills.forEach((pill) => pill.classList.remove("is-active"));
+  };
+
+  const updateBalanceScale = (val: number, showTruthModal = false) => {
+    // Map slider 0..100 to angle -35deg .. +35deg
+    const angle = ((val - 50) / 50) * 35;
+
+    if (needleArm) {
+      needleArm.style.transform = `translateX(-50%) rotate(${angle}deg)`;
+    }
+
+    const isHis = val < 40;
+    const isHer = val > 60;
+    const isBalanced = val >= 40 && val <= 60;
+
+    if (glowHis) glowHis.classList.toggle("is-active", isHis);
+    if (glowHer) glowHer.classList.toggle("is-active", isHer);
+
+    if (hudBtnHis) {
+      hudBtnHis.classList.toggle("is-active", isHis);
+      hudBtnHis.setAttribute("aria-pressed", isHis ? "true" : "false");
+    }
+    if (hudBtnHer) {
+      hudBtnHer.classList.toggle("is-active", isHer);
+      hudBtnHer.setAttribute("aria-pressed", isHer ? "true" : "false");
+    }
+
+    if (markerHis) markerHis.classList.toggle("is-active", isHis);
+    if (markerTruth) markerTruth.classList.toggle("is-active", isBalanced);
+    if (markerHer) markerHer.classList.toggle("is-active", isHer);
+
+    if (telemetryText) {
+      if (isBalanced) {
+        telemetryText.textContent = "⚖️ EQUILIBRIUM REACHED · SHARED TRUTH UNLOCKED";
+      } else if (isHis) {
+        telemetryText.textContent = "SCALE TILTED: +52.4 KG BAGGAGE IMBALANCE (HIS REALITY)";
+      } else {
+        telemetryText.textContent = "SCALE OVERLOAD: 2,183% OVERWEIGHT (HER REALITY)";
       }
+    }
 
-      if (quoteTag && context) {
-        quoteTag.textContent = context;
+    if (plateImg && !reduce) {
+      const panX = isHis ? 1.5 : isHer ? -1.5 : 0;
+      plateImg.style.transform = `scale(1.02) translateX(${panX}%)`;
+    }
+
+    if ((isBalanced && showTruthModal) || showTruthModal) {
+      closePopover();
+      if (truthBanner) {
+        truthBanner.classList.add("is-active");
+        truthBanner.setAttribute("aria-hidden", "false");
+        playTactileSwitchClick();
       }
+    }
+  };
+
+  // Pin events
+  pins.forEach((pin) => {
+    pin.addEventListener("click", () => {
+      const pinId = pin.dataset.pin;
+      if (pinId) inspectItem(pinId);
     });
   });
+
+  // Pill strip events
+  pills.forEach((pill) => {
+    pill.addEventListener("click", () => {
+      const pinId = pill.dataset.targetPin;
+      if (pinId) inspectItem(pinId);
+    });
+  });
+
+  // Popover close
+  if (popoverCloseBtn) {
+    popoverCloseBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      closePopover();
+    });
+  }
+
+  // Truth banner backdrop click to dismiss
+  if (truthBanner) {
+    truthBanner.addEventListener("click", (e) => {
+      if (e.target === truthBanner) {
+        truthBanner.classList.remove("is-active");
+        truthBanner.setAttribute("aria-hidden", "true");
+        if (slider) slider.value = "15";
+        updateBalanceScale(15);
+      }
+    });
+  }
+
+  // Slider interaction
+  if (slider) {
+    slider.addEventListener("input", () => {
+      const val = parseInt(slider.value, 10);
+      updateBalanceScale(val, val >= 48 && val <= 52);
+    });
+  }
+
+  // Marker buttons
+  if (markerHis) {
+    markerHis.addEventListener("click", () => {
+      if (slider) slider.value = "15";
+      updateBalanceScale(15);
+      inspectItem("toothbrush");
+    });
+  }
+
+  if (markerTruth) {
+    markerTruth.addEventListener("click", () => {
+      if (slider) slider.value = "50";
+      updateBalanceScale(50, true);
+    });
+  }
+
+  if (markerHer) {
+    markerHer.addEventListener("click", () => {
+      if (slider) slider.value = "85";
+      updateBalanceScale(85);
+      inspectItem("lehenga");
+    });
+  }
+
+  // HUD buttons
+  if (hudBtnHis) {
+    hudBtnHis.addEventListener("click", () => {
+      if (slider) slider.value = "15";
+      updateBalanceScale(15);
+      inspectItem("toothbrush");
+    });
+  }
+
+  if (hudBtnHer) {
+    hudBtnHer.addEventListener("click", () => {
+      if (slider) slider.value = "85";
+      updateBalanceScale(85);
+      inspectItem("lehenga");
+    });
+  }
+
+  if (btnBalanceTruth) {
+    btnBalanceTruth.addEventListener("click", () => {
+      if (slider) slider.value = "50";
+      updateBalanceScale(50, true);
+    });
+  }
+
+  if (btnResumeAudit) {
+    btnResumeAudit.addEventListener("click", (e) => {
+      e.stopPropagation();
+      if (truthBanner) {
+        truthBanner.classList.remove("is-active");
+        truthBanner.setAttribute("aria-hidden", "true");
+      }
+      if (slider) slider.value = "15";
+      updateBalanceScale(15);
+    });
+  }
+
+  // Keyboard navigation (1: His, 2: Shared Truth, 3: Her, Escape: close)
+  section.addEventListener("keydown", (e) => {
+    if (e.key === "1") {
+      if (slider) slider.value = "15";
+      updateBalanceScale(15);
+      inspectItem("toothbrush");
+    } else if (e.key === "2") {
+      if (slider) slider.value = "50";
+      updateBalanceScale(50, true);
+    } else if (e.key === "3") {
+      if (slider) slider.value = "85";
+      updateBalanceScale(85);
+      inspectItem("lehenga");
+    } else if (e.key === "Escape") {
+      closePopover();
+      if (truthBanner) {
+        truthBanner.classList.remove("is-active");
+        truthBanner.setAttribute("aria-hidden", "true");
+      }
+    }
+  });
+
+  // Initial state setup
+  updateBalanceScale(15);
 }
 
-/** Tour Filters & Expander Drawer */
+/** Section 8: Tour Schedule Filtering & Instant Search */
 function setupTourInteractions(): void {
-  const filterTabs = document.querySelectorAll<HTMLButtonElement>(".filter-tab");
-  const tickets = document.querySelectorAll<HTMLElement>(".concert-ticket");
-  const schedCards = document.querySelectorAll<HTMLElement>(".schedule-card");
+  const filterTabs = document.querySelectorAll<HTMLButtonElement>(".region-tab");
+  const featuredCards = document.querySelectorAll<HTMLElement>(".featured-tour-card");
+  const schedRows = document.querySelectorAll<HTMLElement>(".tour-row-card");
   const expandBtn = document.querySelector<HTMLButtonElement>("#toggle-full-schedule-btn");
   const drawer = document.querySelector<HTMLDivElement>("#full-schedule-drawer");
   const btnText = document.querySelector<HTMLElement>("#expand-btn-text");
+
+  const searchInput = document.querySelector<HTMLInputElement>("#tour-search-input");
+  const searchClear = document.querySelector<HTMLButtonElement>("#tour-search-clear");
+  const countBadge = document.querySelector<HTMLElement>("#tour-search-count");
+  const noResultsBox = document.querySelector<HTMLDivElement>("#tour-no-results");
+  const noResultsQuery = document.querySelector<HTMLElement>("#no-results-query");
+  const resetBtn = document.querySelector<HTMLButtonElement>("#reset-tour-search-btn");
+  const cityChips = document.querySelectorAll<HTMLButtonElement>(".tour-city-chip");
+
+  let activeRegionFilter = "all";
+  let activeSearchQuery = "";
+
+  const applyFilters = () => {
+    let visibleCount = 0;
+    const q = activeSearchQuery.toLowerCase().trim();
+
+    if (searchClear) {
+      searchClear.style.display = q ? "block" : "none";
+    }
+
+    // Filter featured 4 cities
+    featuredCards.forEach((card) => {
+      const reg = card.dataset.region || "";
+      const matchRegion = activeRegionFilter === "all" || reg === activeRegionFilter;
+      card.style.display = matchRegion ? "block" : "none";
+    });
+
+    // Filter drawer rows
+    schedRows.forEach((row) => {
+      const reg = row.dataset.region || "";
+      const city = row.dataset.city || "";
+      const venue = row.dataset.venue || "";
+
+      const matchRegion = activeRegionFilter === "all" || reg === activeRegionFilter;
+      const matchSearch = !q || city.includes(q) || venue.includes(q) || reg.includes(q);
+
+      if (matchRegion && matchSearch) {
+        row.style.display = "grid";
+        visibleCount++;
+      } else {
+        row.style.display = "none";
+      }
+    });
+
+    if (countBadge) {
+      countBadge.textContent = `SHOWING ${visibleCount} OF ${schedRows.length} DATES`;
+    }
+
+    if (noResultsBox && noResultsQuery) {
+      if (visibleCount === 0) {
+        noResultsBox.style.display = "block";
+        noResultsQuery.textContent = q || activeRegionFilter.toUpperCase();
+      } else {
+        noResultsBox.style.display = "none";
+      }
+    }
+  };
 
   filterTabs.forEach((tab) => {
     tab.addEventListener("click", () => {
       filterTabs.forEach((t) => t.classList.remove("is-active"));
       tab.classList.add("is-active");
-
-      const filter = tab.dataset.regionFilter || "all";
-
-      // Filter featured tickets
-      tickets.forEach((ticket) => {
-        const reg = ticket.dataset.region;
-        const match = filter === "all" || reg === filter;
-        ticket.style.display = match ? "flex" : "none";
-      });
-
-      // Filter schedule cards
-      schedCards.forEach((card) => {
-        const reg = card.dataset.region;
-        const match = filter === "all" || reg === filter;
-        card.style.display = match ? "flex" : "none";
-      });
+      activeRegionFilter = tab.dataset.regionFilter || "all";
+      applyFilters();
     });
   });
 
-  // Toggle 33 cities drawer
+  if (searchInput) {
+    searchInput.addEventListener("input", (e) => {
+      activeSearchQuery = (e.target as HTMLInputElement).value;
+      cityChips.forEach((chip) => {
+        const term = chip.dataset.searchTerm?.toLowerCase() || "";
+        chip.classList.toggle("is-active", term === activeSearchQuery.toLowerCase().trim());
+      });
+      applyFilters();
+    });
+  }
+
+  if (searchClear && searchInput) {
+    searchClear.addEventListener("click", () => {
+      searchInput.value = "";
+      activeSearchQuery = "";
+      cityChips.forEach((c) => c.classList.remove("is-active"));
+      searchInput.focus();
+      applyFilters();
+    });
+  }
+
+  if (resetBtn && searchInput) {
+    resetBtn.addEventListener("click", () => {
+      searchInput.value = "";
+      activeSearchQuery = "";
+      activeRegionFilter = "all";
+      filterTabs.forEach((t) => {
+        t.classList.toggle("is-active", t.dataset.regionFilter === "all");
+      });
+      cityChips.forEach((c) => c.classList.remove("is-active"));
+      applyFilters();
+    });
+  }
+
+  cityChips.forEach((chip) => {
+    chip.addEventListener("click", () => {
+      const term = chip.dataset.searchTerm || "";
+      if (activeSearchQuery.toLowerCase() === term.toLowerCase()) {
+        chip.classList.remove("is-active");
+        if (searchInput) searchInput.value = "";
+        activeSearchQuery = "";
+      } else {
+        cityChips.forEach((c) => c.classList.remove("is-active"));
+        chip.classList.add("is-active");
+        if (searchInput) searchInput.value = term;
+        activeSearchQuery = term;
+      }
+      applyFilters();
+    });
+  });
+
   if (expandBtn && drawer) {
     expandBtn.addEventListener("click", () => {
       const isClosed = drawer.style.display === "none";
       drawer.style.display = isClosed ? "block" : "none";
+      expandBtn.setAttribute("aria-expanded", isClosed ? "true" : "false");
       if (btnText) {
         btnText.innerHTML = isClosed 
-          ? "HIDE FULL SCHEDULE &uarr;" 
-          : "VIEW ALL 33 GLOBAL TOUR DATES &darr;";
+          ? "HIDE FULL TOUR SCHEDULE &uarr;" 
+          : "EXPLORE ALL 33 GLOBAL TOUR DATES &darr;";
+      }
+      if (isClosed && searchInput) {
+        setTimeout(() => searchInput.focus(), 150);
       }
     });
   }
 }
 
-/** The Aise Kaise? Machine: Interactive 3-Reel Slot Machine */
+/** Section 6: Corporate-to-Marriage Translation Instrument */
 function setupSlotMachine(): void {
-  const spinBtn = document.querySelector<HTMLButtonElement>("#generate-dilemma-btn");
-  const lever = document.querySelector<HTMLElement>("#lever-assembly");
-  const leverDock = document.querySelector<HTMLElement>("#slot-lever-dock");
+  const nextBtn = document.querySelector<HTMLButtonElement>("#trans-next-btn");
+  const copyBtn = document.querySelector<HTMLButtonElement>("#trans-copy-btn");
+  const copyLabel = document.querySelector<HTMLElement>("#trans-copy-label");
+  const filterBtns = document.querySelectorAll<HTMLButtonElement>(".trans-cat-pill");
 
-  const reel1Text = document.querySelector<HTMLElement>("#reel-1-content .reel-text");
-  const reel1Illus = document.querySelector<HTMLElement>("#reel-1-illus");
-  const reel2Text = document.querySelector<HTMLElement>("#reel-2-content .reel-text");
-  const reel2Illus = document.querySelector<HTMLElement>("#reel-2-illus");
-  const obsText = document.querySelector<HTMLElement>("#obs-quote-text");
+  const corpText = document.querySelector<HTMLElement>("#corp-statement-text");
+  const typewriterHomeText = document.querySelector<HTMLElement>("#typewriter-home-text");
+  const typewriterCaret = document.querySelector<HTMLElement>("#typewriter-caret");
+  const ruleText = document.querySelector<HTMLElement>("#amit-rule-text");
+  const categoryTag = document.querySelector<HTMLElement>("#corp-category-tag");
+  const counterTag = document.querySelector<HTMLElement>("#scenario-counter");
 
-  if (!spinBtn) return;
+  if (!nextBtn || !corpText) return;
 
-  const optionsWho = [
-    { illus: svgs.cartoonWife, label: "WIFE" },
-    { illus: svgs.cartoonSharmaJi, label: "SHARMA JI" },
-    { illus: svgs.cartoonWife, label: "MOTHER-IN-LAW" },
-    { illus: svgs.cartoonSharmaJi, label: "DELHI AUTO WALA" },
-    { illus: svgs.cartoonSharmaJi, label: "SOCIETY UNCLE" }
+  interface Scenario {
+    category: "office" | "finances" | "whatsapp" | "travel";
+    categoryLabel: string;
+    corporate: string;
+    home: string;
+    rule: string;
+  }
+
+  const allScenarios: Scenario[] = [
+    {
+      category: "office",
+      categoryLabel: "OFFICE VS HOME",
+      corporate: "“Let's take this offline and circle back after evaluating our Q3 bandwidth.”",
+      home: "“I am pretending to listen, but if I answer right now we won’t speak for three days.”",
+      rule: "Amit's Finding: Never offer a logical solution when someone is venting. Just nod slowly and say 'Bilkul'.",
+    },
+    {
+      category: "finances",
+      categoryLabel: "MONTHLY BUDGET",
+      corporate: "“We need to optimize our capital expenditure and prioritize essential runway.”",
+      home: "“She wants a 4-day weekend in Udaipur with 14 outfit changes; my account has Rs 4,200 and a prayer.”",
+      rule: "Amit's Finding: In an Indian household, 'budgeting' is an abstract philosophical debate, not an actual practice.",
+    },
+    {
+      category: "whatsapp",
+      categoryLabel: "FAMILY WHATSAPP",
+      corporate: "“As per my previous email, please review the attached compliance protocols.”",
+      home: "“My mother-in-law has already vetoed our vacation plan in the family WhatsApp group without typing a single word.”",
+      rule: "Amit's Finding: The family WhatsApp group has 42 admins and zero fact-checkers.",
+    },
+    {
+      category: "travel",
+      categoryLabel: "TRAVEL DELAYS",
+      corporate: "“We are experiencing a temporary operational delay in delivery timelines.”",
+      home: "“‘Bas 5 minute mein tayar ho rahi hoon!’ — Physics and NASA are still unable to calculate this specific duration.”",
+      rule: "Amit's Finding: 5 minutes in marriage time is roughly 87 minutes in civilian time.",
+    },
+    {
+      category: "office",
+      categoryLabel: "OFFICE VS HOME",
+      corporate: "“Let's align our core performance metrics to ensure maximum stakeholder satisfaction.”",
+      home: "“At work I was Vice President managing 200 people. At home, my wife’s only KPI for me is: 'Bas chup raho'.”",
+      rule: "Amit's Finding: Agreeing with your wife has 100% ROI. Even when you are right, refer to Clause 1.",
+    },
+    {
+      category: "whatsapp",
+      categoryLabel: "FAMILY WHATSAPP",
+      corporate: "“Competitor benchmarking indicates we are currently lagging behind industry standards.”",
+      home: "“Sharma Ji’s beta scored 97%. You scored 96.8%, which in our house is treated as treason.”",
+      rule: "Amit's Finding: Indian parents don’t care if you succeed; they just want you to beat Sharma Ji’s son.",
+    },
   ];
 
-  const optionsSituation = [
-    { illus: svgs.cartoonSuitcases, label: "2-DAY TRIP.<br/>4 SUITCASES." },
-    { illus: svgs.cartoonSuitcases, label: "SCORED 95%<br/>IN PRE-BOARDS." },
-    { illus: svgs.cartoonSuitcases, label: "REQUEST TO GO<br/>ON GOA TRIP." },
-    { illus: svgs.cartoonSuitcases, label: "AC TEMPERATURE<br/>SET TO 16°C." },
-    { illus: svgs.cartoonSuitcases, label: "“BAS 5 MINUTE<br/>MEIN AAYI.”" }
-  ];
+  let currentCategory = "all";
+  let activeIndex = 0;
+  let audioCtx: AudioContext | null = null;
+  let typewriterTimer: number | null = null;
+  let isTyping = false;
 
-  const optionsObservation = [
-    "“THE LOGIC HAS LEFT THE CHAT.”",
-    "“ERROR 404: SHARMA JI'S SON SCORED 97%.”",
-    "“MISSION ABORTED: ZERO PARENTAL FUNDING.”",
-    "“RELATIVISTIC TIME DILATION CONFIRMED.”",
-    "“MUMMY DECLARES: 'NAHI! KABHI NAHI!'”",
-    "“NOW CALLING 42 WHATSAPP GROUP ADMINS.”"
-  ];
-
-  let spinning = false;
-
-  const spin = () => {
-    if (spinning) return;
-    spinning = true;
-
-    // Pull lever animation
-    if (lever) {
-      lever.classList.add("is-pulled");
-      setTimeout(() => lever.classList.remove("is-pulled"), 300);
-    }
-
-    // Add spin blur class to reels
-    const reels = document.querySelectorAll(".reel-content");
-    reels.forEach(r => r.classList.add("is-spinning"));
-
-    // Randomize results after 450ms
-    setTimeout(() => {
-      const who = optionsWho[Math.floor(Math.random() * optionsWho.length)];
-      const sit = optionsSituation[Math.floor(Math.random() * optionsSituation.length)];
-      const obs = optionsObservation[Math.floor(Math.random() * optionsObservation.length)];
-
-      if (reel1Illus && reel1Text) {
-        reel1Illus.innerHTML = who.illus;
-        reel1Text.textContent = who.label;
-      }
-
-      if (reel2Illus && reel2Text) {
-        reel2Illus.innerHTML = sit.illus;
-        reel2Text.innerHTML = sit.label;
-      }
-
-      if (obsText) {
-        obsText.textContent = obs;
-      }
-
-      reels.forEach(r => r.classList.remove("is-spinning"));
-      spinning = false;
-    }, 450);
+  const getFilteredList = () => {
+    if (currentCategory === "all") return allScenarios;
+    return allScenarios.filter((s) => s.category === currentCategory);
   };
 
-  spinBtn.addEventListener("click", spin);
-  if (leverDock) {
-    leverDock.addEventListener("click", spin);
+  const playTypewriterKeySound = () => {
+    try {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext)();
+      }
+      if (audioCtx.state === "suspended") audioCtx.resume();
+      
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = "triangle";
+      const pitches = [1850, 2100, 2350, 2600];
+      const pitch = pitches[Math.floor(Math.random() * pitches.length)];
+      osc.frequency.setValueAtTime(pitch, audioCtx.currentTime);
+      gain.gain.setValueAtTime(0.025, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.02);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.02);
+    } catch {
+      // Audio fallback
+    }
+  };
+
+  const renderScenario = (animate = true) => {
+    const list = getFilteredList();
+    if (!list.length) return;
+    if (activeIndex >= list.length) activeIndex = 0;
+
+    const item = list[activeIndex];
+
+    if (categoryTag) categoryTag.textContent = item.categoryLabel;
+    if (counterTag) counterTag.textContent = `SITUATION ${activeIndex + 1} OF ${list.length}`;
+
+    if (typewriterTimer) {
+      clearInterval(typewriterTimer);
+      typewriterTimer = null;
+    }
+
+    if (animate) {
+      isTyping = true;
+      nextBtn.classList.add("is-typing");
+      const nextBtnSpan = nextBtn.querySelector("span");
+      if (nextBtnSpan) nextBtnSpan.textContent = "DECODING REALITY...";
+
+      corpText.textContent = item.corporate;
+      if (ruleText) ruleText.textContent = item.rule;
+
+      gsap.fromTo(
+        [corpText, ruleText],
+        { opacity: 0, y: 6 },
+        { opacity: 1, y: 0, stagger: 0.04, duration: 0.25, ease: "power2.out" }
+      );
+
+      const targetText = item.home;
+      let charIdx = 0;
+      if (typewriterHomeText) {
+        typewriterHomeText.textContent = "";
+        if (typewriterCaret) typewriterCaret.classList.remove("is-hidden");
+
+        typewriterTimer = window.setInterval(() => {
+          if (charIdx < targetText.length) {
+            typewriterHomeText.textContent = targetText.slice(0, charIdx + 1);
+            if (charIdx % 2 === 0) playTypewriterKeySound();
+            charIdx++;
+          } else {
+            if (typewriterTimer) clearInterval(typewriterTimer);
+            typewriterTimer = null;
+            isTyping = false;
+            nextBtn.classList.remove("is-typing");
+            if (nextBtnSpan) nextBtnSpan.textContent = "TRANSLATE NEXT SITUATION";
+          }
+        }, 22);
+      }
+    } else {
+      corpText.textContent = item.corporate;
+      if (typewriterHomeText) typewriterHomeText.textContent = item.home;
+      if (ruleText) ruleText.textContent = item.rule;
+    }
+  };
+
+  nextBtn.addEventListener("click", () => {
+    if (isTyping) return;
+    const list = getFilteredList();
+    activeIndex = (activeIndex + 1) % list.length;
+    renderScenario(true);
+  });
+
+  filterBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      filterBtns.forEach((b) => b.classList.remove("is-active"));
+      btn.classList.add("is-active");
+      currentCategory = btn.dataset.cat || "all";
+      activeIndex = 0;
+      renderScenario(true);
+    });
+  });
+
+  if (copyBtn && copyLabel) {
+    copyBtn.addEventListener("click", async () => {
+      const list = getFilteredList();
+      const item = list[activeIndex];
+      const textToCopy = `Corporate Jargon: ${item.corporate}\nDomestic Reality: ${item.home}\n— Amit Tandon (amittandon.in)`;
+
+      try {
+        await navigator.clipboard.writeText(textToCopy);
+        const originalText = copyLabel.textContent;
+        copyLabel.textContent = "COPIED TO CLIPBOARD! ✓";
+        setTimeout(() => {
+          copyLabel.textContent = originalText;
+        }, 2000);
+      } catch {
+        // Fallback
+      }
+    });
   }
+
+  renderScenario(false);
 }
 
-/** Inline Cinema Player Modal Controller */
+/** Viral Gyan Bites Deck Controller */
+function setupGyanDeck(): void {
+  const cardFrame = document.querySelector<HTMLElement>("#gyan-card-frame");
+  const cardInner = document.querySelector<HTMLElement>("#gyan-card-inner");
+  const activeImg = document.querySelector<HTMLImageElement>("#gyan-active-img");
+  const pillNum = document.querySelector<HTMLElement>("#gyan-pill-num");
+  const captionText = document.querySelector<HTMLElement>("#gyan-caption-text");
+  const whatsappLink = document.querySelector<HTMLAnchorElement>("#btn-gyan-whatsapp");
+
+  const dealBtn = document.querySelector<HTMLButtonElement>("#btn-gyan-deal");
+  const nextBtn = document.querySelector<HTMLButtonElement>("#btn-gyan-next");
+  const prevBtn = document.querySelector<HTMLButtonElement>("#btn-gyan-prev");
+
+  if (!cardFrame || !activeImg || !captionText) return;
+
+  const gyanItems = [
+    { id: 1, caption: "WhatsApp Family Groups: 42 members, 120 Good Morning forwards by 7 AM, zero replies to genuine questions." },
+    { id: 2, caption: "Punjabis in Agra: If the monument doesn't have butter chicken within 200 meters, why did Shah Jahan even build it?" },
+    { id: 3, caption: "AC Temperature Diplomacy: 18°C is Arctic tundra, 24°C is Sahara desert, 22°C is a pending court case." },
+    { id: 4, caption: "Parenting Gen-Z: You pay ₹4 lakh school fees so they can reply 'bruh' to your life advice." },
+    { id: 5, caption: "The 5-Minute Myth: 'Bas 5 minute mein tayar ho rahi hoon' violates Einstein's theory of general relativity." },
+    { id: 6, caption: "Diet in Delhi: Starting a strict diet on Monday, ordering 2 plates of Chole Bhature on Tuesday morning." },
+    { id: 7, caption: "Shopping with Wife: Walking 14 kilometers inside a mall to buy a hair clip that was available at the entrance." },
+    { id: 8, caption: "The Married Guy Rule: Apologizing is not an admission of guilt; it is a tactical ceasefire." },
+    { id: 9, caption: "Flight Announcements: Indian uncle unbuckling his seatbelt the microsecond the aircraft tire touches the runway." },
+    { id: 10, caption: "Wedding Envelopes (Shagun): Tracking exactly how much Sharma ji gave in 2011 so we can return ₹501 in 2026." },
+  ];
+
+  let currentIndex = 0;
+
+  // 3D Card Parallax on Mouse Move
+  cardFrame.addEventListener("pointermove", (e: PointerEvent) => {
+    const rect = cardFrame.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    const rotX = -(y / rect.height) * 16;
+    const rotY = (x / rect.width) * 16;
+    if (cardInner) {
+      cardInner.style.transform = `rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) scale(1.02)`;
+    }
+  });
+
+  cardFrame.addEventListener("pointerleave", () => {
+    if (cardInner) {
+      cardInner.style.transform = `rotateX(0deg) rotateY(0deg) scale(1)`;
+    }
+  });
+
+  const showGyan = (index: number) => {
+    currentIndex = (index + gyanItems.length) % gyanItems.length;
+    const item = gyanItems[currentIndex];
+
+    gsap.to(activeImg, {
+      opacity: 0,
+      scale: 0.95,
+      duration: 0.16,
+      onComplete: () => {
+        activeImg.src = `/gyan/gyan-${item.id}.jpg`;
+        if (pillNum) pillNum.textContent = `CARD ${String(item.id).padStart(2, "0")} OF 10`;
+        captionText.textContent = `"${item.caption}"`;
+        if (whatsappLink) {
+          whatsappLink.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(`Amit Tandon Gyan Bite: ${item.caption} (amittandon.in)`)}`;
+        }
+
+        gsap.to(activeImg, {
+          opacity: 1,
+          scale: 1,
+          duration: 0.25,
+          ease: "power2.out",
+        });
+      },
+    });
+  };
+
+  dealBtn?.addEventListener("click", () => {
+    const nextIndex = Math.floor(Math.random() * gyanItems.length);
+    showGyan(nextIndex === currentIndex ? (nextIndex + 1) % gyanItems.length : nextIndex);
+  });
+
+  nextBtn?.addEventListener("click", () => showGyan(currentIndex + 1));
+  prevBtn?.addEventListener("click", () => showGyan(currentIndex - 1));
+}
+
+/** Section 7: Cinema Player Modal Controller */
 function setupCinemaModal(): void {
   const modal = document.querySelector<HTMLDivElement>("#videoModal");
   const iframe = document.querySelector<HTMLIFrameElement>("#videoModalIframe");
@@ -372,3 +1396,127 @@ function setupCinemaModal(): void {
     }
   });
 }
+
+/** Ambient Warm Tungsten Roving Glow */
+function setupAmbientSpotlight(reduce: boolean): void {
+  const spotlight = document.querySelector<HTMLDivElement>("#stage-mouse-spotlight");
+  if (!spotlight || reduce) return;
+
+  let mouseX = window.innerWidth / 2;
+  let mouseY = window.innerHeight * 0.35;
+  let currentX = mouseX;
+  let currentY = mouseY;
+  let rafId: number | null = null;
+
+  window.addEventListener("pointermove", (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+
+    if (!rafId) {
+      rafId = requestAnimationFrame(updateSpotlight);
+    }
+  }, { passive: true });
+
+  function updateSpotlight() {
+    currentX += (mouseX - currentX) * 0.1;
+    currentY += (mouseY - currentY) * 0.1;
+
+    document.documentElement.style.setProperty("--mouse-x", `${currentX.toFixed(1)}px`);
+    document.documentElement.style.setProperty("--mouse-y", `${currentY.toFixed(1)}px`);
+
+    if (Math.abs(mouseX - currentX) > 0.5 || Math.abs(mouseY - currentY) > 0.5) {
+      rafId = requestAnimationFrame(updateSpotlight);
+    } else {
+      rafId = null;
+    }
+  }
+}
+
+/** Micro-interaction: Magnetic Playhead on Cinema & Video Cards */
+function setupMagneticPlayheads(reduce: boolean): void {
+  if (reduce) return;
+
+  const magneticTargets: { container: HTMLElement; target: HTMLElement; maxDelta: number }[] = [];
+
+  // Featured Performance Card
+  const featuredFrame = document.querySelector<HTMLElement>(".featured-thumbnail-frame");
+  const featuredPlayBtn = document.querySelector<HTMLElement>(".cinema-play-trigger");
+  if (featuredFrame && featuredPlayBtn) {
+    magneticTargets.push({ container: featuredFrame, target: featuredPlayBtn, maxDelta: 28 });
+  }
+
+  // Supporting Clip Cards
+  const supportingBoxes = document.querySelectorAll<HTMLElement>(".supporting-thumbnail-box");
+  supportingBoxes.forEach((box) => {
+    const playBtn = box.querySelector<HTMLElement>(".supporting-play-btn");
+    if (playBtn) {
+      magneticTargets.push({ container: box, target: playBtn, maxDelta: 16 });
+    }
+  });
+
+  magneticTargets.forEach(({ container, target, maxDelta }) => {
+    gsap.set(target, { xPercent: -50, yPercent: -50 });
+    const xTo = gsap.quickTo(target, "x", { duration: 0.35, ease: "power3.out" });
+    const yTo = gsap.quickTo(target, "y", { duration: 0.35, ease: "power3.out" });
+
+    const onMouseMove = (e: MouseEvent) => {
+      const rect = container.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+
+      // Calculate distance from center
+      const rawX = (e.clientX - centerX) * 0.32;
+      const rawY = (e.clientY - centerY) * 0.32;
+
+      // Clamp to maxDelta
+      const clampedX = Math.max(-maxDelta, Math.min(maxDelta, rawX));
+      const clampedY = Math.max(-maxDelta, Math.min(maxDelta, rawY));
+
+      xTo(clampedX);
+      yTo(clampedY);
+    };
+
+    const onMouseLeave = () => {
+      gsap.to(target, {
+        x: 0,
+        y: 0,
+        duration: 0.55,
+        ease: "elastic.out(1, 0.45)",
+      });
+    };
+
+    container.addEventListener("mousemove", onMouseMove, { passive: true });
+    container.addEventListener("mouseleave", onMouseLeave);
+  });
+}
+
+/** Micro-interaction: Stand-Up Mic Soundwave Pulse on Click */
+function setupMicAudioWaveClick(): void {
+  window.addEventListener(
+    "click",
+    (e: MouseEvent) => {
+      const wave = document.createElement("div");
+      wave.className = "mic-click-wave";
+      wave.style.left = `${e.clientX}px`;
+      wave.style.top = `${e.clientY}px`;
+      document.body.appendChild(wave);
+
+      gsap.fromTo(
+        wave,
+        { scale: 0.2, opacity: 0.9 },
+        {
+          scale: 2.2,
+          opacity: 0,
+          duration: 0.45,
+          ease: "power2.out",
+          onComplete: () => {
+            wave.remove();
+          },
+        }
+      );
+    },
+    { passive: true }
+  );
+}
+
+

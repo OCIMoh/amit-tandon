@@ -188,7 +188,7 @@ export function renderObservation(_site: SiteContent): string {
         <span class="dep-label mono">NEXT STOP:</span>
         <a href="#live-shows" class="dep-city-link">
           <strong class="dep-city">LONDON</strong>
-          <span class="dep-venue">Eventim Apollo &bull; Oct 24</span>
+          <span class="dep-venue">Southbank Centre &bull; Nov 14</span>
           <span class="dep-status status-fast">SELLING FAST</span>
         </a>
       </div>

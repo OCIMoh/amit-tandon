@@ -27,7 +27,6 @@ export async function setupMotion(): Promise<void> {
   setupPerspectiveShift(reduce);
   setupTourInteractions();
   setupSlotMachine();
-  setupGyanDeck();
   setupCinemaModal();
   setupMagneticPlayheads(reduce);
   setupAmbientSpotlight(reduce);
@@ -954,9 +953,9 @@ function setupPerspectiveShift(reduce: boolean): void {
 function setupTourInteractions(): void {
   const filterTabs = document.querySelectorAll<HTMLButtonElement>(".region-tab");
   const featuredCards = document.querySelectorAll<HTMLElement>(".featured-tour-card");
+  const schedGrid = document.querySelector<HTMLDivElement>("#schedule-cards-grid");
   const schedRows = document.querySelectorAll<HTMLElement>(".tour-row-card");
   const expandBtn = document.querySelector<HTMLButtonElement>("#toggle-full-schedule-btn");
-  const drawer = document.querySelector<HTMLDivElement>("#full-schedule-drawer");
   const btnText = document.querySelector<HTMLElement>("#expand-btn-text");
 
   const searchInput = document.querySelector<HTMLInputElement>("#tour-search-input");
@@ -966,9 +965,11 @@ function setupTourInteractions(): void {
   const noResultsQuery = document.querySelector<HTMLElement>("#no-results-query");
   const resetBtn = document.querySelector<HTMLButtonElement>("#reset-tour-search-btn");
   const cityChips = document.querySelectorAll<HTMLButtonElement>(".tour-city-chip");
+  const waRequestBtn = document.querySelector<HTMLAnchorElement>("#whatsapp-request-city-btn");
 
   let activeRegionFilter = "all";
   let activeSearchQuery = "";
+  let isManuallyExpanded = false;
 
   const applyFilters = () => {
     let visibleCount = 0;
@@ -978,24 +979,45 @@ function setupTourInteractions(): void {
       searchClear.style.display = q ? "block" : "none";
     }
 
-    // Filter featured 4 cities
+    // Auto-expand the grid if user is searching or has selected a specific region
+    const hasActiveFilter = Boolean(q || activeRegionFilter !== "all");
+    const shouldBeExpanded = isManuallyExpanded || hasActiveFilter;
+    if (schedGrid) {
+      schedGrid.classList.toggle("is-expanded", shouldBeExpanded);
+    }
+    if (expandBtn && btnText) {
+      expandBtn.setAttribute("aria-expanded", shouldBeExpanded ? "true" : "false");
+      btnText.innerHTML = shouldBeExpanded
+        ? "COLLAPSE FULL TOUR SCHEDULE &uarr;"
+        : "EXPLORE ALL 32 GLOBAL TOUR DATES &darr;";
+    }
+
+    // Filter featured 4 flagship cards
     featuredCards.forEach((card) => {
       const reg = card.dataset.region || "";
+      const text = card.textContent?.toLowerCase() || "";
       const matchRegion = activeRegionFilter === "all" || reg === activeRegionFilter;
-      card.style.display = matchRegion ? "block" : "none";
+      const matchSearch = !q || text.includes(q);
+      card.style.display = matchRegion && matchSearch ? "block" : "none";
     });
 
-    // Filter drawer rows
+    // Filter schedule rows
     schedRows.forEach((row) => {
       const reg = row.dataset.region || "";
       const city = row.dataset.city || "";
       const venue = row.dataset.venue || "";
+      const isInitialFold = row.classList.contains("in-initial-fold");
 
       const matchRegion = activeRegionFilter === "all" || reg === activeRegionFilter;
       const matchSearch = !q || city.includes(q) || venue.includes(q) || reg.includes(q);
 
       if (matchRegion && matchSearch) {
-        row.style.display = "grid";
+        // If not expanded and belongs to extended fold, CSS controls visibility or display: grid
+        if (shouldBeExpanded || isInitialFold) {
+          row.style.display = "grid";
+        } else {
+          row.style.display = "none";
+        }
         visibleCount++;
       } else {
         row.style.display = "none";
@@ -1009,7 +1031,12 @@ function setupTourInteractions(): void {
     if (noResultsBox && noResultsQuery) {
       if (visibleCount === 0) {
         noResultsBox.style.display = "block";
-        noResultsQuery.textContent = q || activeRegionFilter.toUpperCase();
+        const queryTerm = q || (activeRegionFilter !== "all" ? activeRegionFilter.replace("-", " ").toUpperCase() : "selected criteria");
+        noResultsQuery.textContent = queryTerm;
+        if (waRequestBtn) {
+          const enc = encodeURIComponent(queryTerm);
+          waRequestBtn.href = `https://wa.me/919004040003?text=Hi%20Amit%20Tandon%20Management,%20please%20bring%20the%20Aise%20Kaise%20world%20tour%20to%20${enc}!`;
+        }
       } else {
         noResultsBox.style.display = "none";
       }
@@ -1051,6 +1078,7 @@ function setupTourInteractions(): void {
       searchInput.value = "";
       activeSearchQuery = "";
       activeRegionFilter = "all";
+      isManuallyExpanded = false;
       filterTabs.forEach((t) => {
         t.classList.toggle("is-active", t.dataset.regionFilter === "all");
       });
@@ -1076,17 +1104,11 @@ function setupTourInteractions(): void {
     });
   });
 
-  if (expandBtn && drawer) {
+  if (expandBtn) {
     expandBtn.addEventListener("click", () => {
-      const isClosed = drawer.style.display === "none";
-      drawer.style.display = isClosed ? "block" : "none";
-      expandBtn.setAttribute("aria-expanded", isClosed ? "true" : "false");
-      if (btnText) {
-        btnText.innerHTML = isClosed 
-          ? "HIDE FULL TOUR SCHEDULE &uarr;" 
-          : "EXPLORE ALL 33 GLOBAL TOUR DATES &darr;";
-      }
-      if (isClosed && searchInput) {
+      isManuallyExpanded = !isManuallyExpanded;
+      applyFilters();
+      if (isManuallyExpanded && searchInput && window.innerWidth > 768) {
         setTimeout(() => searchInput.focus(), 150);
       }
     });
@@ -1291,89 +1313,6 @@ function setupSlotMachine(): void {
   }
 
   renderScenario(false);
-}
-
-/** Viral Gyan Bites Deck Controller */
-function setupGyanDeck(): void {
-  const cardFrame = document.querySelector<HTMLElement>("#gyan-card-frame");
-  const cardInner = document.querySelector<HTMLElement>("#gyan-card-inner");
-  const activeImg = document.querySelector<HTMLImageElement>("#gyan-active-img");
-  const pillNum = document.querySelector<HTMLElement>("#gyan-pill-num");
-  const captionText = document.querySelector<HTMLElement>("#gyan-caption-text");
-  const whatsappLink = document.querySelector<HTMLAnchorElement>("#btn-gyan-whatsapp");
-
-  const dealBtn = document.querySelector<HTMLButtonElement>("#btn-gyan-deal");
-  const nextBtn = document.querySelector<HTMLButtonElement>("#btn-gyan-next");
-  const prevBtn = document.querySelector<HTMLButtonElement>("#btn-gyan-prev");
-
-  if (!cardFrame || !activeImg || !captionText) return;
-
-  const gyanItems = [
-    { id: 1, caption: "WhatsApp Family Groups: 42 members, 120 Good Morning forwards by 7 AM, zero replies to genuine questions." },
-    { id: 2, caption: "Punjabis in Agra: If the monument doesn't have butter chicken within 200 meters, why did Shah Jahan even build it?" },
-    { id: 3, caption: "AC Temperature Diplomacy: 18°C is Arctic tundra, 24°C is Sahara desert, 22°C is a pending court case." },
-    { id: 4, caption: "Parenting Gen-Z: You pay ₹4 lakh school fees so they can reply 'bruh' to your life advice." },
-    { id: 5, caption: "The 5-Minute Myth: 'Bas 5 minute mein tayar ho rahi hoon' violates Einstein's theory of general relativity." },
-    { id: 6, caption: "Diet in Delhi: Starting a strict diet on Monday, ordering 2 plates of Chole Bhature on Tuesday morning." },
-    { id: 7, caption: "Shopping with Wife: Walking 14 kilometers inside a mall to buy a hair clip that was available at the entrance." },
-    { id: 8, caption: "The Married Guy Rule: Apologizing is not an admission of guilt; it is a tactical ceasefire." },
-    { id: 9, caption: "Flight Announcements: Indian uncle unbuckling his seatbelt the microsecond the aircraft tire touches the runway." },
-    { id: 10, caption: "Wedding Envelopes (Shagun): Tracking exactly how much Sharma ji gave in 2011 so we can return ₹501 in 2026." },
-  ];
-
-  let currentIndex = 0;
-
-  // 3D Card Parallax on Mouse Move
-  cardFrame.addEventListener("pointermove", (e: PointerEvent) => {
-    const rect = cardFrame.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
-    const rotX = -(y / rect.height) * 16;
-    const rotY = (x / rect.width) * 16;
-    if (cardInner) {
-      cardInner.style.transform = `rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) scale(1.02)`;
-    }
-  });
-
-  cardFrame.addEventListener("pointerleave", () => {
-    if (cardInner) {
-      cardInner.style.transform = `rotateX(0deg) rotateY(0deg) scale(1)`;
-    }
-  });
-
-  const showGyan = (index: number) => {
-    currentIndex = (index + gyanItems.length) % gyanItems.length;
-    const item = gyanItems[currentIndex];
-
-    gsap.to(activeImg, {
-      opacity: 0,
-      scale: 0.95,
-      duration: 0.16,
-      onComplete: () => {
-        activeImg.src = `/gyan/gyan-${item.id}.jpg`;
-        if (pillNum) pillNum.textContent = `CARD ${String(item.id).padStart(2, "0")} OF 10`;
-        captionText.textContent = `"${item.caption}"`;
-        if (whatsappLink) {
-          whatsappLink.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(`Amit Tandon Gyan Bite: ${item.caption} (amittandon.in)`)}`;
-        }
-
-        gsap.to(activeImg, {
-          opacity: 1,
-          scale: 1,
-          duration: 0.25,
-          ease: "power2.out",
-        });
-      },
-    });
-  };
-
-  dealBtn?.addEventListener("click", () => {
-    const nextIndex = Math.floor(Math.random() * gyanItems.length);
-    showGyan(nextIndex === currentIndex ? (nextIndex + 1) % gyanItems.length : nextIndex);
-  });
-
-  nextBtn?.addEventListener("click", () => showGyan(currentIndex + 1));
-  prevBtn?.addEventListener("click", () => showGyan(currentIndex - 1));
 }
 
 /** Section 7: Cinema Player Modal Controller */

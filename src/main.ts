@@ -4,9 +4,7 @@ import "./styles/sections/observation.css";
 import "./styles/sections/perspective.css";
 import "./styles/sections/contradictions.css";
 import "./styles/sections/aise-kaise.css";
-import "./styles/sections/corporate.css";
-import "./styles/sections/slot-machine.css";
-import "./styles/sections/person.css";
+import "./styles/sections/cta.css";
 
 import siteJson from "../data/site.json";
 import showsJson from "../data/shows.json";
@@ -18,9 +16,7 @@ import { renderObservation } from "./sections/observation";
 import { renderPerspective } from "./sections/perspective";
 import { renderContradictions } from "./sections/contradictions";
 import { renderAiseKaise } from "./sections/aise-kaise";
-import { renderCorporate } from "./sections/corporate";
-import { renderSlotMachine } from "./sections/slot-machine";
-import { renderPerson } from "./sections/person";
+import { renderCta } from "./sections/cta";
 import { renderFooter } from "./sections/footer";
 import { setupMotion } from "./motion/setup";
 
@@ -39,12 +35,10 @@ app.innerHTML = `
   ${renderNav(site)}
   <main id="main-content">
     ${renderObservation(site)}
-    ${renderPerspective()}
+    ${renderPerspective(site)}
     ${renderContradictions(material)}
     ${renderAiseKaise(site, shows.events)}
-    ${renderCorporate(site)}
-    ${renderSlotMachine()}
-    ${renderPerson(site)}
+    ${renderCta(site)}
   </main>
   ${renderFooter(site)}
 `;

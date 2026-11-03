@@ -33,7 +33,8 @@
   overflow: hidden;
 }
 
-.theatrical-bg-image {
+/* Layer 1: Base Stage Photography */
+.theatrical-bg-base {
   position: absolute;
   inset: 0;
   background-image: url("/images/hero1.jpg");
@@ -44,6 +45,40 @@
   transform: scale(1.02);
   filter: contrast(1.15) brightness(0.85);
   transition: transform 0.4s ease-out;
+}
+
+/* Layer 2: Hover Reveal Layer (Reveals a little part of multiple-faces.jpg in the spotlight) */
+.theatrical-bg-faces {
+  position: absolute;
+  inset: 0;
+  background-image: url("/images/multiple-faces.jpg");
+  background-position: center 30%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0;
+  filter: contrast(1.22) brightness(0.96);
+  pointer-events: none;
+  z-index: 1;
+  /* Spotlight mask: reveals a soft circular part around the cursor */
+  -webkit-mask-image: radial-gradient(
+    circle 300px at var(--mouse-x, 72%) var(--mouse-y, 45%),
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 0.8) 45%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  mask-image: radial-gradient(
+    circle 300px at var(--mouse-x, 72%) var(--mouse-y, 45%),
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 0.8) 45%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, -webkit-mask-image, mask-image;
+}
+
+.theatrical-hero-section:hover .theatrical-bg-faces,
+.theatrical-hero-section.is-hovered .theatrical-bg-faces {
+  opacity: 0.88;
 }
 
 .theatrical-vignette {
@@ -419,242 +454,50 @@
 }
 
 /* ==========================================================================
-   4. RIGHT COLUMN: INTERACTIVE GYAN BITE STAGE CARD DECK
+   4. RIGHT COLUMN: UNOBSTRUCTED STAGE & INTERACTIVE SPOTLIGHT HINT
    ========================================================================== */
 .hero-right-column {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  perspective: 1000px;
-}
-
-.gyan-card-stage-container {
-  width: 100%;
-  max-width: 440px;
-}
-
-.gyan-card-item {
-  position: relative;
-  background: rgba(22, 22, 22, 0.92);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(229, 9, 20, 0.4);
-  border-radius: 18px;
-  box-shadow: 
-    0 25px 60px -10px rgba(0, 0, 0, 0.95),
-    0 0 40px rgba(229, 9, 20, 0.18);
-  padding: 1.15rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  transform-style: preserve-3d;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  will-change: transform;
-}
-
-.gyan-card-item:hover {
-  border-color: rgba(229, 9, 20, 0.7);
-  box-shadow: 
-    0 30px 70px -10px rgba(0, 0, 0, 0.98),
-    0 0 55px rgba(229, 9, 20, 0.3);
-}
-
-/* Card Top Bar */
-.gyan-card-top-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.gyan-tag-wrap {
-  display: flex;
-  align-items: center;
-  gap: 0.45rem;
-}
-
-.gyan-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background-color: #E50914;
-  box-shadow: 0 0 8px #E50914;
-}
-
-.gyan-tag {
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  color: #E50914;
-  text-transform: uppercase;
-}
-
-.gyan-counter {
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: #888888;
-  letter-spacing: 0.06em;
-}
-
-/* Card Image Frame */
-.gyan-img-frame {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  border-radius: 12px;
-  overflow: hidden;
-  background-color: #101010;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.gyan-active-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.4s ease, filter 0.4s ease;
-}
-
-.gyan-card-item:hover .gyan-active-img {
-  transform: scale(1.03);
-}
-
-.gyan-img-glare {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, transparent 60%);
+  justify-content: flex-end;
+  align-items: flex-end;
+  min-height: 280px;
   pointer-events: none;
 }
 
-/* Card Caption Box */
-.gyan-caption-box {
-  display: flex;
-  flex-direction: column;
+.hero-spotlight-pill {
+  display: inline-flex;
+  align-items: center;
   gap: 0.55rem;
-}
-
-.gyan-caption-text {
-  margin: 0;
-  font-family: var(--font-body, "Plus Jakarta Sans", sans-serif);
-  font-size: 0.98rem;
-  font-weight: 600;
-  line-height: 1.45;
-  color: #FFFFFF;
-}
-
-.gyan-shares-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 0.68rem;
-  color: #888888;
-  letter-spacing: 0.06em;
-  padding-top: 0.35rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-.gyan-match {
-  color: #A3A3A3;
-}
-
-.star-icon {
-  color: #E50914;
-}
-
-/* Card Action Deck Controls */
-.gyan-card-action-dock {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.65rem;
-  padding-top: 0.4rem;
-}
-
-.btn-deal-gyan {
-  flex: 1;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 0.6rem 1rem;
-  background: #E50914;
-  border: none;
-  border-radius: 8px;
-  color: #FFFFFF;
-  font-size: 0.74rem;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  cursor: pointer;
-  box-shadow: 0 0 16px rgba(229, 9, 20, 0.4);
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.btn-deal-gyan:hover {
-  background: #F40612;
-  box-shadow: 0 0 24px rgba(229, 9, 20, 0.7);
-  transform: translateY(-2px);
-}
-
-.shuffle-dice {
-  font-size: 0.9rem;
-  line-height: 1;
-}
-
-.gyan-aux-actions {
-  display: flex;
-  align-items: center;
-  gap: 0.45rem;
-}
-
-.btn-gyan-whatsapp {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.58rem 0.75rem;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  color: #CCCCCC;
+  padding: 0.45rem 1rem;
+  background: rgba(18, 18, 18, 0.78);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(229, 9, 20, 0.35);
+  border-radius: 9999px;
   font-size: 0.68rem;
   font-weight: 700;
-  text-decoration: none;
-  letter-spacing: 0.05em;
-  transition: all 0.2s ease;
-}
-
-.btn-gyan-whatsapp:hover {
-  background: rgba(37, 211, 102, 0.16);
-  border-color: rgba(37, 211, 102, 0.5);
-  color: #25D366;
-  transform: translateY(-1px);
-}
-
-.btn-gyan-clip {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  padding: 0.58rem 0.75rem;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
+  letter-spacing: 0.08em;
   color: #CCCCCC;
-  font-size: 0.68rem;
-  font-weight: 700;
-  cursor: pointer;
-  letter-spacing: 0.05em;
-  transition: all 0.2s ease;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 20px rgba(229, 9, 20, 0.15);
+  transition: all 0.3s ease;
+  pointer-events: auto;
+  user-select: none;
 }
 
-.btn-gyan-clip:hover {
-  background: rgba(229, 9, 20, 0.2);
-  border-color: rgba(229, 9, 20, 0.6);
+.theatrical-hero-section:hover .hero-spotlight-pill,
+.theatrical-hero-section.is-hovered .hero-spotlight-pill {
+  border-color: rgba(229, 9, 20, 0.65);
   color: #FFFFFF;
-  transform: translateY(-1px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 25px rgba(229, 9, 20, 0.3);
 }
 
-.play-pip {
-  color: #E50914;
-  font-size: 0.7rem;
-  line-height: 1;
+.spotlight-beacon-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #E50914;
+  box-shadow: 0 0 10px #E50914;
+  animation: beaconPulse 2s infinite ease-in-out;
 }
 
 /* ==========================================================================
@@ -738,8 +581,10 @@
     margin-inline: auto;
   }
 
-  .gyan-card-stage-container {
-    max-width: 420px;
+  .hero-right-column {
+    justify-content: center;
+    align-items: center;
+    min-height: auto;
   }
 }
 
@@ -764,23 +609,9 @@
     width: 100%;
   }
 
-  .gyan-card-action-dock {
-    flex-direction: column;
-  }
-
-  .btn-deal-gyan {
-    width: 100%;
-  }
-
-  .gyan-aux-actions {
-    width: 100%;
-    justify-content: space-between;
-  }
-
-  .btn-gyan-whatsapp,
-  .btn-gyan-clip {
-    flex: 1;
-    justify-content: center;
+  .hero-spotlight-pill {
+    font-size: 0.62rem;
+    padding: 0.35rem 0.75rem;
   }
 
   .base-dock-inner {

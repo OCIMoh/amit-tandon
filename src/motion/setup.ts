@@ -24,9 +24,8 @@ export async function setupMotion(): Promise<void> {
   setupNavScroll();
   setupPosterHero(reduce);
   setupScrollReveals(reduce);
-  setupPerspectiveShift(reduce);
+  setupGyanTriptych(reduce);
   setupTourInteractions();
-  setupSlotMachine();
   setupCinemaModal();
   setupMagneticPlayheads(reduce);
   setupAmbientSpotlight(reduce);
@@ -50,7 +49,7 @@ function setupNavScroll(): void {
   onScroll();
 }
 
-/** Theatrical Arena Hero Controller (Asymmetric Stage + Interactive Gyan Card Deck) */
+/** Theatrical Arena Hero Controller (Two-Layer Background Stage + Hover Spotlight Reveal) */
 function setupPosterHero(reduce: boolean): void {
   const heroSection = document.querySelector<HTMLElement>(".theatrical-hero-section");
   if (!heroSection) return;
@@ -83,8 +82,8 @@ function setupPosterHero(reduce: boolean): void {
     }
   };
 
-  // Wire up the interactive Gyan Card Deck on right flank
-  setupGyanCardDeck(playTactileFeedback);
+  // Wire up the dual-layer background spotlight (reveals a little part of multiple-faces on hover)
+  setupHeroBackgroundSpotlight(heroSection, playTactileFeedback);
 
   // Interactive Follow-Spotlight & Mouse Physics
   if (!reduce) {
@@ -142,7 +141,7 @@ function setupPosterHero(reduce: boolean): void {
     const lead = heroSection.querySelector(".hero-lead-text");
     const ctas = heroSection.querySelector(".hero-cta-cluster");
     const departure = heroSection.querySelector(".hero-departure-strip");
-    const cardItem = heroSection.querySelector(".gyan-card-item");
+    const spotlightPill = heroSection.querySelector(".hero-spotlight-pill");
     const dock = heroSection.querySelector(".hero-unified-base-dock");
 
     const tl = gsap.timeline({ delay: 0.1 });
@@ -159,183 +158,59 @@ function setupPosterHero(reduce: boolean): void {
     if (lead) tl.fromTo(lead, { autoAlpha: 0, y: 15 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: "power2.out" }, "-=0.3");
     if (ctas) tl.fromTo(ctas, { autoAlpha: 0, scale: 0.94, y: 20 }, { autoAlpha: 1, scale: 1, y: 0, duration: 0.7, ease: "back.out(1.4)" }, "-=0.3");
     if (departure) tl.fromTo(departure, { autoAlpha: 0, y: 15 }, { autoAlpha: 1, y: 0, duration: 0.6, ease: "power2.out" }, "-=0.3");
-    if (cardItem) tl.fromTo(cardItem, { autoAlpha: 0, scale: 0.9, y: 35 }, { autoAlpha: 1, scale: 1, y: 0, duration: 0.9, ease: "back.out(1.2)" }, "-=0.6");
+    if (spotlightPill) tl.fromTo(spotlightPill, { autoAlpha: 0, y: 15 }, { autoAlpha: 1, y: 0, duration: 0.6, ease: "power2.out" }, "-=0.3");
     if (dock) tl.fromTo(dock, { autoAlpha: 0, y: 15 }, { autoAlpha: 1, y: 0, duration: 0.6, ease: "power2.out" }, "-=0.3");
   }
 }
 
-/** Interactive Gyan Card Stage Deck Controller */
-function setupGyanCardDeck(onSoundFeedback?: () => void): void {
-  const cardItem = document.querySelector<HTMLElement>("#gyan-card-item");
-  const dealBtn = document.querySelector<HTMLButtonElement>("#btn-deal-gyan");
-  const activeImg = document.querySelector<HTMLImageElement>("#gyan-active-img");
-  const activeTag = document.querySelector<HTMLElement>("#gyan-active-tag");
-  const activeCounter = document.querySelector<HTMLElement>("#gyan-num");
-  const activeCaption = document.querySelector<HTMLElement>("#gyan-caption-text");
-  const activeShares = document.querySelector<HTMLElement>("#gyan-active-shares");
-  const whatsappBtn = document.querySelector<HTMLAnchorElement>("#btn-gyan-whatsapp");
-  const clipBtn = document.querySelector<HTMLButtonElement>("#btn-gyan-clip");
+/** Two-Layer Background Spotlight Controller: on hover reveals a circular part of multiple-faces.jpg */
+function setupHeroBackgroundSpotlight(heroSection: HTMLElement, onSoundFeedback?: () => void): void {
+  let isHovered = false;
 
-  if (!cardItem || !dealBtn || !activeImg || !activeCaption) return;
+  const handleMove = (e: MouseEvent | TouchEvent) => {
+    const rect = heroSection.getBoundingClientRect();
+    let clientX: number;
+    let clientY: number;
 
-  const cards = [
-    {
-      id: 1,
-      tag: "WHATSAPP FAMILY DIPLOMACY",
-      title: "Family WhatsApp Groups",
-      caption: "42 members, 120 Good Morning forwards by 7 AM, zero replies to genuine questions.",
-      image: "/gyan/gyan-1.jpg",
-      shares: "45K Shares",
-      videoId: "2WkO1nJ3u1Y",
-    },
-    {
-      id: 2,
-      tag: "NORTH INDIAN LOGIC",
-      title: "Butter Chicken in Agra",
-      caption: "If the monument doesn't have butter chicken within 200 meters, why did Shah Jahan even build it?",
-      image: "/gyan/gyan-2.jpg",
-      shares: "62K Shares",
-      videoId: "2WkO1nJ3u1Y",
-    },
-    {
-      id: 3,
-      tag: "MARRIAGE CLIMATE CONTROL",
-      title: "AC Temperature Diplomacy",
-      caption: "AC Temperature Diplomacy: 18°C is Arctic tundra, 24°C is Sahara desert, 22°C is a pending court case.",
-      image: "/gyan/gyan-3.jpg",
-      shares: "88K Shares",
-      videoId: "C7b0TAg0xMU",
-    },
-    {
-      id: 4,
-      tag: "PARENTING GEN-Z",
-      title: "The ₹4 Lakh 'Bruh'",
-      caption: "You pay ₹4 lakh school fees so they can reply 'bruh' to your earnest life advice.",
-      image: "/gyan/gyan-4.jpg",
-      shares: "71K Shares",
-      videoId: "C7b0TAg0xMU",
-    },
-    {
-      id: 5,
-      tag: "THE 5-MINUTE ELASTICITY",
-      title: "The 5-Minute Myth",
-      caption: "'Bas 5 minute mein tayar ho rahi hoon' violates Einstein's theory of general relativity.",
-      image: "/gyan/gyan-5.jpg",
-      shares: "94K Shares",
-      videoId: "2WkO1nJ3u1Y",
-    },
-    {
-      id: 6,
-      tag: "DELHI DIET RESOLUTIONS",
-      title: "Chole Bhature Tuesday",
-      caption: "Starting a strict diet on Monday, ordering 2 plates of Chole Bhature on Tuesday morning.",
-      image: "/gyan/gyan-6.jpg",
-      shares: "53K Shares",
-      videoId: "C7b0TAg0xMU",
-    },
-    {
-      id: 7,
-      tag: "MALL EXPEDITIONS",
-      title: "14-Kilometer Hair Clip",
-      caption: "Walking 14 kilometers inside a mall to buy a hair clip that was available right at the entrance.",
-      image: "/gyan/gyan-7.jpg",
-      shares: "83K Shares",
-      videoId: "2WkO1nJ3u1Y",
-    },
-    {
-      id: 8,
-      tag: "MARRIAGE CEASEFIRE",
-      title: "The Married Guy Rule",
-      caption: "Apologizing to your wife is not an admission of guilt; it is a tactical military ceasefire.",
-      image: "/gyan/gyan-8.jpg",
-      shares: "110K Shares",
-      videoId: "C7b0TAg0xMU",
-    },
-    {
-      id: 9,
-      tag: "INDIAN FLIGHT ANNOUNCEMENTS",
-      title: "Touchdown Seatbelt Click",
-      caption: "Indian uncle unbuckling his seatbelt the exact microsecond the aircraft tire touches the runway.",
-      image: "/gyan/gyan-9.jpg",
-      shares: "77K Shares",
-      videoId: "C7b0TAg0xMU",
-    },
-    {
-      id: 10,
-      tag: "THE SHAGUN LEDGER",
-      title: "The ₹501 Wedding Audit",
-      caption: "Tracking exactly how much Sharma ji gave in 2011 so we can return ₹501 in 2026.",
-      image: "/gyan/gyan-10.jpg",
-      shares: "65K Shares",
-      videoId: "C7b0TAg0xMU",
-    },
-  ];
-
-  let currentIndex = 2; // Initial card is index 2 (item 3: AC Temperature)
-
-  // 3D Parallax Tilt Physics on Mouse Move
-  cardItem.addEventListener("pointermove", (e: PointerEvent) => {
-    const rect = cardItem.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
-    const rotX = -(y / (rect.height / 2)) * 7;
-    const rotY = (x / (rect.width / 2)) * 7;
-    cardItem.style.transform = `perspective(1000px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) scale(1.02)`;
-  });
-
-  cardItem.addEventListener("pointerleave", () => {
-    cardItem.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)";
-  });
-
-  // Deal Next Card with Tactile Spin & 3D Flip
-  const dealNextCard = () => {
-    let nextIdx = Math.floor(Math.random() * cards.length);
-    if (nextIdx === currentIndex) {
-      nextIdx = (nextIdx + 1) % cards.length;
-    }
-    currentIndex = nextIdx;
-    const item = cards[currentIndex];
-    onSoundFeedback?.();
-
-    // Spin dice icon
-    const dice = dealBtn.querySelector(".shuffle-dice");
-    if (dice) {
-      gsap.fromTo(dice, { rotation: 0 }, { rotation: 360, duration: 0.35, ease: "power2.out" });
+    if ("touches" in e && e.touches.length > 0) {
+      clientX = e.touches[0].clientX;
+      clientY = e.touches[0].clientY;
+    } else if ("clientX" in e) {
+      clientX = (e as MouseEvent).clientX;
+      clientY = (e as MouseEvent).clientY;
+    } else {
+      return;
     }
 
-    // Card 3D Flip Transition
-    gsap.to(activeImg, {
-      scale: 0.92,
-      opacity: 0,
-      rotateY: 90,
-      duration: 0.18,
-      ease: "power2.in",
-      onComplete: () => {
-        activeImg.src = item.image;
-        if (activeTag) activeTag.textContent = item.tag;
-        if (activeCounter) activeCounter.textContent = String(item.id).padStart(2, "0");
-        activeCaption.textContent = `“${item.caption}”`;
-        if (activeShares) activeShares.textContent = item.shares;
-        if (clipBtn) clipBtn.setAttribute("data-video-id", item.videoId);
-        if (whatsappBtn) {
-          whatsappBtn.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(
-            `Amit Tandon Gyan Bite: "${item.caption}" (amittandon.in)`
-          )}`;
-        }
+    const px = Math.max(0, Math.min(100, ((clientX - rect.left) / rect.width) * 100));
+    const py = Math.max(0, Math.min(100, ((clientY - rect.top) / rect.height) * 100));
 
-        gsap.fromTo(
-          activeImg,
-          { scale: 0.92, opacity: 0, rotateY: -90 },
-          { scale: 1, opacity: 1, rotateY: 0, duration: 0.28, ease: "back.out(1.2)" }
-        );
-      },
-    });
+    heroSection.style.setProperty("--mouse-x", `${px.toFixed(2)}%`);
+    heroSection.style.setProperty("--mouse-y", `${py.toFixed(2)}%`);
   };
 
-  dealBtn.addEventListener("click", dealNextCard);
+  heroSection.addEventListener("mousemove", handleMove as EventListener, { passive: true });
+  heroSection.addEventListener("touchmove", handleMove as EventListener, { passive: true });
+
+  heroSection.addEventListener("mouseenter", () => {
+    heroSection.classList.add("is-hovered");
+    if (!isHovered) {
+      onSoundFeedback?.();
+      isHovered = true;
+    }
+  });
+
+  heroSection.addEventListener("mouseleave", () => {
+    heroSection.classList.remove("is-hovered");
+    isHovered = false;
+  });
+
+  // Touch tap / drag for touchscreens
+  heroSection.addEventListener("touchstart", (e) => {
+    handleMove(e);
+    heroSection.classList.add("is-hovered");
+  }, { passive: true });
 }
-
-
 
 /** Section 1.3 & 1.6: What I Said / What She Heard Seam Controller */
 export function setupSplitHeroSeam(reduce: boolean): void {
@@ -568,385 +443,29 @@ function setupScrollReveals(reduce: boolean): void {
   });
 }
 
-/** Subtle acoustic UI click using Web Audio API */
-function playTactileSwitchClick(): void {
-  try {
-    const AudioCtx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
-    if (!AudioCtx) return;
-    const ctx = new AudioCtx();
-    if (ctx.state === "suspended") ctx.resume();
-
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-    const filter = ctx.createBiquadFilter();
-
-    osc.type = "sine";
-    osc.frequency.setValueAtTime(360, ctx.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(70, ctx.currentTime + 0.035);
-
-    filter.type = "bandpass";
-    filter.frequency.setValueAtTime(720, ctx.currentTime);
-    filter.Q.setValueAtTime(4, ctx.currentTime);
-
-    gain.gain.setValueAtTime(0.04, ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.035);
-
-    osc.connect(filter);
-    filter.connect(gain);
-    gain.connect(ctx.destination);
-
-    osc.start(ctx.currentTime);
-    osc.stop(ctx.currentTime + 0.035);
-
-    setTimeout(() => {
-      ctx.close();
-    }, 80);
-  } catch {
-    // Audio safe fallback
-  }
-}
-
-/** Section 5: Signature Interaction 1 - The Perspective Shift: Jaipur Luggage Audit */
-function setupPerspectiveShift(reduce: boolean): void {
+/** Section 5: The Gyan Archive — 3-Column Editorial Triptych */
+function setupGyanTriptych(reduce: boolean): void {
   const section = document.querySelector<HTMLElement>("#perspective");
   if (!section) return;
 
-  const slider = document.querySelector<HTMLInputElement>("#luggage-balance-slider");
-  const needleArm = document.querySelector<HTMLElement>("#dial-needle-arm");
-  const plateImg = document.querySelector<HTMLElement>("#audit-plate-img");
-  const glowHis = document.querySelector<HTMLElement>("#glow-his");
-  const glowHer = document.querySelector<HTMLElement>("#glow-her");
-  const hudBtnHis = document.querySelector<HTMLButtonElement>("#hud-btn-his");
-  const hudBtnHer = document.querySelector<HTMLButtonElement>("#hud-btn-her");
-  const telemetryText = document.querySelector<HTMLElement>("#telemetry-text");
-  const truthBanner = document.querySelector<HTMLElement>("#shared-truth-banner");
-  const btnBalanceTruth = document.querySelector<HTMLButtonElement>("#btn-balance-truth");
-  const btnResumeAudit = document.querySelector<HTMLButtonElement>("#btn-resume-audit");
+  const cards = section.querySelectorAll<HTMLElement>(".gyan-triptych-card");
+  if (cards.length === 0) return;
 
-  const markerHis = document.querySelector<HTMLButtonElement>("#marker-his");
-  const markerTruth = document.querySelector<HTMLButtonElement>("#marker-truth");
-  const markerHer = document.querySelector<HTMLButtonElement>("#marker-her");
-
-  const popover = document.querySelector<HTMLElement>("#audit-popover");
-  const popoverSideBadge = document.querySelector<HTMLElement>("#popover-side-badge");
-  const popoverTitle = document.querySelector<HTMLElement>("#popover-title");
-  const popoverQuote = document.querySelector<HTMLElement>("#popover-quote");
-  const popoverWeight = document.querySelector<HTMLElement>("#popover-weight");
-  const popoverStat = document.querySelector<HTMLElement>("#popover-stat");
-  const popoverTime = document.querySelector<HTMLElement>("#popover-time");
-  const popoverCloseBtn = document.querySelector<HTMLButtonElement>("#popover-close-btn");
-
-  const pins = document.querySelectorAll<HTMLButtonElement>(".hotspot-pin");
-  const pills = document.querySelectorAll<HTMLButtonElement>(".audit-pill");
-
-  interface AuditItemData {
-    side: "his" | "her";
-    badge: string;
-    title: string;
-    quote: string;
-    weight: string;
-    stat: string;
-    time: string;
-  }
-
-  const AUDIT_ITEMS: Record<string, AuditItemData> = {
-    toothbrush: {
-      side: "his",
-      badge: "HIS REALITY · AUDIT ITEM #01",
-      title: "Toothbrush in Outer Mesh Pocket",
-      quote: "“Survived 3 weddings, 2 corporate offsites, and 4 years of domestic diplomacy without replacement. Total weight: 18 grams. Ready in 4 seconds.”",
-      weight: "0.018 KG",
-      stat: "100% EFFICIENT",
-      time: "4 SECONDS",
-    },
-    charger: {
-      side: "his",
-      badge: "HIS REALITY · AUDIT ITEM #02",
-      title: "The Universal Tangled Multi-Cable",
-      quote: "“Powers 4 phones, 2 iPads, the car dashcam, and possibly the hotel elevator. Rolled with zero geometric discipline into a ball of pure optimism.”",
-      weight: "0.120 KG",
-      stat: "8/10 KNOT COMPLEXITY",
-      time: "10 SECONDS",
-    },
-    kurta: {
-      side: "his",
-      badge: "HIS REALITY · AUDIT ITEM #03",
-      title: "The Emergency Linen Kurta Roll",
-      quote: "“Worn at my cousin’s Roka in 2019. Rolled into a tight cylinder so it fits beside the socks. Will iron with the hotel hair-dryer if aunties notice.”",
-      weight: "0.350 KG",
-      stat: "NEEDS HAIR-DRYER",
-      time: "1 MINUTE",
-    },
-    steamer: {
-      side: "her",
-      badge: "HER REALITY · AUDIT ITEM #04",
-      title: "Industrial Handheld Garment Steamer",
-      quote: "“Because hotel irons have questionable moral integrity and leave scorch marks on Raw Silk. Packed with 3 spare nozzle attachments.”",
-      weight: "1.450 KG",
-      stat: "NON-NEGOTIABLE",
-      time: "3 DAYS PREP",
-    },
-    safetypins: {
-      side: "her",
-      badge: "HER REALITY · AUDIT ITEM #05",
-      title: "Strategic 140-Pin Metal Reserve",
-      quote: "“Enough architectural steel to anchor the Howrah Bridge or salvage an auntie’s saree pallu collapse during the Bhangra entrance.”",
-      weight: "0.250 KG",
-      stat: "DEFENSE GRADE",
-      time: "2 WEEKS PREP",
-    },
-    lehenga: {
-      side: "her",
-      badge: "HER REALITY · AUDIT ITEM #06",
-      title: "The 14kg Sangeet Showstopper Lehenga",
-      quote: "“Hand-embroidered zardozi work with real metal wire. Cannot be repeated across any photo album in five northern states. Resale value: 1 BHK in Noida.”",
-      weight: "14.20 KG",
-      stat: "MANDATORY / NO REPEATS",
-      time: "3 WEEKS PREP",
-    },
-    shoes: {
-      side: "her",
-      badge: "HER REALITY · AUDIT ITEM #07",
-      title: "Terrain-Specific Footwear Array",
-      quote: "“Lawn stilettos with anti-sink caps, indoor marble kitten heels, and gold juttis in case the DJ plays 'Gud Naal Ishq Mitha'. 35% of total luggage volume.”",
-      weight: "4.800 KG",
-      stat: "TERRAIN-OPTIMIZED",
-      time: "4 DAYS PREP",
-    },
-  };
-
-  const inspectItem = (pinId: string, triggerSound = true) => {
-    const data = AUDIT_ITEMS[pinId];
-    if (!data || !popover) return;
-
-    if (triggerSound) playTactileSwitchClick();
-
-    // Update active pin states
-    pins.forEach((p) => {
-      p.classList.toggle("is-inspected", p.dataset.pin === pinId);
-    });
-
-    // Update quick pills
-    pills.forEach((pill) => {
-      pill.classList.toggle("is-active", pill.dataset.targetPin === pinId);
-    });
-
-    // Update popover content
-    if (popoverSideBadge) popoverSideBadge.textContent = data.badge;
-    if (popoverTitle) popoverTitle.textContent = data.title;
-    if (popoverQuote) popoverQuote.textContent = data.quote;
-    if (popoverWeight) popoverWeight.textContent = data.weight;
-    if (popoverStat) popoverStat.textContent = data.stat;
-    if (popoverTime) popoverTime.textContent = data.time;
-
-    popover.classList.toggle("side-her", data.side === "her");
-    popover.classList.add("is-open");
-    popover.setAttribute("aria-hidden", "false");
-
-    // Close shared truth if open
-    if (truthBanner) {
-      truthBanner.classList.remove("is-active");
-      truthBanner.setAttribute("aria-hidden", "true");
-    }
-
-    if (!reduce) {
-      gsap.fromTo(
-        popover,
-        { autoAlpha: 0.2, y: 12, scale: 0.97 },
-        { autoAlpha: 1, y: 0, scale: 1, duration: 0.3, ease: "back.out(1.5)" }
-      );
-    }
-  };
-
-  const closePopover = () => {
-    if (!popover) return;
-    popover.classList.remove("is-open");
-    popover.setAttribute("aria-hidden", "true");
-    pins.forEach((p) => p.classList.remove("is-inspected"));
-    pills.forEach((pill) => pill.classList.remove("is-active"));
-  };
-
-  const updateBalanceScale = (val: number, showTruthModal = false) => {
-    // Map slider 0..100 to angle -35deg .. +35deg
-    const angle = ((val - 50) / 50) * 35;
-
-    if (needleArm) {
-      needleArm.style.transform = `translateX(-50%) rotate(${angle}deg)`;
-    }
-
-    const isHis = val < 40;
-    const isHer = val > 60;
-    const isBalanced = val >= 40 && val <= 60;
-
-    if (glowHis) glowHis.classList.toggle("is-active", isHis);
-    if (glowHer) glowHer.classList.toggle("is-active", isHer);
-
-    if (hudBtnHis) {
-      hudBtnHis.classList.toggle("is-active", isHis);
-      hudBtnHis.setAttribute("aria-pressed", isHis ? "true" : "false");
-    }
-    if (hudBtnHer) {
-      hudBtnHer.classList.toggle("is-active", isHer);
-      hudBtnHer.setAttribute("aria-pressed", isHer ? "true" : "false");
-    }
-
-    if (markerHis) markerHis.classList.toggle("is-active", isHis);
-    if (markerTruth) markerTruth.classList.toggle("is-active", isBalanced);
-    if (markerHer) markerHer.classList.toggle("is-active", isHer);
-
-    if (telemetryText) {
-      if (isBalanced) {
-        telemetryText.textContent = "⚖️ EQUILIBRIUM REACHED · SHARED TRUTH UNLOCKED";
-      } else if (isHis) {
-        telemetryText.textContent = "SCALE TILTED: +52.4 KG BAGGAGE IMBALANCE (HIS REALITY)";
-      } else {
-        telemetryText.textContent = "SCALE OVERLOAD: 2,183% OVERWEIGHT (HER REALITY)";
-      }
-    }
-
-    if (plateImg && !reduce) {
-      const panX = isHis ? 1.5 : isHer ? -1.5 : 0;
-      plateImg.style.transform = `scale(1.02) translateX(${panX}%)`;
-    }
-
-    if ((isBalanced && showTruthModal) || showTruthModal) {
-      closePopover();
-      if (truthBanner) {
-        truthBanner.classList.add("is-active");
-        truthBanner.setAttribute("aria-hidden", "false");
-        playTactileSwitchClick();
-      }
-    }
-  };
-
-  // Pin events
-  pins.forEach((pin) => {
-    pin.addEventListener("click", () => {
-      const pinId = pin.dataset.pin;
-      if (pinId) inspectItem(pinId);
-    });
-  });
-
-  // Pill strip events
-  pills.forEach((pill) => {
-    pill.addEventListener("click", () => {
-      const pinId = pill.dataset.targetPin;
-      if (pinId) inspectItem(pinId);
-    });
-  });
-
-  // Popover close
-  if (popoverCloseBtn) {
-    popoverCloseBtn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      closePopover();
+  // Natural scroll-triggered stagger entrance
+  if (!reduce) {
+    gsap.from(cards, {
+      scrollTrigger: {
+        trigger: section,
+        start: "top 75%",
+        toggleActions: "play none none none",
+      },
+      y: 40,
+      opacity: 0,
+      duration: 0.8,
+      stagger: 0.15,
+      ease: "power2.out",
     });
   }
-
-  // Truth banner backdrop click to dismiss
-  if (truthBanner) {
-    truthBanner.addEventListener("click", (e) => {
-      if (e.target === truthBanner) {
-        truthBanner.classList.remove("is-active");
-        truthBanner.setAttribute("aria-hidden", "true");
-        if (slider) slider.value = "15";
-        updateBalanceScale(15);
-      }
-    });
-  }
-
-  // Slider interaction
-  if (slider) {
-    slider.addEventListener("input", () => {
-      const val = parseInt(slider.value, 10);
-      updateBalanceScale(val, val >= 48 && val <= 52);
-    });
-  }
-
-  // Marker buttons
-  if (markerHis) {
-    markerHis.addEventListener("click", () => {
-      if (slider) slider.value = "15";
-      updateBalanceScale(15);
-      inspectItem("toothbrush");
-    });
-  }
-
-  if (markerTruth) {
-    markerTruth.addEventListener("click", () => {
-      if (slider) slider.value = "50";
-      updateBalanceScale(50, true);
-    });
-  }
-
-  if (markerHer) {
-    markerHer.addEventListener("click", () => {
-      if (slider) slider.value = "85";
-      updateBalanceScale(85);
-      inspectItem("lehenga");
-    });
-  }
-
-  // HUD buttons
-  if (hudBtnHis) {
-    hudBtnHis.addEventListener("click", () => {
-      if (slider) slider.value = "15";
-      updateBalanceScale(15);
-      inspectItem("toothbrush");
-    });
-  }
-
-  if (hudBtnHer) {
-    hudBtnHer.addEventListener("click", () => {
-      if (slider) slider.value = "85";
-      updateBalanceScale(85);
-      inspectItem("lehenga");
-    });
-  }
-
-  if (btnBalanceTruth) {
-    btnBalanceTruth.addEventListener("click", () => {
-      if (slider) slider.value = "50";
-      updateBalanceScale(50, true);
-    });
-  }
-
-  if (btnResumeAudit) {
-    btnResumeAudit.addEventListener("click", (e) => {
-      e.stopPropagation();
-      if (truthBanner) {
-        truthBanner.classList.remove("is-active");
-        truthBanner.setAttribute("aria-hidden", "true");
-      }
-      if (slider) slider.value = "15";
-      updateBalanceScale(15);
-    });
-  }
-
-  // Keyboard navigation (1: His, 2: Shared Truth, 3: Her, Escape: close)
-  section.addEventListener("keydown", (e) => {
-    if (e.key === "1") {
-      if (slider) slider.value = "15";
-      updateBalanceScale(15);
-      inspectItem("toothbrush");
-    } else if (e.key === "2") {
-      if (slider) slider.value = "50";
-      updateBalanceScale(50, true);
-    } else if (e.key === "3") {
-      if (slider) slider.value = "85";
-      updateBalanceScale(85);
-      inspectItem("lehenga");
-    } else if (e.key === "Escape") {
-      closePopover();
-      if (truthBanner) {
-        truthBanner.classList.remove("is-active");
-        truthBanner.setAttribute("aria-hidden", "true");
-      }
-    }
-  });
-
-  // Initial state setup
-  updateBalanceScale(15);
 }
 
 /** Section 8: Tour Schedule Filtering & Instant Search */
@@ -1113,206 +632,6 @@ function setupTourInteractions(): void {
       }
     });
   }
-}
-
-/** Section 6: Corporate-to-Marriage Translation Instrument */
-function setupSlotMachine(): void {
-  const nextBtn = document.querySelector<HTMLButtonElement>("#trans-next-btn");
-  const copyBtn = document.querySelector<HTMLButtonElement>("#trans-copy-btn");
-  const copyLabel = document.querySelector<HTMLElement>("#trans-copy-label");
-  const filterBtns = document.querySelectorAll<HTMLButtonElement>(".trans-cat-pill");
-
-  const corpText = document.querySelector<HTMLElement>("#corp-statement-text");
-  const typewriterHomeText = document.querySelector<HTMLElement>("#typewriter-home-text");
-  const typewriterCaret = document.querySelector<HTMLElement>("#typewriter-caret");
-  const ruleText = document.querySelector<HTMLElement>("#amit-rule-text");
-  const categoryTag = document.querySelector<HTMLElement>("#corp-category-tag");
-  const counterTag = document.querySelector<HTMLElement>("#scenario-counter");
-
-  if (!nextBtn || !corpText) return;
-
-  interface Scenario {
-    category: "office" | "finances" | "whatsapp" | "travel";
-    categoryLabel: string;
-    corporate: string;
-    home: string;
-    rule: string;
-  }
-
-  const allScenarios: Scenario[] = [
-    {
-      category: "office",
-      categoryLabel: "OFFICE VS HOME",
-      corporate: "“Let's take this offline and circle back after evaluating our Q3 bandwidth.”",
-      home: "“I am pretending to listen, but if I answer right now we won’t speak for three days.”",
-      rule: "Amit's Finding: Never offer a logical solution when someone is venting. Just nod slowly and say 'Bilkul'.",
-    },
-    {
-      category: "finances",
-      categoryLabel: "MONTHLY BUDGET",
-      corporate: "“We need to optimize our capital expenditure and prioritize essential runway.”",
-      home: "“She wants a 4-day weekend in Udaipur with 14 outfit changes; my account has Rs 4,200 and a prayer.”",
-      rule: "Amit's Finding: In an Indian household, 'budgeting' is an abstract philosophical debate, not an actual practice.",
-    },
-    {
-      category: "whatsapp",
-      categoryLabel: "FAMILY WHATSAPP",
-      corporate: "“As per my previous email, please review the attached compliance protocols.”",
-      home: "“My mother-in-law has already vetoed our vacation plan in the family WhatsApp group without typing a single word.”",
-      rule: "Amit's Finding: The family WhatsApp group has 42 admins and zero fact-checkers.",
-    },
-    {
-      category: "travel",
-      categoryLabel: "TRAVEL DELAYS",
-      corporate: "“We are experiencing a temporary operational delay in delivery timelines.”",
-      home: "“‘Bas 5 minute mein tayar ho rahi hoon!’ — Physics and NASA are still unable to calculate this specific duration.”",
-      rule: "Amit's Finding: 5 minutes in marriage time is roughly 87 minutes in civilian time.",
-    },
-    {
-      category: "office",
-      categoryLabel: "OFFICE VS HOME",
-      corporate: "“Let's align our core performance metrics to ensure maximum stakeholder satisfaction.”",
-      home: "“At work I was Vice President managing 200 people. At home, my wife’s only KPI for me is: 'Bas chup raho'.”",
-      rule: "Amit's Finding: Agreeing with your wife has 100% ROI. Even when you are right, refer to Clause 1.",
-    },
-    {
-      category: "whatsapp",
-      categoryLabel: "FAMILY WHATSAPP",
-      corporate: "“Competitor benchmarking indicates we are currently lagging behind industry standards.”",
-      home: "“Sharma Ji’s beta scored 97%. You scored 96.8%, which in our house is treated as treason.”",
-      rule: "Amit's Finding: Indian parents don’t care if you succeed; they just want you to beat Sharma Ji’s son.",
-    },
-  ];
-
-  let currentCategory = "all";
-  let activeIndex = 0;
-  let audioCtx: AudioContext | null = null;
-  let typewriterTimer: number | null = null;
-  let isTyping = false;
-
-  const getFilteredList = () => {
-    if (currentCategory === "all") return allScenarios;
-    return allScenarios.filter((s) => s.category === currentCategory);
-  };
-
-  const playTypewriterKeySound = () => {
-    try {
-      if (!audioCtx) {
-        audioCtx = new (window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext)();
-      }
-      if (audioCtx.state === "suspended") audioCtx.resume();
-      
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-      osc.type = "triangle";
-      const pitches = [1850, 2100, 2350, 2600];
-      const pitch = pitches[Math.floor(Math.random() * pitches.length)];
-      osc.frequency.setValueAtTime(pitch, audioCtx.currentTime);
-      gain.gain.setValueAtTime(0.025, audioCtx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.02);
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
-      osc.start();
-      osc.stop(audioCtx.currentTime + 0.02);
-    } catch {
-      // Audio fallback
-    }
-  };
-
-  const renderScenario = (animate = true) => {
-    const list = getFilteredList();
-    if (!list.length) return;
-    if (activeIndex >= list.length) activeIndex = 0;
-
-    const item = list[activeIndex];
-
-    if (categoryTag) categoryTag.textContent = item.categoryLabel;
-    if (counterTag) counterTag.textContent = `SITUATION ${activeIndex + 1} OF ${list.length}`;
-
-    if (typewriterTimer) {
-      clearInterval(typewriterTimer);
-      typewriterTimer = null;
-    }
-
-    if (animate) {
-      isTyping = true;
-      nextBtn.classList.add("is-typing");
-      const nextBtnSpan = nextBtn.querySelector("span");
-      if (nextBtnSpan) nextBtnSpan.textContent = "DECODING REALITY...";
-
-      corpText.textContent = item.corporate;
-      if (ruleText) ruleText.textContent = item.rule;
-
-      gsap.fromTo(
-        [corpText, ruleText],
-        { opacity: 0, y: 6 },
-        { opacity: 1, y: 0, stagger: 0.04, duration: 0.25, ease: "power2.out" }
-      );
-
-      const targetText = item.home;
-      let charIdx = 0;
-      if (typewriterHomeText) {
-        typewriterHomeText.textContent = "";
-        if (typewriterCaret) typewriterCaret.classList.remove("is-hidden");
-
-        typewriterTimer = window.setInterval(() => {
-          if (charIdx < targetText.length) {
-            typewriterHomeText.textContent = targetText.slice(0, charIdx + 1);
-            if (charIdx % 2 === 0) playTypewriterKeySound();
-            charIdx++;
-          } else {
-            if (typewriterTimer) clearInterval(typewriterTimer);
-            typewriterTimer = null;
-            isTyping = false;
-            nextBtn.classList.remove("is-typing");
-            if (nextBtnSpan) nextBtnSpan.textContent = "TRANSLATE NEXT SITUATION";
-          }
-        }, 22);
-      }
-    } else {
-      corpText.textContent = item.corporate;
-      if (typewriterHomeText) typewriterHomeText.textContent = item.home;
-      if (ruleText) ruleText.textContent = item.rule;
-    }
-  };
-
-  nextBtn.addEventListener("click", () => {
-    if (isTyping) return;
-    const list = getFilteredList();
-    activeIndex = (activeIndex + 1) % list.length;
-    renderScenario(true);
-  });
-
-  filterBtns.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      filterBtns.forEach((b) => b.classList.remove("is-active"));
-      btn.classList.add("is-active");
-      currentCategory = btn.dataset.cat || "all";
-      activeIndex = 0;
-      renderScenario(true);
-    });
-  });
-
-  if (copyBtn && copyLabel) {
-    copyBtn.addEventListener("click", async () => {
-      const list = getFilteredList();
-      const item = list[activeIndex];
-      const textToCopy = `Corporate Jargon: ${item.corporate}\nDomestic Reality: ${item.home}\n— Amit Tandon (amittandon.in)`;
-
-      try {
-        await navigator.clipboard.writeText(textToCopy);
-        const originalText = copyLabel.textContent;
-        copyLabel.textContent = "COPIED TO CLIPBOARD! ✓";
-        setTimeout(() => {
-          copyLabel.textContent = originalText;
-        }, 2000);
-      } catch {
-        // Fallback
-      }
-    });
-  }
-
-  renderScenario(false);
 }
 
 /** Section 7: Cinema Player Modal Controller */

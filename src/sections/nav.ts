@@ -11,11 +11,9 @@ export function renderNav(_site: SiteContent): string {
 
     <nav class="nav-links-wrap" aria-label="Main Navigation">
       <ul class="cinema-nav-links">
+        <li><a href="#about" class="nav-link">ABOUT & GYAN</a></li>
         <li><a href="#watch" class="nav-link">WATCH</a></li>
-        <li><a href="#live-shows" class="nav-link">LIVE SHOWS</a></li>
-        <li><a href="#corporate" class="nav-link">BOOK AMIT</a></li>
-        <li><a href="#translator" class="nav-link">TRANSLATOR</a></li>
-        <li><a href="#about" class="nav-link">ABOUT</a></li>
+        <li><a href="#live-shows" class="nav-link">TICKETS</a></li>
       </ul>
     </nav>
 

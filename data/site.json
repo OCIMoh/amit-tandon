@@ -29,20 +29,34 @@
   ],
   "gyanBites": [
     {
-      "quote": "My wife said we need to talk. Which means she will talk, and I will nod at calculated intervals.",
-      "context": "On Domestic Harmony"
+      "id": 1,
+      "ruleNumber": "01",
+      "tag": "MARRIAGE CLIMATE CONTROL",
+      "badge": "VIRAL BITE #01 · 88K SHARES",
+      "quote": "18°C is Arctic tundra, 24°C is Sahara desert, 22°C is a pending court case.",
+      "observation": "Every Indian bedroom hosts a midnight UN summit. The blankets are the only neutral territory.",
+      "image": "/images/mic-shot.jpg",
+      "shares": "88K Shares"
     },
     {
-      "quote": "Middle-class upgrade rule: You know you have arrived in life when you stop opening the car window for toll tickets.",
-      "context": "Paisa Aa Gaya... Class Nahi Aayi!"
+      "id": 2,
+      "ruleNumber": "02",
+      "tag": "GEN-Z PARENTING",
+      "badge": "VIRAL BITE #02 · 71K SHARES",
+      "quote": "You pay ₹4 lakh annual private school fees, hire IB tutors, buy MacBook Pros... so they can reply 'bruh' to your earnest life advice.",
+      "observation": "Cost per syllable spoken by a 16-year-old: ₹2,00,000.",
+      "image": "/images/portrait.jpg",
+      "shares": "71K Shares"
     },
     {
-      "quote": "In India, parents don't ask you what you want to become. They tell you the two engineering colleges you are applying to.",
-      "context": "On Career Counseling"
-    },
-    {
-      "quote": "Aise Kaise?! You bought a 4K OLED TV to watch 360p WhatsApp forwards at full volume.",
-      "context": "Too Much Technology"
+      "id": 3,
+      "ruleNumber": "03",
+      "tag": "THE 5-MINUTE RELATIVITY",
+      "badge": "VIRAL BITE #03 · 94K SHARES",
+      "quote": "“Bas 5 minute mein tayar ho rahi hoon!” violates Einstein's theory of general relativity. NASA should study Indian women's time dilation.",
+      "observation": "5 minutes in domestic marriage time is roughly 1 hour 45 minutes in civilian time.",
+      "image": "/images/amit-one-hand-up.jpg",
+      "shares": "94K Shares"
     }
   ],
   "corporate": {

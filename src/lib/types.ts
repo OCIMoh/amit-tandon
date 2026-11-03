@@ -10,8 +10,14 @@ export type StatItem = {
 };
 
 export type GyanBite = {
+  id: number;
+  ruleNumber: string;
+  tag: string;
+  badge: string;
   quote: string;
-  context: string;
+  observation: string;
+  image: string;
+  shares: string;
 };
 
 export type CorporateContent = {
@@ -58,9 +64,16 @@ export type ShowEvent = {
   date: string;
   time: string;
   city: string;
-  show: string;
-  href: string;
+  show?: string;
   venueHint?: string;
+  price?: string;
+  href: string;
+};
+
+export type ShowsFile = {
+  source: string;
+  scrapedAt: string;
+  events: ShowEvent[];
 };
 
 export type MaterialItem = {
@@ -68,13 +81,5 @@ export type MaterialItem = {
   role: "featured" | "list" | "split";
   platform: string;
   href: string;
-  note?: string;
-  image?: string;
-  ytId?: string;
-};
-
-export type ShowsFile = {
-  source: string;
-  scrapedAt: string;
-  events: ShowEvent[];
+  note: string;
 };

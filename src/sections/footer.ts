@@ -8,19 +8,17 @@ export function renderFooter(site: SiteContent): string {
   <!-- Restrained Secondary Marquee Bar -->
   <div class="footer-marquee-strip">
     <div class="marquee-content mono">
-      <span>IT DEPENDS WHO YOU ASK</span>
-      <span class="marquee-sep">&bull;</span>
-      <span>LIVING WITH PEOPLE IS A FULL-TIME COMEDY</span>
-      <span class="marquee-sep">&bull;</span>
       <span>AISE KAISE WORLD TOUR 2026</span>
       <span class="marquee-sep">&bull;</span>
       <span>NETFLIX ORIGINAL SPECIAL</span>
       <span class="marquee-sep">&bull;</span>
       <span>CLEAN OBSERVATIONAL STAND-UP</span>
       <span class="marquee-sep">&bull;</span>
-      <span>IT DEPENDS WHO YOU ASK</span>
+      <span>200M+ ONLINE VIEWS</span>
       <span class="marquee-sep">&bull;</span>
-      <span>LIVING WITH PEOPLE IS A FULL-TIME COMEDY</span>
+      <span>30+ COUNTRIES</span>
+      <span class="marquee-sep">&bull;</span>
+      <span>AISE KAISE WORLD TOUR 2026</span>
     </div>
   </div>
 
@@ -52,12 +50,10 @@ export function renderFooter(site: SiteContent): string {
       <div class="footer-nav-col">
         <span class="footer-heading mono">EXPERIENCE</span>
         <ul class="footer-links-list">
-          <li><a href="#perspective">The Perspective Shift</a></li>
-          <li><a href="#watch">Specials & Video Bits</a></li>
-          <li><a href="#tour">Live Tour Dates (33 Cities)</a></li>
-          <li><a href="#corporate">Corporate Keynote Bookings</a></li>
-          <li><a href="#translator">Corporate-to-Marriage Translator</a></li>
-          <li><a href="#about">About Amit Tandon</a></li>
+          <li><a href="#top">Home / Stage</a></li>
+          <li><a href="#about">About Amit & Gyan</a></li>
+          <li><a href="#watch">Specials & YouTube Clips</a></li>
+          <li><a href="#live-shows">Live Tour Tickets (Aise Kaise)</a></li>
         </ul>
       </div>
 
@@ -68,9 +64,9 @@ export function renderFooter(site: SiteContent): string {
           For corporate keynotes, private appearances, and tour bookings:
         </p>
         <div class="footer-contact-links">
-          <a href="tel:+919004040003" class="contact-pill-link">
+          <a href="${site.contact.whatsapp}" target="_blank" rel="noopener noreferrer" class="contact-pill-link">
             <span class="mono">CALL / WA:</span>
-            <strong>+91 9004040003</strong>
+            <strong>${site.contact.phone}</strong>
           </a>
           <a href="mailto:${site.contact.email}" class="contact-pill-link">
             <span class="mono">EMAIL:</span>
@@ -82,36 +78,18 @@ export function renderFooter(site: SiteContent): string {
 
     <!-- Bottom Copyright -->
     <div class="footer-bottom-bar">
-      <p class="footer-copy-text">
-        &copy; ${currentYear} Amit Tandon. Official World Tour. All rights reserved.
+      <p class="footer-copy mono">
+        &copy; ${currentYear} Amit Tandon. The Married Guy &bull; All Rights Reserved.
       </p>
-      <a href="#top" class="back-to-top-link mono" aria-label="Back to top">
-        <span>BACK TO TOP</span>
-        <span>&uarr;</span>
-      </a>
+      <div class="footer-credits mono">
+        <span>CLEAN COMEDY</span>
+        <span class="cred-sep">&bull;</span>
+        <span>FAMILY APPROVED</span>
+        <span class="cred-sep">&bull;</span>
+        <a href="#top" class="back-to-top-btn" aria-label="Back to top">TOP &uarr;</a>
+      </div>
     </div>
   </div>
 </footer>
-
-<!-- High-Fidelity Video Overlay Modal -->
-<div class="video-modal" id="videoModal" aria-hidden="true" role="dialog" aria-label="Video Player Cinema">
-  <div class="video-modal-container">
-    <button class="video-modal-close" id="videoModalClose" aria-label="Close cinema player">
-      <span>Close Player</span>
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-        <line x1="18" y1="6" x2="6" y2="18"></line>
-        <line x1="6" y1="6" x2="18" y2="18"></line>
-      </svg>
-    </button>
-    <div class="video-modal-ratio">
-      <iframe 
-        id="videoModalIframe" 
-        src="" 
-        title="Amit Tandon Video Player" 
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-        allowfullscreen
-      ></iframe>
-    </div>
-  </div>
-</div>`;
+`;
 }

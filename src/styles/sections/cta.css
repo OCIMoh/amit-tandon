@@ -1,0 +1,224 @@
+/* ==========================================================================
+   FINALE CTA SECTION — AMIT TANDON LIVE IN CONCERT
+   Grand Closing Call-To-Action · Theatrical Volumetric Glow · Conversion Engine
+   ========================================================================== */
+
+.finale-cta-section {
+  position: relative;
+  width: 100%;
+  padding: 7.5rem 0 8rem;
+  background-color: #080A0D;
+  color: #FFFFFF;
+  text-align: center;
+  overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Atmospheric Volumetric Backlight */
+.cta-theatrical-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1000px;
+  height: 650px;
+  background: radial-gradient(
+    circle,
+    rgba(229, 9, 20, 0.16) 0%,
+    rgba(255, 215, 0, 0.04) 40%,
+    transparent 70%
+  );
+  filter: blur(140px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.cta-content-wrap {
+  position: relative;
+  z-index: 2;
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Eyebrow */
+.cta-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.4rem 1rem;
+  background: rgba(229, 9, 20, 0.1);
+  border: 1px solid rgba(229, 9, 20, 0.3);
+  border-radius: 999px;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  color: #FF5A60;
+  margin-bottom: 1.5rem;
+}
+
+.cta-eyebrow .live-pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #E50914;
+  box-shadow: 0 0 10px #E50914;
+  animation: pulse-red-dot 1.8s ease-in-out infinite;
+}
+
+/* Headline */
+.cta-headline {
+  font-size: clamp(2.4rem, 5vw, 4.4rem);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  margin: 0 0 1.5rem;
+  color: #FFFFFF;
+}
+
+.cta-headline .highlight-red {
+  color: #E50914;
+  text-shadow: 0 0 35px rgba(229, 9, 20, 0.5);
+}
+
+/* Subtitle */
+.cta-subtitle {
+  font-size: 1.15rem;
+  line-height: 1.65;
+  color: #A0A5AD;
+  max-width: 720px;
+  margin: 0 auto 2.75rem;
+}
+
+/* Action Buttons Cluster */
+.cta-action-cluster {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  margin-bottom: 3.5rem;
+}
+
+.btn-cta-primary {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: linear-gradient(135deg, #E50914 0%, #B20710 100%);
+  color: #FFFFFF;
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  padding: 1.1rem 2.5rem;
+  border-radius: 999px;
+  text-decoration: none;
+  box-shadow: 
+    0 12px 35px rgba(229, 9, 20, 0.45),
+    0 0 0 1px rgba(255, 255, 255, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  overflow: hidden;
+  transition: all 0.25s ease;
+}
+
+.btn-cta-primary:hover {
+  background: linear-gradient(135deg, #FF1E27 0%, #CC0812 100%);
+  box-shadow: 
+    0 16px 45px rgba(229, 9, 20, 0.65),
+    0 0 0 1px rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.btn-cta-primary .btn-arrow {
+  transition: transform 0.2s ease;
+}
+
+.btn-cta-primary:hover .btn-arrow {
+  transform: translateX(4px);
+}
+
+.btn-cta-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  background: rgba(18, 140, 126, 0.15);
+  border: 1px solid rgba(37, 211, 102, 0.35);
+  color: #25D366;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 1.05rem 2rem;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.btn-cta-secondary:hover {
+  background: #128C7E;
+  border-color: #25D366;
+  color: #FFFFFF;
+  box-shadow: 0 10px 30px rgba(37, 211, 102, 0.35);
+  transform: translateY(-2px);
+}
+
+/* Trust / Helpline Strip */
+.cta-trust-strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1.75rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: #7A818E;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.trust-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.trust-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #25D366;
+  box-shadow: 0 0 6px #25D366;
+}
+
+.helpline-link {
+  color: #E9EDEF;
+  text-decoration: none;
+  font-weight: 700;
+  transition: color 0.2s ease;
+}
+
+.helpline-link:hover {
+  color: #E50914;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .finale-cta-section {
+    padding: 5rem 0 5.5rem;
+  }
+
+  .cta-action-cluster {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .btn-cta-primary,
+  .btn-cta-secondary {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .cta-trust-strip {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+}
+

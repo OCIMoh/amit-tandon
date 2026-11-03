@@ -22,10 +22,26 @@
     "theme": "Changing times, domestic rituals, and the questionable logic behind how friends, family, and Amit himself behave."
   },
   "stats": [
-    { "value": "200M+", "label": "YouTube Views", "sub": "Across global digital specials" },
-    { "value": "30+", "label": "Countries", "sub": "Sold-out arenas & prestigious halls" },
-    { "value": "2,000+", "label": "Live Shows", "sub": "15+ years of relentless touring" },
-    { "value": "#1", "label": "Netflix India", "sub": "Top 10 solo special for 15 days" }
+    {
+      "value": "200M+",
+      "label": "YouTube Views",
+      "sub": "Across global digital specials"
+    },
+    {
+      "value": "30+",
+      "label": "Countries",
+      "sub": "Sold-out arenas & prestigious halls"
+    },
+    {
+      "value": "2,000+",
+      "label": "Live Shows",
+      "sub": "15+ years of relentless touring"
+    },
+    {
+      "value": "#1",
+      "label": "Netflix India",
+      "sub": "Top 10 solo special for 15 days"
+    }
   ],
   "gyanBites": [
     {
@@ -35,7 +51,7 @@
       "badge": "VIRAL BITE #01 · 88K SHARES",
       "quote": "18°C is Arctic tundra, 24°C is Sahara desert, 22°C is a pending court case.",
       "observation": "Every Indian bedroom hosts a midnight UN summit. The blankets are the only neutral territory.",
-      "image": "/images/mic-shot.jpg",
+      "image": "/images/case-magnifier.jpg",
       "shares": "88K Shares"
     },
     {
@@ -45,7 +61,7 @@
       "badge": "VIRAL BITE #02 · 71K SHARES",
       "quote": "You pay ₹4 lakh annual private school fees, hire IB tutors, buy MacBook Pros... so they can reply 'bruh' to your earnest life advice.",
       "observation": "Cost per syllable spoken by a 16-year-old: ₹2,00,000.",
-      "image": "/images/portrait.jpg",
+      "image": "/images/case-smirk.jpg",
       "shares": "71K Shares"
     },
     {
@@ -55,7 +71,7 @@
       "badge": "VIRAL BITE #03 · 94K SHARES",
       "quote": "“Bas 5 minute mein tayar ho rahi hoon!” violates Einstein's theory of general relativity. NASA should study Indian women's time dilation.",
       "observation": "5 minutes in domestic marriage time is roughly 1 hour 45 minutes in civilian time.",
-      "image": "/images/amit-one-hand-up.jpg",
+      "image": "/images/case-hand-up.jpg",
       "shares": "94K Shares"
     }
   ],

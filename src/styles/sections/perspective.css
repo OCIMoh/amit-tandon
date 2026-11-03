@@ -1,12 +1,17 @@
 /* ==========================================================================
-   ABOUT & GYAN ARCHIVE — AMIT TANDON UNIFIED SECTION
-   Story Narrative · 3-Pillar Biography · 3-Column Editorial Gyan Triptych
+   CASE FILE #41: THE DECLASSIFIED EVIDENCE DESK (AUTHENTIC DOCKET FLIP)
+   Continuous Master Open Manilla Folder (1480px Expanded Width):
+   - Physical Case Docket on Right Page with Stacked Paper Depth
+   - Turn Page Interactivity: Click anywhere on right page to flip exhibit
+   - Physical Manilla Index Divider Tabs Sticking Out of Right Border
+   - Realistic Dog-Eared Folded Paper Corner ("TURN PAGE ➔")
+   - Left Page: Executive Subject File with Realistic Porous Rubber Stamp
    ========================================================================== */
 
 .about-gyan-section {
   position: relative;
   width: 100%;
-  padding: 6.5rem 0 7rem;
+  padding: 4.5rem 0 5.5rem;
   background-color: #0A0D10;
   color: #FFFFFF;
   overflow: hidden;
@@ -16,15 +21,15 @@
 .about-gyan-section::before {
   content: "";
   position: absolute;
-  top: 20%;
+  top: 15%;
   left: 50%;
   transform: translateX(-50%);
-  width: 950px;
-  height: 600px;
+  width: 1200px;
+  height: 700px;
   background: radial-gradient(
     circle,
-    rgba(229, 9, 20, 0.08) 0%,
-    rgba(255, 215, 0, 0.03) 45%,
+    rgba(229, 9, 20, 0.12) 0%,
+    rgba(255, 60, 0, 0.04) 40%,
     transparent 70%
   );
   filter: blur(140px);
@@ -32,31 +37,39 @@
   z-index: 0;
 }
 
-/* Section Header (The Person Behind The Comedy) */
-.about-story-header {
+/* ==========================================================================
+   1. EXPANDED WRAPPER (WIDER HORIZONTAL PRESENCE)
+   ========================================================================== */
+.wrap-dossier {
+  width: min(1480px, calc(100% - 2.5rem));
+  margin: 0 auto;
+}
+
+/* Section Masthead */
+.evidence-desk-header {
   position: relative;
   z-index: 2;
   text-align: center;
-  max-width: 860px;
-  margin: 0 auto 3rem;
-  padding: 0 1rem;
+  max-width: 960px;
+  margin: 0 auto 1.85rem;
+  padding: 0 1.25rem;
 }
 
-.about-story-header .section-eyebrow {
+.desk-eyebrow {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.35rem 0.85rem;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  gap: 0.55rem;
+  padding: 0.32rem 0.85rem;
+  background: rgba(229, 9, 20, 0.08);
+  border: 1px solid rgba(229, 9, 20, 0.3);
   border-radius: 999px;
-  font-size: 0.75rem;
+  font-size: 0.68rem;
   letter-spacing: 0.12em;
-  color: #E50914;
-  margin-bottom: 1.1rem;
+  color: #FF5A60;
+  margin-bottom: 0.85rem;
 }
 
-.about-story-header .eyebrow-dot {
+.desk-eyebrow-dot {
   width: 6px;
   height: 6px;
   border-radius: 50%;
@@ -70,358 +83,965 @@
   50% { opacity: 0.4; transform: scale(0.85); }
 }
 
-.about-main-title {
-  font-size: clamp(2.2rem, 4.2vw, 3.8rem);
+.desk-main-title {
+  font-size: clamp(2.3rem, 4.6vw, 4rem);
   font-weight: 900;
-  line-height: 1.08;
-  letter-spacing: -0.02em;
-  margin: 0.4rem 0 1.25rem;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  margin: 0.2rem 0 0.85rem;
   color: #FFFFFF;
 }
 
-.about-main-title .highlight-red {
+.desk-main-title .highlight-red {
   color: #E50914;
-  text-shadow: 0 0 28px rgba(229, 9, 20, 0.35);
+  text-shadow: 0 0 35px rgba(229, 9, 20, 0.45);
 }
 
-.about-lead-journey {
-  font-size: 0.95rem;
-  line-height: 1.6;
-  color: #A0A5AD;
-  max-width: 720px;
+.desk-lead-breadcrumb {
+  font-size: 0.84rem;
+  line-height: 1.5;
+  color: #8E95A0;
+  max-width: 780px;
   margin: 0 auto;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
 }
 
 /* ==========================================================================
-   3-PILLAR BIOGRAPHY OVERVIEW GRID
+   2. THE MASTER CONTINUOUS OPEN MANILLA DOSSIER FOLDER (1480PX WIDE)
    ========================================================================== */
-.about-pillars-grid {
+.master-case-folder {
   position: relative;
   z-index: 2;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.75rem;
-  max-width: 1340px;
-  margin: 0 auto 4.5rem;
-  align-items: stretch;
+  width: 100%;
+  max-width: 1480px;
+  margin: 0 auto;
+  background: #E8DFC7;
+  background-image: 
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.09) 0%, transparent 80%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.02) 0%, rgba(0, 0, 0, 0.07) 100%);
+  color: #1A1816;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 
+    0 35px 90px -15px rgba(0, 0, 0, 0.95),
+    0 10px 30px rgba(0, 0, 0, 0.4),
+    inset 0 0 80px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  overflow: visible;
 }
 
-.about-pillar-card {
-  background: rgba(255, 255, 255, 0.025);
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  border-radius: 20px;
-  padding: 1.75rem 1.6rem;
-  transition: all 0.3s ease;
-}
-
-.about-pillar-card:hover {
-  background: rgba(255, 255, 255, 0.045);
-  border-color: rgba(255, 255, 255, 0.15);
-  transform: translateY(-3px);
-}
-
-.pillar-num {
-  font-size: 0.72rem;
+/* Folder Top Tab */
+.folder-header-tab {
+  background: #D8CEB4;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  padding: 0.48rem 1.85rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.68rem;
   font-weight: 800;
-  color: #E50914;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
+  color: #554D42;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.tab-left-group {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.folder-paperclip {
+  width: 18px;
+  height: 8px;
+  border: 2px solid #9A8042;
+  border-radius: 4px;
   display: inline-block;
-  margin-bottom: 0.65rem;
+  opacity: 0.85;
 }
 
-.pillar-title {
-  font-size: 1.22rem;
-  font-weight: 700;
-  line-height: 1.3;
-  margin: 0 0 0.75rem;
-  color: #FFFFFF;
-  letter-spacing: -0.01em;
+.folder-header-tab .tab-security {
+  color: #C0392B;
 }
 
-.pillar-desc {
-  font-size: 0.88rem;
-  line-height: 1.6;
-  color: #9DA4B0;
-  margin: 0;
+/* Open Folder 2-Page Interior Spread */
+.folder-inner-spread {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1.34fr;
+  align-items: stretch;
+  min-height: 480px;
 }
 
-.pillar-desc em {
-  color: #FFFFFF;
-  font-style: italic;
+/* Center Vertical Crease Shadow */
+.folder-center-crease {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 42.8%;
+  width: 16px;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.18) 0%,
+    rgba(255, 255, 255, 0.12) 48%,
+    rgba(0, 0, 0, 0.2) 100%
+  );
+  pointer-events: none;
+  z-index: 3;
 }
 
 /* ==========================================================================
-   SECTION DIVIDER: GYAN ARCHIVE
+   3. LEFT PAGE: THE EXECUTIVE SUBJECT FILE
    ========================================================================== */
-.gyan-archive-divider {
+.folder-page-left {
   position: relative;
-  z-index: 2;
+  padding: 1.85rem 2rem 1.85rem 2.4rem;
+  display: flex;
+  gap: 1.65rem;
+}
+
+/* Heavy Brass Binder Clamp Gripping the Photo Frame */
+.brass-binder-clamp {
+  position: absolute;
+  top: 14px;
+  left: 36px;
+  width: 48px;
+  height: 28px;
+  background: linear-gradient(135deg, #ECC870 0%, #D8A537 50%, #9B7018 100%);
+  border-radius: 4px;
+  box-shadow: 
+    0 5px 12px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  z-index: 10;
+}
+
+.brass-binder-clamp::after {
+  content: "";
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 15px;
+  border: 2.5px solid #5A400C;
+  border-radius: 2px;
+}
+
+/* Prominent 35mm Photo Frame (190px Width) */
+.subject-photo-frame {
+  position: relative;
+  flex-shrink: 0;
+  width: 190px;
+  background: #FFFFFF;
+  padding: 8px 8px 22px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.32);
+  transform: rotate(-2.5deg);
+  align-self: flex-start;
+  margin-top: 6px;
+}
+
+.subject-photo-img {
+  width: 100%;
+  height: 215px;
+  object-fit: cover;
+  object-position: center top;
+  filter: contrast(1.1) grayscale(20%);
+  display: block;
+}
+
+.photo-clear-tape {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 15px;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(2px);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+}
+
+.photo-corner-gaffer {
+  position: absolute;
+  bottom: -6px;
+  right: -8px;
+  width: 46px;
+  height: 15px;
+  background: linear-gradient(135deg, #8A929C 0%, #D8DFE6 45%, #FFFFFF 52%, #7B838C 100%);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.35);
+  transform: rotate(28deg);
+}
+
+/* Subject Dossier Details */
+.subject-dossier-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.dossier-tag {
+  font-size: 0.62rem;
+  font-weight: 800;
+  color: #C0392B;
+  letter-spacing: 0.12em;
+  margin-bottom: 0.25rem;
+}
+
+.subject-headline {
+  font-size: 1.45rem;
+  font-weight: 900;
+  color: #1A1816;
+  margin: 0 0 0.75rem;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.subject-specs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin: 0 0 1.05rem;
+  font-size: 0.72rem;
+  line-height: 1.35;
+}
+
+.subject-specs-list .spec-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.subject-specs-list dt {
+  color: #7A7265;
+  font-weight: 700;
+  min-width: 95px;
+}
+
+.subject-specs-list dd {
+  margin: 0;
+  color: #1A1816;
+  font-weight: 600;
+}
+
+.subject-core-quote {
+  font-size: 0.85rem;
+  line-height: 1.48;
+  color: #3C362F;
+  font-style: italic;
+  margin: 0 0 1.15rem;
+  border-left: 2px solid #C0392B;
+  padding-left: 0.75rem;
+}
+
+/* Realistic Distressed Ink Rubber Stamp */
+.subject-stamp-block {
+  margin-top: auto;
   display: flex;
   align-items: center;
   gap: 1.25rem;
-  max-width: 1340px;
-  margin: 0 auto 3.5rem;
 }
 
-.divider-line {
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.12), transparent);
-}
-
-.divider-badge {
+.rubber-ink-stamp.stamp-resigned {
   display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.4rem 1.1rem;
-  background: rgba(229, 9, 20, 0.08);
-  border: 1px solid rgba(229, 9, 20, 0.25);
-  border-radius: 999px;
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: #FF5A60;
-  letter-spacing: 0.08em;
+  flex-direction: column;
+  border: 3.5px solid #D62828;
+  border-radius: 6px;
+  padding: 3px;
+  background: rgba(214, 40, 40, 0.06);
+  box-shadow: 
+    0 2px 8px rgba(214, 40, 40, 0.15),
+    inset 0 0 6px rgba(214, 40, 40, 0.2);
+  transform: rotate(-8deg);
+  mask-image: repeating-linear-gradient(45deg, #000 0px, #000 3px, transparent 3px, transparent 4px, #000 4px, #000 8px);
+  -webkit-mask-image: repeating-linear-gradient(45deg, #000 0px, #000 3px, transparent 3px, transparent 4px, #000 4px, #000 8px);
+  user-select: none;
+  flex-shrink: 0;
 }
 
-.badge-dot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: #E50914;
-  box-shadow: 0 0 6px #E50914;
+.stamp-inner-border {
+  border: 1.5px solid #D62828;
+  border-radius: 3px;
+  padding: 0.4rem 0.85rem 0.35rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.1rem;
+  text-align: center;
+}
+
+.stamp-header {
+  font-family: var(--font-display, "Archivo Black", sans-serif);
+  font-size: 0.75rem;
+  font-weight: 900;
+  color: #D62828;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  text-shadow: 0 0 1px rgba(214, 40, 40, 0.4);
+}
+
+.stamp-main-year {
+  font-family: var(--font-display, "Archivo Black", sans-serif);
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: #D62828;
+  line-height: 1.1;
+  letter-spacing: 0.08em;
+  text-shadow: 0 0 2px rgba(214, 40, 40, 0.5);
+  margin: 1px 0;
+}
+
+.stamp-sub-code {
+  font-size: 0.54rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: #BA181B;
+  line-height: 1;
+}
+
+.annotation-red-cursive {
+  font-size: 0.78rem;
+  color: #8C2518;
+  font-style: italic;
+  font-family: Georgia, serif;
 }
 
 /* ==========================================================================
-   THE 3-COLUMN EDITORIAL GYAN TRIPTYCH GRID
+   4. RIGHT PAGE: PHYSICAL STACKED CASE DOCKET (INTERACTIVE FLIP)
    ========================================================================== */
-.gyan-triptych-grid {
+.folder-page-right {
   position: relative;
-  z-index: 2;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-  max-width: 1340px;
-  margin: 0 auto;
-  align-items: stretch;
-}
-
-/* Individual Editorial Cards */
-.gyan-triptych-card {
-  position: relative;
-  background: linear-gradient(170deg, #171A21 0%, #11141A 50%, #0C0E12 100%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 24px;
-  box-shadow: 
-    0 25px 60px -15px rgba(0, 0, 0, 0.85),
-    0 0 0 1px rgba(255, 255, 255, 0.04),
-    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  padding: 1.35rem 2.8rem 1.35rem 2rem;
   display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  outline: none;
-  transition: 
-    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
-    border-color 0.3s ease, 
-    box-shadow 0.35s ease;
 }
 
-.gyan-triptych-card:hover {
-  transform: translateY(-6px);
-  border-color: rgba(229, 9, 20, 0.45);
-  box-shadow: 
-    0 35px 85px -10px rgba(0, 0, 0, 0.95),
-    0 0 35px rgba(229, 9, 20, 0.18),
-    inset 0 1px 0 rgba(255, 255, 255, 0.25);
-}
-
-.card-inner-shell {
-  padding: 1.6rem 1.6rem 1.4rem;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-/* Card Header Meta Bar */
-.card-top-meta {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 1.15rem;
-}
-
-.meta-tag {
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  color: #E50914;
-}
-
-.meta-badge {
-  font-size: 0.65rem;
-  letter-spacing: 0.06em;
-  color: #8E95A0;
-}
-
-/* Studio Photography Frame */
-.card-image-box {
+.case-docket-stack {
   position: relative;
   width: 100%;
-  height: 250px;
-  border-radius: 16px;
-  overflow: hidden;
-  background: #08090C;
-  margin-bottom: 1.35rem;
+  display: flex;
+  cursor: pointer;
 }
 
-.card-portrait-photo {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center top;
-  filter: contrast(1.05) brightness(0.96);
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.gyan-triptych-card:hover .card-portrait-photo {
-  transform: scale(1.04);
-}
-
-.card-image-gradient {
+/* Stacked Paper Underlays (Physical Depth) */
+.docket-underlay-page {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to bottom,
-    transparent 0%,
-    transparent 55%,
-    rgba(14, 17, 22, 0.85) 100%
-  );
+  border-radius: 8px;
   pointer-events: none;
 }
 
-.card-rule-stamp {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 6px;
-  padding: 3px 8px;
-  font-size: 0.65rem;
-  font-weight: 800;
-  color: #FFFFFF;
-  letter-spacing: 0.05em;
+.docket-underlay-2 {
+  background: #E8E1D3;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  transform: rotate(1.2deg) translate(4px, 5px);
+  z-index: 1;
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.15);
 }
 
-/* Editorial Punchline Block */
-.card-body-block {
+.docket-underlay-1 {
+  background: #F1ECE0;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  transform: rotate(-0.8deg) translate(2px, 2px);
+  z-index: 2;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+}
+
+/* Spiral Binding Rings Down the Left Spine */
+.notebook-spiral-spine {
+  position: relative;
+  z-index: 5;
+  width: 28px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 16px 0;
+  background: #ECE7DC;
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+.spiral-ring {
+  width: 22px;
+  height: 8px;
+  background: linear-gradient(180deg, #A0A5AD 0%, #E2E5E8 50%, #7A8088 100%);
+  border-radius: 4px;
+  margin: 0 auto;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.35);
+  position: relative;
+}
+
+.spiral-ring::before {
+  content: "";
+  position: absolute;
+  top: 1.5px;
+  left: 2px;
+  right: 2px;
+  bottom: 1.5px;
+  background: #252830;
+  border-radius: 2px;
+}
+
+/* Viewport for the 3 Evidence Sheets */
+.docket-sheets-viewport {
+  position: relative;
+  z-index: 3;
+  flex: 1;
+  min-height: 380px;
+}
+
+/* Individual Case Evidence Sheet */
+.case-evidence-sheet {
+  display: none;
+  height: 100%;
+  position: relative;
+  background-color: #FAF8F2;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 26px,
+    rgba(60, 90, 150, 0.08) 27px
+  );
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.09);
+  border-left: 2px solid rgba(220, 50, 50, 0.28);
+  padding: 1.25rem 1.65rem 2.8rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+  user-select: none;
+}
+
+.case-evidence-sheet.is-active {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Official Header across the Sheet */
+.sheet-official-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.65rem;
+  border-bottom: 1.5px solid rgba(0, 0, 0, 0.14);
+  margin-bottom: 1rem;
+}
+
+.sheet-serial {
+  font-size: 0.68rem;
+  font-weight: 900;
+  color: #C0392B;
+  letter-spacing: 0.1em;
+}
+
+.sheet-title-tag {
+  font-size: 0.64rem;
+  font-weight: 700;
+  color: #665F55;
+  margin-left: 0.75rem;
+  letter-spacing: 0.06em;
+}
+
+.sheet-page-indicator {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #1A1816;
+  background: #EAE3D5;
+  padding: 0.2rem 0.55rem;
+  border-radius: 4px;
+}
+
+.sheet-inner-body {
+  display: flex;
+  gap: 1.45rem;
+  flex: 1;
+  align-items: stretch;
+}
+
+/* Exhibit Photo Frame */
+.sheet-photo-frame {
+  position: relative;
+  flex-shrink: 0;
+  width: 215px;
+  background: #FFFFFF;
+  padding: 6px 6px 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.22);
+  align-self: flex-start;
+  transform: rotate(-1.5deg);
+}
+
+.sheet-photo {
+  width: 100%;
+  height: 215px;
+  object-fit: cover;
+  object-position: center center;
+  filter: contrast(1.05) brightness(0.98);
+  display: block;
+  border-radius: 2px;
+}
+
+#evidence-sheet-0 .sheet-photo {
+  object-position: center 18%;
+}
+
+#evidence-sheet-1 .sheet-photo {
+  object-position: center 12%;
+}
+
+#evidence-sheet-2 .sheet-photo {
+  object-position: 32% center;
+}
+
+.sheet-photo-stamp {
+  position: absolute;
+  bottom: 22px;
+  left: 8px;
+  background: rgba(0, 0, 0, 0.82);
+  backdrop-filter: blur(4px);
+  color: #FFFFFF;
+  padding: 2px 6px;
+  font-size: 0.56rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  border-radius: 3px;
+}
+
+.sheet-photo-tape {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 15px;
+  background: linear-gradient(135deg, #8A929C 0%, #D8DFE6 45%, #FFFFFF 52%, #7B838C 100%);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.35);
+  transform: translateX(-50%) rotate(-2deg);
+}
+
+/* Text Column */
+.sheet-text-col {
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  margin-bottom: 1.35rem;
 }
 
-.card-quote-text {
-  font-size: clamp(1.15rem, 1.35vw, 1.35rem);
+.sheet-meta-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.55rem;
+}
+
+.sheet-rule-pill {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #C0392B;
+  letter-spacing: 0.1em;
+}
+
+.sheet-shares-count {
+  font-size: 0.62rem;
   font-weight: 700;
-  line-height: 1.4;
-  letter-spacing: -0.015em;
-  color: #FFFFFF;
-  margin: 0 0 0.85rem;
+  color: #7A7265;
 }
 
-.card-observation-note {
+.sheet-quote {
+  font-size: 1.15rem;
+  font-weight: 800;
+  line-height: 1.35;
+  letter-spacing: -0.015em;
+  color: #1A1816;
+  margin: 0 0 0.75rem;
+  font-family: Georgia, serif;
+}
+
+.sheet-observation {
   font-size: 0.8rem;
   line-height: 1.48;
-  color: #9DA4B0;
-  border-left: 2px solid #E50914;
+  color: #4A443B;
+  margin: 0 0 1.15rem;
+  border-left: 2px solid #C0392B;
   padding-left: 0.75rem;
-  margin: 0;
   font-style: italic;
 }
 
-/* 1-Click WhatsApp Share Strip */
-.card-footer-strip {
-  display: flex;
-  align-items: center;
-  padding-top: 1rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+.obs-prefix {
+  color: #1A1816;
+  font-style: normal;
 }
 
-.btn-gyan-share {
+.sheet-action-strip {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 0.85rem;
+  border-top: 1px dashed rgba(0, 0, 0, 0.14);
+}
+
+.btn-forward-wa {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  gap: 0.45rem;
+  background: #1A1816;
+  border: 1px solid #1A1816;
   border-radius: 999px;
-  padding: 0.45rem 0.95rem;
-  font-size: 0.7rem;
-  font-weight: 700;
-  color: #A0A5AD;
+  padding: 0.42rem 0.88rem;
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #FFFFFF;
   text-decoration: none;
   transition: all 0.2s ease;
+  z-index: 10;
 }
 
-.btn-gyan-share:hover {
+.btn-forward-wa:hover {
   background: #128C7E;
   border-color: #25D366;
-  color: #FFFFFF;
-  transform: scale(1.03);
-  box-shadow: 0 2px 10px rgba(37, 211, 102, 0.35);
+  transform: scale(1.04);
+  box-shadow: 0 2px 8px rgba(37, 211, 102, 0.4);
+}
+
+.sheet-verified-seal {
+  font-size: 0.6rem;
+  color: #7A7265;
+  font-weight: 700;
+}
+
+/* Dog-Eared Folded Paper Corner (Turn Page Indicator) */
+.dog-ear-corner {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.45rem 1rem;
+  background: #EDE6D8;
+  border-top-left-radius: 10px;
+  border-top: 1px solid rgba(0, 0, 0, 0.14);
+  border-left: 1px solid rgba(0, 0, 0, 0.14);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: -2px -2px 6px rgba(0, 0, 0, 0.08);
+  z-index: 5;
+}
+
+.dog-ear-corner:hover {
+  background: #E2D9C6;
+  transform: translate(-3px, -3px);
+  box-shadow: -4px -4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.dog-ear-prompt {
+  font-size: 0.64rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  color: #665E4E;
 }
 
 /* ==========================================================================
-   RESPONSIVE DESIGN ADAPTATIONS
+   PHYSICAL MANILLA INDEX DIVIDER TABS (STICKING OUT RIGHT BORDER)
    ========================================================================== */
-@media (max-width: 1080px) {
-  .about-pillars-grid {
+.case-index-tabs {
+  position: absolute;
+  right: -32px;
+  top: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 6;
+}
+
+.case-index-tab {
+  background: #D8CEB4;
+  color: #554D42;
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  border-left: none;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+  padding: 12px 6px;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.15);
+  white-space: nowrap;
+}
+
+.case-index-tab:hover {
+  background: #ECE5D2;
+  color: #1A1816;
+  transform: rotate(180deg) translateX(-3px);
+}
+
+.case-index-tab.is-active {
+  background: #FAF8F2;
+  color: #C0392B;
+  border-color: rgba(0, 0, 0, 0.22);
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25);
+  padding-right: 10px;
+  font-weight: 900;
+}
+
+/* ==========================================================================
+   5. INTEGRATED BOTTOM FLAP: NETFLIX SPECIAL & CREDIBILITY DOCK
+   ========================================================================== */
+.folder-bottom-dock {
+  background: #13161C;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  padding: 1rem 2.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* Silver Tape over Netflix Badge */
+.dock-special-cell {
+  position: relative;
+}
+
+.silver-gaffer-tape {
+  position: absolute;
+  top: -10px;
+  left: -8px;
+  width: 52px;
+  height: 15px;
+  background: linear-gradient(135deg, #8A929C 0%, #D8DFE6 45%, #FFFFFF 52%, #7B838C 100%);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  transform: rotate(-6deg);
+  z-index: 2;
+}
+
+.dock-netflix-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: rgba(229, 9, 20, 0.08);
+  border: 1px solid rgba(229, 9, 20, 0.35);
+  border-radius: 8px;
+  padding: 0.42rem 0.95rem;
+}
+
+.n-logo {
+  font-size: 1.35rem;
+  font-weight: 900;
+  color: #E50914;
+  line-height: 1;
+  text-shadow: 0 0 12px rgba(229, 9, 20, 0.6);
+}
+
+.special-copy {
+  display: flex;
+  flex-direction: column;
+}
+
+.special-label {
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+  color: #FF5A60;
+  font-weight: 800;
+}
+
+.special-title {
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+  color: #FFFFFF;
+}
+
+/* Transit Stamps */
+.dock-customs-stamps {
+  display: flex;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.customs-stamp {
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 0.25rem 0.55rem;
+  border-radius: 4px;
+  letter-spacing: 0.06em;
+}
+
+.stamp-cyan {
+  border: 1px solid rgba(0, 206, 209, 0.4);
+  color: #48D1CC;
+  background: rgba(0, 206, 209, 0.05);
+}
+
+.stamp-red {
+  border: 1px solid rgba(229, 9, 20, 0.4);
+  color: #FF5A60;
+  background: rgba(229, 9, 20, 0.05);
+}
+
+/* Tour Stats */
+.dock-stats-cluster {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  font-size: 0.78rem;
+  color: #A0A5AD;
+}
+
+.dock-stats-cluster strong {
+  color: #FFFFFF;
+  font-size: 0.95rem;
+}
+
+.stat-dot {
+  color: #E50914;
+}
+
+/* Wax Seal */
+.dock-wax-seal {
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  background: radial-gradient(circle, #A91B1B 0%, #7D0E0E 70%, #4D0505 100%);
+  border-radius: 50%;
+  padding: 2.5px;
+  box-shadow: 
+    0 4px 10px rgba(0, 0, 0, 0.6),
+    0 0 14px rgba(229, 9, 20, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wax-seal-outer {
+  width: 100%;
+  height: 100%;
+  border: 1.2px dashed rgba(255, 215, 0, 0.6);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wax-seal-inner {
+  text-align: center;
+  color: #FFE6A3;
+  line-height: 1.05;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.seal-curve {
+  font-size: 0.38rem;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+}
+
+.seal-core {
+  font-size: 0.52rem;
+  font-weight: 900;
+  color: #FFFFFF;
+  margin: 1px 0;
+}
+
+.seal-sub {
+  font-size: 0.38rem;
+  font-weight: 700;
+  color: #FFB3B3;
+}
+
+/* ==========================================================================
+   6. RESPONSIVE DESIGN ADAPTATIONS
+   ========================================================================== */
+@media (max-width: 1180px) {
+  .folder-inner-spread {
     grid-template-columns: 1fr;
-    gap: 1.25rem;
   }
 
-  .gyan-triptych-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
+  .folder-center-crease {
+    display: none;
   }
 
-  .gyan-triptych-card:nth-child(3) {
-    grid-column: span 2;
-    max-width: 650px;
-    margin: 0 auto;
-    width: 100%;
+  .folder-page-left {
+    border-bottom: 1px dashed rgba(0, 0, 0, 0.15);
+    padding: 1.75rem 1.5rem;
+  }
+
+  .folder-page-right {
+    padding: 1.25rem 1.5rem;
+  }
+
+  .case-index-tabs {
+    position: static;
+    flex-direction: row;
+    margin-bottom: 0.75rem;
+    gap: 8px;
+  }
+
+  .case-index-tab {
+    writing-mode: horizontal-tb;
+    transform: none;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 6px;
+    padding: 6px 12px;
+  }
+
+  .dock-customs-stamps {
+    display: none;
+  }
+
+  .folder-bottom-dock {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
   }
 }
 
-@media (max-width: 720px) {
+@media (max-width: 768px) {
   .about-gyan-section {
-    padding: 4.5rem 0 4rem;
+    padding: 3.5rem 0 4.5rem;
   }
 
-  .gyan-triptych-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
+  .wrap-dossier {
+    width: calc(100% - 1.5rem);
   }
 
-  .gyan-triptych-card:nth-child(3) {
-    grid-column: auto;
-    max-width: 100%;
-  }
-
-  .card-inner-shell {
-    padding: 1.25rem 1.25rem 1.15rem;
-  }
-
-  .card-image-box {
-    height: 220px;
-  }
-
-  .gyan-archive-divider {
+  .folder-page-left {
     flex-direction: column;
-    gap: 0.75rem;
+    padding: 1.4rem 1.15rem 1.25rem;
+  }
+
+  .subject-photo-frame {
+    width: 100%;
+  }
+
+  .subject-photo-img {
+    height: 200px;
+  }
+
+  .sheet-inner-body {
+    flex-direction: column;
+  }
+
+  .sheet-photo-frame {
+    width: 100%;
+  }
+
+  .sheet-photo {
+    height: 180px;
+  }
+
+  .folder-bottom-dock {
+    flex-direction: column;
+    text-align: center;
+    padding: 1rem 0.85rem;
   }
 }

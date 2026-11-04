@@ -1,17 +1,18 @@
 /* ==========================================================================
    FINALE CTA SECTION — AMIT TANDON LIVE IN CONCERT
-   Grand Closing Call-To-Action · Theatrical Volumetric Glow · Conversion Engine
+   Grand Closing Call-To-Action · VIP All-Access Backstage Pass
+   Tactile Material Physics: Braided Lanyard · Brass Grommet · Gold Foil Seal
    ========================================================================== */
 
 .finale-cta-section {
   position: relative;
   width: 100%;
-  padding: 7.5rem 0 8rem;
+  padding: 8.5rem 0 9rem;
   background-color: #080A0D;
   color: #FFFFFF;
   text-align: center;
   overflow: hidden;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 /* Atmospheric Volumetric Backlight */
@@ -20,8 +21,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 1000px;
-  height: 650px;
+  width: 1100px;
+  height: 700px;
   background: radial-gradient(
     circle,
     rgba(229, 9, 20, 0.16) 0%,
@@ -36,9 +37,96 @@
 .cta-content-wrap {
   position: relative;
   z-index: 2;
-  max-width: 920px;
+  max-width: 1020px;
   margin: 0 auto;
   padding: 0 1.5rem;
+}
+
+/* VIP All-Access Backstage Pass Badge Container */
+.vip-backstage-pass-badge {
+  position: relative;
+  background: linear-gradient(160deg, #181922 0%, #101117 60%, #0A0A0E 100%);
+  border: 2px solid #2A2D3D;
+  border-radius: 18px;
+  box-shadow: 
+    0 40px 100px -20px rgba(0, 0, 0, 0.95),
+    0 0 0 1px rgba(255, 255, 255, 0.08),
+    inset 0 1px 2px rgba(255, 255, 255, 0.25);
+  padding: 3rem 3.5rem 3.25rem;
+  overflow: visible;
+}
+
+/* Top Lanyard Hanger & Brass Clamp */
+.pass-lanyard-hanger {
+  position: absolute;
+  top: -55px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+}
+
+.lanyard-braided-strap {
+  width: 24px;
+  height: 38px;
+  background: repeating-linear-gradient(
+    45deg,
+    #111 0px,
+    #111 3px,
+    #E50914 3px,
+    #E50914 6px
+  );
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+.lanyard-brass-clamp {
+  width: 32px;
+  height: 12px;
+  background: linear-gradient(180deg, #D4AF37 0%, #8A6E1E 100%);
+  border-radius: 2px;
+  box-shadow: inset 0 1px 1px #FFF, 0 2px 4px rgba(0,0,0,0.6);
+}
+
+.pass-slot-hole {
+  width: 28px;
+  height: 8px;
+  border-radius: 4px;
+  background: #080A0D;
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  margin-top: 3px;
+  box-shadow: inset 0 2px 3px rgba(0,0,0,0.8);
+}
+
+/* Pass Header Strip */
+.pass-header-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: #8C8C9A;
+  padding-bottom: 1.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.12);
+}
+
+.pass-security-id {
+  color: #FFFFFF;
+  font-weight: 800;
+}
+
+.pass-hologram-seal {
+  color: #FFD166;
+  font-weight: 900;
+  text-shadow: 0 0 10px rgba(255, 209, 102, 0.5);
+}
+
+.pass-dept {
+  color: #A0A0B0;
 }
 
 /* Eyebrow */
@@ -46,9 +134,9 @@
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  padding: 0.4rem 1rem;
+  padding: 0.4rem 1.1rem;
   background: rgba(229, 9, 20, 0.1);
-  border: 1px solid rgba(229, 9, 20, 0.3);
+  border: 1px solid rgba(229, 9, 20, 0.35);
   border-radius: 999px;
   font-size: 0.75rem;
   letter-spacing: 0.12em;
@@ -67,12 +155,14 @@
 
 /* Headline */
 .cta-headline {
+  font-family: var(--font-display, "Archivo Black", sans-serif);
   font-size: clamp(2.4rem, 5vw, 4.4rem);
   font-weight: 900;
   line-height: 1.05;
   letter-spacing: -0.025em;
   margin: 0 0 1.5rem;
   color: #FFFFFF;
+  text-transform: uppercase;
 }
 
 .cta-headline .highlight-red {
@@ -84,8 +174,8 @@
 .cta-subtitle {
   font-size: 1.15rem;
   line-height: 1.65;
-  color: #A0A5AD;
-  max-width: 720px;
+  color: #B5B5C2;
+  max-width: 760px;
   margin: 0 auto 2.75rem;
 }
 
@@ -95,130 +185,123 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 1.25rem;
-  margin-bottom: 3.5rem;
+  gap: 1.35rem;
+  margin-bottom: 3rem;
 }
 
 .btn-cta-primary {
-  position: relative;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.75rem;
-  background: linear-gradient(135deg, #E50914 0%, #B20710 100%);
+  padding: 1.1rem 2.6rem;
+  background: #E50914;
   color: #FFFFFF;
-  font-size: 0.95rem;
+  font-family: var(--font-sans, sans-serif);
+  font-size: 0.96rem;
   font-weight: 800;
-  letter-spacing: 0.05em;
-  padding: 1.1rem 2.5rem;
-  border-radius: 999px;
+  letter-spacing: 0.06em;
   text-decoration: none;
-  box-shadow: 
-    0 12px 35px rgba(229, 9, 20, 0.45),
-    0 0 0 1px rgba(255, 255, 255, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  border-radius: 6px;
+  box-shadow: 0 8px 30px rgba(229, 9, 20, 0.55);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
   overflow: hidden;
-  transition: all 0.25s ease;
 }
 
 .btn-cta-primary:hover {
-  background: linear-gradient(135deg, #FF1E27 0%, #CC0812 100%);
-  box-shadow: 
-    0 16px 45px rgba(229, 9, 20, 0.65),
-    0 0 0 1px rgba(255, 255, 255, 0.3);
+  background: #F40612;
+  box-shadow: 0 14px 40px rgba(229, 9, 20, 0.85);
   transform: translateY(-2px);
-}
-
-.btn-cta-primary .btn-arrow {
-  transition: transform 0.2s ease;
-}
-
-.btn-cta-primary:hover .btn-arrow {
-  transform: translateX(4px);
 }
 
 .btn-cta-secondary {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.65rem;
-  background: rgba(18, 140, 126, 0.15);
-  border: 1px solid rgba(37, 211, 102, 0.35);
-  color: #25D366;
-  font-size: 0.88rem;
+  padding: 1.1rem 2.2rem;
+  background: rgba(255, 255, 255, 0.05);
+  color: #FFFFFF;
+  border: 1.5px solid rgba(255, 255, 255, 0.22);
+  font-family: var(--font-sans, sans-serif);
+  font-size: 0.96rem;
   font-weight: 700;
   letter-spacing: 0.04em;
-  padding: 1.05rem 2rem;
-  border-radius: 999px;
   text-decoration: none;
-  transition: all 0.25s ease;
+  border-radius: 6px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .btn-cta-secondary:hover {
-  background: #128C7E;
   border-color: #25D366;
   color: #FFFFFF;
-  box-shadow: 0 10px 30px rgba(37, 211, 102, 0.35);
+  background: rgba(37, 211, 102, 0.12);
   transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.3);
 }
 
-/* Trust / Helpline Strip */
+/* Live Direct Helpline & Trust Bar */
 .cta-trust-strip {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 1.75rem;
-  font-size: 0.72rem;
-  letter-spacing: 0.06em;
-  color: #7A818E;
+  gap: 2rem;
+  flex-wrap: wrap;
+  font-size: 0.75rem;
+  color: #8C8C9A;
+  letter-spacing: 0.08em;
   padding-top: 1.5rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .trust-item {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 0.45rem;
+  gap: 0.5rem;
 }
 
 .trust-dot {
-  width: 5px;
-  height: 5px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
-  background: #25D366;
-  box-shadow: 0 0 6px #25D366;
+  background: #E50914;
 }
 
 .helpline-link {
-  color: #E9EDEF;
-  text-decoration: none;
-  font-weight: 700;
-  transition: color 0.2s ease;
+  color: #FFFFFF;
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .helpline-link:hover {
-  color: #E50914;
+  color: #FF5A60;
 }
 
-/* Responsive */
+@keyframes pulse-red-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
 @media (max-width: 768px) {
-  .finale-cta-section {
-    padding: 5rem 0 5.5rem;
+  .vip-backstage-pass-badge {
+    padding: 2.5rem 1.5rem;
   }
 
-  .cta-action-cluster {
+  .pass-header-strip {
     flex-direction: column;
-    width: 100%;
+    align-items: flex-start;
   }
 
   .btn-cta-primary,
   .btn-cta-secondary {
     width: 100%;
-    justify-content: center;
   }
 
   .cta-trust-strip {
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 0.85rem;
+    align-items: flex-start;
   }
 }
-

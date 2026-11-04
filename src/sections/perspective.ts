@@ -10,7 +10,7 @@ export function renderPerspective(site: SiteContent): string {
     const isActive = index === 0;
 
     const shareText = encodeURIComponent(
-      `Amit Tandon Comedy Evidence (Rule #${item.ruleNumber}): "${item.quote}" — Read the full audit at amittandon.in`
+      `Amit Tandon Domestic Gyan (Rule #${item.ruleNumber}): "${item.quote}" — Read the full audit at amittandon.in`
     );
 
     return `
@@ -25,8 +25,8 @@ export function renderPerspective(site: SiteContent): string {
         <!-- Official Case File Sheet Header -->
         <div class="sheet-official-header mono">
           <div class="sheet-header-left">
-            <span class="sheet-serial">RECORD #41-EXHIBIT-${letter}</span>
-            <span class="sheet-title-tag">${item.tag}</span>
+            <span class="sheet-serial">GYAN RECORD #41-EXHIBIT-${letter}</span>
+            <span class="sheet-title-tag">GYAN: ${item.tag}</span>
           </div>
           <div class="sheet-header-right">
             <span class="sheet-page-indicator">PAGE ${index + 1} OF 3</span>
@@ -44,14 +44,14 @@ export function renderPerspective(site: SiteContent): string {
               width="450"
               height="280"
             />
-            <span class="sheet-photo-stamp mono">EXHIBIT #${letter} // EVIDENCE</span>
+            <span class="sheet-photo-stamp mono">EXHIBIT #${letter} // GYAN EVIDENCE</span>
             <span class="sheet-photo-tape" aria-hidden="true"></span>
           </div>
 
           <!-- Typed & Handwritten Case Data -->
           <div class="sheet-text-col">
             <div class="sheet-meta-bar mono">
-              <span class="sheet-rule-pill">RULE #${item.ruleNumber}</span>
+              <span class="sheet-rule-pill">GYAN RULE #${item.ruleNumber}</span>
               <span class="sheet-shares-count">🏷️ ${item.shares}</span>
             </div>
 
@@ -69,16 +69,16 @@ export function renderPerspective(site: SiteContent): string {
                 target="_blank"
                 rel="noopener noreferrer"
                 class="btn-forward-wa mono"
-                aria-label="Forward Exhibit ${letter} to WhatsApp"
-                title="Forward joke to WhatsApp"
+                aria-label="Forward Gyan Exhibit ${letter} to WhatsApp"
+                title="Forward Gyan joke to WhatsApp"
                 data-stop-propagation="true"
               >
                 <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true">
                   <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.007c.106.005.249-.04.39.299.144.347.491 1.199.534 1.286.043.087.072.188.014.303-.058.116-.087.188-.173.289l-.26.303c-.087.087-.177.181-.076.355.101.173.449.741.964 1.201.662.591 1.221.774 1.394.86.173.087.275.072.376-.043.101-.116.433-.506.549-.679.116-.173.231-.144.39-.087s1.011.477 1.184.564.289.13.332.202c.043.072.043.419-.101.824z"/>
                 </svg>
-                <span>FORWARD TO WHATSAPP ↗</span>
+                <span>FORWARD GYAN TO WHATSAPP ↗</span>
               </a>
-              <span class="sheet-verified-seal mono">CONFISCATED EVIDENCE // AUTHENTIC</span>
+              <span class="sheet-verified-seal mono">CONFISCATED GYAN // 100% AUTHENTIC</span>
             </div>
           </div>
         </div>
@@ -93,21 +93,21 @@ export function renderPerspective(site: SiteContent): string {
   }).join('');
 
   return `
-<section class="about-gyan-section" id="about" aria-label="Case File #41: The Declassified Evidence Board">
+<section class="about-gyan-section" id="about" aria-label="Case File #41: The Declassified Domestic Gyan Archive">
   <div class="wrap-dossier">
     
     <!-- Section Masthead -->
     <div class="evidence-desk-header" data-reveal>
       <div class="desk-eyebrow">
         <span class="desk-eyebrow-dot"></span>
-        <span class="mono">CASE #41 // DECLASSIFIED RECORD</span>
+        <span class="mono">CASE #41 // DECLASSIFIED RECORD · AMIT'S DOMESTIC GYAN ARCHIVE</span>
       </div>
       <h2 class="display desk-main-title">
-        <span>THE METHOD IN </span>
-        <span class="highlight-red">THE MADNESS.</span>
+        <span>THE DOMESTIC GYAN </span>
+        <span class="highlight-red">ARCHIVE.</span>
       </h2>
       <p class="desk-lead-breadcrumb mono">
-        15 YRS CORPORATE VP ➔ IIT DELHI MBA ➔ FULL-TIME DOMESTIC ARBITRATOR
+        CONFISCATED OBSERVATIONAL WISDOM // 15 YRS CORPORATE VP ➔ IIT DELHI MBA ➔ FULL-TIME DOMESTIC ARBITRATOR
       </p>
     </div>
 
@@ -118,7 +118,7 @@ export function renderPerspective(site: SiteContent): string {
       <div class="folder-header-tab mono">
         <div class="tab-left-group">
           <span class="folder-paperclip" aria-hidden="true"></span>
-          <span class="tab-title">CASE #41 // DOMESTIC ARBITRATION RECORD</span>
+          <span class="tab-title">CASE #41 // DOMESTIC GYAN ARBITRATION DOSSIER</span>
         </div>
         <span class="tab-security">TOP SECRET // DECLASSIFIED 2026</span>
       </div>
@@ -148,7 +148,7 @@ export function renderPerspective(site: SiteContent): string {
 
           <!-- Subject Dossier Data -->
           <div class="subject-dossier-body">
-            <span class="dossier-tag mono">CONFIDENTIAL SUBJECT DOSSIER</span>
+            <span class="dossier-tag mono">CONFIDENTIAL GYAN DOSSIER</span>
             <h3 class="subject-headline">SUBJECT: EXECUTIVE TURNED COMEDIAN</h3>
 
             <dl class="subject-specs-list mono">
@@ -178,9 +178,9 @@ export function renderPerspective(site: SiteContent): string {
             <div class="subject-stamp-block">
               <div class="rubber-ink-stamp stamp-resigned mono">
                 <div class="stamp-inner-border">
-                  <span class="stamp-header">OFFICIALLY RESIGNED</span>
-                  <strong class="stamp-main-year">★ 2014 ★</strong>
-                  <span class="stamp-sub-code">HR CLEARANCE // DEPT #0412</span>
+                  <span class="stamp-header">OFFICIALLY AUDITED GYAN</span>
+                  <strong class="stamp-main-year">★ RULE #41 ★</strong>
+                  <span class="stamp-sub-code">HR CLEARANCE // 100% CLEAN</span>
                 </div>
               </div>
               <span class="annotation-red-cursive">Corporate strategy vs. domestic survival.</span>
@@ -229,7 +229,7 @@ export function renderPerspective(site: SiteContent): string {
                 aria-selected="true"
                 aria-controls="evidence-sheet-0"
               >
-                <span>EXHIBIT 01</span>
+                <span>GYAN #01 · MARRIAGE</span>
               </button>
               <button 
                 type="button" 
@@ -240,7 +240,7 @@ export function renderPerspective(site: SiteContent): string {
                 aria-selected="false"
                 aria-controls="evidence-sheet-1"
               >
-                <span>EXHIBIT 02</span>
+                <span>GYAN #02 · GEN-Z</span>
               </button>
               <button 
                 type="button" 
@@ -251,7 +251,7 @@ export function renderPerspective(site: SiteContent): string {
                 aria-selected="false"
                 aria-controls="evidence-sheet-2"
               >
-                <span>EXHIBIT 03</span>
+                <span>GYAN #03 · TIMING</span>
               </button>
             </div>
 

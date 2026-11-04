@@ -575,10 +575,11 @@ function setupEvidenceDeskMotion(reduce: boolean): void {
   }
 }
 
-/** Section 8: Tour Schedule Filtering & Instant Search */
+/** Section 4 & 5 Unified: The Backstage Tour Dispatch & Box Office Command Center */
 function setupTourInteractions(): void {
   const filterTabs = document.querySelectorAll<HTMLButtonElement>(".region-tab");
   const featuredCards = document.querySelectorAll<HTMLElement>(".featured-tour-card");
+  const solariRows = document.querySelectorAll<HTMLElement>(".solari-row");
   const schedGrid = document.querySelector<HTMLDivElement>("#schedule-cards-grid");
   const schedRows = document.querySelectorAll<HTMLElement>(".tour-row-card");
   const expandBtn = document.querySelector<HTMLButtonElement>("#toggle-full-schedule-btn");
@@ -597,12 +598,44 @@ function setupTourInteractions(): void {
   let activeSearchQuery = "";
   let isManuallyExpanded = false;
 
-  const applyFilters = () => {
+  // Kinetic Mechanical Solari Tile Flip
+  const triggerSolariTileFlip = () => {
+    const activeTiles = document.querySelectorAll<HTMLElement>(".solari-row:not([style*='display: none']) .flap-tile");
+    if (activeTiles.length > 0) {
+      gsap.fromTo(
+        activeTiles,
+        { transformPerspective: 400, rotateX: -80, opacity: 0.65 },
+        {
+          transformPerspective: 400,
+          rotateX: 0,
+          opacity: 1,
+          duration: 0.32,
+          stagger: 0.015,
+          ease: "power2.out",
+        }
+      );
+    }
+  };
+
+  const applyFilters = (isUserEvent = false) => {
     let visibleCount = 0;
     const q = activeSearchQuery.toLowerCase().trim();
 
     if (searchClear) {
       searchClear.style.display = q ? "block" : "none";
+    }
+
+    // Filter Solari Mechanical Rows
+    solariRows.forEach((row) => {
+      const reg = row.dataset.region || "";
+      const text = row.textContent?.toLowerCase() || "";
+      const matchRegion = activeRegionFilter === "all" || reg === activeRegionFilter;
+      const matchSearch = !q || text.includes(q);
+      row.style.display = matchRegion && matchSearch ? "grid" : "none";
+    });
+
+    if (isUserEvent) {
+      triggerSolariTileFlip();
     }
 
     // Auto-expand the grid if user is searching or has selected a specific region
@@ -618,13 +651,13 @@ function setupTourInteractions(): void {
         : "EXPLORE ALL 32 GLOBAL TOUR DATES &darr;";
     }
 
-    // Filter featured 4 flagship cards
+    // Filter featured 4 flagship boarding passes
     featuredCards.forEach((card) => {
       const reg = card.dataset.region || "";
       const text = card.textContent?.toLowerCase() || "";
       const matchRegion = activeRegionFilter === "all" || reg === activeRegionFilter;
       const matchSearch = !q || text.includes(q);
-      card.style.display = matchRegion && matchSearch ? "block" : "none";
+      card.style.display = matchRegion && matchSearch ? "flex" : "none";
     });
 
     // Filter schedule rows
@@ -638,7 +671,6 @@ function setupTourInteractions(): void {
       const matchSearch = !q || city.includes(q) || venue.includes(q) || reg.includes(q);
 
       if (matchRegion && matchSearch) {
-        // If not expanded and belongs to extended fold, CSS controls visibility or display: grid
         if (shouldBeExpanded || isInitialFold) {
           row.style.display = "grid";
         } else {
@@ -671,10 +703,14 @@ function setupTourInteractions(): void {
 
   filterTabs.forEach((tab) => {
     tab.addEventListener("click", () => {
-      filterTabs.forEach((t) => t.classList.remove("is-active"));
+      filterTabs.forEach((t) => {
+        t.classList.remove("is-active");
+        t.classList.remove("active");
+      });
       tab.classList.add("is-active");
+      tab.classList.add("active");
       activeRegionFilter = tab.dataset.regionFilter || "all";
-      applyFilters();
+      applyFilters(true);
     });
   });
 
@@ -685,7 +721,7 @@ function setupTourInteractions(): void {
         const term = chip.dataset.searchTerm?.toLowerCase() || "";
         chip.classList.toggle("is-active", term === activeSearchQuery.toLowerCase().trim());
       });
-      applyFilters();
+      applyFilters(true);
     });
   }
 
@@ -695,7 +731,7 @@ function setupTourInteractions(): void {
       activeSearchQuery = "";
       cityChips.forEach((c) => c.classList.remove("is-active"));
       searchInput.focus();
-      applyFilters();
+      applyFilters(true);
     });
   }
 
@@ -706,10 +742,12 @@ function setupTourInteractions(): void {
       activeRegionFilter = "all";
       isManuallyExpanded = false;
       filterTabs.forEach((t) => {
-        t.classList.toggle("is-active", t.dataset.regionFilter === "all");
+        const isAll = t.dataset.regionFilter === "all";
+        t.classList.toggle("is-active", isAll);
+        t.classList.toggle("active", isAll);
       });
       cityChips.forEach((c) => c.classList.remove("is-active"));
-      applyFilters();
+      applyFilters(true);
     });
   }
 
@@ -726,18 +764,91 @@ function setupTourInteractions(): void {
         if (searchInput) searchInput.value = term;
         activeSearchQuery = term;
       }
-      applyFilters();
+      applyFilters(true);
     });
   });
 
   if (expandBtn) {
     expandBtn.addEventListener("click", () => {
       isManuallyExpanded = !isManuallyExpanded;
-      applyFilters();
+      applyFilters(false);
       if (isManuallyExpanded && searchInput && window.innerWidth > 768) {
         setTimeout(() => searchInput.focus(), 150);
       }
     });
+  }
+
+  // --- Physical Prop Interaction: 3D Vermilion Rotary Dial ---
+  const rotaryWheel = document.querySelector<HTMLElement>("#rotary-dial-wheel");
+  const phoneHandset = document.querySelector<HTMLElement>("#phone-handset");
+  const hotlineCallBtn = document.querySelector<HTMLAnchorElement>("#btn-rotary-call");
+
+  if (rotaryWheel) {
+    let isDialing = false;
+    rotaryWheel.addEventListener("click", () => {
+      if (isDialing) return;
+      isDialing = true;
+      gsap.to(rotaryWheel, {
+        rotation: 165,
+        duration: 0.42,
+        ease: "power2.out",
+        onComplete: () => {
+          gsap.to(rotaryWheel, {
+            rotation: 0,
+            duration: 0.85,
+            ease: "elastic.out(1, 0.3)",
+            onComplete: () => {
+              isDialing = false;
+            },
+          });
+        },
+      });
+    });
+  }
+
+  if (hotlineCallBtn && phoneHandset) {
+    hotlineCallBtn.addEventListener("mouseenter", () => {
+      gsap.to(phoneHandset, {
+        y: -12,
+        rotation: -3.5,
+        duration: 0.22,
+        ease: "power2.out",
+      });
+    });
+    hotlineCallBtn.addEventListener("mouseleave", () => {
+      gsap.to(phoneHandset, {
+        y: 0,
+        rotation: 0,
+        duration: 0.35,
+        ease: "bounce.out",
+      });
+    });
+    hotlineCallBtn.addEventListener("click", () => {
+      gsap.fromTo(
+        phoneHandset,
+        { x: -4, y: -14, rotation: -5 },
+        { x: 4, y: -14, rotation: -2, duration: 0.07, repeat: 6, yoyo: true, ease: "none" }
+      );
+    });
+  }
+
+  // --- Physical Prop Interaction: Telex Continuous Paper Rollout ---
+  const telexPaper = document.querySelector<HTMLElement>(".telex-paper-strip");
+  if (telexPaper) {
+    gsap.fromTo(
+      telexPaper,
+      { y: 35, opacity: 0.5 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1.1,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: ".telex-machine-pod",
+          start: "top 85%",
+        },
+      }
+    );
   }
 }
 
@@ -980,7 +1091,7 @@ function setupCinemaLightbox(): void {
       pencilNote: "Frame 1040: Peak laughter threshold",
       edgeCode: "EASTMAN DOUBLE-X · VIRAL CUT · 18M+ PLAYS",
       playLabel: "RUN VIRAL BIT (FULL CLIP)",
-      primaryLink: "https://www.youtube.com/@AmitTandonStandUp",
+      primaryLink: "https://www.youtube.com/@TandonAmit",
       primaryText: "YOUTUBE (60+ BITS) ↗",
       secondaryText: "PLAY VIRAL REEL",
     },

@@ -1,0 +1,5776 @@
+/* ==========================================================================
+   AMIT TANDON — OFFICIAL WEBSITE MASTER CSS REFERENCE CATALOGUE
+   ==========================================================================
+   NOTICE:
+   This file is STRICTLY for reading, reference, and design documentation.
+   It is NOT imported or linked anywhere in the active codebase.
+   The active production app imports each section independently from
+   its respective modular file in src/styles/ and src/styles/sections/.
+
+   TABLE OF CONTENTS:
+   --------------------------------------------------------------------------
+   01. DESIGN TOKENS & SYSTEM VARIABLES ........ src/styles/tokens.css
+   02. BASE SYSTEM, CURSOR & GLOBAL SHELL ..... src/styles/base.css
+   03. SECTION 1: DOMESTIC AUDIT DOSSIER ...... src/styles/sections/observation.css
+   04. SECTION 2: CASE FILE #41 GYAN ARCHIVE .. src/styles/sections/perspective.css
+   05. SECTION 3: 35MM SCREENING LIGHTBOX ..... src/styles/sections/contradictions.css
+   06. SECTIONS 4 & 5: BACKSTAGE DISPATCH DESK . src/styles/sections/aise-kaise.css
+   ========================================================================== */
+
+
+/* ==========================================================================
+   PART 1: 1. DESIGN TOKENS & CINEMATIC SYSTEM VARIABLES (tokens.css)
+   Source File: src/styles/tokens.css
+   ========================================================================== */
+
+:root {
+  /* ==========================================================================
+     CANONICAL NETFLIX COMEDY SPECIAL PALETTE
+     Cinema Black (#141414) · Netflix Crimson (#E50914) · Crisp White (#FFFFFF)
+     ========================================================================== */
+  --color-cinema-black: #141414;
+  --color-cinema-void: #0A0A0A;
+  --color-cinema-surface: #181818;
+  --color-cinema-elevated: #242424;
+  --color-cinema-card-hover: #2E2E2E;
+
+  /* Typography Colors */
+  --color-white: #FFFFFF;
+  --color-silver: #A3A3A3;
+  --color-smoke: #737373;
+  --color-bone: #F5F5F5;
+
+  /* Netflix Signature Crimson */
+  --color-netflix-red: #E50914;
+  --color-netflix-red-hover: #F40612;
+  --color-netflix-red-glow: rgba(229, 9, 20, 0.45);
+  --color-netflix-badge: rgba(229, 9, 20, 0.16);
+  --color-netflix-dark-red: #B81D24;
+
+  /* Surfaces & Canvases */
+  --bg-primary: var(--color-cinema-black);
+  --bg-card: var(--color-cinema-surface);
+  --bg-surface: var(--color-cinema-elevated);
+  --bg-card-hover: var(--color-cinema-card-hover);
+  --bg-stone-soft: rgba(255, 255, 255, 0.05);
+
+  /* Primary Typography */
+  --text-primary: var(--color-white);
+  --text-muted: var(--color-silver);
+  --text-dim: var(--color-smoke);
+  --text-accent: var(--color-netflix-red);
+  --text-netflix: var(--color-netflix-red);
+
+  /* Borders & Accents */
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-medium: rgba(255, 255, 255, 0.16);
+  --border-red: rgba(229, 9, 20, 0.45);
+  --border-amber: var(--border-red);
+
+  /* Shadows */
+  --shadow-cinematic: 0 20px 50px -10px rgba(0, 0, 0, 0.95);
+  --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.8);
+  --shadow-red: 0 8px 26px -4px rgba(229, 9, 20, 0.5);
+  --shadow-amber: var(--shadow-red);
+
+  /* Layout */
+  --max: 1280px;
+  --max-narrow: 1040px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 14px;
+  --radius-pill: 9999px;
+
+  /* Typography */
+  --font-display: "Archivo Black", system-ui, -apple-system, sans-serif;
+  --font-sans: "Manrope", system-ui, -apple-system, sans-serif;
+  --font-editorial: "Newsreader", Georgia, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* Aliases for strict backward compatibility: all routed to Netflix Red & Black */
+  --color-charcoal: var(--color-cinema-black);
+  --color-espresso: var(--color-cinema-surface);
+  --color-ivory: var(--color-white);
+  --color-stone: var(--color-silver);
+  --color-tobacco: #2E2E2E;
+  --color-amber: var(--color-netflix-red);
+  --color-amber-hover: var(--color-netflix-red-hover);
+  --color-tungsten: var(--color-netflix-red);
+  --color-tungsten-soft: #FF4D55;
+  --color-tungsten-glow: var(--color-netflix-red-glow);
+  --color-terracotta: var(--color-netflix-dark-red);
+
+  --stage-black: var(--color-cinema-black);
+  --stage-surface: var(--bg-surface);
+  --stage-card: var(--bg-card);
+  --stage-card-hover: var(--bg-card-hover);
+  --stage-border: var(--border-subtle);
+  --amber-gold: var(--color-netflix-red);
+  --amber-light: #FF4D55;
+  --amber-glow: var(--color-netflix-red-glow);
+  --text-cream: var(--color-white);
+  --yellow: var(--color-netflix-red);
+  --yellow-hover: var(--color-netflix-red-hover);
+}
+
+
+/* ==========================================================================
+   PART 2: 2. BASE SYSTEM, TACTILE CURSOR, GLOBAL RESETS & CHASSIS (base.css)
+   Source File: src/styles/base.css
+   ========================================================================== */
+
+@import "./tokens.css";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+html {
+  scroll-behavior: auto;
+  cursor: url("/images/mic-cursor.svg") 4 4, auto;
+}
+
+body {
+  margin: 0;
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  background-color: var(--bg-primary);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  cursor: url("/images/mic-cursor.svg") 4 4, auto;
+}
+
+/* Interactive elements get the "ON AIR" Live Stage Mic cursor */
+a,
+button,
+[role="button"],
+.btn,
+.nav-link,
+.board-row,
+.tour-row-card,
+.gyan-card-frame,
+.supporting-card,
+.featured-thumbnail-frame,
+.marker-btn,
+.trans-cat-pill,
+.region-tab,
+input[type="range"],
+select,
+.hud-card {
+  cursor: url("/images/mic-cursor-hover.svg") 4 4, pointer !important;
+}
+
+/* Stand-Up Mic Click Audio Shockwave */
+.mic-click-wave {
+  position: fixed;
+  width: 28px;
+  height: 28px;
+  margin-left: -14px;
+  margin-top: -14px;
+  border-radius: 50%;
+  border: 2px solid var(--color-netflix-red, #E50914);
+  box-shadow: 0 0 12px rgba(229, 9, 20, 0.7);
+  pointer-events: none;
+  z-index: 99999;
+}
+
+/* Ambient Cinema Spotlight Glow */
+.stage-mouse-spotlight {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.85;
+  transition: opacity 0.4s ease;
+  background: radial-gradient(
+    700px circle at var(--mouse-x, 50vw) var(--mouse-y, 35vh),
+    rgba(255, 255, 255, 0.045),
+    rgba(229, 9, 20, 0.04) 40%,
+    transparent 70%
+  );
+}
+
+/* Fine 35mm Cinema Grain Texture */
+.stage-film-grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 999;
+  opacity: 0.028;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+[data-reveal],
+[data-fade] {
+  opacity: 0;
+  will-change: opacity, transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal],
+  [data-fade] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.wrap {
+  width: min(var(--max), calc(100% - 3rem));
+  margin-inline: auto;
+}
+
+.wrap-narrow {
+  width: min(var(--max-narrow), calc(100% - 3rem));
+  margin-inline: auto;
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  line-height: 1.05;
+}
+
+.editorial-italic {
+  font-family: var(--font-editorial);
+  font-style: italic;
+  font-weight: 400;
+}
+
+.highlight-amber {
+  color: var(--color-amber);
+}
+
+/* Coherent Button System (Section 11.B of Creative Brief) */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.85rem 1.6rem;
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+  border: 1px solid transparent;
+}
+
+.btn-arrow {
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+.btn:hover .btn-arrow {
+  transform: translateX(4px);
+}
+
+/* Primary Button: Netflix Signature Crimson */
+.btn-primary,
+.btn-gold,
+.btn-yellow,
+.btn-netflix {
+  background-color: var(--color-netflix-red, #E50914);
+  color: #FFFFFF;
+  border-color: var(--color-netflix-red, #E50914);
+  box-shadow: 0 4px 18px var(--color-netflix-red-glow, rgba(229, 9, 20, 0.45));
+}
+
+.btn-primary:hover,
+.btn-gold:hover,
+.btn-yellow:hover,
+.btn-netflix:hover {
+  background-color: var(--color-netflix-red-hover, #F40612);
+  border-color: var(--color-netflix-red-hover, #F40612);
+  color: #FFFFFF;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px var(--color-netflix-red-glow, rgba(229, 9, 20, 0.6));
+}
+
+/* Secondary Button: Clean dark obsidian, subtle border, crisp white text */
+.btn-secondary,
+.btn-outline,
+.btn-outline-stage {
+  background-color: rgba(36, 36, 36, 0.7);
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(10px);
+}
+
+.btn-secondary:hover,
+.btn-outline:hover,
+.btn-outline-stage:hover {
+  background-color: rgba(48, 48, 48, 0.9);
+  border-color: rgba(229, 9, 20, 0.6);
+  color: #FFFFFF;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+}
+
+.btn-sm {
+  padding: 0.55rem 1.1rem;
+  font-size: 0.82rem;
+}
+
+.btn-lg {
+  padding: 1rem 2rem;
+  font-size: 0.98rem;
+}
+
+/* Section Eyebrow Header Styles */
+.section-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-netflix-red, #E50914);
+  margin-bottom: 0.8rem;
+}
+
+.eyebrow-dot {
+  width: 6px;
+  height: 6px;
+  background-color: var(--color-netflix-red, #E50914);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--color-netflix-red, #E50914);
+}
+
+/* Screenreader Utilities */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ==========================================================================
+   CINEMA NAVIGATION (SECTION 11.A)
+   ========================================================================== */
+.cinema-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  padding: 1.35rem 0;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  background: linear-gradient(180deg, rgba(17, 17, 15, 0.85) 0%, rgba(17, 17, 15, 0.2) 75%, transparent 100%);
+}
+
+.cinema-nav.scrolled {
+  padding: 0.75rem 0;
+  background: rgba(17, 17, 15, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border-subtle);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+.cinema-nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.nav-brand-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  letter-spacing: -0.01em;
+  color: var(--color-ivory);
+  line-height: 1;
+  transition: transform 0.25s ease;
+}
+
+.cinema-nav.scrolled .nav-brand-title {
+  font-size: 1.1rem;
+}
+
+.nav-brand-tag {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  color: var(--color-netflix-red, #E50914);
+  text-transform: uppercase;
+}
+
+.cinema-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-link {
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--color-silver, #A3A3A3);
+  text-transform: uppercase;
+  transition: color 0.2s ease;
+  position: relative;
+  padding: 0.4rem 0;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background-color: var(--color-netflix-red, #E50914);
+  transition: width 0.25s ease;
+}
+
+.nav-link:hover {
+  color: #FFFFFF;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+@media (max-width: 900px) {
+  .cinema-nav-links {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   CINEMA FOOTER & SECONDARY MARQUEE (SECTION 11.F)
+   ========================================================================== */
+.cinema-footer {
+  background-color: #0c0b0a;
+  border-top: 1px solid var(--border-subtle);
+  position: relative;
+  z-index: 10;
+}
+
+.footer-marquee-strip {
+  overflow: hidden;
+  background: #101010;
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 0.85rem 0;
+}
+
+.marquee-content {
+  display: flex;
+  gap: 2rem;
+  white-space: nowrap;
+  animation: marqueeScroll 35s linear infinite;
+  font-size: 0.74rem;
+  color: var(--color-silver, #A3A3A3);
+  letter-spacing: 0.1em;
+}
+
+.marquee-sep {
+  color: var(--color-netflix-red, #E50914);
+}
+
+@keyframes marqueeScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.footer-main-wrap {
+  padding: 5rem 0 3rem;
+}
+
+.footer-top-row {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  gap: 4rem;
+  margin-bottom: 4rem;
+}
+
+.footer-brand-title {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  letter-spacing: -0.01em;
+  color: var(--color-ivory);
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+.footer-brand-sub {
+  color: var(--color-stone);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  max-width: 380px;
+  margin: 0 0 1.5rem 0;
+}
+
+.footer-social-row {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.footer-social-link {
+  padding: 0.4rem 0.85rem;
+  background: var(--color-espresso);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  font-size: 0.78rem;
+  color: var(--color-stone);
+  transition: all 0.2s ease;
+}
+
+.footer-social-link:hover {
+  color: var(--color-amber);
+  border-color: var(--border-amber);
+  transform: translateY(-2px);
+}
+
+.footer-heading {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--color-amber);
+  letter-spacing: 0.1em;
+  margin-bottom: 1.5rem;
+}
+
+.footer-links-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  font-size: 0.88rem;
+  color: var(--color-stone);
+}
+
+.footer-links-list a {
+  transition: color 0.2s ease;
+}
+
+.footer-links-list a:hover {
+  color: var(--color-ivory);
+  text-decoration: underline;
+}
+
+.footer-contact-desc {
+  font-size: 0.88rem;
+  color: var(--color-stone);
+  margin: 0 0 1rem 0;
+}
+
+.footer-contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.contact-pill-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  background: var(--color-espresso);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  color: var(--color-ivory);
+  font-size: 0.82rem;
+  transition: all 0.2s ease;
+}
+
+.contact-pill-link:hover {
+  border-color: var(--color-amber);
+  transform: translateY(-2px);
+}
+
+.footer-bottom-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-subtle);
+  font-size: 0.8rem;
+  color: var(--color-stone);
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.footer-copy-text {
+  margin: 0;
+}
+
+.back-to-top-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--color-stone);
+  transition: color 0.2s ease;
+  font-size: 0.75rem;
+}
+
+.back-to-top-link:hover {
+  color: var(--color-amber);
+}
+
+@media (max-width: 900px) {
+  .footer-top-row {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+}
+
+
+/* ==========================================================================
+   PART 3: 3. SECTION 1 (HERO) — THE DOMESTIC AUDIT DOSSIER & COLLAGE ARTBOARD (observation.css)
+   Source File: src/styles/sections/observation.css
+   ========================================================================== */
+
+/* ==========================================================================
+   THE DOMESTIC AUDIT DOSSIER — AMIT TANDON WORLD TOUR 2026
+   Awwwards High-Fashion Brutalist Artboard Collage (Jimmy Oye Tier)
+   Tactile Manilla Dossier · 35mm Film Noir · Crinkled Receipt · Gaffer Tape
+   ========================================================================== */
+
+.theatrical-hero-section.audit-collage-hero {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #0A0A0E;
+  color: #FFFFFF;
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   1. BACKGROUND ATMOSPHERE & FILM GRAIN
+   ========================================================================== */
+.theatrical-backdrop {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.theatrical-bg-noise {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    radial-gradient(circle at 50% 25%, rgba(255, 255, 255, 0.05) 0%, transparent 60%),
+    repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(0, 0, 0, 0.08) 1px, rgba(0, 0, 0, 0.08) 2px);
+  opacity: 0.65;
+}
+
+.theatrical-vignette {
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse 1400px 900px at 50% 35%, transparent 35%, rgba(10, 10, 14, 0.88) 70%, #0A0A0E 100%),
+    linear-gradient(180deg, rgba(10, 10, 14, 0.8) 0%, transparent 18%, transparent 75%, #0A0A0E 98%);
+}
+
+.theatrical-spotlight-beam {
+  position: absolute;
+  top: -120px;
+  left: 50%;
+  width: 900px;
+  height: 1200px;
+  transform: translateX(-50%);
+  background: conic-gradient(
+    from 165deg at 50% 0%, 
+    transparent 0deg, 
+    rgba(255, 255, 255, 0.035) 12deg, 
+    rgba(229, 9, 20, 0.12) 18deg, 
+    rgba(255, 255, 255, 0.035) 24deg, 
+    transparent 36deg
+  );
+  filter: blur(75px);
+  opacity: 0.75;
+  pointer-events: none;
+}
+
+.theatrical-ambient-glow.glow-red {
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 850px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(229, 9, 20, 0.22) 0%, transparent 70%);
+  filter: blur(120px);
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   2. TOWERING BILLBOARD BACKDROP TYPOGRAPHY (TOWERING & CONDENSED)
+   ========================================================================== */
+.hero-billboard-backdrop {
+  position: absolute;
+  top: calc(var(--nav-height, 68px) + 0.1rem);
+  left: 0;
+  right: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  pointer-events: none;
+  z-index: 2;
+  user-select: none;
+  overflow: hidden;
+}
+
+.billboard-track {
+  width: 100%;
+  max-width: 100vw;
+  padding: 0 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.billboard-giant-word {
+  display: block;
+  text-align: center;
+  margin: 0 auto;
+  font-family: var(--font-display, "Archivo Black", "Impact", sans-serif);
+  font-size: clamp(2.4rem, 7.2vw, 8.8rem);
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: #FFFFFF;
+  opacity: 0.96;
+  transform: scaleY(1.16);
+  transform-origin: center top;
+  filter: 
+    drop-shadow(0 20px 45px rgba(0, 0, 0, 0.95))
+    drop-shadow(0 0 35px rgba(229, 9, 20, 0.15));
+}
+
+/* ==========================================================================
+   3. THE CENTRAL PHYSICAL COLLAGE ARTBOARD (OVERLAPPING 5-LAYER STAGE)
+   ========================================================================== */
+.audit-artboard-container {
+  position: relative;
+  z-index: 4;
+  width: 100%;
+  max-width: 1520px;
+  margin: 0 auto;
+  padding: calc(var(--nav-height, 68px) + 2.2rem) 1.5rem 1.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+
+/* Manilla Case File (Layer 1) - Authentic Paper Fibers & Crease Shadow */
+.dossier-manilla-folder {
+  position: relative;
+  width: min(1200px, 96vw);
+  background: #E5D6BD;
+  background-image: 
+    radial-gradient(ellipse at 15% 20%, rgba(255, 255, 255, 0.22) 0%, transparent 45%),
+    radial-gradient(circle at 85% 80%, rgba(130, 95, 55, 0.15) 0%, transparent 60%),
+    repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.015) 2px, rgba(0, 0, 0, 0.015) 4px);
+  border-radius: 4px 18px 12px 4px;
+  box-shadow: 
+    0 40px 95px -15px rgba(0, 0, 0, 0.95),
+    0 0 0 1px rgba(90, 65, 35, 0.22),
+    inset 0 2px 4px rgba(255, 255, 255, 0.4),
+    inset 0 -2px 6px rgba(0, 0, 0, 0.18);
+  transform: rotate(-1.5deg);
+  padding: 2.2rem 2.8rem 2.6rem;
+  color: #1A1A1A;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dossier-manilla-folder:hover {
+  transform: rotate(-0.5deg) scale(1.008);
+}
+
+/* Authentic Paper Crease Down The Left Edge */
+.dossier-manilla-folder::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 22px;
+  width: 2px;
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.12),
+    rgba(255, 255, 255, 0.2),
+    rgba(0, 0, 0, 0.08)
+  );
+  pointer-events: none;
+}
+
+/* Brass Paperclips */
+.brass-paperclip {
+  position: absolute;
+  width: 14px;
+  height: 48px;
+  border: 3.5px solid #C49A45;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.brass-paperclip.clip-top {
+  top: -18px;
+  left: 70px;
+  transform: rotate(4deg);
+}
+
+.brass-paperclip.clip-left {
+  top: 130px;
+  left: -8px;
+  transform: rotate(-85deg);
+}
+
+/* Dossier Header */
+.dossier-folder-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 5;
+}
+
+.dossier-case-label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.case-badge {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #D62828;
+  letter-spacing: 0.12em;
+}
+
+.case-title {
+  font-size: 0.84rem;
+  font-weight: 800;
+  color: #222222;
+  letter-spacing: 0.08em;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* Distressed Rubber Ink Stamps with Authentic Ink Porosity */
+.dossier-rubber-stamps {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.rubber-stamp {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 3.5px solid #D62828;
+  border-radius: 6px;
+  padding: 0.35rem 0.75rem;
+  font-family: var(--font-display, "Archivo Black", sans-serif);
+  font-size: 0.82rem;
+  font-weight: 900;
+  line-height: 1;
+  color: #D62828;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: rgba(214, 40, 40, 0.06);
+  box-shadow: inset 0 0 4px rgba(214, 40, 40, 0.2);
+  /* Distressed Ink Stamp Porosity Mask */
+  mask-image: repeating-linear-gradient(45deg, #000 0px, #000 3px, transparent 3px, transparent 4px, #000 4px, #000 8px);
+  -webkit-mask-image: repeating-linear-gradient(45deg, #000 0px, #000 3px, transparent 3px, transparent 4px, #000 4px, #000 8px);
+  user-select: none;
+}
+
+.stamp-audited {
+  transform: rotate(-8deg);
+  box-shadow: 0 0 10px rgba(214, 40, 40, 0.2);
+}
+
+.stamp-filter {
+  transform: rotate(4deg);
+  border-color: #BA181B;
+  color: #BA181B;
+}
+
+/* Evidence Grid */
+.dossier-evidence-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 1.45fr 0.95fr;
+  gap: 2.2rem;
+  align-items: center;
+  position: relative;
+  z-index: 6;
+}
+
+/* ==========================================================================
+   SILVER GAFFER TAPE (REALISTIC TORN ENDS & METALLIC FIBERS)
+   ========================================================================== */
+.silver-tape {
+  position: absolute;
+  height: 30px;
+  background: 
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.08) 0px, rgba(255, 255, 255, 0.08) 1px, transparent 1px, transparent 3px),
+    linear-gradient(135deg, #7F8482 0%, #CCD2CF 30%, #5E6361 60%, #B8BEBC 85%, #8C9290 100%);
+  box-shadow: 
+    0 4px 10px rgba(0, 0, 0, 0.5),
+    inset 0 1px 1px rgba(255, 255, 255, 0.6),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.4);
+  /* Realistic Hand-Torn Ends */
+  clip-path: polygon(
+    0% 8%, 4% 0%, 96% 2%, 100% 12%, 98% 88%, 100% 100%, 94% 96%, 3% 98%, 0% 90%
+  );
+  opacity: 0.98;
+  z-index: 15;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   ARTIFACT A: CRINKLED THERMAL EXPENSE RECEIPT (JAGGED ZIGZAG EDGES)
+   ========================================================================== */
+.thermal-receipt-artifact {
+  position: relative;
+  background: #FAF8F5;
+  background-image: 
+    radial-gradient(ellipse at 50% 50%, rgba(255, 255, 255, 0.8) 0%, rgba(238, 234, 226, 0.6) 100%),
+    repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(0, 0, 0, 0.02) 1px, rgba(0, 0, 0, 0.02) 2px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+  transform: rotate(3.5deg);
+  transition: transform 0.3s ease;
+  z-index: 7;
+  /* Jagged Tear Ends on Top and Bottom */
+  clip-path: polygon(
+    0% 2%, 4% 0%, 8% 2%, 12% 0%, 16% 2%, 20% 0%, 24% 2%, 28% 0%, 32% 2%, 36% 0%, 40% 2%, 44% 0%, 48% 2%, 52% 0%, 56% 2%, 60% 0%, 64% 2%, 68% 0%, 72% 2%, 76% 0%, 80% 2%, 84% 0%, 88% 2%, 92% 0%, 96% 2%, 100% 0%,
+    100% 98%, 96% 100%, 92% 98%, 88% 100%, 84% 98%, 80% 100%, 76% 98%, 72% 100%, 68% 98%, 64% 100%, 60% 98%, 56% 100%, 52% 98%, 48% 100%, 44% 98%, 40% 100%, 36% 98%, 32% 100%, 28% 98%, 24% 100%, 20% 98%, 16% 100%, 12% 98%, 8% 100%, 4% 98%, 0% 100%
+  );
+}
+
+.thermal-receipt-artifact:hover {
+  transform: rotate(1deg) scale(1.03);
+}
+
+.thermal-receipt-artifact .tape-top {
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-3deg);
+  width: 85px;
+}
+
+.receipt-inner {
+  padding: 1.8rem 1.35rem 1.6rem;
+  font-size: 0.72rem;
+  line-height: 1.45;
+  color: #1A1A1A;
+}
+
+.receipt-header {
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.receipt-title {
+  display: block;
+  font-weight: 800;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+}
+
+.receipt-date {
+  font-size: 0.65rem;
+  color: #666666;
+}
+
+.receipt-divider {
+  text-align: center;
+  color: #888888;
+  letter-spacing: -0.05em;
+  margin: 0.35rem 0;
+  font-size: 0.68rem;
+}
+
+.receipt-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  margin: 0.6rem 0;
+}
+
+.receipt-row {
+  display: flex;
+  flex-direction: column;
+}
+
+.item-name {
+  font-weight: 700;
+  color: #111111;
+  font-size: 0.72rem;
+}
+
+.item-note {
+  font-size: 0.62rem;
+  color: #D62828;
+  font-weight: 700;
+}
+
+.receipt-total-row {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 800;
+  padding-top: 0.3rem;
+  font-size: 0.78rem;
+}
+
+.total-val {
+  color: #D62828;
+}
+
+.receipt-barcode {
+  text-align: center;
+  margin-top: 0.75rem;
+  padding-top: 0.5rem;
+  border-top: 1px dashed rgba(0, 0, 0, 0.25);
+}
+
+.barcode-graphic {
+  display: block;
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  line-height: 1;
+}
+
+.barcode-digits {
+  font-size: 0.58rem;
+  color: #666666;
+  letter-spacing: 0.06em;
+}
+
+/* ==========================================================================
+   ARTIFACT B: 35MM FILM NOIR CANDID STAGE PHOTO OF AMIT TANDON
+   ========================================================================== */
+.photo-candid-artifact {
+  position: relative;
+  z-index: 8;
+  transform: rotate(-1.5deg);
+  transition: transform 0.35s ease;
+}
+
+.photo-candid-artifact:hover {
+  transform: rotate(0deg) scale(1.02);
+}
+
+.photo-polaroid-frame {
+  background: #FAF8F5;
+  padding: 0.8rem 0.8rem 1.6rem;
+  border-radius: 2px;
+  box-shadow: 
+    0 24px 60px rgba(0, 0, 0, 0.65),
+    0 0 0 1px rgba(0, 0, 0, 0.15);
+}
+
+/* Authentic 35mm Gritty Film Noir Grading */
+.photo-candid-img {
+  display: block;
+  width: 100%;
+  height: clamp(300px, 40vh, 390px);
+  object-fit: cover;
+  object-position: center 20%;
+  border-radius: 2px;
+  filter: grayscale(100%) contrast(1.4) brightness(0.92);
+  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+.photo-caption-bar {
+  text-align: center;
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: #333333;
+  letter-spacing: 0.08em;
+  margin-top: 0.7rem;
+}
+
+.tape-photo-top {
+  top: -16px;
+  left: 50%;
+  transform: translateX(-50%) rotate(1deg);
+  width: 125px;
+}
+
+.tape-photo-bottom {
+  bottom: -14px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-2deg);
+  width: 115px;
+}
+
+/* Neon Tour Badges */
+.neon-tour-sticker {
+  position: absolute;
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: #E50914;
+  color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(229, 9, 20, 0.65);
+  z-index: 12;
+  font-family: var(--font-display, "Archivo Black", sans-serif);
+  text-align: center;
+  user-select: none;
+  border: 2.5px solid #FFFFFF;
+}
+
+.neon-tour-sticker.sticker-top {
+  top: -18px;
+  right: -24px;
+  transform: rotate(12deg);
+}
+
+.neon-tour-sticker.sticker-bottom {
+  bottom: 12px;
+  right: -18px;
+  transform: rotate(-8deg);
+  width: 70px;
+  height: 70px;
+  background: #E50914;
+}
+
+.sticker-num {
+  font-size: 1.25rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.sticker-sub {
+  font-size: 0.48rem;
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+  font-family: var(--font-mono, monospace);
+  font-weight: 800;
+}
+
+/* ==========================================================================
+   ARTIFACT C: AIR INDIA EXCESS BAGGAGE TAG
+   ========================================================================== */
+.luggage-tag-artifact {
+  position: relative;
+  z-index: 7;
+  transform: rotate(4deg);
+  transition: transform 0.3s ease;
+}
+
+.luggage-tag-artifact:hover {
+  transform: rotate(2deg) scale(1.03);
+}
+
+.tag-string-loop {
+  position: absolute;
+  top: -22px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 24px;
+  background: #887B6A;
+  z-index: 2;
+}
+
+.tag-eyelet {
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #E5D6BD;
+  border: 3px solid #8C7B65;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
+  z-index: 3;
+}
+
+.tag-body {
+  background: #F3EDE2;
+  border-radius: 4px;
+  padding: 1.8rem 1.1rem 1.1rem;
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.tag-airline-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: #1A1A1A;
+  border-bottom: 1.5px solid #1A1A1A;
+  padding-bottom: 0.3rem;
+}
+
+.tag-type {
+  background: #D62828;
+  color: #FFFFFF;
+  padding: 0.12rem 0.4rem;
+  border-radius: 2px;
+  font-size: 0.55rem;
+}
+
+.tag-route-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  font-size: 1.35rem;
+  font-weight: 900;
+  color: #111111;
+  font-family: var(--font-display, "Archivo Black", sans-serif);
+}
+
+.route-arrow {
+  color: #D62828;
+}
+
+.tag-caution-box {
+  background: #111111;
+  color: #FFFFFF;
+  padding: 0.45rem 0.55rem;
+  border-radius: 3px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.caution-title {
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: #FF5A5F;
+}
+
+.caution-desc {
+  font-size: 0.56rem;
+  letter-spacing: 0.04em;
+}
+
+.tag-barcode-block {
+  text-align: center;
+  margin-top: 0.3rem;
+}
+
+.barcode-svg {
+  width: 100%;
+  height: 26px;
+}
+
+.tag-serial-num {
+  font-size: 0.56rem;
+  color: #555555;
+  letter-spacing: 0.06em;
+}
+
+/* Handwritten Red Pen Marginalia */
+.red-pen-marginalia {
+  position: absolute;
+  bottom: 10px;
+  right: 25px;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.handwritten-arrow-svg {
+  width: 55px;
+  height: 30px;
+}
+
+.marginalia-text {
+  font-family: var(--font-editorial, "Newsreader", cursive, serif);
+  font-style: italic;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #D62828;
+  letter-spacing: -0.01em;
+  text-shadow: 0 0 4px rgba(214, 40, 40, 0.3);
+}
+
+/* ==========================================================================
+   4. PANORAMIC LOWER HORIZON (TICKETS & BRUTALIST ACTIONS)
+   ========================================================================= */
+.panoramic-bottom-band {
+  width: 100%;
+  background: rgba(12, 12, 16, 0.95);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.85rem 1.5rem;
+  z-index: 10;
+}
+
+.panoramic-band-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.tickets-stub-cluster {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+/* Individual Perforated Thermal Ticket Stubs */
+.thermal-tour-stub {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: #FFFFFF;
+  color: #111111;
+  padding: 0.55rem 1.1rem;
+  border-radius: 4px;
+  text-decoration: none;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+.thermal-tour-stub:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 10px 25px rgba(229, 9, 20, 0.4);
+}
+
+.stub-notch {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #0A0A0E;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.stub-notch.notch-left {
+  left: -6px;
+}
+
+.stub-notch.notch-right {
+  right: -6px;
+}
+
+.stub-main-content {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.stub-city {
+  font-family: var(--font-display, "Archivo Black", sans-serif);
+  font-size: 0.88rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  color: #000000;
+}
+
+.stub-sep {
+  color: #D62828;
+}
+
+.stub-date {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #333333;
+}
+
+.stub-perforated-line {
+  width: 1px;
+  height: 24px;
+  border-left: 1.5px dashed rgba(0, 0, 0, 0.35);
+  margin: 0 0.75rem;
+}
+
+.stub-barcode-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.vert-barcode {
+  font-size: 0.58rem;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  color: #444444;
+}
+
+.stub-status {
+  font-size: 0.52rem;
+  font-weight: 900;
+  color: #D62828;
+  letter-spacing: 0.06em;
+}
+
+/* Brutalist Panoramic Action Buttons */
+.panoramic-action-cluster {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.btn-brutalist-white {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.72rem 1.6rem;
+  background: #FFFFFF;
+  color: #000000;
+  font-family: var(--font-sans, sans-serif);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  border-radius: 4px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+  transition: all 0.2s ease;
+}
+
+.btn-brutalist-white:hover {
+  background: #E8E8E8;
+  transform: translateY(-2px);
+}
+
+.btn-brutalist-red {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.72rem 1.85rem;
+  background: #E50914;
+  color: #FFFFFF;
+  font-family: var(--font-sans, sans-serif);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  border-radius: 9999px;
+  box-shadow: 0 6px 20px rgba(229, 9, 20, 0.55);
+  transition: all 0.2s ease;
+}
+
+.btn-brutalist-red:hover {
+  background: #F40612;
+  box-shadow: 0 8px 28px rgba(229, 9, 20, 0.75);
+  transform: translateY(-2px);
+}
+
+.btn-brutalist-red .btn-arrow {
+  font-size: 1rem;
+  transition: transform 0.2s ease;
+}
+
+.btn-brutalist-red:hover .btn-arrow {
+  transform: translate(2px, -2px);
+}
+
+/* ==========================================================================
+   5. RESPONSIVE BREAKPOINTS
+   ========================================================================== */
+@media (max-width: 900px) {
+  .dossier-evidence-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .dossier-manilla-folder {
+    transform: rotate(0deg);
+    padding: 1.5rem 1.25rem 2rem;
+  }
+
+  .photo-candid-artifact,
+  .thermal-receipt-artifact,
+  .luggage-tag-artifact {
+    transform: rotate(0deg);
+  }
+
+  .billboard-giant-word {
+    font-size: clamp(2rem, 7.5vw, 4.2rem);
+    transform: none;
+  }
+
+  .panoramic-band-inner {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .panoramic-action-cluster {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .dossier-folder-header {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .tickets-stub-cluster {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .thermal-tour-stub {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .btn-brutalist-white,
+  .btn-brutalist-red {
+    width: 100%;
+  }
+}
+
+
+/* ==========================================================================
+   PART 4: 4. SECTION 2 — CASE FILE #41: DECLASSIFIED DOMESTIC GYAN ARCHIVE (perspective.css)
+   Source File: src/styles/sections/perspective.css
+   ========================================================================== */
+
+/* ==========================================================================
+   CASE FILE #41: THE DECLASSIFIED EVIDENCE DESK (AUTHENTIC DOCKET FLIP)
+   Continuous Master Open Manilla Folder (1480px Expanded Width):
+   - Physical Case Docket on Right Page with Stacked Paper Depth
+   - Turn Page Interactivity: Click anywhere on right page to flip exhibit
+   - Physical Manilla Index Divider Tabs Sticking Out of Right Border
+   - Realistic Dog-Eared Folded Paper Corner ("TURN PAGE ➔")
+   - Left Page: Executive Subject File with Realistic Porous Rubber Stamp
+   ========================================================================== */
+
+.about-gyan-section {
+  position: relative;
+  width: 100%;
+  padding: 4.5rem 0 5.5rem;
+  background-color: #0A0D10;
+  color: #FFFFFF;
+  overflow: hidden;
+}
+
+/* Atmospheric Ambient Glow behind the section */
+.about-gyan-section::before {
+  content: "";
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1200px;
+  height: 700px;
+  background: radial-gradient(
+    circle,
+    rgba(229, 9, 20, 0.12) 0%,
+    rgba(255, 60, 0, 0.04) 40%,
+    transparent 70%
+  );
+  filter: blur(140px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ==========================================================================
+   1. EXPANDED WRAPPER (WIDER HORIZONTAL PRESENCE)
+   ========================================================================== */
+.wrap-dossier {
+  width: min(1480px, calc(100% - 2.5rem));
+  margin: 0 auto;
+}
+
+/* Section Masthead */
+.evidence-desk-header {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 960px;
+  margin: 0 auto 1.85rem;
+  padding: 0 1.25rem;
+}
+
+.desk-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.32rem 0.85rem;
+  background: rgba(229, 9, 20, 0.08);
+  border: 1px solid rgba(229, 9, 20, 0.3);
+  border-radius: 999px;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  color: #FF5A60;
+  margin-bottom: 0.85rem;
+}
+
+.desk-eyebrow-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #E50914;
+  box-shadow: 0 0 8px #E50914;
+  animation: pulse-red-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-red-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+.desk-main-title {
+  font-size: clamp(2.3rem, 4.6vw, 4rem);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  margin: 0.2rem 0 0.85rem;
+  color: #FFFFFF;
+}
+
+.desk-main-title .highlight-red {
+  color: #E50914;
+  text-shadow: 0 0 35px rgba(229, 9, 20, 0.45);
+}
+
+.desk-lead-breadcrumb {
+  font-size: 0.84rem;
+  line-height: 1.5;
+  color: #8E95A0;
+  max-width: 780px;
+  margin: 0 auto;
+  letter-spacing: 0.06em;
+}
+
+/* ==========================================================================
+   2. THE MASTER CONTINUOUS OPEN MANILLA DOSSIER FOLDER (1480PX WIDE)
+   ========================================================================== */
+.master-case-folder {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1480px;
+  margin: 0 auto;
+  background: #E8DFC7;
+  background-image: 
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.09) 0%, transparent 80%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.02) 0%, rgba(0, 0, 0, 0.07) 100%);
+  color: #1A1816;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 
+    0 35px 90px -15px rgba(0, 0, 0, 0.95),
+    0 10px 30px rgba(0, 0, 0, 0.4),
+    inset 0 0 80px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  overflow: visible;
+}
+
+/* Folder Top Tab */
+.folder-header-tab {
+  background: #D8CEB4;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  padding: 0.48rem 1.85rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #554D42;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.tab-left-group {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.folder-paperclip {
+  width: 18px;
+  height: 8px;
+  border: 2px solid #9A8042;
+  border-radius: 4px;
+  display: inline-block;
+  opacity: 0.85;
+}
+
+.folder-header-tab .tab-security {
+  color: #C0392B;
+}
+
+/* Open Folder 2-Page Interior Spread */
+.folder-inner-spread {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1.34fr;
+  align-items: stretch;
+  min-height: 480px;
+}
+
+/* Center Vertical Crease Shadow */
+.folder-center-crease {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 42.8%;
+  width: 16px;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.18) 0%,
+    rgba(255, 255, 255, 0.12) 48%,
+    rgba(0, 0, 0, 0.2) 100%
+  );
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* ==========================================================================
+   3. LEFT PAGE: THE EXECUTIVE SUBJECT FILE
+   ========================================================================== */
+.folder-page-left {
+  position: relative;
+  padding: 1.85rem 2rem 1.85rem 2.4rem;
+  display: flex;
+  gap: 1.65rem;
+}
+
+/* Heavy Brass Binder Clamp Gripping the Photo Frame */
+.brass-binder-clamp {
+  position: absolute;
+  top: 14px;
+  left: 36px;
+  width: 48px;
+  height: 28px;
+  background: linear-gradient(135deg, #ECC870 0%, #D8A537 50%, #9B7018 100%);
+  border-radius: 4px;
+  box-shadow: 
+    0 5px 12px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  z-index: 10;
+}
+
+.brass-binder-clamp::after {
+  content: "";
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 15px;
+  border: 2.5px solid #5A400C;
+  border-radius: 2px;
+}
+
+/* Prominent 35mm Photo Frame (190px Width) */
+.subject-photo-frame {
+  position: relative;
+  flex-shrink: 0;
+  width: 190px;
+  background: #FFFFFF;
+  padding: 8px 8px 22px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.32);
+  transform: rotate(-2.5deg);
+  align-self: flex-start;
+  margin-top: 6px;
+}
+
+.subject-photo-img {
+  width: 100%;
+  height: 215px;
+  object-fit: cover;
+  object-position: center top;
+  filter: contrast(1.1) grayscale(20%);
+  display: block;
+}
+
+.photo-clear-tape {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 15px;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(2px);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+}
+
+.photo-corner-gaffer {
+  position: absolute;
+  bottom: -6px;
+  right: -8px;
+  width: 46px;
+  height: 15px;
+  background: linear-gradient(135deg, #8A929C 0%, #D8DFE6 45%, #FFFFFF 52%, #7B838C 100%);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.35);
+  transform: rotate(28deg);
+}
+
+/* Subject Dossier Details */
+.subject-dossier-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.dossier-tag {
+  font-size: 0.62rem;
+  font-weight: 800;
+  color: #C0392B;
+  letter-spacing: 0.12em;
+  margin-bottom: 0.25rem;
+}
+
+.subject-headline {
+  font-size: 1.45rem;
+  font-weight: 900;
+  color: #1A1816;
+  margin: 0 0 0.75rem;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.subject-specs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin: 0 0 1.05rem;
+  font-size: 0.72rem;
+  line-height: 1.35;
+}
+
+.subject-specs-list .spec-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.subject-specs-list dt {
+  color: #7A7265;
+  font-weight: 700;
+  min-width: 95px;
+}
+
+.subject-specs-list dd {
+  margin: 0;
+  color: #1A1816;
+  font-weight: 600;
+}
+
+.subject-core-quote {
+  font-size: 0.85rem;
+  line-height: 1.48;
+  color: #3C362F;
+  font-style: italic;
+  margin: 0 0 1.15rem;
+  border-left: 2px solid #C0392B;
+  padding-left: 0.75rem;
+}
+
+/* Realistic Distressed Ink Rubber Stamp */
+.subject-stamp-block {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.rubber-ink-stamp.stamp-resigned {
+  display: inline-flex;
+  flex-direction: column;
+  border: 3.5px solid #D62828;
+  border-radius: 6px;
+  padding: 3px;
+  background: rgba(214, 40, 40, 0.06);
+  box-shadow: 
+    0 2px 8px rgba(214, 40, 40, 0.15),
+    inset 0 0 6px rgba(214, 40, 40, 0.2);
+  transform: rotate(-8deg);
+  mask-image: repeating-linear-gradient(45deg, #000 0px, #000 3px, transparent 3px, transparent 4px, #000 4px, #000 8px);
+  -webkit-mask-image: repeating-linear-gradient(45deg, #000 0px, #000 3px, transparent 3px, transparent 4px, #000 4px, #000 8px);
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.stamp-inner-border {
+  border: 1.5px solid #D62828;
+  border-radius: 3px;
+  padding: 0.4rem 0.85rem 0.35rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.1rem;
+  text-align: center;
+}
+
+.stamp-header {
+  font-family: var(--font-display, "Archivo Black", sans-serif);
+  font-size: 0.75rem;
+  font-weight: 900;
+  color: #D62828;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  text-shadow: 0 0 1px rgba(214, 40, 40, 0.4);
+}
+
+.stamp-main-year {
+  font-family: var(--font-display, "Archivo Black", sans-serif);
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: #D62828;
+  line-height: 1.1;
+  letter-spacing: 0.08em;
+  text-shadow: 0 0 2px rgba(214, 40, 40, 0.5);
+  margin: 1px 0;
+}
+
+.stamp-sub-code {
+  font-size: 0.54rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: #BA181B;
+  line-height: 1;
+}
+
+.annotation-red-cursive {
+  font-size: 0.78rem;
+  color: #8C2518;
+  font-style: italic;
+  font-family: Georgia, serif;
+}
+
+/* ==========================================================================
+   4. RIGHT PAGE: PHYSICAL STACKED CASE DOCKET (INTERACTIVE FLIP)
+   ========================================================================== */
+.folder-page-right {
+  position: relative;
+  padding: 1.35rem 2.8rem 1.35rem 2rem;
+  display: flex;
+}
+
+.case-docket-stack {
+  position: relative;
+  width: 100%;
+  display: flex;
+  cursor: pointer;
+}
+
+/* Stacked Paper Underlays (Physical Depth) */
+.docket-underlay-page {
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  pointer-events: none;
+}
+
+.docket-underlay-2 {
+  background: #E8E1D3;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  transform: rotate(1.2deg) translate(4px, 5px);
+  z-index: 1;
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.15);
+}
+
+.docket-underlay-1 {
+  background: #F1ECE0;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  transform: rotate(-0.8deg) translate(2px, 2px);
+  z-index: 2;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+}
+
+/* Spiral Binding Rings Down the Left Spine */
+.notebook-spiral-spine {
+  position: relative;
+  z-index: 5;
+  width: 28px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 16px 0;
+  background: #ECE7DC;
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+.spiral-ring {
+  width: 22px;
+  height: 8px;
+  background: linear-gradient(180deg, #A0A5AD 0%, #E2E5E8 50%, #7A8088 100%);
+  border-radius: 4px;
+  margin: 0 auto;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.35);
+  position: relative;
+}
+
+.spiral-ring::before {
+  content: "";
+  position: absolute;
+  top: 1.5px;
+  left: 2px;
+  right: 2px;
+  bottom: 1.5px;
+  background: #252830;
+  border-radius: 2px;
+}
+
+/* Viewport for the 3 Evidence Sheets */
+.docket-sheets-viewport {
+  position: relative;
+  z-index: 3;
+  flex: 1;
+  min-height: 380px;
+}
+
+/* Individual Case Evidence Sheet */
+.case-evidence-sheet {
+  display: none;
+  height: 100%;
+  position: relative;
+  background-color: #FAF8F2;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 26px,
+    rgba(60, 90, 150, 0.08) 27px
+  );
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.09);
+  border-left: 2px solid rgba(220, 50, 50, 0.28);
+  padding: 1.25rem 1.65rem 2.8rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+  user-select: none;
+}
+
+.case-evidence-sheet.is-active {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Official Header across the Sheet */
+.sheet-official-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.65rem;
+  border-bottom: 1.5px solid rgba(0, 0, 0, 0.14);
+  margin-bottom: 1rem;
+}
+
+.sheet-serial {
+  font-size: 0.68rem;
+  font-weight: 900;
+  color: #C0392B;
+  letter-spacing: 0.1em;
+}
+
+.sheet-title-tag {
+  font-size: 0.64rem;
+  font-weight: 700;
+  color: #665F55;
+  margin-left: 0.75rem;
+  letter-spacing: 0.06em;
+}
+
+.sheet-page-indicator {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #1A1816;
+  background: #EAE3D5;
+  padding: 0.2rem 0.55rem;
+  border-radius: 4px;
+}
+
+.sheet-inner-body {
+  display: flex;
+  gap: 1.45rem;
+  flex: 1;
+  align-items: stretch;
+}
+
+/* Exhibit Photo Frame */
+.sheet-photo-frame {
+  position: relative;
+  flex-shrink: 0;
+  width: 215px;
+  background: #FFFFFF;
+  padding: 6px 6px 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.22);
+  align-self: flex-start;
+  transform: rotate(-1.5deg);
+}
+
+.sheet-photo {
+  width: 100%;
+  height: 215px;
+  object-fit: cover;
+  object-position: center center;
+  filter: contrast(1.05) brightness(0.98);
+  display: block;
+  border-radius: 2px;
+}
+
+#evidence-sheet-0 .sheet-photo {
+  object-position: center 18%;
+}
+
+#evidence-sheet-1 .sheet-photo {
+  object-position: center 12%;
+}
+
+#evidence-sheet-2 .sheet-photo {
+  object-position: 32% center;
+}
+
+.sheet-photo-stamp {
+  position: absolute;
+  bottom: 22px;
+  left: 8px;
+  background: rgba(0, 0, 0, 0.82);
+  backdrop-filter: blur(4px);
+  color: #FFFFFF;
+  padding: 2px 6px;
+  font-size: 0.56rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  border-radius: 3px;
+}
+
+.sheet-photo-tape {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 15px;
+  background: linear-gradient(135deg, #8A929C 0%, #D8DFE6 45%, #FFFFFF 52%, #7B838C 100%);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.35);
+  transform: translateX(-50%) rotate(-2deg);
+}
+
+/* Text Column */
+.sheet-text-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.sheet-meta-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.55rem;
+}
+
+.sheet-rule-pill {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #C0392B;
+  letter-spacing: 0.1em;
+}
+
+.sheet-shares-count {
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: #7A7265;
+}
+
+.sheet-quote {
+  font-size: 1.15rem;
+  font-weight: 800;
+  line-height: 1.35;
+  letter-spacing: -0.015em;
+  color: #1A1816;
+  margin: 0 0 0.75rem;
+  font-family: Georgia, serif;
+}
+
+.sheet-observation {
+  font-size: 0.8rem;
+  line-height: 1.48;
+  color: #4A443B;
+  margin: 0 0 1.15rem;
+  border-left: 2px solid #C0392B;
+  padding-left: 0.75rem;
+  font-style: italic;
+}
+
+.obs-prefix {
+  color: #1A1816;
+  font-style: normal;
+}
+
+.sheet-action-strip {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 0.85rem;
+  border-top: 1px dashed rgba(0, 0, 0, 0.14);
+}
+
+.btn-forward-wa {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: #1A1816;
+  border: 1px solid #1A1816;
+  border-radius: 999px;
+  padding: 0.42rem 0.88rem;
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.btn-forward-wa:hover {
+  background: #128C7E;
+  border-color: #25D366;
+  transform: scale(1.04);
+  box-shadow: 0 2px 8px rgba(37, 211, 102, 0.4);
+}
+
+.sheet-verified-seal {
+  font-size: 0.6rem;
+  color: #7A7265;
+  font-weight: 700;
+}
+
+/* Dog-Eared Folded Paper Corner (Turn Page Indicator) */
+.dog-ear-corner {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.45rem 1rem;
+  background: #EDE6D8;
+  border-top-left-radius: 10px;
+  border-top: 1px solid rgba(0, 0, 0, 0.14);
+  border-left: 1px solid rgba(0, 0, 0, 0.14);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: -2px -2px 6px rgba(0, 0, 0, 0.08);
+  z-index: 5;
+}
+
+.dog-ear-corner:hover {
+  background: #E2D9C6;
+  transform: translate(-3px, -3px);
+  box-shadow: -4px -4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.dog-ear-prompt {
+  font-size: 0.64rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  color: #665E4E;
+}
+
+/* ==========================================================================
+   PHYSICAL MANILLA INDEX DIVIDER TABS (STICKING OUT RIGHT BORDER)
+   ========================================================================== */
+.case-index-tabs {
+  position: absolute;
+  right: -32px;
+  top: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 6;
+}
+
+.case-index-tab {
+  background: #D8CEB4;
+  color: #554D42;
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  border-left: none;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+  padding: 12px 6px;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.15);
+  white-space: nowrap;
+}
+
+.case-index-tab:hover {
+  background: #ECE5D2;
+  color: #1A1816;
+  transform: rotate(180deg) translateX(-3px);
+}
+
+.case-index-tab.is-active {
+  background: #FAF8F2;
+  color: #C0392B;
+  border-color: rgba(0, 0, 0, 0.22);
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25);
+  padding-right: 10px;
+  font-weight: 900;
+}
+
+/* ==========================================================================
+   5. INTEGRATED BOTTOM FLAP: NETFLIX SPECIAL & CREDIBILITY DOCK
+   ========================================================================== */
+.folder-bottom-dock {
+  background: #13161C;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  padding: 1rem 2.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* Silver Tape over Netflix Badge */
+.dock-special-cell {
+  position: relative;
+}
+
+.silver-gaffer-tape {
+  position: absolute;
+  top: -10px;
+  left: -8px;
+  width: 52px;
+  height: 15px;
+  background: linear-gradient(135deg, #8A929C 0%, #D8DFE6 45%, #FFFFFF 52%, #7B838C 100%);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  transform: rotate(-6deg);
+  z-index: 2;
+}
+
+.dock-netflix-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: rgba(229, 9, 20, 0.08);
+  border: 1px solid rgba(229, 9, 20, 0.35);
+  border-radius: 8px;
+  padding: 0.42rem 0.95rem;
+}
+
+.n-logo {
+  font-size: 1.35rem;
+  font-weight: 900;
+  color: #E50914;
+  line-height: 1;
+  text-shadow: 0 0 12px rgba(229, 9, 20, 0.6);
+}
+
+.special-copy {
+  display: flex;
+  flex-direction: column;
+}
+
+.special-label {
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+  color: #FF5A60;
+  font-weight: 800;
+}
+
+.special-title {
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+  color: #FFFFFF;
+}
+
+/* Transit Stamps */
+.dock-customs-stamps {
+  display: flex;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.customs-stamp {
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 0.25rem 0.55rem;
+  border-radius: 4px;
+  letter-spacing: 0.06em;
+}
+
+.stamp-cyan {
+  border: 1px solid rgba(0, 206, 209, 0.4);
+  color: #48D1CC;
+  background: rgba(0, 206, 209, 0.05);
+}
+
+.stamp-red {
+  border: 1px solid rgba(229, 9, 20, 0.4);
+  color: #FF5A60;
+  background: rgba(229, 9, 20, 0.05);
+}
+
+/* Tour Stats */
+.dock-stats-cluster {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  font-size: 0.78rem;
+  color: #A0A5AD;
+}
+
+.dock-stats-cluster strong {
+  color: #FFFFFF;
+  font-size: 0.95rem;
+}
+
+.stat-dot {
+  color: #E50914;
+}
+
+/* Wax Seal */
+.dock-wax-seal {
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  background: radial-gradient(circle, #A91B1B 0%, #7D0E0E 70%, #4D0505 100%);
+  border-radius: 50%;
+  padding: 2.5px;
+  box-shadow: 
+    0 4px 10px rgba(0, 0, 0, 0.6),
+    0 0 14px rgba(229, 9, 20, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wax-seal-outer {
+  width: 100%;
+  height: 100%;
+  border: 1.2px dashed rgba(255, 215, 0, 0.6);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wax-seal-inner {
+  text-align: center;
+  color: #FFE6A3;
+  line-height: 1.05;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.seal-curve {
+  font-size: 0.38rem;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+}
+
+.seal-core {
+  font-size: 0.52rem;
+  font-weight: 900;
+  color: #FFFFFF;
+  margin: 1px 0;
+}
+
+.seal-sub {
+  font-size: 0.38rem;
+  font-weight: 700;
+  color: #FFB3B3;
+}
+
+/* ==========================================================================
+   6. RESPONSIVE DESIGN ADAPTATIONS
+   ========================================================================== */
+@media (max-width: 1180px) {
+  .folder-inner-spread {
+    grid-template-columns: 1fr;
+  }
+
+  .folder-center-crease {
+    display: none;
+  }
+
+  .folder-page-left {
+    border-bottom: 1px dashed rgba(0, 0, 0, 0.15);
+    padding: 1.75rem 1.5rem;
+  }
+
+  .folder-page-right {
+    padding: 1.25rem 1.5rem;
+  }
+
+  .case-index-tabs {
+    position: static;
+    flex-direction: row;
+    margin-bottom: 0.75rem;
+    gap: 8px;
+  }
+
+  .case-index-tab {
+    writing-mode: horizontal-tb;
+    transform: none;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 6px;
+    padding: 6px 12px;
+  }
+
+  .dock-customs-stamps {
+    display: none;
+  }
+
+  .folder-bottom-dock {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-gyan-section {
+    padding: 3.5rem 0 4.5rem;
+  }
+
+  .wrap-dossier {
+    width: calc(100% - 1.5rem);
+  }
+
+  .folder-page-left {
+    flex-direction: column;
+    padding: 1.4rem 1.15rem 1.25rem;
+  }
+
+  .subject-photo-frame {
+    width: 100%;
+  }
+
+  .subject-photo-img {
+    height: 200px;
+  }
+
+  .sheet-inner-body {
+    flex-direction: column;
+  }
+
+  .sheet-photo-frame {
+    width: 100%;
+  }
+
+  .sheet-photo {
+    height: 180px;
+  }
+
+  .folder-bottom-dock {
+    flex-direction: column;
+    text-align: center;
+    padding: 1rem 0.85rem;
+  }
+}
+
+
+/* ==========================================================================
+   PART 5: 5. SECTION 3 — THE COMEDY VAULT: 35MM SCREENING ROOM LIGHTBOX (contradictions.css)
+   Source File: src/styles/sections/contradictions.css
+   ========================================================================== */
+
+/* ==========================================================================
+   THE 35MM SCREENING ROOM LIGHTBOX & FILM CANISTERS (CONCEPT B - ENHANCED)
+   Awwwards High-Fashion Cinematic Editing Suite (Jimmy Oye Standard)
+   Backlit Diffused Lightbox · Eastman 35mm Sprockets · Aluminum Film Canisters
+   Tactile Material Physics: Acetate Celluloid · Glowing Sprockets · Lathe Metal
+   ========================================================================== */
+
+.watch-vault-section.cinema-lightbox-section {
+  position: relative;
+  width: 100%;
+  padding: 8rem 0 6rem;
+  background-color: #07070A;
+  color: #FFFFFF;
+  overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ==========================================================================
+   1. SCREENING ROOM ATMOSPHERE & PROJECTOR LIGHT CONE
+   ========================================================================== */
+.screening-backdrop {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.screening-room-darkness {
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse 1300px 750px at 50% 20%, rgba(229, 9, 20, 0.09) 0%, transparent 60%),
+    linear-gradient(180deg, #07070A 0%, #0A0A0E 50%, #07070A 100%);
+}
+
+.projector-light-cone {
+  position: absolute;
+  top: -140px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1200px;
+  height: 1050px;
+  background: conic-gradient(
+    from 170deg at 50% 0%, 
+    transparent 0deg, 
+    rgba(255, 250, 240, 0.04) 10deg, 
+    rgba(229, 9, 20, 0.13) 18deg, 
+    rgba(255, 250, 240, 0.04) 26deg, 
+    transparent 36deg
+  );
+  filter: blur(85px);
+  opacity: 0.88;
+}
+
+.film-grain-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(0, 0, 0, 0.1) 1px, rgba(0, 0, 0, 0.1) 2px);
+  opacity: 0.65;
+}
+
+/* Widen Container to 1,520px to match Section 2 Case Folder */
+.lightbox-wrap {
+  position: relative;
+  z-index: 2;
+  max-width: 1520px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ==========================================================================
+   2. SCREENING ROOM MASTHEAD
+   ========================================================================== */
+.screening-masthead {
+  margin-bottom: 3.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.screening-status-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: #8C8C94;
+}
+
+.status-projector-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: #FFFFFF;
+  font-weight: 800;
+}
+
+.projector-bulb-indicator {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #FFD166;
+  box-shadow: 0 0 12px #FFD166, 0 0 4px #FFAA00;
+  animation: bulbFlicker 3s infinite ease-in-out;
+}
+
+@keyframes bulbFlicker {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  45% { opacity: 0.85; }
+  50% { opacity: 0.65; transform: scale(0.92); }
+  55% { opacity: 0.95; }
+}
+
+.status-lens {
+  color: #FF5A5F;
+}
+
+.status-archive {
+  color: #E0E0E0;
+}
+
+.screening-title-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 3rem;
+  flex-wrap: wrap;
+}
+
+.screening-main-title {
+  font-family: var(--font-display, "Archivo Black", sans-serif);
+  font-size: clamp(3rem, 6.5vw, 5.8rem);
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.title-white {
+  color: #FFFFFF;
+}
+
+.title-red {
+  color: #E50914;
+  text-shadow: 0 0 45px rgba(229, 9, 20, 0.45);
+}
+
+.screening-lead-copy {
+  max-width: 640px;
+  font-size: 1.12rem;
+  line-height: 1.6;
+  color: #B5B5B5;
+  margin: 0;
+}
+
+/* Cinema Specs Ribbon */
+.screening-specs-ribbon {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  flex-wrap: wrap;
+  padding: 0.8rem 1.4rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: #8C8C94;
+}
+
+.spec-cell.highlight {
+  color: #FFD166;
+  font-weight: 800;
+}
+
+.spec-dot {
+  color: #E50914;
+}
+
+/* ==========================================================================
+   3. THE EDITING LIGHTBOX DESK (FULL COMMANDING PRESENCE)
+   ========================================================================== */
+.editing-lightbox-desk {
+  position: relative;
+  width: 100%;
+  background: #141419;
+  border-radius: 8px;
+  border: 2px solid #282835;
+  box-shadow: 
+    0 45px 110px -20px rgba(0, 0, 0, 0.98),
+    0 0 0 1px rgba(255, 255, 255, 0.06),
+    inset 0 1px 2px rgba(255, 255, 255, 0.25);
+  overflow: hidden;
+  margin-bottom: 3.5rem;
+}
+
+/* Top Brushed Metal Desk Lip & Aluminum Rulers */
+.desk-metal-trim {
+  background: linear-gradient(180deg, #363643 0%, #22222B 100%);
+  padding: 0.6rem 1.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1.5px solid #101015;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  user-select: none;
+}
+
+.aluminum-ruler {
+  font-size: 0.64rem;
+  color: #9292A0;
+  letter-spacing: 0.16em;
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.desk-screws {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+}
+
+.screw {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #BBB 0%, #444 80%, #222 100%);
+  box-shadow: inset 0 1px 1px #FFF, 0 1px 3px rgba(0,0,0,0.85);
+  position: relative;
+}
+
+.screw::after {
+  content: "";
+  position: absolute;
+  top: 4.5px;
+  left: 2px;
+  width: 7px;
+  height: 1.5px;
+  background: #111;
+  transform: rotate(45deg);
+}
+
+/* ==========================================================================
+   4. ILLUMINATED BACKLIT LIGHTBOX GLASS (DIFFUSED INCANDESCENT GLOW)
+   ========================================================================== */
+.lightbox-illuminated-glass {
+  background: #FAF9F5;
+  background-image: 
+    radial-gradient(ellipse 95% 75% at 50% 35%, #FFFFFF 0%, #F5F4EC 55%, #E5E4D8 100%),
+    repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.012) 2px, rgba(0, 0, 0, 0.012) 4px);
+  padding: 2.4rem 2.8rem;
+  box-shadow: 
+    inset 0 0 70px rgba(0, 0, 0, 0.16),
+    inset 0 2px 10px rgba(0, 0, 0, 0.1),
+    0 0 50px rgba(255, 255, 240, 0.08);
+  color: #1A1A1A;
+  position: relative;
+}
+
+/* Subtle Glass Surface Reflection */
+.lightbox-illuminated-glass::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 5%;
+  right: 5%;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.95), transparent);
+  pointer-events: none;
+}
+
+.lightbox-grid {
+  display: grid;
+  grid-template-columns: 1.36fr 1fr;
+  gap: 2.8rem;
+  align-items: stretch;
+}
+
+/* ==========================================================================
+   5. MASTER CELLULOID ACETATE STRIP (LEFT POD - LIGHTBOX PHYSICS)
+   ========================================================================== */
+.master-projection-pod {
+  background: #111116;
+  background-image: linear-gradient(180deg, #16161E 0%, #0D0D12 100%);
+  border-radius: 6px;
+  border: 1.5px solid #282834;
+  box-shadow: 
+    0 22px 55px -10px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(0, 0, 0, 0.8),
+    0 0 35px rgba(255, 255, 240, 0.2); /* Light table glow bleeding around the strip */
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* 35mm Celluloid Film Sprocket Tracks (Holes Bleeding Table Backlight) */
+.film-sprocket-track {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: #09090D;
+  padding: 8px 16px;
+  border-bottom: 1.5px solid rgba(255, 255, 255, 0.08);
+  user-select: none;
+  overflow: hidden;
+  position: relative;
+}
+
+.bottom-sprockets {
+  border-bottom: none;
+  border-top: 1.5px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Sprockets: Perforations Cut Through Acetate — Light Blazes Through! */
+.sprocket {
+  flex-shrink: 0;
+  width: 15px;
+  height: 11px;
+  border-radius: 2.5px;
+  background: #FFFFFF;
+  box-shadow: 
+    0 0 12px rgba(255, 255, 250, 0.98),
+    0 0 22px rgba(255, 250, 220, 0.65),
+    inset 0 1px 2px rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  position: relative;
+}
+
+.film-edge-code {
+  font-size: 0.62rem;
+  color: #A5A5B2;
+  letter-spacing: 0.12em;
+  margin-left: auto;
+  white-space: nowrap;
+}
+
+/* 35mm Screening Frame (Active Film Cell) */
+.cinema-screening-frame {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  overflow: hidden;
+  background: #000000;
+  cursor: pointer;
+}
+
+/* 35mm Optical Audio Soundtrack Track */
+.optical-soundtrack-strip {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 12px;
+  background: #0A0A0E;
+  z-index: 5;
+  border-right: 1px solid rgba(255, 255, 255, 0.18);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.optical-wave-pattern {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    180deg,
+    #FFFFFF 0px,
+    #FFFFFF 1.5px,
+    #0A0A0E 1.5px,
+    #0A0A0E 3px,
+    #FFFFFF 3px,
+    #FFFFFF 5px,
+    #0A0A0E 5px,
+    #0A0A0E 8px
+  );
+  opacity: 0.65;
+}
+
+.soundtrack-label {
+  display: none;
+}
+
+/* Cinema Master Image: Positioned to highlight Amit's facial expression */
+.cinema-master-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 20% 20%;
+  filter: contrast(1.12) brightness(0.96);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
+  display: block;
+}
+
+.cinema-screening-frame:hover .cinema-master-img {
+  transform: scale(1.03);
+  filter: contrast(1.18) brightness(1.02);
+}
+
+/* Film Density Mask: Softens Baked-in YouTube Text and Centers Attention */
+.cinema-film-density-mask {
+  position: absolute;
+  inset: 0;
+  background: 
+    linear-gradient(90deg, rgba(10, 10, 14, 0.15) 0%, rgba(10, 10, 14, 0.05) 35%, rgba(10, 10, 14, 0.45) 75%, rgba(10, 10, 14, 0.8) 100%),
+    radial-gradient(ellipse 95% 85% at 50% 50%, transparent 45%, rgba(0, 0, 0, 0.65) 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.projector-gate-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 95% 85% at 50% 50%, transparent 50%, rgba(0, 0, 0, 0.65) 90%, rgba(0, 0, 0, 0.95) 100%);
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* Top Left Film Slate Stamp */
+.film-slate-badge {
+  position: absolute;
+  top: 0.9rem;
+  left: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  background: rgba(10, 10, 14, 0.9);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 3px;
+  padding: 0.3rem 0.7rem;
+  z-index: 6;
+  pointer-events: none;
+}
+
+.slate-title {
+  font-size: 0.64rem;
+  font-weight: 900;
+  color: #FFD166;
+  letter-spacing: 0.08em;
+}
+
+.slate-special {
+  font-size: 0.58rem;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+/* Sound Synchronizer Badge */
+.sound-sync-badge {
+  position: absolute;
+  top: 0.9rem;
+  right: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: rgba(10, 10, 14, 0.9);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(229, 9, 20, 0.55);
+  border-radius: 9999px;
+  padding: 0.3rem 0.7rem;
+  font-size: 0.62rem;
+  font-weight: 800;
+  color: #E50914;
+  z-index: 6;
+  pointer-events: none;
+}
+
+.sync-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #E50914;
+  box-shadow: 0 0 6px #E50914;
+}
+
+/* Magnetic Projector Play Trigger */
+.projector-play-trigger {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.play-reticle-ring {
+  position: relative;
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: #E50914;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 35px rgba(229, 9, 20, 0.85);
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.crosshair-h {
+  position: absolute;
+  top: 50%;
+  left: -9px;
+  right: -9px;
+  height: 1.5px;
+  background: rgba(255, 255, 255, 0.5);
+  pointer-events: none;
+}
+
+.crosshair-v {
+  position: absolute;
+  left: 50%;
+  top: -9px;
+  bottom: -9px;
+  width: 1.5px;
+  background: rgba(255, 255, 255, 0.5);
+  pointer-events: none;
+}
+
+.play-triangle-svg {
+  width: 25px;
+  height: 25px;
+  margin-left: 3px;
+  z-index: 2;
+}
+
+.cinema-screening-frame:hover .play-reticle-ring {
+  transform: scale(1.1);
+  background: #F40612;
+  box-shadow: 0 0 45px rgba(229, 9, 20, 0.95);
+  border-color: #FFFFFF;
+}
+
+.play-reticle-text {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #FFFFFF;
+  background: rgba(10, 10, 14, 0.92);
+  padding: 0.32rem 0.85rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Red Chinagraph Grease-Pencil Markup on Glass */
+.grease-pencil-markup {
+  position: absolute;
+  bottom: 1.35rem;
+  left: 1.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  z-index: 6;
+  pointer-events: none;
+}
+
+.pencil-arrow-svg {
+  width: 50px;
+  height: 28px;
+}
+
+.pencil-note {
+  font-family: var(--font-editorial, "Newsreader", serif);
+  font-style: italic;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #FF5A5F;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
+  letter-spacing: -0.01em;
+}
+
+/* Active Reel Archival Editorial Dope Sheet */
+.active-reel-metadata {
+  padding: 1.8rem 2rem 2rem;
+  color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+}
+
+.reel-meta-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.65rem;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.14);
+  padding-bottom: 0.5rem;
+}
+
+.reel-meta-lab-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.lab-stamp-red {
+  background: #E50914;
+  color: #FFFFFF;
+  padding: 0.15rem 0.45rem;
+  border-radius: 2px;
+  font-size: 0.58rem;
+  font-weight: 900;
+}
+
+.reel-label {
+  color: #E0E0E0;
+}
+
+.reel-time {
+  color: #A0A0A0;
+}
+
+.active-reel-title {
+  font-family: var(--font-display, "Archivo Black", sans-serif);
+  font-size: clamp(1.6rem, 2.3vw, 2.2rem);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: #FFFFFF;
+  margin: 0 0 0.85rem;
+  text-transform: uppercase;
+}
+
+.active-reel-quote {
+  font-family: var(--font-editorial, "Newsreader", serif);
+  font-style: italic;
+  font-size: 1.08rem;
+  line-height: 1.45;
+  color: #E8E8E8;
+  border-left: 2.5px solid #E50914;
+  padding-left: 0.95rem;
+  margin: 0 0 1rem;
+}
+
+.active-reel-synopsis {
+  font-size: 0.9rem;
+  color: #A8A8B2;
+  line-height: 1.6;
+  margin: 0 0 1.6rem;
+}
+
+.active-reel-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.95rem;
+  flex-wrap: wrap;
+}
+
+.btn-cinema-netflix {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.6rem;
+  background: #E50914;
+  color: #FFFFFF;
+  font-family: var(--font-sans, sans-serif);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  border-radius: 4px;
+  box-shadow: 0 4px 18px rgba(229, 9, 20, 0.55);
+  transition: all 0.2s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-cinema-netflix:hover {
+  background: #F40612;
+  box-shadow: 0 8px 25px rgba(229, 9, 20, 0.75);
+  transform: translateY(-2px);
+}
+
+.btn-cinema-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.72rem 1.35rem;
+  background: rgba(255, 255, 255, 0.04);
+  color: #E0E0E0;
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  font-family: var(--font-sans, sans-serif);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.btn-cinema-outline:hover {
+  border-color: #E50914;
+  color: #FFFFFF;
+  background: rgba(229, 9, 20, 0.12);
+}
+
+.btn-arrow {
+  font-size: 0.95rem;
+  transition: transform 0.2s ease;
+}
+
+.btn-cinema-netflix:hover .btn-arrow {
+  transform: translate(2px, -2px);
+}
+
+/* ==========================================================================
+   6. CANISTER VAULT POD (RIGHT 42% - DIRECTION A: REAL OVERHEAD FILM CANISTERS)
+   Zero Generic Cards: True 35mm Machined Aluminum, Bronze & Steel Canister Lids
+   Anisotropic Light Gleam · Lathe Rings · Brass Spindle Core · Pasted Paper Tape
+   ========================================================================== */
+.canister-vault-pod {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.canister-pod-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: #555555;
+  letter-spacing: 0.1em;
+  padding-bottom: 0.55rem;
+  border-bottom: 1.5px solid rgba(0, 0, 0, 0.14);
+}
+
+.pod-header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.canister-vault-serial {
+  color: #888888;
+}
+
+.canister-count {
+  color: #777777;
+}
+
+.film-canister-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+/* Individual Physical Canister Item: Sits Directly on the Lightbox Glass */
+.film-canister-item {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0.75rem 0.5rem;
+  box-shadow: none;
+  cursor: pointer;
+  text-align: left;
+  position: relative;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  outline: none;
+  width: 100%;
+}
+
+.film-canister-item:hover {
+  transform: translateX(6px);
+  background: transparent;
+  box-shadow: none;
+}
+
+/* Large 112px Machined Metal Canister Lid */
+.canister-tin-plate {
+  position: relative;
+  flex-shrink: 0;
+  width: 112px;
+  height: 112px;
+  border-radius: 50%;
+  user-select: none;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 
+    0 12px 28px -4px rgba(0, 0, 0, 0.45),
+    0 4px 10px rgba(0, 0, 0, 0.25),
+    inset 0 2px 4px rgba(255, 255, 255, 0.9),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.film-canister-item:hover .canister-tin-plate {
+  transform: scale(1.05) rotate(6deg);
+  box-shadow: 
+    0 18px 38px -4px rgba(0, 0, 0, 0.55),
+    0 6px 14px rgba(0, 0, 0, 0.3),
+    inset 0 2px 5px rgba(255, 255, 255, 0.95);
+}
+
+/* Active State: Circled with Red Chinagraph Lightbox Halo */
+.film-canister-item.is-active .canister-tin-plate {
+  transform: scale(1.04);
+  box-shadow: 
+    0 0 0 3px #E50914,
+    0 0 25px rgba(229, 9, 20, 0.5),
+    0 14px 35px -2px rgba(0, 0, 0, 0.5),
+    inset 0 2px 4px rgba(255, 255, 255, 0.9);
+}
+
+/* Anisotropic Brushed Metal Reflections */
+.tin-aluminum {
+  background: conic-gradient(
+    from 35deg at 50% 50%,
+    #888F9B 0deg,
+    #F4F6F9 45deg,
+    #707784 90deg,
+    #FFFFFF 135deg,
+    #888F9B 180deg,
+    #F4F6F9 225deg,
+    #707784 270deg,
+    #FFFFFF 315deg,
+    #888F9B 360deg
+  );
+  border: 3.5px solid #585E6B;
+}
+
+.tin-aged {
+  background: conic-gradient(
+    from 35deg at 50% 50%,
+    #8A734C 0deg,
+    #F4E2BF 45deg,
+    #6B5835 90deg,
+    #FFF3DB 135deg,
+    #8A734C 180deg,
+    #F4E2BF 225deg,
+    #6B5835 270deg,
+    #FFF3DB 315deg,
+    #8A734C 360deg
+  );
+  border: 3.5px solid #5A472A;
+}
+
+.tin-steel {
+  background: conic-gradient(
+    from 35deg at 50% 50%,
+    #4A5364 0deg,
+    #CBD5E3 45deg,
+    #373D4A 90deg,
+    #E4ECF7 135deg,
+    #4A5364 180deg,
+    #CBD5E3 225deg,
+    #373D4A 270deg,
+    #E4ECF7 315deg,
+    #4A5364 360deg
+  );
+  border: 3.5px solid #333946;
+}
+
+/* Concentric Lathe Tooling Rings */
+.tin-lathe-rings {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: repeating-radial-gradient(
+    circle at 50% 50%,
+    transparent 0,
+    transparent 2.5px,
+    rgba(255, 255, 255, 0.18) 2.5px,
+    rgba(0, 0, 0, 0.1) 3.5px
+  );
+  pointer-events: none;
+}
+
+.tin-embossed-rim {
+  position: absolute;
+  bottom: 8px;
+  font-size: 0.48rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: rgba(20, 20, 24, 0.65);
+  pointer-events: none;
+  text-transform: uppercase;
+}
+
+/* Center Spindle & Brass Core Bushing */
+.tin-center-spool {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #464B56 0%, #18191E 100%);
+  border: 2px solid #8A92A0;
+  box-shadow: 
+    inset 0 3px 6px rgba(0, 0, 0, 0.95),
+    0 1px 2px rgba(255, 255, 255, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.spool-core-brass {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #FFDF78 0%, #AA8220 70%, #5A420A 100%);
+  border: 1px solid #FFE7A0;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+/* Real Paper Masking Tape Pasted Across the Canister Lid */
+.tin-pasted-tape {
+  position: absolute;
+  top: 18px;
+  left: -8px;
+  right: -8px;
+  background: #FFFDF0;
+  color: #24221A;
+  border-top: 1px dashed rgba(0, 0, 0, 0.25);
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.25);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  padding: 0.18rem 0.5rem;
+  font-size: 0.56rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  transform: rotate(-2.5deg);
+  text-align: center;
+  pointer-events: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  z-index: 3;
+}
+
+.tape-aged {
+  background: #EEDBB8;
+  color: #382810;
+  transform: rotate(2deg);
+}
+
+.tape-steel {
+  background: #DCE3ED;
+  color: #1A222F;
+  transform: rotate(-1.5deg);
+}
+
+/* Active Red Gaffer Tape Flag */
+.active-gaffer-flag {
+  position: absolute;
+  bottom: 12px;
+  right: 2px;
+  background: #E50914;
+  color: #FFFFFF;
+  font-size: 0.54rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  padding: 0.15rem 0.5rem;
+  border-radius: 1px;
+  box-shadow: 0 2px 8px rgba(229, 9, 20, 0.65);
+  transform: rotate(-5deg);
+  display: none;
+  z-index: 4;
+}
+
+.film-canister-item.is-active .active-gaffer-flag {
+  display: block;
+}
+
+/* Editorial Information Beside the Canister (Sitting on Diffused Glass) */
+.canister-info-side {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  flex: 1;
+  padding-left: 0.25rem;
+}
+
+.canister-tag-row {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.canister-customs-seal {
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.seal-cleared {
+  color: #E50914;
+}
+
+.seal-tour {
+  color: #A36F02;
+}
+
+.seal-viral {
+  color: #2563EB;
+}
+
+.canister-film-stock {
+  font-size: 0.6rem;
+  color: #777785;
+  letter-spacing: 0.08em;
+}
+
+.canister-title {
+  font-family: var(--font-display, "Archivo Black", sans-serif);
+  font-size: 1.18rem;
+  font-weight: 900;
+  color: #111116;
+  letter-spacing: -0.015em;
+  margin: 0.1rem 0;
+  line-height: 1.15;
+  text-transform: uppercase;
+  transition: color 0.2s ease;
+}
+
+.film-canister-item:hover .canister-title {
+  color: #E50914;
+}
+
+.canister-sub {
+  font-size: 0.68rem;
+  color: #555562;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.canister-strip-preview {
+  margin-top: 0.3rem;
+  font-size: 0.66rem;
+  font-weight: 800;
+  color: #E50914;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  letter-spacing: 0.06em;
+}
+
+.canister-status-dot {
+  font-size: 0.8rem;
+}
+
+/* Lightbox Inspection Kit (Loupe + Chinagraph Pencil + Film Splicer) */
+.lightbox-inspection-kit {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #DDDCD2;
+  border: 1px dashed rgba(0, 0, 0, 0.22);
+  border-radius: 4px;
+  padding: 0.6rem 0.95rem;
+  font-size: 0.62rem;
+  font-weight: 800;
+  color: #4A4A52;
+  margin-top: 0.4rem;
+}
+
+.loupe-tool {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.loupe-lens {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid #555;
+  background: radial-gradient(circle at 35% 35%, #FFFFFF 0%, #CCD 70%, #99A 100%);
+  box-shadow: inset 0 1px 1px rgba(255,255,255,0.8), 0 1px 2px rgba(0,0,0,0.25);
+}
+
+.chinagraph-pencil {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #D62828;
+}
+
+.pencil-lead {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #D62828;
+}
+
+.film-splicer-tag {
+  color: #666670;
+}
+
+/* ==========================================================================
+   7. DESK METAL BASE LIP & TICKER
+   ========================================================================== */
+.desk-metal-base {
+  background: #111116;
+  border-top: 2px solid #202028;
+  padding: 0.75rem 0;
+  overflow: hidden;
+  user-select: none;
+}
+
+.film-ticker-track {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  white-space: nowrap;
+  font-size: 0.74rem;
+  letter-spacing: 0.12em;
+  color: #8C8C94;
+  animation: filmTicker 35s linear infinite;
+  will-change: transform;
+}
+
+.ticker-star {
+  color: #E50914;
+  font-size: 0.85rem;
+}
+
+@keyframes filmTicker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ==========================================================================
+   8. CINEMA VIDEO MODAL OVERLAY
+   ========================================================================== */
+.video-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.video-modal.is-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.video-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(7, 7, 10, 0.95);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+}
+
+.video-modal-container {
+  position: relative;
+  width: 100%;
+  max-width: 1040px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  z-index: 2;
+}
+
+.video-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.video-modal-label {
+  font-size: 0.74rem;
+  font-weight: 800;
+  color: #E50914;
+  letter-spacing: 0.1em;
+}
+
+.video-modal-close {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #FFFFFF;
+  padding: 0.45rem 0.95rem;
+  font-size: 0.72rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.video-modal-close:hover {
+  background: #E50914;
+  border-color: #E50914;
+}
+
+.close-x {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.video-modal-ratio {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  background-color: #000000;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 35px 80px rgba(0, 0, 0, 0.95),
+              0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.video-modal-ratio iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* ==========================================================================
+   9. RESPONSIVE BREAKPOINTS
+   ========================================================================== */
+@media (max-width: 1100px) {
+  .lightbox-grid {
+    grid-template-columns: 1fr;
+    gap: 2.2rem;
+  }
+
+  .lightbox-illuminated-glass {
+    padding: 1.6rem 1.4rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .screening-status-bar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .screening-title-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+  }
+
+  .active-reel-actions {
+    width: 100%;
+  }
+
+  .btn-cinema-netflix,
+  .btn-cinema-outline {
+    width: 100%;
+  }
+
+  .film-canister-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.85rem;
+  }
+}
+
+
+/* ==========================================================================
+   PART 6: 6. SECTIONS 4 & 5 (FINALE) — THE BACKSTAGE TOUR DISPATCH & BOX OFFICE COMMAND CENTER (aise-kaise.css)
+   Source File: src/styles/sections/aise-kaise.css
+   ========================================================================== */
+
+/* ==========================================================================
+   THE BACKSTAGE TOUR DISPATCH & BOX OFFICE COMMAND CENTER (UNIFIED)
+   High-Art Theatrical Stagecraft · Jimmy Oye / Awwwards Site of the Year Standard
+   Left Wing (60%): Solari Split-Flap Departure Terminal & Perforated Boarding Deck
+   Right Wing (40%): Executive Backstage Hotline, 3D Rotary Phone & Telex Teleprinter
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Theatrical Section Shell & Stage Atmosphere
+   -------------------------------------------------------------------------- */
+.tour-dispatch-section {
+  position: relative;
+  width: 100%;
+  padding: 8.5rem 0 7rem;
+  background-color: #0A0B0E;
+  color: #FFFFFF;
+  overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.dispatch-stage-atmosphere {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.dispatch-ambient-glow {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1400px;
+  height: 600px;
+  background: radial-gradient(ellipse at 50% 0%, rgba(229, 9, 20, 0.12) 0%, rgba(255, 180, 50, 0.04) 40%, transparent 70%);
+  filter: blur(80px);
+}
+
+.dispatch-lamp-spotlight {
+  position: absolute;
+  top: 15%;
+  right: 15%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle at center, rgba(255, 215, 120, 0.08) 0%, transparent 65%);
+  filter: blur(60px);
+}
+
+.dispatch-grain-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 24px 24px;
+  opacity: 0.6;
+}
+
+/* Master 1,520px Container Matching Sections 1, 2, and 3 */
+.dispatch-wrap {
+  position: relative;
+  z-index: 2;
+  max-width: 1520px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* --------------------------------------------------------------------------
+   2. Masthead & Status Telemetry
+   -------------------------------------------------------------------------- */
+.dispatch-masthead {
+  margin-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.dispatch-status-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: #8C8C9A;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.14);
+}
+
+.status-dispatch-tag {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: #FFFFFF;
+  font-weight: 700;
+}
+
+.dispatch-led-bulb {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #22C55E;
+  box-shadow: 0 0 12px #22C55E;
+  animation: ledPulse 2s infinite ease-in-out;
+}
+
+@keyframes ledPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+.status-cleared {
+  color: #FFD166;
+  font-weight: 600;
+}
+
+.status-hotline {
+  color: #FF5A60;
+  font-weight: 700;
+  background: rgba(229, 9, 20, 0.12);
+  padding: 0.25rem 0.65rem;
+  border-radius: 4px;
+  border: 1px solid rgba(229, 9, 20, 0.3);
+}
+
+.dispatch-title-row {
+  max-width: 980px;
+}
+
+.dispatch-main-title {
+  font-family: var(--font-display, "Archivo Black", sans-serif);
+  font-size: clamp(2.4rem, 4.8vw, 4.2rem);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  margin: 0 0 1rem;
+}
+
+.title-white {
+  color: #FFFFFF;
+}
+
+.title-red {
+  color: #E50914;
+  text-shadow: 0 0 35px rgba(229, 9, 20, 0.45);
+}
+
+.dispatch-lead-copy {
+  font-size: 1.1rem;
+  line-height: 1.65;
+  color: #A3A3B0;
+  max-width: 840px;
+  margin: 0 0 1.5rem;
+}
+
+/* Trust Strip */
+.tour-trust-strip {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 0.65rem 1.25rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: #A3A3B0;
+  flex-wrap: wrap;
+}
+
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.trust-sep {
+  color: rgba(255, 255, 255, 0.2);
+}
+
+/* --------------------------------------------------------------------------
+   3. The Master 1,520px Backstage Command Desk
+   -------------------------------------------------------------------------- */
+.dispatch-command-desk {
+  position: relative;
+  width: 100%;
+  background: #0E1015;
+  border: 2px solid #232733;
+  border-radius: 20px;
+  box-shadow: 
+    0 40px 100px -20px rgba(0, 0, 0, 0.95),
+    0 0 0 1px rgba(255, 255, 255, 0.06),
+    inset 0 1px 2px rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+}
+
+/* Milled Aluminum Ruler Trim */
+.desk-metal-trim {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.65rem 1.5rem;
+  background: linear-gradient(180deg, #2A2D3A 0%, #1A1C24 100%);
+  border-bottom: 2px solid #0B0C10;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.aluminum-ruler {
+  font-size: 0.68rem;
+  letter-spacing: 0.15em;
+  color: #7A7F92;
+  font-weight: 600;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.desk-screws {
+  display: flex;
+  gap: 1.25rem;
+}
+
+.desk-screws .screw {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #9AA0B4 0%, #444959 70%, #1A1C24 100%);
+  box-shadow: inset 0 1px 1px #FFF, 0 1px 2px rgba(0,0,0,0.8);
+  position: relative;
+}
+
+.desk-screws .screw::after {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: 2px;
+  width: 6px;
+  height: 1.5px;
+  background: #111318;
+}
+
+/* Surface Dual-Grid */
+.dispatch-desk-surface {
+  padding: 2.5rem 2.25rem;
+}
+
+.dispatch-dual-grid {
+  display: grid;
+  grid-template-columns: 1.45fr 1fr;
+  gap: 2.75rem;
+  align-items: start;
+}
+
+/* --------------------------------------------------------------------------
+   4. Left Wing (60%): The Solari Split-Flap Departure Terminal
+   -------------------------------------------------------------------------- */
+.solari-terminal-wing {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  min-width: 0;
+}
+
+.terminal-header-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: #A3A3B0;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.terminal-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+.solari-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #FFD166;
+  box-shadow: 0 0 10px #FFD166;
+}
+
+.terminal-clock {
+  color: #FFD166;
+  font-weight: 600;
+}
+
+/* Solari Mechanical Split-Flap Sign */
+.solari-split-flap-board {
+  background: #060709;
+  border: 2px solid #1E202B;
+  border-radius: 12px;
+  padding: 1.25rem 1.4rem;
+  box-shadow: 
+    inset 0 2px 10px rgba(0, 0, 0, 0.9),
+    0 12px 30px rgba(0, 0, 0, 0.6);
+  position: relative;
+  overflow: hidden;
+}
+
+.solari-split-flap-board::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 209, 102, 0.25), transparent);
+}
+
+.solari-columns-header {
+  display: grid;
+  grid-template-columns: 140px 1.4fr 120px 1.6fr;
+  gap: 0.75rem;
+  font-size: 0.64rem;
+  letter-spacing: 0.14em;
+  color: #64687A;
+  padding-bottom: 0.75rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid #161822;
+  font-weight: 700;
+}
+
+.solari-flaps-track {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.solari-row {
+  display: grid;
+  grid-template-columns: 140px 1.4fr 120px 1.6fr;
+  gap: 0.75rem;
+  align-items: center;
+  padding: 0.55rem 0.65rem;
+  background: #0B0D12;
+  border: 1px solid #181A24;
+  border-radius: 6px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.solari-row:hover {
+  background: #11141D;
+  border-color: #2F3447;
+  transform: translateX(4px);
+}
+
+/* The Mechanical Split-Flap Letter Tile */
+.solari-cell {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  overflow: hidden;
+}
+
+.flap-tile {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 17px;
+  height: 24px;
+  background: linear-gradient(180deg, #1C1E29 0%, #12131C 49%, #0D0E15 51%, #151722 100%);
+  color: #FFD166;
+  font-size: 0.78rem;
+  font-weight: 800;
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.12);
+  text-shadow: 0 0 6px rgba(255, 209, 102, 0.4);
+}
+
+/* Horizontal Razor Seam Dividing the Flap in Half */
+.flap-tile::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: #000000;
+  box-shadow: 0 0.5px 0 rgba(255, 255, 255, 0.15);
+  transform: translateY(-50%);
+}
+
+.flap-tile.highlight {
+  color: #FFFFFF;
+  background: linear-gradient(180deg, #2D1416 0%, #1F0D0E 49%, #150809 51%, #240E10 100%);
+  text-shadow: 0 0 8px rgba(229, 9, 20, 0.6);
+}
+
+.flap-arrow {
+  color: #E50914;
+  font-size: 0.8rem;
+  margin: 0 4px;
+}
+
+.dest-city {
+  font-weight: 800;
+  font-size: 0.82rem;
+  color: #FFFFFF;
+  letter-spacing: 0.04em;
+  margin-right: 0.4rem;
+}
+
+.dest-venue {
+  font-size: 0.68rem;
+  color: #7E8295;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.solari-gate-tag {
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 0.2rem 0.5rem;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+.solari-gate-tag.status-fast {
+  background: rgba(255, 209, 102, 0.12);
+  color: #FFD166;
+  border: 1px solid rgba(255, 209, 102, 0.35);
+}
+
+.solari-gate-tag.status-sold {
+  background: rgba(229, 9, 20, 0.14);
+  color: #FF5A60;
+  border: 1px solid rgba(229, 9, 20, 0.4);
+}
+
+.remarks-text {
+  font-size: 0.68rem;
+  color: #A3A3B0;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* --------------------------------------------------------------------------
+   4.1 Instant Search & Filter Cockpit
+   -------------------------------------------------------------------------- */
+.terminal-filter-cockpit {
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+  background: #11131A;
+  border: 1px solid #1E222F;
+  border-radius: 12px;
+  padding: 1.35rem 1.4rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+.tour-search-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.search-icon-svg {
+  position: absolute;
+  left: 1.15rem;
+  width: 18px;
+  height: 18px;
+  color: #6B7280;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.tour-search-input {
+  width: 100%;
+  background: #07080B;
+  border: 1.5px solid #282C3D;
+  border-radius: 8px;
+  padding: 0.8rem 2.8rem 0.8rem 3rem;
+  color: #FFFFFF;
+  font-family: inherit;
+  font-size: 0.88rem;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.tour-search-input:focus {
+  border-color: #E50914;
+  box-shadow: 0 0 16px rgba(229, 9, 20, 0.35);
+}
+
+.tour-search-input::placeholder {
+  color: #55596D;
+}
+
+.tour-search-clear {
+  position: absolute;
+  right: 1rem;
+  background: transparent;
+  border: none;
+  color: #8C90A4;
+  font-size: 1.25rem;
+  line-height: 1;
+  padding: 0.25rem;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+.tour-search-clear:hover {
+  color: #FF5A60;
+}
+
+/* Quick City Chips */
+.tour-quick-chips {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-size: 0.72rem;
+}
+
+.quick-chip-label {
+  color: #72768A;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin-right: 0.25rem;
+}
+
+.tour-city-chip {
+  background: #090A0E;
+  border: 1px solid #232738;
+  color: #8C90A4;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.3rem 0.7rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tour-city-chip:hover {
+  background: #171923;
+  color: #FFFFFF;
+  border-color: #3D435C;
+}
+
+.tour-city-chip.is-active {
+  background: #E50914;
+  color: #FFFFFF;
+  border-color: #E50914;
+  box-shadow: 0 2px 10px rgba(229, 9, 20, 0.4);
+}
+
+/* Region Filter Tabs */
+.tour-region-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.region-tab {
+  background: #090A0E;
+  border: 1px solid #232738;
+  color: #8C90A4;
+  font-family: inherit;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 0.5rem 0.95rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.region-tab:hover {
+  background: #171923;
+  color: #FFFFFF;
+  border-color: #3D435C;
+}
+
+.region-tab.is-active,
+.region-tab.active {
+  background: #E50914;
+  color: #FFFFFF;
+  border-color: #E50914;
+  box-shadow: 0 4px 15px rgba(229, 9, 20, 0.4);
+}
+
+/* --------------------------------------------------------------------------
+   4.2 Flagship Boarding Deck (2x2 Grid)
+   -------------------------------------------------------------------------- */
+.terminal-boarding-deck {
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+}
+
+.deck-title-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  color: #8C90A4;
+  font-weight: 700;
+}
+
+.deck-count {
+  color: #FFD166;
+}
+
+.featured-cities-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+
+/* The Perforated Boarding Pass */
+.featured-tour-card {
+  position: relative;
+  background: linear-gradient(145deg, #161822 0%, #0F1017 100%);
+  border: 1px solid #2A2E40;
+  border-radius: 12px;
+  display: flex;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s, box-shadow 0.25s;
+  overflow: hidden;
+}
+
+.featured-tour-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(229, 9, 20, 0.5);
+  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.8), 0 0 20px rgba(229, 9, 20, 0.15);
+}
+
+/* Perforation Notches on the Ticket Stub */
+.stub-notch {
+  position: absolute;
+  right: 76px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #0E1015;
+  box-shadow: inset 0 0 4px rgba(0,0,0,0.9);
+  z-index: 3;
+}
+
+.stub-notch.notch-top {
+  top: -8px;
+}
+
+.stub-notch.notch-bottom {
+  bottom: -8px;
+}
+
+.tour-card-body {
+  flex: 1;
+  padding: 1.5rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  min-width: 0;
+}
+
+.tour-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+}
+
+.tour-card-flag {
+  color: #A3A3B0;
+  font-weight: 700;
+}
+
+.tour-stub-code {
+  color: #6A6E82;
+  font-weight: 600;
+}
+
+/* Status Pills */
+.tour-status-pill {
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 0.18rem 0.5rem;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+.tour-status-pill.status-fast {
+  background: rgba(255, 209, 102, 0.15);
+  color: #FFD166;
+  border: 1px solid rgba(255, 209, 102, 0.4);
+}
+
+.tour-status-pill.status-seats {
+  background: rgba(249, 115, 22, 0.15);
+  color: #FB923C;
+  border: 1px solid rgba(249, 115, 22, 0.4);
+}
+
+.tour-status-pill.status-extra {
+  background: rgba(56, 189, 248, 0.15);
+  color: #38BDF8;
+  border: 1px solid rgba(56, 189, 248, 0.4);
+}
+
+.tour-status-pill.status-festive {
+  background: rgba(34, 197, 94, 0.15);
+  color: #4ADE80;
+  border: 1px solid rgba(34, 197, 94, 0.4);
+}
+
+.tour-status-pill.status-finale {
+  background: rgba(229, 9, 20, 0.18);
+  color: #FF5A60;
+  border: 1px solid rgba(229, 9, 20, 0.5);
+}
+
+.tour-card-city {
+  font-family: var(--font-display, "Archivo Black", sans-serif);
+  font-size: 1.6rem;
+  line-height: 1.1;
+  color: #FFFFFF;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.tour-card-venue {
+  font-size: 0.82rem;
+  color: #8E92A8;
+  margin: 0;
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tour-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  font-size: 0.72rem;
+  color: #D1D5DB;
+  margin-top: 0.35rem;
+}
+
+.tour-partner-pill {
+  color: #8C90A4;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 0.15rem 0.45rem;
+  border-radius: 3px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.tour-card-action {
+  margin-top: 0.65rem;
+}
+
+.tour-card-btn {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: #E50914;
+  color: #FFFFFF;
+  font-weight: 800;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  padding: 0.65rem 1rem;
+  border-radius: 6px;
+  text-decoration: none;
+  box-shadow: 0 4px 15px rgba(229, 9, 20, 0.35);
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+.tour-card-btn:hover {
+  background: #F40612;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(229, 9, 20, 0.5);
+}
+
+/* Tear-off Ticket Stub */
+.ticket-stub-tearoff {
+  position: relative;
+  width: 84px;
+  border-left: 2px dashed rgba(255, 255, 255, 0.14);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0;
+  background: rgba(0, 0, 0, 0.28);
+}
+
+.stub-perforated-border {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -2px;
+  width: 2px;
+  background: repeating-linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.25) 0px,
+    rgba(255, 255, 255, 0.25) 4px,
+    transparent 4px,
+    transparent 8px
+  );
+}
+
+.stub-barcode-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+}
+
+.stub-admit-tag {
+  font-size: 0.6rem;
+  font-weight: 800;
+  color: #FFD166;
+  letter-spacing: 0.12em;
+}
+
+.stub-vert-code {
+  font-size: 1.1rem;
+  letter-spacing: 2px;
+  color: #8C90A4;
+  transform: rotate(90deg);
+  margin: 1.1rem 0;
+}
+
+.stub-serial {
+  font-size: 0.55rem;
+  color: #55596D;
+  letter-spacing: 0.06em;
+}
+
+/* --------------------------------------------------------------------------
+   4.3 Expandable 32-City Itinerary Manifest
+   -------------------------------------------------------------------------- */
+.tour-schedule-board-container {
+  background: #0A0B10;
+  border: 1px solid #1C1F2B;
+  border-radius: 12px;
+  padding: 1.5rem 1.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.schedule-board-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid #161822;
+}
+
+.board-title {
+  font-family: var(--font-display, "Archivo Black", sans-serif);
+  font-size: 1.15rem;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.board-sub {
+  font-size: 0.68rem;
+  color: #7E8295;
+  margin: 0.25rem 0 0;
+  letter-spacing: 0.08em;
+}
+
+.board-view-status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.68rem;
+  color: #22C55E;
+}
+
+.board-view-status .status-indicator-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #22C55E;
+  box-shadow: 0 0 8px #22C55E;
+}
+
+.tour-schedule-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+/* Individual Schedule Card in Manifest */
+.tour-row-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 88px 1fr 140px;
+  gap: 1.25rem;
+  align-items: center;
+  padding: 0.85rem 1.25rem;
+  background: #11131C;
+  border: 1px solid #202332;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  overflow: visible;
+}
+
+.tour-row-card:hover {
+  background: #161924;
+  border-color: #383D54;
+  transform: translateX(4px);
+}
+
+/* Perforation Notches on Schedule Cards */
+.row-ticket-notch {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #0A0B10;
+  box-shadow: inset 0 0 3px rgba(0,0,0,0.9);
+  z-index: 2;
+}
+
+.row-ticket-notch.notch-left {
+  left: -7px;
+}
+
+.row-ticket-notch.notch-right {
+  right: -7px;
+}
+
+.tour-row-card.in-extended-fold {
+  display: none;
+}
+
+/* Support both .is-expanded and .expanded */
+.tour-schedule-grid.is-expanded .tour-row-card.in-extended-fold,
+.tour-schedule-grid.expanded .tour-row-card.in-extended-fold {
+  display: grid;
+}
+
+.tour-date-cell .date-badge-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #07080B;
+  border: 1px solid #232738;
+  border-radius: 6px;
+  padding: 0.35rem 0.5rem;
+}
+
+.date-month {
+  font-size: 0.65rem;
+  color: #E50914;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.date-day {
+  font-size: 1.35rem;
+  font-weight: 900;
+  color: #FFFFFF;
+  line-height: 1;
+}
+
+.date-weekday {
+  font-size: 0.58rem;
+  color: #7E8295;
+}
+
+.tour-venue-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.tour-city-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.tour-city-name {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.tour-venue-sub {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.78rem;
+  color: #8E92A8;
+}
+
+.venue-pin-icon {
+  font-size: 0.78rem;
+}
+
+.tour-venue-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tour-meta-pills {
+  display: flex;
+  gap: 0.5rem;
+  font-size: 0.68rem;
+  color: #6C7084;
+}
+
+.time-slot-pill,
+.platform-tag {
+  background: rgba(255, 255, 255, 0.03);
+  padding: 0.15rem 0.4rem;
+  border-radius: 3px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.tour-action-cell {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.tour-ticket-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: #1C1E2A;
+  color: #FFFFFF;
+  border: 1px solid #33384D;
+  border-radius: 4px;
+  padding: 0.45rem 0.85rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.tour-ticket-cta:hover {
+  background: #E50914;
+  border-color: #E50914;
+  box-shadow: 0 4px 12px rgba(229, 9, 20, 0.4);
+}
+
+.tour-expander-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+.tour-expand-btn {
+  background: #141722;
+  border: 1.5px solid #2B3044;
+  color: #FFFFFF;
+  font-weight: 800;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  padding: 0.75rem 1.8rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.tour-expand-btn:hover {
+  background: #202436;
+  border-color: #E50914;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.6);
+}
+
+/* No Results State */
+.tour-no-results {
+  background: #11131C;
+  border: 1px dashed rgba(229, 9, 20, 0.4);
+  border-radius: 12px;
+  padding: 2.5rem 2rem;
+  text-align: center;
+}
+
+.no-results-icon {
+  font-size: 2.2rem;
+  margin-bottom: 0.75rem;
+}
+
+.no-results-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin: 0 0 0.5rem;
+}
+
+.no-results-desc {
+  font-size: 0.88rem;
+  color: #8E92A8;
+  max-width: 520px;
+  margin: 0 auto 1.5rem;
+  line-height: 1.5;
+}
+
+.no-results-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+/* --------------------------------------------------------------------------
+   5. Right Wing (40%): The Production Hotline & Teleprinter Dispatch Desk
+   -------------------------------------------------------------------------- */
+.hotline-dispatch-wing {
+  position: relative;
+  background: radial-gradient(circle at 60% 30%, #161D19 0%, #0E1210 60%, #080A09 100%);
+  border: 2px solid #222B25;
+  border-radius: 16px;
+  padding: 2.25rem 2rem;
+  box-shadow: 
+    inset 0 2px 20px rgba(0, 0, 0, 0.8),
+    0 15px 40px rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  gap: 2.25rem;
+  overflow: hidden;
+}
+
+/* Banker's Brass Desk Lamp Hardware & Glow */
+.desk-brass-lamp {
+  position: absolute;
+  top: -20px;
+  right: -10px;
+  width: 240px;
+  height: 240px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.lamp-shade {
+  position: absolute;
+  top: 15px;
+  right: 25px;
+  width: 90px;
+  height: 42px;
+  background: linear-gradient(135deg, #1C4D2E 0%, #0E2918 60%, #06170D 100%);
+  border: 1.5px solid #6E531B;
+  border-radius: 40px 40px 10px 10px;
+  box-shadow: 
+    inset 0 2px 4px rgba(255, 255, 255, 0.4),
+    0 8px 18px rgba(0, 0, 0, 0.8),
+    0 0 25px rgba(34, 197, 94, 0.2);
+  z-index: 2;
+}
+
+.lamp-arm {
+  position: absolute;
+  top: 50px;
+  right: 65px;
+  width: 8px;
+  height: 55px;
+  background: linear-gradient(90deg, #E5C378 0%, #A67D28 50%, #5C4310 100%);
+  border-radius: 4px;
+  box-shadow: 2px 4px 8px rgba(0,0,0,0.7);
+  z-index: 1;
+}
+
+.lamp-warm-pool {
+  position: absolute;
+  top: 30px;
+  right: 0;
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle, rgba(255, 215, 120, 0.22) 0%, rgba(255, 180, 50, 0.08) 40%, transparent 70%);
+  filter: blur(40px);
+}
+
+.hotline-wing-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: #A3A3B0;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.12);
+  position: relative;
+  z-index: 2;
+}
+
+.hotline-header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+.hotline-badge-red {
+  background: #E50914;
+  color: #FFFFFF;
+  padding: 0.18rem 0.5rem;
+  border-radius: 3px;
+  font-weight: 900;
+}
+
+.hotline-status-live {
+  color: #22C55E;
+  font-weight: 800;
+  text-shadow: 0 0 8px rgba(34, 197, 94, 0.6);
+}
+
+/* 5.1 The 3D Vermilion Red Rotary Desk Telephone */
+.vintage-rotary-phone {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  z-index: 2;
+  margin-top: 0.5rem;
+}
+
+/* Handset Assembly */
+.phone-handset-assembly {
+  position: relative;
+  width: 250px;
+  height: 62px;
+  background: linear-gradient(180deg, #FF3B30 0%, #D3101B 45%, #8B0A11 100%);
+  border-radius: 32px;
+  box-shadow: 
+    0 18px 30px -5px rgba(0, 0, 0, 0.85),
+    inset 0 3px 6px rgba(255, 255, 255, 0.4),
+    inset 0 -4px 8px rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.25rem;
+}
+
+.handset-earpiece, .handset-mouthpiece {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #FF4D4D 0%, #C40E19 65%, #66080D 100%);
+  box-shadow: 
+    inset 0 2px 4px rgba(255, 255, 255, 0.4),
+    0 4px 8px rgba(0, 0, 0, 0.6);
+}
+
+.handset-handle {
+  flex: 1;
+  height: 22px;
+  background: linear-gradient(180deg, #FF3B30 0%, #A50C14 100%);
+  margin: 0 0.5rem;
+  border-radius: 11px;
+}
+
+/* The Jimmy Oye Signature: Yellow Post-it Note Stuck Across Handset */
+.handset-postit-note {
+  position: absolute;
+  top: -26px;
+  right: -24px;
+  width: 175px;
+  background: #FFF9A6;
+  color: #141414;
+  padding: 0.75rem 0.85rem;
+  border-radius: 2px;
+  box-shadow: 
+    3px 8px 18px rgba(0, 0, 0, 0.45),
+    0 1px 2px rgba(0, 0, 0, 0.2);
+  transform: rotate(-4.5deg);
+  z-index: 10;
+  border-left: 3px solid #E6DE7A;
+  pointer-events: auto;
+}
+
+.postit-pin {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.95rem;
+  filter: drop-shadow(0 2px 2px rgba(0,0,0,0.4));
+}
+
+.postit-text {
+  margin: 0;
+  font-family: "Caveat", cursive, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: #1F2228;
+}
+
+/* Coiled Handset Cord */
+.phone-coiled-cord {
+  position: absolute;
+  top: 50px;
+  right: 15px;
+  width: 22px;
+  height: 85px;
+  background: repeating-linear-gradient(
+    180deg,
+    #252834 0px,
+    #252834 5px,
+    #0E0F14 5px,
+    #0E0F14 9px,
+    #3D4255 9px,
+    #3D4255 11px
+  );
+  border-radius: 11px;
+  transform: rotate(20deg);
+  box-shadow: 4px 6px 14px rgba(0,0,0,0.7);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Heavy Telephone Body Base */
+.phone-body-base {
+  position: relative;
+  width: 220px;
+  background: radial-gradient(circle at 45% 30%, #E81A24 0%, #C40E19 50%, #7A080E 100%);
+  border-radius: 24px 24px 18px 18px;
+  padding: 1.5rem 1.25rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  box-shadow: 
+    0 25px 45px rgba(0, 0, 0, 0.9),
+    inset 0 3px 6px rgba(255, 255, 255, 0.4),
+    inset 0 -6px 12px rgba(0, 0, 0, 0.7);
+}
+
+.cradle-plungers {
+  position: absolute;
+  top: -10px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-around;
+  padding: 0 2rem;
+}
+
+.cradle-plungers .plunger {
+  width: 14px;
+  height: 12px;
+  background: #4A4E5C;
+  border-radius: 3px 3px 0 0;
+  box-shadow: inset 0 1px 1px #FFF, 0 2px 4px rgba(0,0,0,0.8);
+}
+
+/* Interactive Rotary Dial Assembly */
+.rotary-dial-assembly {
+  position: relative;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  box-shadow: 
+    0 8px 16px rgba(0, 0, 0, 0.6),
+    inset 0 2px 6px rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  user-select: none;
+  transform-origin: center center;
+}
+
+.rotary-dial-assembly:active {
+  cursor: grabbing;
+}
+
+.rotary-num-ring {
+  position: absolute;
+  inset: 0;
+}
+
+.dial-num {
+  position: absolute;
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: #1A1C24;
+  transform-origin: center center;
+}
+
+/* Number Dial Positions around Clockface */
+.dial-num.num-1 { top: 22px; right: 28px; }
+.dial-num.num-2 { top: 44px; right: 14px; }
+.dial-num.num-3 { top: 70px; right: 16px; }
+.dial-num.num-4 { bottom: 30px; right: 28px; }
+.dial-num.num-5 { bottom: 16px; right: 54px; }
+.dial-num.num-6 { bottom: 22px; left: 36px; }
+.dial-num.num-7 { bottom: 44px; left: 18px; }
+.dial-num.num-8 { top: 68px; left: 16px; }
+.dial-num.num-9 { top: 42px; left: 24px; }
+.dial-num.num-0 { top: 20px; left: 46px; }
+
+.rotary-glass-cover {
+  position: absolute;
+  inset: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Transparent Finger Hole Cutouts */
+.rotary-finger-holes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.hole {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.55);
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,0,0,0.25);
+}
+
+.hole.hole-1 { top: 18px; right: 24px; }
+.hole.hole-2 { top: 40px; right: 10px; }
+.hole.hole-3 { top: 66px; right: 12px; }
+.hole.hole-4 { bottom: 26px; right: 24px; }
+.hole.hole-5 { bottom: 12px; right: 50px; }
+.hole.hole-6 { bottom: 18px; left: 32px; }
+.hole.hole-7 { bottom: 40px; left: 14px; }
+.hole.hole-8 { top: 64px; left: 12px; }
+.hole.hole-9 { top: 38px; left: 20px; }
+.hole.hole-0 { top: 16px; left: 42px; }
+
+.rotary-center-cap {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #E5C378 0%, #A67D28 100%);
+  border: 2px solid #5C4310;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6), inset 0 1px 2px #FFF;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.58rem;
+  font-weight: 900;
+  color: #332104;
+  letter-spacing: 0.08em;
+}
+
+.cap-star {
+  font-size: 0.72rem;
+  line-height: 1;
+}
+
+.rotary-finger-stop {
+  position: absolute;
+  bottom: 12px;
+  right: 18px;
+  width: 14px;
+  height: 6px;
+  background: #C4A559;
+  border-radius: 2px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.6);
+  z-index: 5;
+}
+
+/* Engraved Brass Base Plaque */
+.phone-brass-plaque {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(180deg, #E5C57D 0%, #B28D35 100%);
+  border: 1.5px solid #634A14;
+  border-radius: 4px;
+  padding: 0.35rem 0.75rem;
+  box-shadow: 
+    inset 0 1px 1px rgba(255, 255, 255, 0.8),
+    0 3px 6px rgba(0, 0, 0, 0.6);
+}
+
+.plaque-title {
+  font-size: 0.58rem;
+  font-weight: 900;
+  color: #2D2005;
+  letter-spacing: 0.1em;
+}
+
+.plaque-sub {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #0E0A02;
+  letter-spacing: 0.08em;
+}
+
+/* Action Trigger */
+.phone-action-strip {
+  width: 100%;
+}
+
+.btn-lift-hotline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  background: #25D366;
+  color: #0A2E14;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 0.85rem 1.25rem;
+  border-radius: 8px;
+  text-decoration: none;
+  box-shadow: 0 8px 20px rgba(37, 211, 102, 0.35);
+  transition: all 0.25s ease;
+}
+
+.btn-lift-hotline:hover {
+  background: #28EA70;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(37, 211, 102, 0.5);
+  color: #051A0B;
+}
+
+.hotline-bell-icon {
+  font-size: 1.1rem;
+}
+
+/* 5.2 The Industrial Mechanical Telex Teleprinter */
+.telex-machine-pod {
+  background: #12151E;
+  border: 2px solid #252A3B;
+  border-radius: 12px;
+  padding: 1.4rem;
+  box-shadow: 
+    inset 0 2px 10px rgba(0,0,0,0.8),
+    0 10px 25px rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: relative;
+}
+
+.telex-chassis-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  color: #7E8398;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #1E2232;
+}
+
+.telex-brand-badge {
+  font-weight: 800;
+  color: #D1D5E0;
+}
+
+.telex-led-panel {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: #FF5A60;
+  font-size: 0.62rem;
+  font-weight: 700;
+}
+
+.red-blink {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #E50914;
+  box-shadow: 0 0 8px #E50914;
+  animation: telexBlink 1.2s infinite steps(2, start);
+}
+
+@keyframes telexBlink {
+  to { visibility: hidden; }
+}
+
+/* Continuous Curling Paper Tape */
+.telex-paper-feed {
+  background: #090A10;
+  border: 1px solid #1D2130;
+  border-radius: 6px;
+  padding: 0.85rem;
+  box-shadow: inset 0 3px 8px rgba(0,0,0,0.8);
+}
+
+.telex-paper-strip {
+  background: #F4EEDD;
+  color: #1A1D24;
+  padding: 1rem 1.15rem;
+  border-radius: 2px;
+  box-shadow: 
+    0 6px 14px rgba(0, 0, 0, 0.4),
+    inset 0 0 10px rgba(0, 0, 0, 0.05);
+  font-family: "Courier Prime", monospace;
+  font-size: 0.68rem;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  font-weight: 600;
+  position: relative;
+}
+
+.paper-zigzag-top {
+  position: absolute;
+  top: -6px;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: repeating-linear-gradient(
+    45deg,
+    #F4EEDD,
+    #F4EEDD 4px,
+    transparent 4px,
+    transparent 8px
+  );
+}
+
+.telex-line {
+  margin: 0.15rem 0;
+}
+
+.telex-line.highlight {
+  color: #A81B22;
+  font-weight: 800;
+}
+
+/* Stamps & Wax Seal */
+.telex-desk-stamps {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+}
+
+.rubber-stamp.stamp-bookable {
+  border: 2.5px solid #C41822;
+  color: #C41822;
+  font-size: 0.65rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  padding: 0.35rem 0.75rem;
+  border-radius: 4px;
+  transform: rotate(-9deg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1.1;
+  opacity: 0.85;
+  mask-image: radial-gradient(circle, rgba(0,0,0,1) 70%, rgba(0,0,0,0.6) 100%);
+}
+
+.stamp-stars {
+  font-size: 0.6rem;
+  letter-spacing: 2px;
+  margin-top: 2px;
+}
+
+.wax-seal-red {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #D61A24 0%, #A50C14 60%, #520509 100%);
+  border: 2px solid #420407;
+  box-shadow: 
+    0 6px 12px rgba(0,0,0,0.6),
+    inset 0 2px 4px rgba(255,255,255,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(14deg);
+}
+
+.wax-monogram {
+  font-size: 0.95rem;
+  font-weight: 900;
+  color: #57060A;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+/* --------------------------------------------------------------------------
+   6. Desk Base Lip & Continuous Marquee Ribbon
+   -------------------------------------------------------------------------- */
+.desk-metal-base {
+  background: #080A0E;
+  border-top: 1.5px solid #1E2230;
+  padding: 0.65rem 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.film-ticker-track {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.5rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  color: #72768A;
+  font-weight: 700;
+  animation: tickerScroll 28s linear infinite;
+}
+
+.ticker-star {
+  color: #E50914;
+}
+
+@keyframes tickerScroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* --------------------------------------------------------------------------
+   7. Responsive Breakpoints
+   -------------------------------------------------------------------------- */
+@media (max-width: 1200px) {
+  .dispatch-dual-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .solari-columns-header, .solari-row {
+    grid-template-columns: 110px 1.2fr 110px 1fr;
+  }
+}
+
+@media (max-width: 860px) {
+  .featured-cities-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .solari-columns-header {
+    display: none;
+  }
+
+  .solari-row {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .tour-row-card {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .tour-action-cell {
+    justify-content: flex-start;
+  }
+
+  .tour-ticket-cta {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .dispatch-command-desk {
+    border-radius: 12px;
+  }
+
+  .dispatch-desk-surface {
+    padding: 1.5rem 1rem;
+  }
+
+  .stub-notch, .ticket-stub-tearoff {
+    display: none;
+  }
+
+  .phone-handset-assembly {
+    width: 210px;
+  }
+
+  .handset-postit-note {
+    width: 140px;
+    top: -20px;
+    right: -10px;
+  }
+}
+

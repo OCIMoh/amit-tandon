@@ -51,29 +51,31 @@ export function renderContradictions(_items: MaterialItem[]): string {
     <!-- 2. The Physical 35mm Editing Lightbox Desk (The Centerpiece) -->
     <div class="editing-lightbox-desk" data-reveal>
       
-      <!-- Top Metal Desk Lip & Aluminum Rulers -->
+      <!-- Top Brushed Anodized Metal Desk Lip & Aluminum Rulers -->
       <div class="desk-metal-trim" aria-hidden="true">
         <div class="aluminum-ruler mono">
-          <span>| 00 | 05 | 10 | 15 | 20 | 25 | 30 | 35 | 40 | 45 | 50 | 55 | 60 | 65 | 70 | 75 | 80 | 85 | 90 | 95 | 100 CM |</span>
+          <span>| 00 | 10 | 20 | 30 | 40 | 50 | 60 | 70 | 80 | 90 | 100 | 110 | 120 | 130 | 140 | 150 CM | ACCU-METRIC 35MM FILM BENCH</span>
         </div>
         <div class="desk-screws">
-          <span class="screw"></span>
-          <span class="screw"></span>
-          <span class="screw"></span>
+          <span class="screw" title="Milled Stainless Machine Screw"></span>
+          <span class="screw" title="Milled Stainless Machine Screw"></span>
+          <span class="screw" title="Milled Stainless Machine Screw"></span>
+          <span class="screw" title="Milled Stainless Machine Screw"></span>
         </div>
       </div>
 
       <!-- The Main Illuminated Backlit Lightbox Panel (Diffused White Glow) -->
       <div class="lightbox-illuminated-glass">
         
-        <!-- Lightbox Content Grid: Left Master Cinema Reel (60%) + Right Canister Rack (40%) -->
+        <!-- Lightbox Content Grid: Left Master Celluloid Strip (58%) + Right Canister Rack (42%) -->
         <div class="lightbox-grid">
           
-          <!-- LEFT: The Master Projection Frame (Active Film Reel) -->
+          <!-- LEFT: The Master Celluloid Acetate Strip (Active Film Reel Resting on Illuminated Glass) -->
           <div class="master-projection-pod">
             
-            <!-- Celluloid Film Sprocket Strip Across the Top -->
+            <!-- Celluloid Film Sprocket Strip Across the Top (Light Bleeding Through Perforations) -->
             <div class="film-sprocket-track top-sprockets" aria-hidden="true">
+              <span class="sprocket"></span><span class="sprocket"></span><span class="sprocket"></span>
               <span class="sprocket"></span><span class="sprocket"></span><span class="sprocket"></span>
               <span class="sprocket"></span><span class="sprocket"></span><span class="sprocket"></span>
               <span class="sprocket"></span><span class="sprocket"></span><span class="sprocket"></span>
@@ -83,6 +85,13 @@ export function renderContradictions(_items: MaterialItem[]): string {
 
             <!-- The Main Cinema Frame (Screening Canvas) -->
             <div class="cinema-screening-frame" id="active-screening-screen">
+              
+              <!-- 35mm Optical Soundtrack Track on Left Margin -->
+              <div class="optical-soundtrack-strip" aria-hidden="true">
+                <div class="optical-wave-pattern"></div>
+                <span class="soundtrack-label mono">OPTICAL AUDIO A/B</span>
+              </div>
+
               <img 
                 src="${images.material.familyTandoncies}" 
                 alt="Amit Tandon: 35mm Master Print" 
@@ -92,6 +101,9 @@ export function renderContradictions(_items: MaterialItem[]): string {
                 height="720"
                 loading="lazy"
               />
+              
+              <!-- Cinema Film Density & Vignette Mask (Softens Distracting Baked Thumbnail Graphics) -->
+              <div class="cinema-film-density-mask" aria-hidden="true"></div>
               <div class="projector-gate-vignette" aria-hidden="true"></div>
 
               <!-- Top Left Film Slate Stamp -->
@@ -126,14 +138,19 @@ export function renderContradictions(_items: MaterialItem[]): string {
 
               <!-- Red Grease-Pencil Editor Annotations on Glass -->
               <div class="grease-pencil-markup" aria-hidden="true">
+                <div class="grease-brackets">
+                  <span class="bracket-tl"></span>
+                  <span class="bracket-br"></span>
+                </div>
                 <svg class="pencil-arrow-svg" viewBox="0 0 80 40">
                   <path d="M5,35 Q40,5 75,20 M75,20 L65,15 M75,20 L68,28" stroke="#E50914" stroke-width="2.5" fill="none" stroke-linecap="round"/>
                 </svg>
                 <span class="pencil-note" id="active-pencil-note">Cut here: audience roar 42 sec straight</span>
               </div>
 
-              <!-- Bottom Sprocket Track -->
+              <!-- Bottom Sprocket Track (Perforations Bleeding Light) -->
               <div class="film-sprocket-track bottom-sprockets" aria-hidden="true">
+                <span class="sprocket"></span><span class="sprocket"></span><span class="sprocket"></span>
                 <span class="sprocket"></span><span class="sprocket"></span><span class="sprocket"></span>
                 <span class="sprocket"></span><span class="sprocket"></span><span class="sprocket"></span>
                 <span class="sprocket"></span><span class="sprocket"></span><span class="sprocket"></span>
@@ -142,10 +159,13 @@ export function renderContradictions(_items: MaterialItem[]): string {
               </div>
             </div>
 
-            <!-- Active Reel Technical Dossier & CTAs -->
+            <!-- Active Reel Archival Editorial Dope Sheet -->
             <div class="active-reel-metadata">
               <div class="reel-meta-header mono">
-                <span class="reel-label" id="active-reel-label">REEL NO. 01 // 35MM MASTER NEGATIVE</span>
+                <div class="reel-meta-lab-badge">
+                  <span class="lab-stamp-red">EASTMAN FILM LABS</span>
+                  <span class="reel-label" id="active-reel-label">REEL NO. 01 // 35MM MASTER NEGATIVE</span>
+                </div>
                 <span class="reel-time" id="active-reel-time">RUN: 1H 12M 44S</span>
               </div>
 
@@ -184,17 +204,20 @@ export function renderContradictions(_items: MaterialItem[]): string {
           </div>
 
 
-          <!-- RIGHT: The Heavy Metal Film Canister Rack (Physical Film Canisters) -->
+          <!-- RIGHT: Archival Film Canister Desk Bay (Direction A: Pure Physical Canisters) -->
           <div class="canister-vault-pod">
             
             <div class="canister-pod-header mono">
-              <span class="canister-archive-title">ARCHIVAL FILM CANISTERS</span>
-              <span class="canister-count">3 PHYSICAL REELS</span>
+              <div class="pod-header-left">
+                <span class="canister-archive-title">ARCHIVAL 35MM CANISTERS</span>
+                <span class="canister-vault-serial">// BACKSTAGE VAULT BAY #03</span>
+              </div>
+              <span class="canister-count">SELECT CANISTER TO LOAD</span>
             </div>
 
             <div class="film-canister-list" role="tablist" aria-label="35mm Film Canister Selection">
               
-              <!-- Canister 1: Family Tandoncies (Netflix) -->
+              <!-- Canister 1: Family Tandoncies (Heavy Stamped Anodized Aluminum Canister) -->
               <button 
                 type="button" 
                 class="film-canister-item is-active" 
@@ -203,28 +226,42 @@ export function renderContradictions(_items: MaterialItem[]): string {
                 role="tab"
                 aria-selected="true"
                 aria-controls="active-screening-screen"
+                title="Load 35mm Canister: Family Tandoncies"
               >
-                <!-- Heavy Aluminum Film Canister Lid Graphic -->
-                <div class="canister-tin-plate">
-                  <div class="tin-center-spool" aria-hidden="true"></div>
-                  <div class="tin-rib-ring" aria-hidden="true"></div>
-                  <div class="canister-emboss mono">REEL 01</div>
+                <!-- Physical Milled Aluminum Canister Lid with Anisotropic Reflections -->
+                <div class="canister-tin-plate tin-aluminum">
+                  <div class="tin-lathe-rings" aria-hidden="true"></div>
+                  <div class="tin-center-spool" aria-hidden="true">
+                    <span class="spool-core-brass"></span>
+                  </div>
+                  <div class="tin-embossed-rim mono">EASTMAN KODAK CO · 35MM MOTION PICTURE</div>
+                  
+                  <!-- Pasted Archival Paper Masking Tape Label Across Canister -->
+                  <div class="tin-pasted-tape mono">
+                    <span class="tape-text">KODAK 5219 // REEL 01</span>
+                  </div>
+
+                  <!-- Active Red Gaffer Tape Flag -->
+                  <div class="active-gaffer-flag mono" aria-hidden="true">
+                    <span>LOADED</span>
+                  </div>
                 </div>
 
                 <div class="canister-info-side">
                   <div class="canister-tag-row mono">
-                    <span class="canister-spec-pill pill-netflix">NETFLIX MASTER</span>
-                    <span class="canister-customs-seal">190 COUNTRIES</span>
+                    <span class="canister-customs-seal seal-cleared">CLEARED: 190 COUNTRIES</span>
+                    <span class="canister-film-stock">KODAK 5219</span>
                   </div>
                   <strong class="canister-title display">FAMILY TANDONCIES</strong>
-                  <span class="canister-sub mono">35MM MASTER PRINT · 1H 12M</span>
+                  <span class="canister-sub mono">35MM MASTER NEGATIVE · 1H 12M 44S</span>
                   <div class="canister-strip-preview mono">
-                    <span class="canister-status-dot" aria-hidden="true">●</span> <span class="canister-status-text">LOADED ON LIGHTBOX</span>
+                    <span class="canister-status-dot" aria-hidden="true">●</span> 
+                    <span class="canister-status-text">LOADED ON LIGHTBOX</span>
                   </div>
                 </div>
               </button>
 
-              <!-- Canister 2: Masala Sandwich (Tour Reel) -->
+              <!-- Canister 2: Masala Sandwich (Weathered Stage Tour Bronze Tin) -->
               <button 
                 type="button" 
                 class="film-canister-item" 
@@ -233,17 +270,28 @@ export function renderContradictions(_items: MaterialItem[]): string {
                 role="tab"
                 aria-selected="false"
                 aria-controls="active-screening-screen"
+                title="Load 35mm Canister: Masala Sandwich"
               >
                 <div class="canister-tin-plate tin-aged">
-                  <div class="tin-center-spool" aria-hidden="true"></div>
-                  <div class="tin-rib-ring" aria-hidden="true"></div>
-                  <div class="canister-emboss mono">REEL 02</div>
+                  <div class="tin-lathe-rings" aria-hidden="true"></div>
+                  <div class="tin-center-spool" aria-hidden="true">
+                    <span class="spool-core-brass"></span>
+                  </div>
+                  <div class="tin-embossed-rim mono">LEICESTER SQ · DUBAI OPERA ARCHIVE</div>
+                  
+                  <div class="tin-pasted-tape tape-aged mono">
+                    <span class="tape-text">LONDON TOUR // REEL 02</span>
+                  </div>
+
+                  <div class="active-gaffer-flag mono" aria-hidden="true">
+                    <span>LOADED</span>
+                  </div>
                 </div>
 
                 <div class="canister-info-side">
                   <div class="canister-tag-row mono">
-                    <span class="canister-spec-pill pill-tour">LONDON TOUR</span>
-                    <span class="canister-customs-seal seal-yellow">CLEARED 33 CITIES</span>
+                    <span class="canister-customs-seal seal-tour">CLEARED 33 CITIES · WORLD TOUR</span>
+                    <span class="canister-film-stock">VISION3 500T</span>
                   </div>
                   <strong class="canister-title display">MASALA SANDWICH</strong>
                   <span class="canister-sub mono">LIVE AUDITORIUM PRINT · 80 MINS</span>
@@ -253,7 +301,7 @@ export function renderContradictions(_items: MaterialItem[]): string {
                 </div>
               </button>
 
-              <!-- Canister 3: Paisa Aa Gaya (Viral Master) -->
+              <!-- Canister 3: Paisa Aa Gaya (Galvanized Steel Viral Master Tin) -->
               <button 
                 type="button" 
                 class="film-canister-item" 
@@ -262,20 +310,31 @@ export function renderContradictions(_items: MaterialItem[]): string {
                 role="tab"
                 aria-selected="false"
                 aria-controls="active-screening-screen"
+                title="Load 35mm Canister: Paisa Aa Gaya"
               >
-                <div class="canister-tin-plate tin-gold">
-                  <div class="tin-center-spool" aria-hidden="true"></div>
-                  <div class="tin-rib-ring" aria-hidden="true"></div>
-                  <div class="canister-emboss mono">REEL 03</div>
+                <div class="canister-tin-plate tin-steel">
+                  <div class="tin-lathe-rings" aria-hidden="true"></div>
+                  <div class="tin-center-spool" aria-hidden="true">
+                    <span class="spool-core-brass"></span>
+                  </div>
+                  <div class="tin-embossed-rim mono">UNCENSORED VIRAL CUT · 18.4M PLAYS</div>
+                  
+                  <div class="tin-pasted-tape tape-steel mono">
+                    <span class="tape-text">VIRAL MASTER // REEL 03</span>
+                  </div>
+
+                  <div class="active-gaffer-flag mono" aria-hidden="true">
+                    <span>LOADED</span>
+                  </div>
                 </div>
 
                 <div class="canister-info-side">
                   <div class="canister-tag-row mono">
-                    <span class="canister-spec-pill pill-viral">18M+ VIRAL</span>
-                    <span class="canister-barcode">||||| AT-CAN-03</span>
+                    <span class="canister-customs-seal seal-viral">18.4M+ VIEWS · VIRAL HIT</span>
+                    <span class="canister-barcode">|||||||| AT-CAN-03</span>
                   </div>
                   <strong class="canister-title display">PAISA AA GAYA… CLASS NAHI</strong>
-                  <span class="canister-sub mono">ORIGINAL ARCHIVAL BIT · 18.4M</span>
+                  <span class="canister-sub mono">ORIGINAL ARCHIVAL CUT · 18.4M</span>
                   <div class="canister-strip-preview mono">
                     <span class="canister-status-text">CLICK TO LOAD REEL ➔</span>
                   </div>
@@ -284,15 +343,18 @@ export function renderContradictions(_items: MaterialItem[]): string {
 
             </div>
 
-            <!-- Bottom Lightbox Inspection Tools & Pinned Notes -->
+            <!-- Bottom Lightbox Inspection Tools & Pinned Editorial Kit -->
             <div class="lightbox-inspection-kit mono" aria-hidden="true">
               <div class="loupe-tool">
                 <span class="loupe-lens"></span>
-                <span class="loupe-label">8X FILM LOUPE // FOCUS VERIFIED</span>
+                <span class="loupe-label">8X ACHROMATIC LOUPE // FOCUS PINPOINTED</span>
               </div>
               <div class="chinagraph-pencil">
                 <span class="pencil-lead"></span>
-                <span>RED CHINAGRAPH WAX PENCIL</span>
+                <span>CHINAGRAPH WAX MARKER</span>
+              </div>
+              <div class="film-splicer-tag">
+                <span>GUILLOTINE 35MM SPLICER</span>
               </div>
             </div>
 

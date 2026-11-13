@@ -113,7 +113,7 @@ export function renderPerspective(site: SiteContent): string {
     </div>
 
     <!-- The Master Continuous Open Manilla Dossier Folder (Expanded Wide) -->
-    <div class="master-case-folder" data-reveal>
+    <div class="master-case-folder">
       
       <!-- Top Tab of Folder -->
       <div class="folder-header-tab mono">

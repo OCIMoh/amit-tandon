@@ -365,28 +365,76 @@ export function renderContradictions(_items: MaterialItem[]): string {
 
       </div>
 
-      <!-- Desk Metal Base Lip & Perforated Film Strip Marquee -->
-      <div class="desk-metal-base" aria-hidden="true">
-        <div class="film-ticker-track mono">
-          <span>● 35MM MOTION PICTURE PRINT</span>
-          <span class="ticker-star">★</span>
-          <span>NETFLIX SPECIAL STREAMING IN 190+ COUNTRIES</span>
-          <span class="ticker-star">★</span>
-          <span>2,000+ AUDITORIUM PERFORMANCES</span>
-          <span class="ticker-star">★</span>
-          <span>120,000 FEET OF CELLULOID COMEDY</span>
-          <span class="ticker-star">★</span>
-          <span>LONDON · DUBAI · SYDNEY · NEW YORK · MUMBAI · DELHI</span>
-          <span class="ticker-star">★</span>
-          <span>● 35MM MOTION PICTURE PRINT</span>
-          <span class="ticker-star">★</span>
-          <span>NETFLIX SPECIAL STREAMING IN 190+ COUNTRIES</span>
-        </div>
-      </div>
-
     </div>
 
-  </div>
+    <!-- Independent Full-Bleed 35mm Celluloid Sprocket Ribbon -->
+    <div class="celluloid-marquee-highway" aria-hidden="true">
+      <div class="film-ticker-track mono">
+        <!-- Film Strip Sequence 1 (2,688px = 96 perfs @ 28px pitch) -->
+        <div class="film-strip-sequence">
+          <div class="celluloid-sprocket-row sprocket-top"></div>
+          <div class="film-frames-strip">
+            <div class="film-frame">
+              <span>● 35MM MOTION PICTURE PRINT</span>
+              <span class="ticker-star">★</span>
+            </div>
+            <div class="film-frame">
+              <span class="ticker-highlight">NETFLIX SPECIAL STREAMING IN 190+ COUNTRIES</span>
+              <span class="ticker-star">★</span>
+            </div>
+            <div class="film-frame">
+              <span>2,000+ AUDITORIUM PERFORMANCES</span>
+              <span class="ticker-star">★</span>
+            </div>
+            <div class="film-frame">
+              <span class="ticker-highlight">120,000 FEET OF CELLULOID COMEDY</span>
+              <span class="ticker-star">★</span>
+            </div>
+            <div class="film-frame">
+              <span>LONDON · DUBAI · SYDNEY · NEW YORK · MUMBAI · DELHI</span>
+              <span class="ticker-star">★</span>
+            </div>
+            <div class="film-frame">
+              <span class="ticker-highlight">CONFIDENTIAL GYAN ARCHIVE // 33 CITIES</span>
+              <span class="ticker-star">★</span>
+            </div>
+          </div>
+          <div class="celluloid-sprocket-row sprocket-bottom"></div>
+        </div>
+
+        <!-- Film Strip Sequence 2 (Identical Clone for Seamless 0px-jump Loop) -->
+        <div class="film-strip-sequence" aria-hidden="true">
+          <div class="celluloid-sprocket-row sprocket-top"></div>
+          <div class="film-frames-strip">
+            <div class="film-frame">
+              <span>● 35MM MOTION PICTURE PRINT</span>
+              <span class="ticker-star">★</span>
+            </div>
+            <div class="film-frame">
+              <span class="ticker-highlight">NETFLIX SPECIAL STREAMING IN 190+ COUNTRIES</span>
+              <span class="ticker-star">★</span>
+            </div>
+            <div class="film-frame">
+              <span>2,000+ AUDITORIUM PERFORMANCES</span>
+              <span class="ticker-star">★</span>
+            </div>
+            <div class="film-frame">
+              <span class="ticker-highlight">120,000 FEET OF CELLULOID COMEDY</span>
+              <span class="ticker-star">★</span>
+            </div>
+            <div class="film-frame">
+              <span>LONDON · DUBAI · SYDNEY · NEW YORK · MUMBAI · DELHI</span>
+              <span class="ticker-star">★</span>
+            </div>
+            <div class="film-frame">
+              <span class="ticker-highlight">CONFIDENTIAL GYAN ARCHIVE // 33 CITIES</span>
+              <span class="ticker-star">★</span>
+            </div>
+          </div>
+          <div class="celluloid-sprocket-row sprocket-bottom"></div>
+        </div>
+      </div>
+    </div>
 
   <!-- Video Modal Player Overlay -->
   <div class="video-modal" id="videoModal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="35mm Performance Projection Player">

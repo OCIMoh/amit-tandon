@@ -181,10 +181,10 @@ function setupAuditCollagePhysics(heroSection: HTMLElement, _playSound?: () => v
     isFolderHovered = true;
     foley.playPaperRustle(0.75);
 
-    // Initial physical lift on hover
+    // Forward and downward inspection glide on hover (unveiling the billboard title)
     gsap.to(folder, {
-      y: -16,
-      scale: 1.025,
+      y: 32,
+      scale: 1.02,
       duration: 0.4,
       ease: "power2.out",
       overwrite: "auto"
@@ -244,9 +244,9 @@ function setupAuditCollagePhysics(heroSection: HTMLElement, _playSound?: () => v
       rotationX: -fy * 10,
       rotationY: fx * 12,
       rotationZ: -1.5 + fx * 2.5,
-      x: fx * 18,
-      y: -16 + fy * 12,
-      scale: 1.025,
+      x: fx * 16,
+      y: 32 + fy * 12,
+      scale: 1.02,
       duration: 0.28,
       ease: "power1.out",
       overwrite: "auto"

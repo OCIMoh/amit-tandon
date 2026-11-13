@@ -8,7 +8,7 @@
 .watch-vault-section.cinema-lightbox-section {
   position: relative;
   width: 100%;
-  padding: 8rem 0 6rem;
+  padding: 8rem 0 0;
   background-color: #07070A;
   color: #FFFFFF;
   overflow: hidden;
@@ -1193,36 +1193,185 @@
 }
 
 /* ==========================================================================
-   7. DESK METAL BASE LIP & TICKER
+   7. INDEPENDENT 35MM CELLULOID MARQUEE HIGHWAY (AUTHENTIC FILM STRIP)
    ========================================================================== */
-.desk-metal-base {
-  background: #111116;
-  border-top: 2px solid #202028;
-  padding: 0.75rem 0;
+.celluloid-marquee-highway {
+  position: relative;
+  width: 100%;
+  margin-top: 5rem;
+  /* Authentic warm near-black brown film base with lighter margin bands */
+  background: 
+    linear-gradient(
+      180deg,
+      rgba(255, 235, 200, 0.05) 0%,
+      rgba(255, 235, 200, 0.05) 16px,
+      transparent 16px,
+      transparent calc(100% - 16px),
+      rgba(255, 235, 200, 0.05) calc(100% - 16px),
+      rgba(255, 235, 200, 0.05) 100%
+    ),
+    #17120D;
+  border-top: 1px solid rgba(255, 235, 200, 0.14);
+  border-bottom: 1px solid rgba(255, 235, 200, 0.14);
+  /* Single tight shadow for thin flat film strip */
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.55);
   overflow: hidden;
   user-select: none;
+  z-index: 5;
 }
 
+/* Film Grain (SVG feTurbulence) + Elliptical Dark Vignette Overlay */
+.celluloid-marquee-highway::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 6;
+  opacity: 0.25;
+  mix-blend-mode: overlay;
+  background-image: 
+    radial-gradient(ellipse 70% 80% at 50% 50%, transparent 45%, rgba(0, 0, 0, 0.8) 100%),
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='fg'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23fg)'/%3E%3C/svg%3E");
+}
+
+/* Scrolling Film Ribbon Track */
+.celluloid-marquee-highway .film-ticker-track,
 .film-ticker-track {
   display: flex;
-  align-items: center;
-  gap: 2rem;
+  width: max-content;
+  gap: 0;
+  column-gap: 0;
+  margin: 0;
+  padding: 0;
   white-space: nowrap;
-  font-size: 0.74rem;
-  letter-spacing: 0.12em;
-  color: #8C8C94;
-  animation: filmTicker 35s linear infinite;
+  animation: filmTicker 42s linear infinite;
   will-change: transform;
 }
 
-.ticker-star {
-  color: #E50914;
-  font-size: 0.85rem;
+/* Single Film Strip Sequence (2,688px = exactly 96 perfs at 28px pitch) */
+.film-strip-sequence {
+  display: flex;
+  flex-direction: column;
+  width: 2688px;
+  flex-shrink: 0;
 }
 
+/* 35mm Rounded-Rect Perforation Sprocket Tracks (Holes backlit in #efe3c4 @ 0.9 opacity) */
+.celluloid-sprocket-row {
+  width: 100%;
+  height: 10px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='10' viewBox='0 0 28 10'%3E%3Crect x='9' y='1' width='10' height='8' rx='2.5' ry='2.5' fill='%23efe3c4' fill-opacity='0.9' stroke='rgba(0,0,0,0.45)' stroke-width='0.5'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-size: 28px 10px;
+}
+
+.celluloid-sprocket-row.sprocket-top {
+  margin-top: 6px;
+  margin-bottom: 3px;
+}
+
+.celluloid-sprocket-row.sprocket-bottom {
+  margin-top: 3px;
+  margin-bottom: 8px;
+}
+
+/* Film Photogram Frames Row */
+.film-frames-strip {
+  display: flex;
+  flex-direction: row;
+  height: 38px;
+}
+
+/* Discrete Photogram Frame with Framing Dividers and Alternating Exposure */
+.film-frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 0 1.5rem;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  position: relative;
+  /* Dark frame divider (2px) and faint hairline highlight (1px) */
+  border-right: 2px solid rgba(0, 0, 0, 0.65);
+  box-shadow: 1px 0 0 rgba(255, 235, 200, 0.08);
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: #D6D2C4;
+}
+
+/* Frame widths: exact multiples of 28px pitch (Total = 2,688px = 96 perfs) */
+.film-frame:nth-child(1) { width: 392px; } /* 14 perfs */
+.film-frame:nth-child(2) { width: 504px; } /* 18 perfs */
+.film-frame:nth-child(3) { width: 392px; } /* 14 perfs */
+.film-frame:nth-child(4) { width: 392px; } /* 14 perfs */
+.film-frame:nth-child(5) { width: 560px; } /* 20 perfs */
+.film-frame:nth-child(6) { width: 448px; } /* 16 perfs */
+
+/* Subtle exposure variation between frames */
+.film-frame:nth-child(even) {
+  filter: brightness(1.03);
+  background: rgba(255, 235, 200, 0.015);
+}
+
+.film-frame:nth-child(odd) {
+  filter: brightness(0.97);
+  background: rgba(0, 0, 0, 0.07);
+}
+
+/* Tiny Low-Contrast Mono Edge Print along the Bottom Margin */
+.film-frame::before {
+  content: "5219 ▸ 12A";
+  position: absolute;
+  bottom: -16px;
+  left: 20px;
+  font-family: ui-monospace, "SF Mono", Monaco, "Cascadia Mono", monospace;
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: rgba(255, 235, 200, 0.25);
+  text-transform: uppercase;
+  pointer-events: none;
+  user-select: none;
+  z-index: 4;
+}
+
+.film-frame:nth-child(1)::before { content: "5219 ▸ 11"; }
+.film-frame:nth-child(2)::before { content: "5219 ▸ 11A"; }
+.film-frame:nth-child(3)::before { content: "5219 ▸ 12"; }
+.film-frame:nth-child(4)::before { content: "5219 ▸ 12A"; }
+.film-frame:nth-child(5)::before { content: "5219 ▸ 13"; }
+.film-frame:nth-child(6)::before { content: "5219 ▸ 13A"; }
+
+.film-frame span.ticker-highlight {
+  color: #FFF9E6;
+  font-weight: 800;
+}
+
+/* Red Star Separator with Reduced 10px / 0.6 Glow */
+.ticker-star {
+  color: #E50914;
+  font-size: 0.95rem;
+  text-shadow: 0 0 10px rgba(229, 9, 20, 0.6);
+  flex-shrink: 0;
+}
+
+/* Seamless Continuous Motion: Translates exactly one complete sequence (2,688px = 50%) */
 @keyframes filmTicker {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .film-ticker-track {
+    animation-play-state: paused;
+  }
 }
 
 /* ==========================================================================

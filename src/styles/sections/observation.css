@@ -135,7 +135,7 @@
   width: 100%;
   max-width: 1520px;
   margin: 0 auto;
-  padding: calc(var(--nav-height, 68px) + 2.2rem) 1.5rem 1.2rem;
+  padding: calc(var(--nav-height, 68px) + clamp(3.8rem, 5.5vh, 4.8rem)) 1.5rem 1.2rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -145,7 +145,7 @@
 /* Manilla Case File (Layer 1) - Authentic Paper Fibers & Crease Shadow */
 .dossier-manilla-folder {
   position: relative;
-  width: min(1200px, 96vw);
+  width: min(980px, 84vw);
   background: #EDE1C8;
   background-image: 
     var(--grain),
@@ -160,7 +160,7 @@
     inset -1px -1px 0 rgba(90, 60, 25, 0.25),
     inset 0 0 70px rgba(120, 85, 40, 0.08);
   transform: rotate(-1.5deg);
-  padding: 2.2rem 2.8rem 2.6rem;
+  padding: 1.85rem 2.35rem 2.15rem;
   color: #1A1A1A;
   transition: box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   transform-style: preserve-3d;
@@ -316,7 +316,7 @@
 .dossier-evidence-grid {
   display: grid;
   grid-template-columns: 1.05fr 1.45fr 0.95fr;
-  gap: 2.2rem;
+  gap: 1.98rem;
   align-items: center;
   position: relative;
   z-index: 6;

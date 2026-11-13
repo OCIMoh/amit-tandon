@@ -1759,113 +1759,160 @@
 }
 
 .stamp-hint {
-  font-size: 0.52rem;
+  position: relative;
+  font-size: 0.54rem;
   font-weight: 700;
   letter-spacing: 0.12em;
-  color: rgba(123, 129, 150, 0.45);
+  color: rgba(185, 28, 28, 0.72);
   pointer-events: none;
   user-select: none;
   z-index: 10;
   transition: opacity 0.3s ease, color 0.3s ease;
-  opacity: 0.5;
+  opacity: 0.75;
 }
 
 [data-stampable="true"]:hover .stamp-hint {
   opacity: 1;
-  color: rgba(185, 28, 28, 0.75);
+  color: rgba(185, 28, 28, 0.95);
 }
 
-/* --- Rubber Stamp Apparatus (Temporary Slamming Element) --- */
+@media (hover: none) {
+  .stamp-hint {
+    opacity: 0.85 !important;
+    color: rgba(185, 28, 28, 0.9) !important;
+  }
+}
+
+/* --- Rubber Stamp Apparatus (Temporary Slamming Tool) --- */
 .rubber-stamp-apparatus {
   position: absolute;
-  width: 160px;
-  height: 80px;
+  width: 236px;
+  height: 44px;
   pointer-events: none;
   z-index: 100;
   transform-origin: center center;
   will-change: transform, opacity;
 }
 
-.rubber-stamp-apparatus .stamp-head {
-  width: 100%;
-  height: 100%;
-  border-radius: 6px 6px 2px 2px;
-  background: linear-gradient(
-    180deg,
-    #8B6914 0%,
-    #A67C20 10%,
-    #3D2B0A 12%,
-    #5C3D12 14%,
-    #7B5A28 50%,
-    #5C3D12 86%,
-    #3D2B0A 88%,
-    #A67C20 90%,
-    #8B6914 100%
-  );
-  box-shadow:
-    0 30px 40px rgba(0, 0, 0, 0.8),
-    inset 0 2px 0 rgba(255, 235, 200, 0.2),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.4);
-  position: relative;
+/* Dynamic Soft Cast Shadow (Animates transform & opacity only) */
+.rubber-stamp-apparatus .stamp-shadow {
+  position: absolute;
+  inset: 0;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.65);
+  filter: blur(8px);
+  pointer-events: none;
+  transform-origin: center center;
+  will-change: transform, opacity;
 }
 
+/* Dark Hardwood Block Body with Top-Left Light Chamfer */
+.rubber-stamp-apparatus .stamp-head {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0px,
+      transparent 3px,
+      rgba(0, 0, 0, 0.04) 3px,
+      rgba(0, 0, 0, 0.04) 6px
+    ),
+    linear-gradient(
+      180deg,
+      #7A5230 0%,
+      #634023 35%,
+      #4D3018 70%,
+      #3A2412 100%
+    );
+  box-shadow:
+    inset 0 2px 0 rgba(255, 235, 200, 0.32),
+    inset 1px 0 0 rgba(255, 235, 200, 0.18),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.6),
+    inset -1px 0 0 rgba(0, 0, 0, 0.4);
+  transform-origin: center center;
+  will-change: transform, opacity;
+}
+
+/* Turned Brass Knob Handle (30px wide, 28px tall, highlight band & dark neck) */
 .rubber-stamp-apparatus .stamp-head::before {
   content: '';
   position: absolute;
-  top: -12px;
+  bottom: 100%;
   left: 50%;
   transform: translateX(-50%);
-  width: 24px;
-  height: 14px;
-  border-radius: 4px 4px 0 0;
-  background: linear-gradient(
-    180deg,
-    #D4A843 0%,
-    #B8922E 40%,
-    #9A7A24 100%
-  );
+  width: 30px;
+  height: 28px;
+  border-radius: 15px 15px 5px 5px / 16px 16px 6px 6px;
+  background:
+    linear-gradient(180deg, transparent 0px, transparent 18px, #36220B 18px, #483010 21px, #1E1205 21px, #2A1A08 28px),
+    linear-gradient(
+      135deg,
+      #FFF4CC 0%,
+      #F0CF75 22%,
+      #FFF9E0 35%,
+      #D1A640 50%,
+      #8A6516 80%,
+      #583E0A 100%
+    );
   box-shadow:
-    0 -2px 4px rgba(0, 0, 0, 0.3),
-    inset 0 1px 0 rgba(255, 235, 200, 0.3);
+    0 2px 5px rgba(0, 0, 0, 0.4),
+    inset 1px 1px 1.5px rgba(255, 255, 255, 0.7),
+    inset -1px -1px 2px rgba(0, 0, 0, 0.55);
+  z-index: 2;
 }
 
+/* Protruding Red Rubber Die (Protrudes ~5px below block, color #A01D1D) */
 .rubber-stamp-apparatus .stamp-head::after {
   content: '';
   position: absolute;
-  bottom: 0;
-  left: 8px;
-  right: 8px;
-  height: 6px;
-  background: #8B1A1A;
-  border-radius: 0 0 1px 1px;
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.5);
+  bottom: -5px;
+  left: 3px;
+  right: 3px;
+  height: 7px;
+  background: #A01D1D;
+  border-radius: 0 0 3px 3px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.45);
+  z-index: -1;
 }
 
-/* --- Stamped Ink Imprint (Permanent Mark) --- */
+/* --- Stamped Ink Imprint (Authentic Porous Ink on Paper) --- */
 .stamped-ink-imprint {
   position: absolute;
   pointer-events: none;
   z-index: 45;
-  border: 2.5px solid #B91C1C;
-  border-radius: 4px;
-  padding: 5px 10px;
+  border: 2px solid #B3201F;
+  border-radius: 3.5px 4.5px 3px 5px / 4px 3px 5px 3.5px;
+  box-shadow: inset 0 0 0 1px rgba(179, 32, 31, 0.22);
+  padding: 6px 14px;
   font-family: "Courier Prime", monospace;
-  font-size: 0.52rem;
-  font-weight: 900;
+  font-size: 0.62rem;
+  font-weight: 700;
   letter-spacing: 0.14em;
-  line-height: 1.2;
-  color: #B91C1C;
+  line-height: 1.25;
+  color: #B3201F;
   text-align: center;
   text-transform: uppercase;
   user-select: none;
   white-space: nowrap;
   opacity: 0;
-  will-change: opacity;
-  /* Distressed ink mask via inline SVG noise */
-  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-  -webkit-mask-size: cover;
-  mask-size: cover;
+  mix-blend-mode: multiply;
+  text-shadow: 0 0 0.5px #B3201F;
+  transition: text-shadow 1.5s ease-out;
+
+  /* Ink Dropouts via inline SVG: feTurbulence + feComponentTransfer step threshold */
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='3' stitchTiles='stitch'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='9' intercept='-2.6'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23f)' fill='black'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='3' stitchTiles='stitch'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='9' intercept='-2.6'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23f)' fill='black'/%3E%3C/svg%3E");
+  -webkit-mask-size: 160px 160px;
+  mask-size: 160px 160px;
+  -webkit-mask-repeat: repeat;
+  mask-repeat: repeat;
+  -webkit-mask-position: var(--mx, 0px) var(--my, 0px);
+  mask-position: var(--mx, 0px) var(--my, 0px);
 }
 
 .stamped-ink-imprint .stamp-line {
@@ -1873,13 +1920,13 @@
 }
 
 .stamped-ink-imprint .stamp-star {
-  color: #B91C1C;
+  color: #B3201F;
   font-size: 0.65rem;
 }
 
-/* Slight red glow on the imprint to mimic fresh wet ink */
+/* Wet Ink (unclipped inside text-shadow aura, settling over 1.5s to dry state) */
 .stamped-ink-imprint.stamp-fresh {
-  filter: drop-shadow(0 0 3px rgba(185, 28, 28, 0.25));
+  text-shadow: 0 0 2px rgba(179, 32, 31, 0.45), 0 0 0.5px #B3201F;
 }
 
 /* Fading oldest stamp when max count is exceeded */

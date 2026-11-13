@@ -1769,14 +1769,19 @@ function setupInteractiveStamps(): void {
       const phrase = STAMP_PHRASES[phraseIndex % STAMP_PHRASES.length];
       phraseIndex++;
 
-      // Random rotation between -7° and +7°
-      const angle = Math.random() * 14 - 7;
+      // Randomization per stamp: mask offset, subtle rotation (±3deg), opacity (.80 - .95)
+      const mx = Math.floor(Math.random() * 160);
+      const my = Math.floor(Math.random() * 160);
+      const angle = (Math.random() * 6 - 3).toFixed(2);
+      const opacity = (0.80 + Math.random() * 0.15).toFixed(3);
 
       // --- Create the Ink Imprint (stays permanently) ---
       const imprint = document.createElement('div');
       imprint.className = 'stamped-ink-imprint stamp-fresh';
       imprint.setAttribute('aria-hidden', 'true');
       imprint.innerHTML = `<span class="stamp-line">${phrase[0]}</span><span class="stamp-line">${phrase[1]}</span>`;
+      imprint.style.setProperty('--mx', `${mx}px`);
+      imprint.style.setProperty('--my', `${my}px`);
       imprint.style.left = `${x}px`;
       imprint.style.top = `${y}px`;
       imprint.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
@@ -1784,52 +1789,66 @@ function setupInteractiveStamps(): void {
       stamps.push(imprint);
 
       if (reduce) {
-        // In reduced motion mode, just show the imprint immediately
-        imprint.style.opacity = '0.85';
+        // In reduced motion mode, place stamp immediately without slam
+        imprint.style.opacity = opacity;
+        imprint.classList.remove('stamp-fresh');
+        imprint.style.willChange = 'auto';
         return;
       }
 
-      // --- Create the Stamp Apparatus (temporary — gets removed) ---
+      // Match tool footprint to the rendered imprint dimensions
+      const imprintWidth = imprint.offsetWidth || 230;
+      const imprintHeight = imprint.offsetHeight || 44;
+
+      // --- Create the Stamp Apparatus (with separate shadow & head elements) ---
       const apparatus = document.createElement('div');
       apparatus.className = 'rubber-stamp-apparatus';
       apparatus.setAttribute('aria-hidden', 'true');
-      apparatus.innerHTML = '<div class="stamp-head"></div>';
+      apparatus.innerHTML = '<div class="stamp-shadow"></div><div class="stamp-head"></div>';
+      apparatus.style.width = `${imprintWidth}px`;
+      apparatus.style.height = `${imprintHeight}px`;
       apparatus.style.left = `${x}px`;
       apparatus.style.top = `${y}px`;
       apparatus.style.transform = 'translate(-50%, -50%)';
       container.appendChild(apparatus);
 
-      // --- GSAP Timeline: Slam → Show Ink → Micro-shake → Lift ---
+      const stampHead = apparatus.querySelector<HTMLElement>('.stamp-head');
+      const stampShadow = apparatus.querySelector<HTMLElement>('.stamp-shadow');
+
+      // --- GSAP Timeline: Slam → Show Ink → Micro-shake → Lift (transform & opacity only) ---
       const tl = gsap.timeline({
         onComplete: () => {
           apparatus.remove();
-          // Remove 'fresh' glow after a beat
-          setTimeout(() => imprint.classList.remove('stamp-fresh'), 800);
+          // Settle wet ink aura to dry state over 1.5s, then remove will-change
+          setTimeout(() => {
+            imprint.classList.remove('stamp-fresh');
+            imprint.style.willChange = 'auto';
+          }, 1500);
         },
       });
 
-      // 1. Slam down from above (scale 2.2 → 1.0)
-      tl.fromTo(
-        apparatus,
-        {
-          scale: 2.2,
-          opacity: 0,
-          y: -40,
-        },
-        {
-          scale: 1.0,
-          opacity: 1,
-          y: 0,
-          duration: 0.14,
-          ease: 'power4.in',
-        }
-      );
+      // 1. Slam down from above (scale 2.2 -> 1.0, y -44 -> 0)
+      if (stampHead) {
+        tl.fromTo(
+          stampHead,
+          { scale: 2.2, opacity: 0, y: -44 },
+          { scale: 1.0, opacity: 1, y: 0, duration: 0.14, ease: 'power4.in' }
+        );
+      }
+      if (stampShadow) {
+        tl.fromTo(
+          stampShadow,
+          { scale: 2.0, opacity: 0.12, y: 18 },
+          { scale: 1.0, opacity: 0.55, y: 2, duration: 0.14, ease: 'power4.in' },
+          '<'
+        );
+      }
 
-      // 2. At the contact moment: show ink imprint + micro-shake paper
+      // 2. At contact moment: show ink imprint at randomized opacity & micro-shake paper
       tl.to(
         imprint,
         {
-          opacity: 0.85,
+          opacity: Number(opacity),
           duration: 0.05,
         },
         '>'
@@ -1847,28 +1866,21 @@ function setupInteractiveStamps(): void {
         '<'
       );
 
-      // Collapse the stamp shadow at contact
-      tl.to(
-        apparatus.querySelector('.stamp-head'),
-        {
-          boxShadow: '0 4px 8px rgba(0,0,0,0.5), inset 0 2px 0 rgba(255,235,200,0.2), inset 0 -1px 0 rgba(0,0,0,0.4)',
-          duration: 0.08,
-        },
-        '<'
-      );
-
-      // 3. Lift the stamp away
-      tl.to(
-        apparatus,
-        {
-          scale: 1.3,
-          opacity: 0,
-          y: -30,
-          duration: 0.22,
-          ease: 'power2.out',
-        },
-        '+=0.06'
-      );
+      // 3. Lift stamp tool away
+      if (stampHead) {
+        tl.to(
+          stampHead,
+          { scale: 1.35, opacity: 0, y: -32, duration: 0.22, ease: 'power2.out' },
+          '+=0.06'
+        );
+      }
+      if (stampShadow) {
+        tl.to(
+          stampShadow,
+          { scale: 1.5, opacity: 0, y: 14, duration: 0.22, ease: 'power2.out' },
+          '<'
+        );
+      }
     });
   });
 }

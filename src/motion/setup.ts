@@ -1,24 +1,26 @@
 import Lenis from "lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { foley } from "./foley";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export async function setupMotion(): Promise<void> {
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  // Initialize smooth scrolling with natural duration
+  // Initialize smooth scrolling with natural duration and responsive wheel handling
   const lenis = new Lenis({
-    duration: reduce ? 0 : 0.85,
+    duration: reduce ? 0 : 0.65,
     smoothWheel: true,
-    touchMultiplier: 1.15,
+    touchMultiplier: 1.0,
+    wheelMultiplier: 1.0,
   });
 
   lenis.on("scroll", ScrollTrigger.update);
   gsap.ticker.add((time) => {
     lenis.raf(time * 1000);
   });
-  gsap.ticker.lagSmoothing(0);
+  gsap.ticker.lagSmoothing(500, 33);
 
   // Setup sub-systems
   setupNavScroll();
@@ -31,6 +33,7 @@ export async function setupMotion(): Promise<void> {
   setupMagneticPlayheads(reduce);
   setupAmbientSpotlight(reduce);
   setupMicAudioWaveClick();
+  setupFooterArchivalStamp();
 }
 
 /** Section 11.A: Compact Dark Navigation on Scroll */
@@ -91,23 +94,29 @@ function setupPosterHero(reduce: boolean): void {
     let targetX = 50;
     let currentX = 50;
 
-    const handlePointerMove = (e: PointerEvent) => {
-      const rect = heroSection.getBoundingClientRect();
-      const px = ((e.clientX - rect.left) / rect.width) * 100;
-      targetX = Math.max(15, Math.min(85, px));
-    };
-
-    heroSection.addEventListener("pointermove", handlePointerMove, { passive: true });
-
+    let rafId: number | null = null;
     const updateSpotlight = () => {
       currentX += (targetX - currentX) * 0.08;
       const tilt = ((currentX - 50) / 50) * 12;
       heroSection.style.setProperty("--spotlight-x", `${currentX.toFixed(2)}%`);
       heroSection.style.setProperty("--spotlight-tilt", `${tilt.toFixed(2)}deg`);
-      requestAnimationFrame(updateSpotlight);
+      if (Math.abs(targetX - currentX) > 0.05) {
+        rafId = requestAnimationFrame(updateSpotlight);
+      } else {
+        rafId = null;
+      }
     };
 
-    requestAnimationFrame(updateSpotlight);
+    const handlePointerMove = (e: PointerEvent) => {
+      const rect = heroSection.getBoundingClientRect();
+      const px = ((e.clientX - rect.left) / rect.width) * 100;
+      targetX = Math.max(15, Math.min(85, px));
+      if (!rafId) {
+        rafId = requestAnimationFrame(updateSpotlight);
+      }
+    };
+
+    heroSection.addEventListener("pointermove", handlePointerMove, { passive: true });
 
     // Magnetic CTA Button Physics
     const bindMagnetic = (el: HTMLElement | null, strength = 0.3) => {
@@ -156,27 +165,298 @@ function setupPosterHero(reduce: boolean): void {
 }
 
 /** 60fps Asymmetric Physics & Tactile Mouse Parallax for Audit Collage */
-function setupAuditCollagePhysics(heroSection: HTMLElement, playSound?: () => void): void {
+function setupAuditCollagePhysics(heroSection: HTMLElement, _playSound?: () => void): void {
   const folder = heroSection.querySelector<HTMLElement>(".dossier-manilla-folder");
   const receipt = heroSection.querySelector<HTMLElement>(".thermal-receipt-artifact");
   const photo = heroSection.querySelector<HTMLElement>(".photo-candid-artifact");
   const tag = heroSection.querySelector<HTMLElement>(".luggage-tag-artifact");
+  const paperclips = heroSection.querySelectorAll<HTMLElement>(".brass-paperclip");
+  const stamps = heroSection.querySelectorAll<HTMLElement>(".rubber-stamp");
   if (!folder) return;
 
+  let isFolderHovered = false;
+
+  // 1. Direct Case File Hover & 3D Tilt on Pointer Movements (Moves dynamically on hover, no click needed)
+  folder.addEventListener("pointerenter", () => {
+    isFolderHovered = true;
+    foley.playPaperRustle(0.75);
+
+    // Initial physical lift on hover
+    gsap.to(folder, {
+      y: -16,
+      scale: 1.025,
+      duration: 0.4,
+      ease: "power2.out",
+      overwrite: "auto"
+    });
+
+    // Sub-artifacts fan out on hover for inspection
+    if (receipt) {
+      gsap.to(receipt, {
+        x: -14,
+        y: -6,
+        rotationZ: 5.5,
+        scale: 1.03,
+        duration: 0.4,
+        ease: "power2.out",
+        overwrite: "auto"
+      });
+    }
+    if (photo) {
+      gsap.to(photo, {
+        y: -8,
+        scale: 1.04,
+        duration: 0.4,
+        ease: "power2.out",
+        overwrite: "auto"
+      });
+    }
+    if (tag) {
+      gsap.to(tag, {
+        x: 18,
+        y: 6,
+        rotationZ: 8.5,
+        scale: 1.03,
+        duration: 0.4,
+        ease: "power2.out",
+        overwrite: "auto"
+      });
+    }
+  });
+
+  folder.addEventListener("pointermove", (e: PointerEvent) => {
+    const folderRect = folder.getBoundingClientRect();
+    // Normalized [-1, 1] relative to folder center
+    const relX = (e.clientX - (folderRect.left + folderRect.width / 2)) / (folderRect.width / 2);
+    const relY = (e.clientY - (folderRect.top + folderRect.height / 2)) / (folderRect.height / 2);
+    const fx = Math.max(-1, Math.min(1, relX));
+    const fy = Math.max(-1, Math.min(1, relY));
+
+    // Dynamic light coordinates on folder
+    const lightX = Math.max(0, Math.min(100, ((e.clientX - folderRect.left) / folderRect.width) * 100));
+    const lightY = Math.max(0, Math.min(100, ((e.clientY - folderRect.top) / folderRect.height) * 100));
+    folder.style.setProperty("--light-x", `${lightX.toFixed(1)}%`);
+    folder.style.setProperty("--light-y", `${lightY.toFixed(1)}%`);
+
+    // Dynamic 3D tilt tracking cursor across the case file
+    gsap.to(folder, {
+      transformPerspective: 1200,
+      rotationX: -fy * 10,
+      rotationY: fx * 12,
+      rotationZ: -1.5 + fx * 2.5,
+      x: fx * 18,
+      y: -16 + fy * 12,
+      scale: 1.025,
+      duration: 0.28,
+      ease: "power1.out",
+      overwrite: "auto"
+    });
+
+    if (receipt) {
+      gsap.to(receipt, {
+        transformPerspective: 900,
+        rotationX: -fy * 14,
+        rotationY: fx * 16,
+        rotationZ: 5.5 + fx * 4,
+        x: -14 + fx * 24,
+        y: -6 + fy * 16,
+        scale: 1.03,
+        duration: 0.32,
+        ease: "power1.out",
+        overwrite: "auto"
+      });
+    }
+
+    if (photo) {
+      gsap.to(photo, {
+        transformPerspective: 1000,
+        rotationX: -fy * 8,
+        rotationY: fx * 10,
+        rotationZ: -1.5 + fx * 2,
+        x: fx * 14,
+        y: -8 + fy * 10,
+        scale: 1.04,
+        duration: 0.35,
+        ease: "power1.out",
+        overwrite: "auto"
+      });
+    }
+
+    if (tag) {
+      gsap.to(tag, {
+        transformPerspective: 800,
+        transformOrigin: "50% 0%",
+        rotationZ: 8.5 + fx * 12,
+        x: 18 + fx * 28,
+        y: 6 + fy * 18,
+        scale: 1.03,
+        duration: 0.28,
+        ease: "power1.out",
+        overwrite: "auto"
+      });
+    }
+  });
+
+  folder.addEventListener("pointerleave", () => {
+    isFolderHovered = false;
+    foley.playPaperRustle(0.4);
+
+    gsap.to(folder, {
+      rotationX: 0,
+      rotationY: 0,
+      rotationZ: -1.5,
+      x: 0,
+      y: 0,
+      scale: 1,
+      duration: 0.7,
+      ease: "power2.out",
+      overwrite: "auto"
+    });
+
+    if (receipt) {
+      gsap.to(receipt, {
+        rotationX: 0,
+        rotationY: 0,
+        rotationZ: 3.5,
+        x: 0,
+        y: 0,
+        scale: 1,
+        duration: 0.7,
+        ease: "power2.out",
+        overwrite: "auto"
+      });
+    }
+
+    if (photo) {
+      gsap.to(photo, {
+        rotationX: 0,
+        rotationY: 0,
+        rotationZ: -1.5,
+        x: 0,
+        y: 0,
+        scale: 1,
+        duration: 0.7,
+        ease: "power2.out",
+        overwrite: "auto"
+      });
+    }
+
+    if (tag) {
+      gsap.to(tag, {
+        rotationZ: 4,
+        x: 0,
+        y: 0,
+        scale: 1,
+        duration: 0.7,
+        ease: "power2.out",
+        overwrite: "auto"
+      });
+    }
+  });
+
+  // 2. Ambient Parallax when hovering hero canvas outside the folder
   heroSection.addEventListener("pointermove", (e: PointerEvent) => {
+    if (isFolderHovered) return; // Dedicated folder hover takes priority
+
     const rect = heroSection.getBoundingClientRect();
     const nx = (e.clientX - rect.left) / rect.width - 0.5;
     const ny = (e.clientY - rect.top) / rect.height - 0.5;
 
-    gsap.to(folder, { x: nx * 10, y: ny * 8, rotation: -1.5 + nx * 2, duration: 0.5, ease: "power2.out" });
-    if (receipt) gsap.to(receipt, { x: nx * 18, y: ny * 14, rotation: 3.5 + nx * 4, duration: 0.45, ease: "power2.out" });
-    if (photo) gsap.to(photo, { x: nx * 8, y: ny * 6, rotation: -1.5 + nx * 2, duration: 0.55, ease: "power2.out" });
-    if (tag) gsap.to(tag, { x: nx * 22, y: ny * 18, rotation: 4 + nx * 6, duration: 0.4, ease: "power2.out" });
+    // Ambient subtle tilt
+    gsap.to(folder, {
+      transformPerspective: 1200,
+      rotationX: -ny * 5,
+      rotationY: nx * 7,
+      rotationZ: -1.5 + nx * 1.2,
+      x: nx * 10,
+      y: ny * 6,
+      scale: 1,
+      duration: 0.6,
+      ease: "power2.out",
+      overwrite: "auto"
+    });
+
+    if (receipt) {
+      gsap.to(receipt, {
+        transformPerspective: 900,
+        rotationX: -ny * 7,
+        rotationY: nx * 9,
+        rotationZ: 3.5 + nx * 2.5,
+        x: nx * 16,
+        y: ny * 12,
+        duration: 0.5,
+        ease: "power2.out",
+        overwrite: "auto"
+      });
+    }
+
+    if (photo) {
+      gsap.to(photo, {
+        transformPerspective: 1000,
+        rotationX: -ny * 4,
+        rotationY: nx * 5,
+        rotationZ: -1.5 + nx * 1.4,
+        x: nx * 8,
+        y: ny * 6,
+        duration: 0.6,
+        ease: "power2.out",
+        overwrite: "auto"
+      });
+    }
+
+    if (tag) {
+      gsap.to(tag, {
+        transformPerspective: 800,
+        transformOrigin: "50% 0%",
+        rotationZ: 4 + nx * 6,
+        x: nx * 20,
+        y: ny * 14,
+        duration: 0.45,
+        ease: "power2.out",
+        overwrite: "auto"
+      });
+    }
   }, { passive: true });
 
-  [receipt, photo, tag].forEach((el) => {
-    if (!el) return;
-    el.addEventListener("pointerenter", () => { playSound?.(); });
+  heroSection.addEventListener("pointerleave", () => {
+    if (isFolderHovered) return;
+    gsap.to(folder, {
+      rotationX: 0,
+      rotationY: 0,
+      rotationZ: -1.5,
+      x: 0,
+      y: 0,
+      scale: 1,
+      duration: 0.8,
+      ease: "power2.out",
+      overwrite: "auto"
+    });
+    if (receipt) gsap.to(receipt, { rotationX: 0, rotationY: 0, rotationZ: 3.5, x: 0, y: 0, scale: 1, duration: 0.8, ease: "power2.out", overwrite: "auto" });
+    if (photo) gsap.to(photo, { rotationX: 0, rotationY: 0, rotationZ: -1.5, x: 0, y: 0, scale: 1, duration: 0.8, ease: "power2.out", overwrite: "auto" });
+    if (tag) gsap.to(tag, { rotationZ: 4, x: 0, y: 0, scale: 1, duration: 0.8, ease: "power2.out", overwrite: "auto" });
+  });
+
+  // Material Foley sound triggers
+  if (receipt) {
+    receipt.addEventListener("pointerenter", () => foley.playPaperRustle(1.2));
+  }
+  if (photo) {
+    photo.addEventListener("pointerenter", () => foley.playTapeSnap());
+  }
+  if (tag) {
+    tag.addEventListener("pointerenter", () => foley.playPaperRustle(0.9));
+  }
+  paperclips.forEach(clip => {
+    clip.style.pointerEvents = "auto";
+    clip.style.cursor = "pointer";
+    clip.addEventListener("pointerenter", () => foley.playMetalClick());
+    clip.addEventListener("click", () => foley.playMetalClick());
+  });
+  stamps.forEach(stamp => {
+    stamp.style.pointerEvents = "auto";
+    stamp.style.cursor = "pointer";
+    stamp.addEventListener("pointerenter", () => foley.playStampThud());
+    stamp.addEventListener("click", () => foley.playStampThud());
   });
 }
 
@@ -469,6 +749,9 @@ function setupEvidenceDeskMotion(reduce: boolean): void {
   const docketStack = section.querySelector<HTMLElement>("#case-docket-stack");
   const tabBtns = section.querySelectorAll<HTMLButtonElement>(".case-index-tab");
   const sheets = section.querySelectorAll<HTMLElement>(".case-evidence-sheet");
+  const waxSeal = section.querySelector<HTMLElement>(".dock-wax-seal");
+  const customsStamps = section.querySelectorAll<HTMLElement>(".customs-stamp");
+  const dogEar = section.querySelector<HTMLElement>(".dog-ear-corner");
 
   let currentSheetIdx = 0;
   const totalSheets = sheets.length;
@@ -479,6 +762,9 @@ function setupEvidenceDeskMotion(reduce: boolean): void {
     }
 
     currentSheetIdx = (targetIdx + totalSheets) % totalSheets;
+
+    // Trigger physical cardstock page turn foley
+    foley.playDocketFlip();
 
     // Update Tab States
     tabBtns.forEach((btn, idx) => {
@@ -497,8 +783,8 @@ function setupEvidenceDeskMotion(reduce: boolean): void {
         if (!reduce) {
           gsap.fromTo(
             sheet,
-            { opacity: 0, x: 18, rotate: 1 },
-            { opacity: 1, x: 0, rotate: 0, duration: 0.38, ease: "power2.out" }
+            { opacity: 0, x: 22, rotationY: -4, rotate: 1 },
+            { opacity: 1, x: 0, rotationY: 0, rotate: 0, duration: 0.42, ease: "power2.out" }
           );
         }
       } else {
@@ -514,6 +800,9 @@ function setupEvidenceDeskMotion(reduce: boolean): void {
       e.stopPropagation();
       goToSheet(idx);
     });
+    btn.addEventListener("pointerenter", () => {
+      foley.playPaperRustle(0.7);
+    });
   });
 
   // Clicking anywhere on the Right Page Docket flips to next exhibit!
@@ -528,7 +817,36 @@ function setupEvidenceDeskMotion(reduce: boolean): void {
     });
   }
 
-  // 2. Scroll-triggered entrance reveal for Master Folder
+  // Dog-ear corner hover rustle
+  if (dogEar) {
+    dogEar.addEventListener("pointerenter", () => {
+      foley.playPaperRustle(0.9);
+    });
+  }
+
+  // Wax seal interaction
+  if (waxSeal) {
+    waxSeal.addEventListener("click", (e) => {
+      e.stopPropagation();
+      foley.playWaxSeal();
+    });
+    waxSeal.addEventListener("pointerenter", () => {
+      foley.playWaxSeal();
+    });
+  }
+
+  // Customs stamps interaction
+  customsStamps.forEach((stamp) => {
+    stamp.addEventListener("click", (e) => {
+      e.stopPropagation();
+      foley.playCustomsStamp();
+    });
+    stamp.addEventListener("pointerenter", () => {
+      foley.playCustomsStamp();
+    });
+  });
+
+  // 2. Scroll-triggered entrance reveal for Master Folder & Dynamic Mouse Physics
   const folder = section.querySelector<HTMLElement>(".master-case-folder");
   if (folder && !reduce) {
     gsap.from(folder, {
@@ -543,7 +861,7 @@ function setupEvidenceDeskMotion(reduce: boolean): void {
       ease: "power2.out",
     });
 
-    // 3. Subtle Asymmetric 3D Parallax on Photo Frames
+    // 3. Dynamic Key Light & 3D Parallax on Folder and Photo Frames
     const photoLeft = folder.querySelector<HTMLElement>(".subject-photo-frame");
     const photoRight = folder.querySelector<HTMLElement>(".sheet-photo-frame");
 
@@ -551,6 +869,22 @@ function setupEvidenceDeskMotion(reduce: boolean): void {
       const rect = section.getBoundingClientRect();
       const nx = (e.clientX - rect.left) / rect.width - 0.5;
       const ny = (e.clientY - rect.top) / rect.height - 0.5;
+
+      // Dynamic light coordinates on folder
+      const folderRect = folder.getBoundingClientRect();
+      const folderX = Math.max(0, Math.min(100, ((e.clientX - folderRect.left) / folderRect.width) * 100));
+      const folderY = Math.max(0, Math.min(100, ((e.clientY - folderRect.top) / folderRect.height) * 100));
+      folder.style.setProperty("--case-light-x", `${folderX.toFixed(1)}%`);
+      folder.style.setProperty("--case-light-y", `${folderY.toFixed(1)}%`);
+
+      // Subtle 3D gyroscopic tilt on master folder
+      gsap.to(folder, {
+        transformPerspective: 1600,
+        rotationX: -ny * 3.5,
+        rotationY: nx * 4.5,
+        duration: 0.6,
+        ease: "power2.out"
+      });
 
       if (photoLeft) {
         gsap.to(photoLeft, {
@@ -572,6 +906,15 @@ function setupEvidenceDeskMotion(reduce: boolean): void {
         });
       }
     }, { passive: true });
+
+    section.addEventListener("pointerleave", () => {
+      gsap.to(folder, {
+        rotationX: 0,
+        rotationY: 0,
+        duration: 0.8,
+        ease: "power2.out"
+      });
+    });
   }
 }
 
@@ -600,6 +943,7 @@ function setupTourInteractions(): void {
 
   // Kinetic Mechanical Solari Tile Flip
   const triggerSolariTileFlip = () => {
+    foley.playSolariFlutter();
     const activeTiles = document.querySelectorAll<HTMLElement>(".solari-row:not([style*='display: none']) .flap-tile");
     if (activeTiles.length > 0) {
       gsap.fromTo(
@@ -788,11 +1132,13 @@ function setupTourInteractions(): void {
     rotaryWheel.addEventListener("click", () => {
       if (isDialing) return;
       isDialing = true;
+      foley.playRotaryDial();
       gsap.to(rotaryWheel, {
         rotation: 165,
         duration: 0.42,
         ease: "power2.out",
         onComplete: () => {
+          foley.playRotaryReturn();
           gsap.to(rotaryWheel, {
             rotation: 0,
             duration: 0.85,
@@ -808,6 +1154,7 @@ function setupTourInteractions(): void {
 
   if (hotlineCallBtn && phoneHandset) {
     hotlineCallBtn.addEventListener("mouseenter", () => {
+      foley.playTelephoneBell();
       gsap.to(phoneHandset, {
         y: -12,
         rotation: -3.5,
@@ -824,6 +1171,7 @@ function setupTourInteractions(): void {
       });
     });
     hotlineCallBtn.addEventListener("click", () => {
+      foley.playTelephoneBell();
       gsap.fromTo(
         phoneHandset,
         { x: -4, y: -14, rotation: -5 },
@@ -832,9 +1180,31 @@ function setupTourInteractions(): void {
     });
   }
 
-  // --- Physical Prop Interaction: Telex Continuous Paper Rollout ---
+  // --- Physical Prop Interaction: Boarding Passes & Perforated Ticket Stubs ---
+  featuredCards.forEach((card) => {
+    const stub = card.querySelector<HTMLElement>(".ticket-stub-tearoff");
+    const bookBtn = card.querySelector<HTMLAnchorElement>(".tour-card-btn");
+
+    if (stub) {
+      stub.addEventListener("pointerenter", () => foley.playPaperRustle(0.9));
+      stub.addEventListener("click", () => {
+        foley.playTicketTear();
+        gsap.fromTo(stub, { x: -4, rotation: 2 }, { x: 0, rotation: 0, duration: 0.3, ease: "elastic.out(1, 0.3)" });
+      });
+    }
+
+    if (bookBtn) {
+      bookBtn.addEventListener("pointerenter", () => foley.playPaperRustle(0.7));
+      bookBtn.addEventListener("click", () => foley.playTicketTear());
+    }
+  });
+
+  // --- Physical Prop Interaction: Telex Continuous Paper Rollout & Stamps ---
   const telexPaper = document.querySelector<HTMLElement>(".telex-paper-strip");
   if (telexPaper) {
+    telexPaper.addEventListener("pointerenter", () => foley.playTelexChatter());
+    telexPaper.addEventListener("click", () => foley.playTelexChatter());
+
     gsap.fromTo(
       telexPaper,
       { y: 35, opacity: 0.5 },
@@ -850,6 +1220,82 @@ function setupTourInteractions(): void {
       }
     );
   }
+
+  const bookableStamp = document.querySelector<HTMLElement>(".rubber-stamp.stamp-bookable");
+  const dispatchWaxSeal = document.querySelector<HTMLElement>(".telex-desk-stamps .wax-seal-red");
+
+  if (bookableStamp) {
+    bookableStamp.addEventListener("pointerenter", () => foley.playStampThud());
+    bookableStamp.addEventListener("click", () => {
+      foley.playStampThud();
+      gsap.fromTo(bookableStamp, { scale: 0.92 }, { scale: 1, duration: 0.3, ease: "back.out(2)" });
+    });
+  }
+
+  if (dispatchWaxSeal) {
+    dispatchWaxSeal.addEventListener("pointerenter", () => foley.playWaxSeal());
+    dispatchWaxSeal.addEventListener("click", () => {
+      foley.playWaxSeal();
+      gsap.fromTo(dispatchWaxSeal, { scale: 0.92 }, { scale: 1, duration: 0.3, ease: "back.out(2)" });
+    });
+  }
+
+  // --- Dynamic Pointer Lighting & 3D Gyroscopic Tilt on Command Desk ---
+  const dispatchDesk = document.querySelector<HTMLElement>(".dispatch-command-desk");
+  const deskSurface = document.querySelector<HTMLElement>(".dispatch-desk-surface");
+  const solariWing = document.querySelector<HTMLElement>(".solari-terminal-wing");
+  const hotlineWing = document.querySelector<HTMLElement>(".hotline-dispatch-wing");
+
+  if (dispatchDesk && deskSurface) {
+    dispatchDesk.addEventListener("pointermove", (e: PointerEvent) => {
+      const surfRect = deskSurface.getBoundingClientRect();
+      const sx = Math.max(0, Math.min(100, ((e.clientX - surfRect.left) / surfRect.width) * 100));
+      const sy = Math.max(0, Math.min(100, ((e.clientY - surfRect.top) / surfRect.height) * 100));
+      deskSurface.style.setProperty("--dispatch-x", `${sx.toFixed(1)}%`);
+      deskSurface.style.setProperty("--dispatch-y", `${sy.toFixed(1)}%`);
+
+      const deskRect = dispatchDesk.getBoundingClientRect();
+      const nx = (e.clientX - deskRect.left) / deskRect.width - 0.5;
+      const ny = (e.clientY - deskRect.top) / deskRect.height - 0.5;
+
+      gsap.to(dispatchDesk, {
+        transformPerspective: 1800,
+        rotationX: -ny * 2.8,
+        rotationY: nx * 3.2,
+        duration: 0.6,
+        ease: "power2.out"
+      });
+
+      if (solariWing) {
+        gsap.to(solariWing, {
+          x: nx * 6,
+          y: ny * 5,
+          duration: 0.5,
+          ease: "power1.out"
+        });
+      }
+
+      if (hotlineWing) {
+        gsap.to(hotlineWing, {
+          x: -nx * 6,
+          y: -ny * 5,
+          duration: 0.55,
+          ease: "power1.out"
+        });
+      }
+    }, { passive: true });
+
+    dispatchDesk.addEventListener("pointerleave", () => {
+      gsap.to(dispatchDesk, {
+        rotationX: 0,
+        rotationY: 0,
+        duration: 0.8,
+        ease: "power2.out"
+      });
+      if (solariWing) gsap.to(solariWing, { x: 0, y: 0, duration: 0.8, ease: "power2.out" });
+      if (hotlineWing) gsap.to(hotlineWing, { x: 0, y: 0, duration: 0.8, ease: "power2.out" });
+    });
+  }
 }
 
 /** Section 7: Cinema Player Modal Controller */
@@ -861,6 +1307,7 @@ function setupCinemaModal(): void {
   if (!modal || !iframe || !closeBtn) return;
 
   const open = (videoId: string) => {
+    foley.playFilmSpool();
     iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
     modal.classList.add("is-active");
     modal.setAttribute("aria-hidden", "false");
@@ -868,6 +1315,7 @@ function setupCinemaModal(): void {
   };
 
   const close = () => {
+    foley.playMetalClick();
     iframe.src = "";
     modal.classList.remove("is-active");
     modal.setAttribute("aria-hidden", "true");
@@ -918,8 +1366,8 @@ function setupAmbientSpotlight(reduce: boolean): void {
     currentX += (mouseX - currentX) * 0.1;
     currentY += (mouseY - currentY) * 0.1;
 
-    document.documentElement.style.setProperty("--mouse-x", `${currentX.toFixed(1)}px`);
-    document.documentElement.style.setProperty("--mouse-y", `${currentY.toFixed(1)}px`);
+    spotlight?.style.setProperty("--mouse-x", `${currentX.toFixed(1)}px`);
+    spotlight?.style.setProperty("--mouse-y", `${currentY.toFixed(1)}px`);
 
     if (Math.abs(mouseX - currentX) > 0.5 || Math.abs(mouseY - currentY) > 0.5) {
       rafId = requestAnimationFrame(updateSpotlight);
@@ -1134,14 +1582,7 @@ function setupCinemaLightbox(): void {
       const activeStatus = btn.querySelector<HTMLElement>(".canister-status-text");
       if (activeStatus) activeStatus.textContent = "LOADED ON LIGHTBOX";
 
-      // Projector gate shutter flash animation
-      if (frameEl) {
-        gsap.fromTo(
-          frameEl,
-          { filter: "brightness(2.2) contrast(1.6)" },
-          { filter: "brightness(1) contrast(1.12)", duration: 0.35, ease: "power2.out" }
-        );
-      }
+// (shutter flash handled below)
 
       if (imgEl) imgEl.src = data.image;
       if (playBtn) playBtn.setAttribute("data-video-id", data.videoId);
@@ -1169,6 +1610,151 @@ function setupCinemaLightbox(): void {
       }
       if (primaryText) primaryText.textContent = data.primaryText;
       if (secText) secText.textContent = data.secondaryText;
+
+      // Trigger 35mm canister & film spool foley
+      foley.playCanisterClink();
+      foley.playFilmSpool();
+
+      // Projector gate optical shutter double-flicker
+      if (frameEl) {
+        const tl = gsap.timeline();
+        tl.to(frameEl, { filter: "brightness(2.6) contrast(1.8) saturate(0.2)", duration: 0.07, ease: "power1.in" })
+          .to(frameEl, { filter: "brightness(0.3) contrast(1.4)", duration: 0.05 })
+          .to(frameEl, { filter: "brightness(1.9) contrast(1.3)", duration: 0.07 })
+          .to(frameEl, { filter: "brightness(1) contrast(1.12)", duration: 0.28, ease: "power2.out" });
+      }
+    });
+
+    btn.addEventListener("pointerenter", () => {
+      foley.playMetalClick();
     });
   });
+
+  // Dynamic Specular Backlight & 3D Gyroscopic Tilt on Editing Desk
+  const desk = document.querySelector<HTMLElement>(".editing-lightbox-desk");
+  const glass = document.querySelector<HTMLElement>(".lightbox-illuminated-glass");
+  const masterPod = document.querySelector<HTMLElement>(".master-projection-pod");
+  const canisterPod = document.querySelector<HTMLElement>(".canister-vault-pod");
+
+  if (desk && glass) {
+    desk.addEventListener("pointermove", (e: PointerEvent) => {
+      const glassRect = glass.getBoundingClientRect();
+      const gx = Math.max(0, Math.min(100, ((e.clientX - glassRect.left) / glassRect.width) * 100));
+      const gy = Math.max(0, Math.min(100, ((e.clientY - glassRect.top) / glassRect.height) * 100));
+      glass.style.setProperty("--lightbox-x", `${gx.toFixed(1)}%`);
+      glass.style.setProperty("--lightbox-y", `${gy.toFixed(1)}%`);
+
+      const deskRect = desk.getBoundingClientRect();
+      const nx = (e.clientX - deskRect.left) / deskRect.width - 0.5;
+      const ny = (e.clientY - deskRect.top) / deskRect.height - 0.5;
+
+      gsap.to(desk, {
+        transformPerspective: 1800,
+        rotationX: -ny * 3.0,
+        rotationY: nx * 3.5,
+        duration: 0.6,
+        ease: "power2.out"
+      });
+
+      if (masterPod) {
+        gsap.to(masterPod, {
+          x: nx * 8,
+          y: ny * 6,
+          duration: 0.5,
+          ease: "power1.out"
+        });
+      }
+
+      if (canisterPod) {
+        gsap.to(canisterPod, {
+          x: -nx * 6,
+          y: -ny * 4,
+          duration: 0.55,
+          ease: "power1.out"
+        });
+      }
+    }, { passive: true });
+
+    desk.addEventListener("pointerleave", () => {
+      gsap.to(desk, {
+        rotationX: 0,
+        rotationY: 0,
+        duration: 0.8,
+        ease: "power2.out"
+      });
+      if (masterPod) gsap.to(masterPod, { x: 0, y: 0, duration: 0.8, ease: "power2.out" });
+      if (canisterPod) gsap.to(canisterPod, { x: 0, y: 0, duration: 0.8, ease: "power2.out" });
+    });
+  }
+
+  // Interactive Lightbox Inspection Tools
+  const toolLoupe = document.querySelector<HTMLButtonElement>("#tool-loupe");
+  const toolChinagraph = document.querySelector<HTMLButtonElement>("#tool-chinagraph");
+  const toolSplicer = document.querySelector<HTMLButtonElement>("#tool-splicer");
+
+  if (toolLoupe) {
+    toolLoupe.addEventListener("pointerenter", () => foley.playMetalClick());
+    toolLoupe.addEventListener("click", () => {
+      foley.playMetalClick();
+      if (imgEl) {
+        gsap.fromTo(imgEl, { scale: 1.15 }, { scale: 1, duration: 0.6, ease: "elastic.out(1, 0.4)" });
+      }
+    });
+  }
+
+  if (toolChinagraph) {
+    toolChinagraph.addEventListener("pointerenter", () => foley.playWaxSeal());
+    toolChinagraph.addEventListener("click", () => {
+      foley.playWaxSeal();
+      const markup = document.querySelector<HTMLElement>(".grease-pencil-markup");
+      if (markup) {
+        gsap.fromTo(markup, { rotation: -3, scale: 1.08 }, { rotation: 0, scale: 1, duration: 0.4, ease: "back.out(2)" });
+      }
+    });
+  }
+
+  if (toolSplicer) {
+    toolSplicer.addEventListener("pointerenter", () => foley.playMetalClick());
+    toolSplicer.addEventListener("click", () => {
+      foley.playSplicerSnap();
+      gsap.fromTo(toolSplicer, { y: 3 }, { y: 0, duration: 0.25, ease: "power2.out" });
+    });
+  }
+
+  // Film Sprocket Tracks & Play Trigger Feedback
+  const sprockets = document.querySelectorAll<HTMLElement>(".film-sprocket-track");
+  sprockets.forEach((sprocket) => {
+    sprocket.addEventListener("pointerenter", () => foley.playPaperRustle(0.7));
+  });
+
+  if (playBtn) {
+    playBtn.addEventListener("pointerenter", () => foley.playMetalClick());
+    playBtn.addEventListener("click", () => foley.playFilmSpool());
+  }
+  if (secBtn) {
+    secBtn.addEventListener("pointerenter", () => foley.playMetalClick());
+    secBtn.addEventListener("click", () => foley.playFilmSpool());
+  }
+}
+
+/** Section 5 (Footer): Archival Case Docket Closing Stamp & Wax Seal */
+function setupFooterArchivalStamp(): void {
+  const stampBtn = document.querySelector<HTMLButtonElement>("#footer-stamp-closed");
+  const waxSeal = document.querySelector<HTMLElement>("#footer-wax-seal");
+
+  if (stampBtn) {
+    stampBtn.addEventListener("pointerenter", () => foley.playStampThud());
+    stampBtn.addEventListener("click", () => {
+      foley.playStampThud();
+      gsap.fromTo(stampBtn, { scale: 0.92, rotation: -6 }, { scale: 1, rotation: -3.5, duration: 0.35, ease: "back.out(2)" });
+    });
+  }
+
+  if (waxSeal) {
+    waxSeal.addEventListener("pointerenter", () => foley.playWaxSeal());
+    waxSeal.addEventListener("click", () => {
+      foley.playWaxSeal();
+      gsap.fromTo(waxSeal, { scale: 0.92, rotation: 8 }, { scale: 1, rotation: 12, duration: 0.35, ease: "back.out(2)" });
+    });
+  }
 }

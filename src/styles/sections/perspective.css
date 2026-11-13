@@ -115,20 +115,37 @@
   width: 100%;
   max-width: 1480px;
   margin: 0 auto;
-  background: #E8DFC7;
+  background: #EDE2C9;
   background-image: 
-    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.09) 0%, transparent 80%),
-    linear-gradient(180deg, rgba(0, 0, 0, 0.02) 0%, rgba(0, 0, 0, 0.07) 100%);
+    var(--grain),
+    var(--mottle),
+    radial-gradient(ellipse at 15% 20%, rgba(255, 255, 255, 0.22) 0%, transparent 45%),
+    radial-gradient(circle at 85% 80%, rgba(130, 95, 55, 0.15) 0%, transparent 60%);
   color: #1A1816;
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: none;
   box-shadow: 
-    0 35px 90px -15px rgba(0, 0, 0, 0.95),
-    0 10px 30px rgba(0, 0, 0, 0.4),
-    inset 0 0 80px rgba(0, 0, 0, 0.06);
+    var(--shadow-lift),
+    0 0 0 1px rgba(90, 65, 35, 0.22),
+    inset 1px 1px 0 rgba(255, 255, 255, 0.35),
+    inset -1px -1px 0 rgba(90, 60, 25, 0.25),
+    inset 0 0 80px rgba(120, 85, 40, 0.08);
   display: flex;
   flex-direction: column;
   overflow: visible;
+}
+
+/* Dynamic Examination Key Light matching Mouse Inspection */
+.master-case-folder::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 10;
+  background: 
+    radial-gradient(ellipse 75% 65% at var(--case-light-x, 50%) var(--case-light-y, 0%), rgba(255, 244, 215, 0.20), transparent 68%),
+    linear-gradient(180deg, transparent 65%, rgba(0, 0, 0, 0.10));
 }
 
 /* Folder Top Tab */
@@ -163,7 +180,7 @@
 }
 
 .folder-header-tab .tab-security {
-  color: #C0392B;
+  color: var(--ink-red);
 }
 
 /* Open Folder 2-Page Interior Spread */
@@ -175,21 +192,26 @@
   min-height: 480px;
 }
 
-/* Center Vertical Crease Shadow */
+/* Center Vertical Crease Shadow — 1px Dark Core + Asymmetric Falloff */
 .folder-center-crease {
   position: absolute;
   top: 0;
   bottom: 0;
   left: 42.8%;
-  width: 16px;
+  width: 24px;
+  transform: translateX(-50%);
   background: linear-gradient(
     90deg,
-    rgba(0, 0, 0, 0.18) 0%,
-    rgba(255, 255, 255, 0.12) 48%,
-    rgba(0, 0, 0, 0.2) 100%
+    transparent 0%,
+    rgba(0, 0, 0, 0.08) 35%,
+    rgba(0, 0, 0, 0.35) 48%,
+    rgba(0, 0, 0, 0.35) 52%,
+    rgba(255, 255, 255, 0.18) 55%,
+    rgba(0, 0, 0, 0.06) 80%,
+    transparent 100%
   );
   pointer-events: none;
-  z-index: 3;
+  z-index: 4;
 }
 
 /* ==========================================================================
@@ -200,6 +222,19 @@
   padding: 1.85rem 2rem 1.85rem 2.4rem;
   display: flex;
   gap: 1.65rem;
+}
+
+/* Gutter Curve Shading (Right edge of Left Page) */
+.folder-page-left::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 40px;
+  background: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.07) 100%);
+  pointer-events: none;
+  z-index: 2;
 }
 
 /* Heavy Brass Binder Clamp Gripping the Photo Frame */
@@ -234,12 +269,33 @@
   position: relative;
   flex-shrink: 0;
   width: 190px;
-  background: #FFFFFF;
+  background: var(--grain), #FFFFFF;
   padding: 8px 8px 22px;
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.32);
+  box-shadow: 
+    var(--shadow-contact),
+    0 0 0 1px rgba(0, 0, 0, 0.12),
+    inset 1px 1px 0 rgba(255, 255, 255, 0.55),
+    inset -1px -1px 0 rgba(0, 0, 0, 0.10);
   transform: rotate(-2.5deg);
   align-self: flex-start;
   margin-top: 6px;
+  isolation: isolate;
+}
+
+/* Print Overlay: Grain at multiply + Vignette */
+.subject-photo-frame::after {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  right: 8px;
+  bottom: 22px;
+  pointer-events: none;
+  z-index: 1;
+  background: 
+    var(--grain),
+    radial-gradient(ellipse at center, transparent 55%, rgba(0, 0, 0, 0.35) 100%);
+  mix-blend-mode: multiply;
 }
 
 .subject-photo-img {
@@ -248,31 +304,50 @@
   object-fit: cover;
   object-position: center top;
   filter: contrast(1.1) grayscale(20%);
+  opacity: 0.92;
   display: block;
 }
 
+/* Crisp Clear Tape (No Blur) */
 .photo-clear-tape {
   position: absolute;
   top: -8px;
   left: 50%;
   transform: translateX(-50%);
   width: 60px;
-  height: 15px;
-  background: rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(2px);
-  border: 1px solid rgba(255, 255, 255, 0.65);
+  height: 16px;
+  background: rgba(255, 248, 220, 0.32);
+  background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.45) 0%, transparent 40%, rgba(255, 255, 255, 0.25) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 
+    0 1px 2px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  z-index: 3;
 }
 
+/* Matte Cloth Tape Corner */
 .photo-corner-gaffer {
   position: absolute;
   bottom: -6px;
   right: -8px;
   width: 46px;
-  height: 15px;
-  background: linear-gradient(135deg, #8A929C 0%, #D8DFE6 45%, #FFFFFF 52%, #7B838C 100%);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.35);
+  height: 16px;
   transform: rotate(28deg);
+  z-index: 3;
+  filter: drop-shadow(1px 1px 0.6px rgba(0, 0, 0, 0.5)) drop-shadow(2px 3px 3px rgba(0, 0, 0, 0.28));
+}
+
+.photo-corner-gaffer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #9A9E9D;
+  background-image: 
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.07) 0px, rgba(255, 255, 255, 0.07) 1px, transparent 1px, transparent 3px),
+    repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.06) 0px, rgba(0, 0, 0, 0.06) 1px, transparent 1px, transparent 3px),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 60%);
+  clip-path: polygon(0% 15%, 4% 0%, 96% 2%, 100% 12%, 97% 85%, 100% 98%, 94% 96%, 3% 100%, 0% 88%);
+  opacity: 0.94;
 }
 
 /* Subject Dossier Details */
@@ -285,7 +360,7 @@
 .dossier-tag {
   font-size: 0.62rem;
   font-weight: 800;
-  color: #C0392B;
+  color: var(--ink-red);
   letter-spacing: 0.12em;
   margin-bottom: 0.25rem;
 }
@@ -331,11 +406,11 @@
   color: #3C362F;
   font-style: italic;
   margin: 0 0 1.15rem;
-  border-left: 2px solid #C0392B;
+  border-left: 2px solid var(--ink-red);
   padding-left: 0.75rem;
 }
 
-/* Realistic Distressed Ink Rubber Stamp */
+/* Distressed Ink Rubber Stamp — #ink-stamp-3 Porosity */
 .subject-stamp-block {
   margin-top: auto;
   display: flex;
@@ -346,22 +421,22 @@
 .rubber-ink-stamp.stamp-resigned {
   display: inline-flex;
   flex-direction: column;
-  border: 3.5px solid #D62828;
+  border: 3.5px solid var(--ink-red);
   border-radius: 6px;
   padding: 3px;
-  background: rgba(214, 40, 40, 0.06);
-  box-shadow: 
-    0 2px 8px rgba(214, 40, 40, 0.15),
-    inset 0 0 6px rgba(214, 40, 40, 0.2);
+  background: transparent;
+  box-shadow: none;
   transform: rotate(-8deg);
-  mask-image: repeating-linear-gradient(45deg, #000 0px, #000 3px, transparent 3px, transparent 4px, #000 4px, #000 8px);
-  -webkit-mask-image: repeating-linear-gradient(45deg, #000 0px, #000 3px, transparent 3px, transparent 4px, #000 4px, #000 8px);
+  filter: url(#ink-stamp-3);
+  mask-image: none;
+  -webkit-mask-image: none;
   user-select: none;
   flex-shrink: 0;
+  opacity: 0.92;
 }
 
 .stamp-inner-border {
-  border: 1.5px solid #D62828;
+  border: 1.5px solid var(--ink-red);
   border-radius: 3px;
   padding: 0.4rem 0.85rem 0.35rem;
   display: flex;
@@ -376,20 +451,20 @@
   font-family: var(--font-display, "Archivo Black", sans-serif);
   font-size: 0.75rem;
   font-weight: 900;
-  color: #D62828;
+  color: var(--ink-red);
   letter-spacing: 0.1em;
   line-height: 1;
-  text-shadow: 0 0 1px rgba(214, 40, 40, 0.4);
+  text-shadow: none;
 }
 
 .stamp-main-year {
   font-family: var(--font-display, "Archivo Black", sans-serif);
   font-size: 1.2rem;
   font-weight: 900;
-  color: #D62828;
+  color: var(--ink-red);
   line-height: 1.1;
   letter-spacing: 0.08em;
-  text-shadow: 0 0 2px rgba(214, 40, 40, 0.5);
+  text-shadow: none;
   margin: 1px 0;
 }
 
@@ -397,15 +472,20 @@
   font-size: 0.54rem;
   font-weight: 800;
   letter-spacing: 0.12em;
-  color: #BA181B;
+  color: var(--ink-red);
   line-height: 1;
 }
 
 .annotation-red-cursive {
-  font-size: 0.78rem;
-  color: #8C2518;
-  font-style: italic;
-  font-family: Georgia, serif;
+  font-family: "Caveat", cursive, sans-serif;
+  font-style: normal;
+  font-size: 0.98rem;
+  line-height: 1.15;
+  font-weight: 600;
+  color: rgba(180, 28, 22, 0.92);
+  letter-spacing: -0.01em;
+  display: inline-block;
+  transform: rotate(-2deg);
 }
 
 /* ==========================================================================
@@ -417,6 +497,19 @@
   display: flex;
 }
 
+/* Gutter Curve Shading (Left edge of Right Page) */
+.folder-page-right::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  background: linear-gradient(to left, transparent 0%, rgba(0, 0, 0, 0.07) 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
 .case-docket-stack {
   position: relative;
   width: 100%;
@@ -424,7 +517,7 @@
   cursor: pointer;
 }
 
-/* Stacked Paper Underlays (Physical Depth) */
+/* Stacked Paper Underlays — Three Hairline Page Edges */
 .docket-underlay-page {
   position: absolute;
   inset: 0;
@@ -433,19 +526,25 @@
 }
 
 .docket-underlay-2 {
-  background: #E8E1D3;
-  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: var(--grain), #E8E1D3;
   transform: rotate(1.2deg) translate(4px, 5px);
   z-index: 1;
-  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.15);
+  box-shadow: 
+    1px 1px 0 #D0C7B5,
+    2px 2px 0 #E4DCCF,
+    3px 3px 0 #C5BBA7,
+    var(--shadow-contact);
 }
 
 .docket-underlay-1 {
-  background: #F1ECE0;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: var(--grain), #F1ECE0;
   transform: rotate(-0.8deg) translate(2px, 2px);
   z-index: 2;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+  box-shadow: 
+    1px 1px 0 #DBD3C3,
+    2px 2px 0 #EEE8DC,
+    3px 3px 0 #CEBEAC,
+    var(--shadow-contact);
 }
 
 /* Spiral Binding Rings Down the Left Spine */
@@ -499,18 +598,21 @@
   height: 100%;
   position: relative;
   background-color: #FAF8F2;
-  background-image: repeating-linear-gradient(
-    to bottom,
-    transparent 0px,
-    transparent 26px,
-    rgba(60, 90, 150, 0.08) 27px
-  );
+  background-image: 
+    var(--grain),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.08) 0%, transparent 36px),
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0px,
+      transparent 26px,
+      rgba(60, 90, 150, 0.08) 27px
+    );
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
   border: 1px solid rgba(0, 0, 0, 0.09);
-  border-left: 2px solid rgba(220, 50, 50, 0.28);
+  border-left: 2px solid rgba(200, 38, 31, 0.35);
   padding: 1.25rem 1.65rem 2.8rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+  box-shadow: var(--shadow-contact);
   user-select: none;
 }
 
@@ -532,7 +634,7 @@
 .sheet-serial {
   font-size: 0.68rem;
   font-weight: 900;
-  color: #C0392B;
+  color: var(--ink-red);
   letter-spacing: 0.1em;
 }
 
@@ -565,11 +667,32 @@
   position: relative;
   flex-shrink: 0;
   width: 215px;
-  background: #FFFFFF;
+  background: var(--grain), #FFFFFF;
   padding: 6px 6px 20px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.22);
+  box-shadow: 
+    var(--shadow-contact),
+    0 0 0 1px rgba(0, 0, 0, 0.12),
+    inset 1px 1px 0 rgba(255, 255, 255, 0.55),
+    inset -1px -1px 0 rgba(0, 0, 0, 0.10);
   align-self: flex-start;
   transform: rotate(-1.5deg);
+  isolation: isolate;
+}
+
+/* Exhibit Print Overlay: Grain at multiply + Vignette */
+.sheet-photo-frame::after {
+  content: "";
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  right: 6px;
+  bottom: 20px;
+  pointer-events: none;
+  z-index: 1;
+  background: 
+    var(--grain),
+    radial-gradient(ellipse at center, transparent 55%, rgba(0, 0, 0, 0.35) 100%);
+  mix-blend-mode: multiply;
 }
 
 .sheet-photo {
@@ -578,6 +701,7 @@
   object-fit: cover;
   object-position: center center;
   filter: contrast(1.05) brightness(0.98);
+  opacity: 0.92;
   display: block;
   border-radius: 2px;
 }
@@ -606,19 +730,31 @@
   font-weight: 800;
   letter-spacing: 0.08em;
   border-radius: 3px;
+  z-index: 2;
 }
 
 .sheet-photo-tape {
   position: absolute;
   top: -8px;
   left: 50%;
-  transform: translateX(-50%);
-  width: 60px;
-  height: 15px;
-  background: linear-gradient(135deg, #8A929C 0%, #D8DFE6 45%, #FFFFFF 52%, #7B838C 100%);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.35);
   transform: translateX(-50%) rotate(-2deg);
+  width: 60px;
+  height: 16px;
+  z-index: 3;
+  filter: drop-shadow(1px 1px 0.6px rgba(0, 0, 0, 0.5)) drop-shadow(2px 3px 3px rgba(0, 0, 0, 0.28));
+}
+
+.sheet-photo-tape::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #9A9E9D;
+  background-image: 
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.07) 0px, rgba(255, 255, 255, 0.07) 1px, transparent 1px, transparent 3px),
+    repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.06) 0px, rgba(0, 0, 0, 0.06) 1px, transparent 1px, transparent 3px),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 60%);
+  clip-path: polygon(0% 10%, 3% 2%, 97% 0%, 100% 12%, 98% 88%, 100% 98%, 94% 96%, 4% 100%, 0% 92%);
+  opacity: 0.94;
 }
 
 /* Text Column */
@@ -638,7 +774,7 @@
 .sheet-rule-pill {
   font-size: 0.65rem;
   font-weight: 800;
-  color: #C0392B;
+  color: var(--ink-red);
   letter-spacing: 0.1em;
 }
 
@@ -663,7 +799,7 @@
   line-height: 1.48;
   color: #4A443B;
   margin: 0 0 1.15rem;
-  border-left: 2px solid #C0392B;
+  border-left: 2px solid var(--ink-red);
   padding-left: 0.75rem;
   font-style: italic;
 }
@@ -711,36 +847,72 @@
   font-weight: 700;
 }
 
-/* Dog-Eared Folded Paper Corner (Turn Page Indicator) */
+/* Authentic Folded Dog-Ear Corner (Turn Page Indicator) */
 .dog-ear-corner {
   position: absolute;
   bottom: 0;
   right: 0;
   display: flex;
-  align-items: center;
-  gap: 0.45rem;
-  padding: 0.45rem 1rem;
-  background: #EDE6D8;
-  border-top-left-radius: 10px;
-  border-top: 1px solid rgba(0, 0, 0, 0.14);
-  border-left: 1px solid rgba(0, 0, 0, 0.14);
+  flex-direction: row-reverse;
+  align-items: flex-end;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
   cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: -2px -2px 6px rgba(0, 0, 0, 0.08);
   z-index: 5;
+  padding: 0;
 }
 
-.dog-ear-corner:hover {
-  background: #E2D9C6;
-  transform: translate(-3px, -3px);
-  box-shadow: -4px -4px 12px rgba(0, 0, 0, 0.15);
+.dog-ear-curl {
+  position: relative;
+  display: block;
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  filter: drop-shadow(-1px -1px 2px rgba(35, 20, 8, 0.28));
+  transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1), height 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dog-ear-corner:hover .dog-ear-curl {
+  width: 42px;
+  height: 42px;
+}
+
+/* Cut-away triangle (bottom-right half) in underlay paper color #F1ECE0 */
+.dog-ear-curl::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #F1ECE0;
+  clip-path: polygon(100% 0, 0 100%, 100% 100%);
+}
+
+/* Flap triangle (top-left half) showing paper back */
+.dog-ear-curl::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #DCD3BF 0%, #FFFDF6 70%, #FFFDF6 100%);
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+  border-top: 1px solid rgba(0, 0, 0, 0.15);
+  border-left: 1px solid rgba(0, 0, 0, 0.15);
 }
 
 .dog-ear-prompt {
   font-size: 0.64rem;
-  font-weight: 900;
+  font-weight: 800;
   letter-spacing: 0.08em;
   color: #665E4E;
+  margin-right: 0.65rem;
+  margin-bottom: 0.45rem;
+  transition: transform 0.2s ease, color 0.2s ease;
+  white-space: nowrap;
+}
+
+.dog-ear-corner:hover .dog-ear-prompt {
+  color: #1A1816;
+  transform: translateX(-3px);
 }
 
 /* ==========================================================================
@@ -757,7 +929,7 @@
 }
 
 .case-index-tab {
-  background: #D8CEB4;
+  background: var(--grain), #D8CEB4;
   color: #554D42;
   border: 1px solid rgba(0, 0, 0, 0.16);
   border-left: none;
@@ -771,21 +943,22 @@
   letter-spacing: 0.1em;
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.15);
+  box-shadow: 2px 2px 3px rgba(35, 20, 8, 0.3);
   white-space: nowrap;
 }
 
 .case-index-tab:hover {
-  background: #ECE5D2;
+  background: var(--grain), #ECE5D2;
   color: #1A1816;
   transform: rotate(180deg) translateX(-3px);
+  box-shadow: 3px 3px 5px rgba(35, 20, 8, 0.35);
 }
 
 .case-index-tab.is-active {
-  background: #FAF8F2;
-  color: #C0392B;
+  background: var(--grain), #FAF8F2;
+  color: var(--ink-red);
   border-color: rgba(0, 0, 0, 0.22);
-  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25);
+  box-shadow: 3px 3px 6px rgba(35, 20, 8, 0.38);
   padding-right: 10px;
   font-weight: 900;
 }
@@ -815,12 +988,23 @@
   top: -10px;
   left: -8px;
   width: 52px;
-  height: 15px;
-  background: linear-gradient(135deg, #8A929C 0%, #D8DFE6 45%, #FFFFFF 52%, #7B838C 100%);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  height: 16px;
   transform: rotate(-6deg);
-  z-index: 2;
+  z-index: 3;
+  filter: drop-shadow(1px 1px 0.6px rgba(0, 0, 0, 0.5)) drop-shadow(2px 3px 3px rgba(0, 0, 0, 0.28));
+}
+
+.silver-gaffer-tape::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #9A9E9D;
+  background-image: 
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.07) 0px, rgba(255, 255, 255, 0.07) 1px, transparent 1px, transparent 3px),
+    repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.06) 0px, rgba(0, 0, 0, 0.06) 1px, transparent 1px, transparent 3px),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 60%);
+  clip-path: polygon(0% 8%, 5% 0%, 95% 3%, 100% 10%, 97% 90%, 100% 100%, 92% 96%, 4% 98%, 0% 90%);
+  opacity: 0.94;
 }
 
 .dock-netflix-pill {
@@ -872,6 +1056,18 @@
   padding: 0.25rem 0.55rem;
   border-radius: 4px;
   letter-spacing: 0.06em;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+.customs-stamp:hover {
+  transform: translateY(-2px) scale(1.05);
+  filter: brightness(1.15);
+}
+
+.customs-stamp:active {
+  transform: translateY(1px) scale(0.97);
 }
 
 .stamp-cyan {
@@ -904,58 +1100,128 @@
   color: #E50914;
 }
 
-/* Wax Seal */
+/* ==========================================================================
+   AUTHENTIC PRESSED SEALING WAX (REBUILT TACTILE COMPONENT)
+   ========================================================================== */
 .dock-wax-seal {
+  position: relative;
   flex-shrink: 0;
-  width: 56px;
-  height: 56px;
-  background: radial-gradient(circle, #A91B1B 0%, #7D0E0E 70%, #4D0505 100%);
-  border-radius: 50%;
-  padding: 2.5px;
-  box-shadow: 
-    0 4px 10px rgba(0, 0, 0, 0.6),
-    0 0 14px rgba(229, 9, 20, 0.35);
+  width: 88px;
+  height: 88px;
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+  user-select: none;
+  isolation: isolate;
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-origin: center center;
 }
 
+.dock-wax-seal:hover {
+  transform: scale(1.05) rotate(-2deg);
+}
+
+.dock-wax-seal:active {
+  transform: scale(0.97) rotate(-1deg);
+}
+
+/* Requirement 1, 2, 4: Irregular edge, translucent lighting gradients, warm dark-red shadows */
+.dock-wax-seal::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 47% 53% 49% 51% / 52% 47% 53% 48%;
+  background:
+    /* Top-left specular gleam */
+    radial-gradient(ellipse 36% 25% at 28% 22%, rgba(255, 215, 195, 0.48) 0%, rgba(255, 145, 120, 0.20) 45%, transparent 72%),
+    /* Sub-surface scattering glow (translucent molten wax edge) */
+    radial-gradient(circle at 48% 48%, transparent 62%, rgba(245, 95, 55, 0.44) 80%, rgba(200, 45, 30, 0.75) 92%, rgba(85, 12, 14, 0.96) 100%),
+    /* Deep rich dark-red base with directional top-left keylight */
+    radial-gradient(circle at 32% 28%, #B62929 0%, #8C191A 46%, #580D0F 78%, #360506 100%);
+  /* SVG Filter + Stacked Warm Dark-Red Shadows (no pure black) */
+  filter: url(#wax-rough-edge) 
+          drop-shadow(1px 2px 2px rgba(45, 8, 8, 0.78)) 
+          drop-shadow(3px 8px 14px rgba(40, 6, 6, 0.46));
+  z-index: 1;
+}
+
+/* Requirement 3: Surface Mottling Grain Filter */
+.dock-wax-seal::after {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  border-radius: 47% 53% 49% 51% / 52% 47% 53% 48%;
+  background: #A62020;
+  filter: url(#wax-surface-mottle);
+  opacity: 0.55;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* Requirement 5: Recessed Stamp Disc (~72% of the seal, pressed IN with inset bevel shadows) */
 .wax-seal-outer {
-  width: 100%;
-  height: 100%;
-  border: 1.2px dashed rgba(255, 215, 0, 0.6);
+  position: relative;
+  z-index: 5;
+  width: 72%;
+  height: 72%;
   border-radius: 50%;
+  margin: auto;
+  border: none;
+  background: radial-gradient(circle at 35% 32%, #801718 0%, #661011 52%, #480809 100%);
+  box-shadow: 
+    /* Dark inset top-left: shadow cast into the recess by the raised ridge */
+    inset 2.5px 3.5px 5.5px rgba(22, 2, 3, 0.88),
+    inset 1px 1.5px 2px rgba(18, 2, 2, 0.95),
+    /* Light inset bottom-right: bottom-right rim catching top-left light */
+    inset -1.5px -2px 3.5px rgba(255, 160, 140, 0.34),
+    inset -0.5px -0.5px 1px rgba(255, 200, 180, 0.48),
+    /* Outer ridge boundary definition */
+    0 0 0 1px rgba(50, 6, 7, 0.55),
+    0 -1px 1px rgba(255, 170, 150, 0.25);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+/* Requirement 6: Debossed Stamped Lettering (Serif, same hue slightly darker, light & shadow definition) */
 .wax-seal-inner {
   text-align: center;
-  color: #FFE6A3;
+  color: #380506;
   line-height: 1.05;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  font-family: var(--font-editorial, "Newsreader", "Playfair Display", "Times New Roman", Georgia, serif) !important;
+  user-select: none;
+  text-shadow: 
+    0 -1.2px 0 rgba(10, 1, 1, 0.95),
+    0 1px 0.6px rgba(255, 185, 165, 0.65);
 }
 
 .seal-curve {
-  font-size: 0.38rem;
-  letter-spacing: 0.08em;
-  font-weight: 700;
+  font-size: 0.46rem;
+  letter-spacing: 0.12em;
+  font-weight: 800;
+  text-transform: uppercase;
 }
 
 .seal-core {
-  font-size: 0.52rem;
+  font-size: 0.58rem;
+  line-height: 1.05;
+  letter-spacing: 0.04em;
   font-weight: 900;
-  color: #FFFFFF;
-  margin: 1px 0;
+  text-transform: uppercase;
+  margin: 1.5px 0;
 }
 
 .seal-sub {
-  font-size: 0.38rem;
-  font-weight: 700;
-  color: #FFB3B3;
+  font-size: 0.44rem;
+  letter-spacing: 0.10em;
+  font-weight: 800;
+  text-transform: uppercase;
 }
 
 /* ==========================================================================

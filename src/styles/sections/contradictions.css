@@ -198,6 +198,8 @@
     inset 0 1px 2px rgba(255, 255, 255, 0.25);
   overflow: hidden;
   margin-bottom: 3.5rem;
+  transform-style: preserve-3d;
+  will-change: transform;
 }
 
 /* Top Brushed Metal Desk Lip & Aluminum Rulers */
@@ -277,7 +279,21 @@
   pointer-events: none;
 }
 
+/* Dynamic Specular Backlight Tracking Glass Surface */
+.lightbox-illuminated-glass::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle 550px at var(--lightbox-x, 50%) var(--lightbox-y, 40%), rgba(255, 255, 255, 0.42) 0%, rgba(255, 250, 220, 0.12) 45%, transparent 75%);
+  pointer-events: none;
+  z-index: 1;
+  mix-blend-mode: overlay;
+  transition: opacity 0.3s ease;
+}
+
 .lightbox-grid {
+  position: relative;
+  z-index: 2;
   display: grid;
   grid-template-columns: 1.36fr 1fr;
   gap: 2.8rem;
@@ -826,6 +842,14 @@
     inset 0 2px 5px rgba(255, 255, 255, 0.95);
 }
 
+.film-canister-item:active .canister-tin-plate {
+  transform: scale(0.97) translateY(2px) rotate(3deg);
+  box-shadow: 
+    0 8px 18px -2px rgba(0, 0, 0, 0.45),
+    0 2px 6px rgba(0, 0, 0, 0.3),
+    inset 0 2px 4px rgba(255, 255, 255, 0.9);
+}
+
 /* Active State: Circled with Red Chinagraph Lightbox Halo */
 .film-canister-item.is-active .canister-tin-plate {
   transform: scale(1.04);
@@ -1078,20 +1102,59 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 0.5rem;
   background: #DDDCD2;
   border: 1px dashed rgba(0, 0, 0, 0.22);
   border-radius: 4px;
-  padding: 0.6rem 0.95rem;
+  padding: 0.45rem 0.65rem;
   font-size: 0.62rem;
   font-weight: 800;
   color: #4A4A52;
   margin-top: 0.4rem;
 }
 
-.loupe-tool {
+.loupe-tool,
+.chinagraph-pencil,
+.film-splicer-tag {
+  background: transparent;
+  border: 1px solid transparent;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
+  padding: 0.35rem 0.65rem;
+  border-radius: 4px;
+  cursor: pointer;
+  pointer-events: auto;
+  user-select: none;
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
+  transition: background-color 0.2s ease, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, border-color 0.2s ease;
+  outline: none;
+}
+
+.loupe-tool:hover,
+.chinagraph-pencil:hover,
+.film-splicer-tag:hover {
+  background: rgba(255, 255, 255, 0.7);
+  border-color: rgba(0, 0, 0, 0.12);
+  transform: translateY(-1.5px);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+}
+
+.loupe-tool:active,
+.chinagraph-pencil:active,
+.film-splicer-tag:active {
+  transform: translateY(1px) scale(0.97);
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.loupe-tool:focus-visible,
+.chinagraph-pencil:focus-visible,
+.film-splicer-tag:focus-visible {
+  outline: 2px solid #E50914;
+  outline-offset: 1px;
 }
 
 .loupe-lens {
@@ -1101,12 +1164,14 @@
   border: 2px solid #555;
   background: radial-gradient(circle at 35% 35%, #FFFFFF 0%, #CCD 70%, #99A 100%);
   box-shadow: inset 0 1px 1px rgba(255,255,255,0.8), 0 1px 2px rgba(0,0,0,0.25);
+  transition: transform 0.2s ease;
+}
+
+.loupe-tool:hover .loupe-lens {
+  transform: scale(1.15);
 }
 
 .chinagraph-pencil {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
   color: #D62828;
 }
 
@@ -1115,10 +1180,16 @@
   height: 8px;
   border-radius: 50%;
   background: #D62828;
+  box-shadow: 0 0 4px rgba(214, 40, 40, 0.5);
+  transition: transform 0.2s ease;
+}
+
+.chinagraph-pencil:hover .pencil-lead {
+  transform: scale(1.25);
 }
 
 .film-splicer-tag {
-  color: #666670;
+  color: #555560;
 }
 
 /* ==========================================================================

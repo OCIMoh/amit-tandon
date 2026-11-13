@@ -1,4 +1,5 @@
 @import "./tokens.css";
+@import "./materials.css";
 
 *,
 *::before,
@@ -85,8 +86,10 @@ select,
   inset: 0;
   pointer-events: none;
   z-index: 999;
-  opacity: 0.028;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.032;
+  background-image: url("/images/noise.png");
+  background-repeat: repeat;
+  background-size: 128px 128px;
 }
 
 [data-reveal],
@@ -537,6 +540,308 @@ a {
 
 .back-to-top-link:hover {
   color: var(--color-amber);
+}
+
+/* ==========================================================================
+   ARCHIVAL CASE DOCKET CLOSING POD (CASE FILE #41 BACK-COVER FINALE)
+   Visual language matches Section 2 Case File #41: Manilla cardstock, 
+   folder tab, brass paperclip, declassified typewriter ink & rubber stamps.
+   ========================================================================== */
+.footer-docket-closing-pod {
+  margin: 3.5rem 0 3rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Top Manilla Folder Tab (Matching Section 2 Master Folder) */
+.closing-folder-tab {
+  background: #D8CEB4;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  padding: 0.45rem 1.6rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #554D42;
+  border: 1.5px solid rgba(90, 65, 35, 0.32);
+  border-bottom: none;
+  width: fit-content;
+  max-width: 100%;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  user-select: none;
+}
+
+.closing-folder-tab .tab-left-group {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.closing-folder-tab .folder-paperclip {
+  width: 18px;
+  height: 8px;
+  border: 2px solid #9A8042;
+  border-radius: 4px;
+  display: inline-block;
+  opacity: 0.9;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.closing-folder-tab .tab-security {
+  color: #B81822;
+  font-weight: 800;
+}
+
+/* Master Manilla Case Cardstock Sheet */
+.docket-closing-card {
+  background: #EDE2C9;
+  background-image: 
+    radial-gradient(ellipse at 15% 20%, rgba(255, 255, 255, 0.3) 0%, transparent 45%),
+    radial-gradient(circle at 85% 80%, rgba(130, 95, 55, 0.16) 0%, transparent 60%),
+    repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.015) 2px, rgba(0, 0, 0, 0.015) 4px);
+  color: #1A1816;
+  border-radius: 0 12px 12px 12px;
+  border: 1.5px solid rgba(90, 65, 35, 0.32);
+  padding: 2.2rem 2.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2.2rem;
+  box-shadow: 
+    0 25px 60px -15px rgba(0, 0, 0, 0.95),
+    0 0 0 1px rgba(90, 65, 35, 0.2),
+    inset 1px 1px 0 rgba(255, 255, 255, 0.5),
+    inset -1px -1px 0 rgba(90, 60, 25, 0.25),
+    inset 0 0 80px rgba(120, 85, 40, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Red Left Margin Line (Aged Court/Dossier Docket Rule) */
+.docket-closing-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  bottom: 0;
+  background: #B81822;
+}
+
+/* Diagonal Red Corner Tape Flag */
+.closing-tape-flag {
+  position: absolute;
+  top: 14px;
+  right: -32px;
+  transform: rotate(45deg);
+  background: #C41822;
+  color: #FFFFFF;
+  padding: 0.25rem 2.5rem;
+  font-size: 0.56rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.35);
+  pointer-events: none;
+  z-index: 3;
+  user-select: none;
+}
+
+.docket-closing-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  max-width: 680px;
+}
+
+.closing-status-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  color: #A61B24;
+  font-weight: 800;
+}
+
+.closing-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #C41822;
+  box-shadow: 0 0 8px rgba(196, 24, 34, 0.8);
+}
+
+.closing-heading {
+  font-family: var(--font-display, "Archivo Black", sans-serif);
+  font-size: clamp(1.4rem, 2.5vw, 1.85rem);
+  color: #1A1816;
+  margin: 0;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+/* Typewriter Verdict Ledger Grid */
+.closing-verdict-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.72rem;
+  line-height: 1.45;
+  margin-top: 0.3rem;
+}
+
+.verdict-row {
+  display: flex;
+  gap: 0.65rem;
+  align-items: baseline;
+  flex-wrap: wrap;
+}
+
+.verdict-label {
+  color: #6E5A44;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  min-width: 175px;
+}
+
+.verdict-val {
+  color: #24201C;
+  font-weight: 700;
+}
+
+.verdict-val.highlight-red {
+  color: #A61B24;
+  font-weight: 800;
+}
+
+.docket-closing-stamps {
+  display: flex;
+  align-items: center;
+  gap: 1.8rem;
+}
+
+/* Porous Red Rubber Stamp: Case File Closed */
+.rubber-stamp.stamp-closed {
+  background: rgba(184, 24, 34, 0.04);
+  border: 3px solid #B81822;
+  color: #B81822;
+  padding: 0.65rem 1.1rem;
+  border-radius: 4px;
+  transform: rotate(-4.5deg);
+  display: inline-flex;
+  cursor: pointer;
+  pointer-events: auto;
+  user-select: none;
+  font-family: var(--font-mono, "JetBrains Mono", monospace);
+  outline: none;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, background-color 0.2s ease;
+  mask-image: radial-gradient(circle, rgba(0,0,0,1) 85%, rgba(0,0,0,0.65) 100%);
+  box-shadow: 
+    0 6px 16px rgba(184, 24, 34, 0.24),
+    inset 0 0 6px rgba(184, 24, 34, 0.12);
+}
+
+.rubber-stamp.stamp-closed:hover {
+  transform: rotate(-2deg) scale(1.05);
+  background: rgba(184, 24, 34, 0.09);
+  box-shadow: 0 8px 24px rgba(184, 24, 34, 0.38);
+}
+
+.rubber-stamp.stamp-closed:active {
+  transform: rotate(-5deg) scale(0.96) translate(1px, 1px);
+}
+
+.rubber-stamp.stamp-closed:focus-visible {
+  outline: 2px solid #E50914;
+  outline-offset: 2px;
+}
+
+.stamp-border-inner {
+  border: 1.5px dashed rgba(184, 24, 34, 0.7);
+  padding: 0.45rem 0.8rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  text-align: center;
+}
+
+.stamp-border-inner .stamp-title {
+  font-size: 0.86rem;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  line-height: 1;
+}
+
+.stamp-border-inner .stamp-sub {
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: #9A141C;
+}
+
+.stamp-border-inner .stamp-stars {
+  font-size: 0.56rem;
+  letter-spacing: 3px;
+  color: #B81822;
+}
+
+.stamp-border-inner .stamp-auth {
+  font-size: 0.52rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  opacity: 0.85;
+  margin-top: 2px;
+}
+
+/* Archival Golden Red Wax Seal */
+.wax-seal-closing {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #D61A24 0%, #A50C14 60%, #4D0509 100%);
+  border: 2px solid #3E0407;
+  box-shadow: 
+    0 8px 18px rgba(0,0,0,0.5),
+    inset 0 2px 4px rgba(255,255,255,0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(14deg);
+  cursor: pointer;
+  pointer-events: auto;
+  user-select: none;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
+}
+
+.wax-seal-closing:hover {
+  transform: rotate(18deg) scale(1.08);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.65);
+}
+
+.wax-seal-closing:active {
+  transform: rotate(10deg) scale(0.96) translateY(2px);
+}
+
+.wax-seal-closing .wax-monogram {
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: #57060A;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+@media (max-width: 900px) {
+  .docket-closing-card {
+    padding: 1.6rem;
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 
 @media (max-width: 900px) {

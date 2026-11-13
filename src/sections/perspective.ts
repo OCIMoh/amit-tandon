@@ -40,7 +40,8 @@ export function renderPerspective(site: SiteContent): string {
               src="${item.image}" 
               alt="Amit Tandon - ${item.tag}" 
               class="sheet-photo"
-              loading="lazy"
+              loading="eager"
+              decoding="async"
               width="450"
               height="280"
             />
@@ -138,7 +139,8 @@ export function renderPerspective(site: SiteContent): string {
               src="/images/portrait.jpg" 
               alt="Amit Tandon - Subject File" 
               class="subject-photo-img"
-              loading="lazy"
+              loading="eager"
+              decoding="async"
               width="320"
               height="380"
             />
@@ -293,6 +295,28 @@ export function renderPerspective(site: SiteContent): string {
           <span class="stat-dot">•</span>
           <span class="stat-num"><strong>200M+</strong> VIEWS</span>
         </div>
+
+        <!-- Hidden Inline SVG Filters for Authentic Pressed Sealing Wax -->
+        <svg width="0" height="0" style="position:absolute; width:0; height:0; pointer-events:none; overflow:hidden;" aria-hidden="true">
+          <defs>
+            <!-- Requirement 1: Irregular Melted Edge Displacement Filter -->
+            <filter id="wax-rough-edge" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+              <feTurbulence type="fractalNoise" baseFrequency="0.06" numOctaves="3" result="noise" seed="42" />
+              <feDisplacementMap in="SourceGraphic" in2="noise" scale="5" xChannelSelector="R" yChannelSelector="G" />
+            </filter>
+
+            <!-- Requirement 3: Surface Mottling Grain Filter -->
+            <filter id="wax-surface-mottle" x="0%" y="0%" width="100%" height="100%" color-interpolation-filters="sRGB">
+              <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" result="grain" seed="88" />
+              <feColorMatrix type="matrix" values="
+                0 0 0 0 0.4
+                0 0 0 0 0.12
+                0 0 0 0 0.12
+                0 0 0 0.8 0" result="tintedGrain" />
+              <feComposite in2="SourceGraphic" in="tintedGrain" operator="in" />
+            </filter>
+          </defs>
+        </svg>
 
         <!-- Right: 3D Embossed Wax Seal -->
         <div class="dock-wax-seal" title="100% Family Safe Clean Comedy Certified">

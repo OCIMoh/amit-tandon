@@ -56,7 +56,6 @@ export function renderObservation(_site: SiteContent): string {
           <div class="silver-tape tape-top" aria-hidden="true"></div>
           
           <div class="receipt-inner mono">
-            <div class="receipt-zigzag-top" aria-hidden="true"></div>
             <div class="receipt-header">
               <span class="receipt-title">DOMESTIC AUDIT</span>
               <span class="receipt-date">EST. 2002 · 25 YRS</span>
@@ -90,7 +89,6 @@ export function renderObservation(_site: SiteContent): string {
               <span class="barcode-graphic">||| | |||| | ||||| |||</span>
               <span class="barcode-digits">AT-1040-MARRIAGE</span>
             </div>
-            <div class="receipt-zigzag-bottom" aria-hidden="true"></div>
           </div>
         </div>
 
@@ -114,15 +112,18 @@ export function renderObservation(_site: SiteContent): string {
 
           <div class="silver-tape tape-photo-bottom" aria-hidden="true"></div>
           
-          <!-- Neon Round Tour Badges -->
-          <div class="neon-tour-sticker sticker-top" aria-hidden="true">
-            <span class="sticker-num">33</span>
-            <span class="sticker-sub">GLOBAL CITIES</span>
+          <!-- Red Rubber Ink Tour & Quality Verification Stamps -->
+          <div class="rubber-stamp photo-rubber-stamp stamp-tour-cities" aria-hidden="true" title="Tour Verification Stamp">
+            <span class="stamp-sub-label">TOUR VERIFIED</span>
+            <span class="stamp-main-val">33 CITIES</span>
+            <span class="stamp-route">GLOBAL // CLEARED</span>
           </div>
 
-          <div class="neon-tour-sticker sticker-bottom" aria-hidden="true">
-            <span class="sticker-num">100%</span>
-            <span class="sticker-sub">CLEAN COMEDY</span>
+          <div class="rubber-stamp photo-rubber-stamp stamp-clean-comedy" aria-hidden="true" title="Quality Inspection Stamp">
+            <span class="stamp-star-row">★ ★ ★</span>
+            <span class="stamp-main-val">100% CLEAN</span>
+            <span class="stamp-sub-label">FAMILY COMEDY</span>
+            <span class="stamp-code">3 GENS SAFE</span>
           </div>
         </div>
 

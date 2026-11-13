@@ -99,7 +99,8 @@ export function renderContradictions(_items: MaterialItem[]): string {
                 id="active-reel-image"
                 width="1280"
                 height="720"
-                loading="lazy"
+                loading="eager"
+                decoding="async"
               />
               
               <!-- Cinema Film Density & Vignette Mask (Softens Distracting Baked Thumbnail Graphics) -->
@@ -344,18 +345,18 @@ export function renderContradictions(_items: MaterialItem[]): string {
             </div>
 
             <!-- Bottom Lightbox Inspection Tools & Pinned Editorial Kit -->
-            <div class="lightbox-inspection-kit mono" aria-hidden="true">
-              <div class="loupe-tool">
-                <span class="loupe-lens"></span>
+            <div class="lightbox-inspection-kit mono" role="toolbar" aria-label="Lightbox editing bench tools">
+              <button type="button" class="loupe-tool" id="tool-loupe" title="Inspect 35mm grain with 8X Achromatic Loupe" aria-label="8X Achromatic Loupe">
+                <span class="loupe-lens" aria-hidden="true"></span>
                 <span class="loupe-label">8X ACHROMATIC LOUPE // FOCUS PINPOINTED</span>
-              </div>
-              <div class="chinagraph-pencil">
-                <span class="pencil-lead"></span>
+              </button>
+              <button type="button" class="chinagraph-pencil" id="tool-chinagraph" title="Mark editorial cut with Chinagraph wax pencil" aria-label="Chinagraph Wax Marker">
+                <span class="pencil-lead" aria-hidden="true"></span>
                 <span>CHINAGRAPH WAX MARKER</span>
-              </div>
-              <div class="film-splicer-tag">
+              </button>
+              <button type="button" class="film-splicer-tag" id="tool-splicer" title="Snap 35mm Guillotine Film Splicer" aria-label="Guillotine 35mm Splicer">
                 <span>GUILLOTINE 35MM SPLICER</span>
-              </div>
+              </button>
             </div>
 
           </div>

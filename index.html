@@ -23,6 +23,36 @@
     />
   </head>
   <body>
+    <!-- Hidden Inline SVG Definitions for Physical Ink Stamp Porosity -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+      <filter id="ink-stamp" x="-5%" y="-5%" width="110%" height="110%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="5" result="fine"/>
+        <feColorMatrix in="fine" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -14 9" result="speckMask"/>
+        <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="9" result="soft"/>
+        <feColorMatrix in="soft" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -2.4 2.15" result="pressMask"/>
+        <feComposite in="SourceGraphic" in2="speckMask" operator="in" result="a"/>
+        <feComposite in="a" in2="pressMask" operator="in" result="b"/>
+        <feDisplacementMap in="b" in2="fine" scale="1.6" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+      <filter id="ink-stamp-2" x="-5%" y="-5%" width="110%" height="110%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="17" result="fine"/>
+        <feColorMatrix in="fine" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -14 9" result="speckMask"/>
+        <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="23" result="soft"/>
+        <feColorMatrix in="soft" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -2.4 2.15" result="pressMask"/>
+        <feComposite in="SourceGraphic" in2="speckMask" operator="in" result="a"/>
+        <feComposite in="a" in2="pressMask" operator="in" result="b"/>
+        <feDisplacementMap in="b" in2="fine" scale="1.6" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+      <filter id="ink-stamp-3" x="-5%" y="-5%" width="110%" height="110%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="31" result="fine"/>
+        <feColorMatrix in="fine" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -14 9" result="speckMask"/>
+        <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="41" result="soft"/>
+        <feColorMatrix in="soft" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -2.4 2.15" result="pressMask"/>
+        <feComposite in="SourceGraphic" in2="speckMask" operator="in" result="a"/>
+        <feComposite in="a" in2="pressMask" operator="in" result="b"/>
+        <feDisplacementMap in="b" in2="fine" scale="1.6" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+    </svg>
     <div id="app"></div>
     <script type="module" src="/src/main.ts"></script>
   </body>

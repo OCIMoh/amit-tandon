@@ -30,11 +30,10 @@ export function renderAiseKaise(site: SiteContent, events: ShowEvent[]): string 
       const dateParts = parseShowDate(e.date);
       const platform = getTicketingPlatform(e.href);
       const status = getShowStatus(index, e.time, e.city);
-      const isInitialFold = index < 8; // first 8 visible by default before expand
 
       return `
       <article 
-        class="tour-row-card ${isInitialFold ? 'in-initial-fold' : 'in-extended-fold'}" 
+        class="tour-row-card in-extended-fold" 
         data-region="${region}" 
         data-city="${cleanCity}" 
         data-venue="${cleanVenue}"

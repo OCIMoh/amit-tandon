@@ -1001,13 +1001,12 @@ function setupTourInteractions(): void {
       const reg = row.dataset.region || "";
       const city = row.dataset.city || "";
       const venue = row.dataset.venue || "";
-      const isInitialFold = row.classList.contains("in-initial-fold");
 
       const matchRegion = activeRegionFilter === "all" || reg === activeRegionFilter;
       const matchSearch = !q || city.includes(q) || venue.includes(q) || reg.includes(q);
 
       if (matchRegion && matchSearch) {
-        if (shouldBeExpanded || isInitialFold) {
+        if (shouldBeExpanded) {
           row.style.display = "grid";
         } else {
           row.style.display = "none";
@@ -1019,11 +1018,13 @@ function setupTourInteractions(): void {
     });
 
     if (countBadge) {
-      countBadge.textContent = `SHOWING ${visibleCount} OF ${schedRows.length} DATES`;
+      countBadge.textContent = shouldBeExpanded
+        ? `SHOWING ${visibleCount} OF ${schedRows.length} DATES`
+        : `32 GLOBAL DATES · COLLAPSED`;
     }
 
     if (noResultsBox && noResultsQuery) {
-      if (visibleCount === 0) {
+      if (visibleCount === 0 && hasActiveFilter) {
         noResultsBox.style.display = "block";
         const queryTerm = q || (activeRegionFilter !== "all" ? activeRegionFilter.replace("-", " ").toUpperCase() : "selected criteria");
         noResultsQuery.textContent = queryTerm;

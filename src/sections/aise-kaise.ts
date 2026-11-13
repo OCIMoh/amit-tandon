@@ -165,10 +165,8 @@ export function renderAiseKaise(_site: SiteContent, events: ShowEvent[]): string
 
   <div class="wrap dispatch-wrap">
     
-    <!-- 1. The Dispatch Room Masthead (Matching Concept 2) -->
+    <!-- 1. The Dispatch Room Masthead -->
     <header class="dispatch-masthead" data-reveal>
-      <div class="dispatch-concept-badge mono">[ CONCEPT 2 ]</div>
-
       <div class="dispatch-title-row">
         <h2 class="dispatch-main-title display">
           <span class="title-white">WORLD TOUR DISPATCH &amp; </span>

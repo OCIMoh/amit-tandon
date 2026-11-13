@@ -749,13 +749,14 @@ function setupEvidenceDeskMotion(reduce: boolean): void {
   // 1. Evidence Case Docket Page Flipping (Physical Document Interaction)
   const tabBtns = section.querySelectorAll<HTMLButtonElement>(".case-index-tab");
   const sheets = section.querySelectorAll<HTMLElement>(".case-evidence-sheet");
+  const docketStack = section.querySelector<HTMLElement>("#case-docket-stack");
   const waxSeal = section.querySelector<HTMLElement>(".dock-wax-seal");
   const customsStamps = section.querySelectorAll<HTMLElement>(".customs-stamp");
 
   let currentSheetIdx = 0;
   const totalSheets = sheets.length;
 
-  const goToSheet = (targetIdx: number) => {
+  const goToSheet = (targetIdx: number, playSound = false) => {
     if (targetIdx === currentSheetIdx && sheets[currentSheetIdx]?.classList.contains("is-active")) {
       return;
     }
@@ -763,7 +764,9 @@ function setupEvidenceDeskMotion(reduce: boolean): void {
     currentSheetIdx = (targetIdx + totalSheets) % totalSheets;
 
     // Trigger physical cardstock page turn foley
-    foley.playDocketFlip();
+    if (playSound) {
+      foley.playDocketFlip();
+    }
 
     // Update Tab States
     tabBtns.forEach((btn, idx) => {
@@ -793,11 +796,36 @@ function setupEvidenceDeskMotion(reduce: boolean): void {
     });
   };
 
+  // Auto-cycle Gyan Records every 2 seconds between the 3
+  let autoCycleTimer: number | null = null;
+  let isDocketHovered = false;
+
+  const startAutoCycle = () => {
+    if (autoCycleTimer !== null) clearInterval(autoCycleTimer);
+    autoCycleTimer = window.setInterval(() => {
+      if (!isDocketHovered && document.visibilityState === "visible") {
+        goToSheet(currentSheetIdx + 1, false);
+      }
+    }, 2000);
+  };
+
+  startAutoCycle();
+
+  if (docketStack) {
+    docketStack.addEventListener("pointerenter", () => {
+      isDocketHovered = true;
+    });
+    docketStack.addEventListener("pointerleave", () => {
+      isDocketHovered = false;
+    });
+  }
+
   // Click on Index Tabs
   tabBtns.forEach((btn, idx) => {
     btn.addEventListener("click", (e) => {
       e.stopPropagation();
-      goToSheet(idx);
+      goToSheet(idx, true);
+      startAutoCycle();
     });
     btn.addEventListener("pointerenter", () => {
       foley.playPaperRustle(0.7);
@@ -812,7 +840,8 @@ function setupEvidenceDeskMotion(reduce: boolean): void {
     });
     de.addEventListener("click", (e) => {
       e.stopPropagation();
-      goToSheet(currentSheetIdx + 1);
+      goToSheet(currentSheetIdx + 1, true);
+      startAutoCycle();
     });
   });
 

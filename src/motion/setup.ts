@@ -1122,61 +1122,49 @@ function setupTourInteractions(): void {
     });
   }
 
-  // --- Physical Prop Interaction: 3D Vermilion Rotary Dial ---
-  const rotaryWheel = document.querySelector<HTMLElement>("#rotary-dial-wheel");
-  const phoneHandset = document.querySelector<HTMLElement>("#phone-handset");
-  const hotlineCallBtn = document.querySelector<HTMLAnchorElement>("#btn-rotary-call");
+  // --- Physical Prop Interaction: Industrial Executive Dispatch Console ---
+  const consoleActuatorBtn = document.querySelector<HTMLAnchorElement>("#btn-console-dispatch");
+  const teletypeSheet = document.querySelector<HTMLElement>("#teletype-dispatch-sheet");
+  const stickyNote = document.querySelector<HTMLElement>(".console-sticky-note");
+  const bookableStamp = document.querySelector<HTMLElement>(".rubber-stamp.stamp-bookable");
 
-  if (rotaryWheel) {
-    let isDialing = false;
-    rotaryWheel.addEventListener("click", () => {
-      if (isDialing) return;
-      isDialing = true;
-      foley.playRotaryDial();
-      gsap.to(rotaryWheel, {
-        rotation: 165,
-        duration: 0.42,
-        ease: "power2.out",
-        onComplete: () => {
-          foley.playRotaryReturn();
-          gsap.to(rotaryWheel, {
-            rotation: 0,
-            duration: 0.85,
-            ease: "elastic.out(1, 0.3)",
-            onComplete: () => {
-              isDialing = false;
-            },
-          });
-        },
-      });
+  if (consoleActuatorBtn) {
+    consoleActuatorBtn.addEventListener("mouseenter", () => {
+      foley.playMetalClick();
+      gsap.to(consoleActuatorBtn, { y: -2, duration: 0.18, ease: "power2.out" });
+    });
+    consoleActuatorBtn.addEventListener("mouseleave", () => {
+      gsap.to(consoleActuatorBtn, { y: 0, duration: 0.22, ease: "power2.out" });
+    });
+    consoleActuatorBtn.addEventListener("click", () => {
+      foley.playMetalClick();
     });
   }
 
-  if (hotlineCallBtn && phoneHandset) {
-    hotlineCallBtn.addEventListener("mouseenter", () => {
-      foley.playTelephoneBell();
-      gsap.to(phoneHandset, {
-        y: -12,
-        rotation: -3.5,
-        duration: 0.22,
-        ease: "power2.out",
-      });
+  if (teletypeSheet) {
+    teletypeSheet.addEventListener("mouseenter", () => {
+      foley.playPaperRustle(0.7);
     });
-    hotlineCallBtn.addEventListener("mouseleave", () => {
-      gsap.to(phoneHandset, {
-        y: 0,
-        rotation: 0,
-        duration: 0.35,
-        ease: "bounce.out",
-      });
+    teletypeSheet.addEventListener("click", () => {
+      foley.playTelexChatter();
+      gsap.fromTo(teletypeSheet, { y: -2 }, { y: 0, duration: 0.25, ease: "elastic.out(1, 0.4)" });
     });
-    hotlineCallBtn.addEventListener("click", () => {
-      foley.playTelephoneBell();
-      gsap.fromTo(
-        phoneHandset,
-        { x: -4, y: -14, rotation: -5 },
-        { x: 4, y: -14, rotation: -2, duration: 0.07, repeat: 6, yoyo: true, ease: "none" }
-      );
+  }
+
+  if (stickyNote) {
+    stickyNote.addEventListener("mouseenter", () => {
+      foley.playPaperRustle(0.85);
+    });
+    stickyNote.addEventListener("click", () => {
+      foley.playPaperRustle(1.0);
+      gsap.fromTo(stickyNote, { rotation: -1, scale: 1.03 }, { rotation: -2, scale: 1.0, duration: 0.35, ease: "back.out(2)" });
+    });
+  }
+
+  if (bookableStamp) {
+    bookableStamp.addEventListener("click", () => {
+      foley.playCustomsStamp();
+      gsap.fromTo(bookableStamp, { scale: 0.92, rotation: -8 }, { scale: 1.0, rotation: -6, duration: 0.3, ease: "elastic.out(1, 0.3)" });
     });
   }
 
@@ -1207,37 +1195,18 @@ function setupTourInteractions(): void {
 
     gsap.fromTo(
       telexPaper,
-      { y: 35, opacity: 0.5 },
+      { y: 30, opacity: 0.6 },
       {
         y: 0,
         opacity: 1,
         duration: 1.1,
         ease: "power2.out",
         scrollTrigger: {
-          trigger: ".telex-machine-pod",
+          trigger: ".console-chassis",
           start: "top 85%",
         },
       }
     );
-  }
-
-  const bookableStamp = document.querySelector<HTMLElement>(".rubber-stamp.stamp-bookable");
-  const dispatchWaxSeal = document.querySelector<HTMLElement>(".telex-desk-stamps .wax-seal-red");
-
-  if (bookableStamp) {
-    bookableStamp.addEventListener("pointerenter", () => foley.playStampThud());
-    bookableStamp.addEventListener("click", () => {
-      foley.playStampThud();
-      gsap.fromTo(bookableStamp, { scale: 0.92 }, { scale: 1, duration: 0.3, ease: "back.out(2)" });
-    });
-  }
-
-  if (dispatchWaxSeal) {
-    dispatchWaxSeal.addEventListener("pointerenter", () => foley.playWaxSeal());
-    dispatchWaxSeal.addEventListener("click", () => {
-      foley.playWaxSeal();
-      gsap.fromTo(dispatchWaxSeal, { scale: 0.92 }, { scale: 1, duration: 0.3, ease: "back.out(2)" });
-    });
   }
 
   // --- Dynamic Pointer Lighting & 3D Gyroscopic Tilt on Command Desk ---

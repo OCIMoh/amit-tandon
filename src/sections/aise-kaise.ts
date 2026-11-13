@@ -503,145 +503,139 @@ export function renderAiseKaise(site: SiteContent, events: ShowEvent[]): string 
 
           <!-- RIGHT WING (40%): The Production Hotline & Teleprinter Dispatch Desk -->
           <div class="hotline-dispatch-wing" id="booking-hotline-wing">
-            
-            <!-- Desk Lighting & Lamp Glow -->
-            <div class="desk-brass-lamp" aria-hidden="true">
-              <div class="lamp-shade"></div>
-              <div class="lamp-arm"></div>
-              <div class="lamp-warm-pool"></div>
-            </div>
 
-            <!-- Wing Header -->
-            <div class="hotline-wing-header mono">
-              <div class="hotline-header-left">
-                <span class="hotline-badge-red">HOTLINE #01</span>
-                <span>CORPORATE & PRIVATE DISPATCH</span>
-              </div>
-              <span class="hotline-status-live">● LIVE LINE</span>
-            </div>
-
-            <!-- 1. The Heavy 3D Vermilion Red Rotary Desk Telephone -->
-            <div class="vintage-rotary-phone" id="rotary-phone-container">
+            <!-- Direction 1: The Industrial Executive Dispatch Console -->
+            <div class="console-chassis" id="console-chassis-pod">
               
-              <!-- Realistic Handset Resting in Cradle -->
-              <div class="phone-handset-assembly" id="phone-handset">
-                <div class="handset-earpiece"></div>
-                <div class="handset-handle"></div>
-                <div class="handset-mouthpiece"></div>
-                
-                <!-- The Jimmy Oye Touch: Yellow Post-it Note Stuck Across Receiver -->
-                <div class="handset-postit-note" aria-hidden="true">
-                  <span class="postit-pin">📌</span>
+              <!-- Console Top Bezel / Header Strip -->
+              <div class="console-bezel-top mono">
+                <div class="bezel-left">
+                  <span class="bezel-screw screw-tl" aria-hidden="true"></span>
+                  <span class="hotline-badge-red">HOTLINE #01</span>
+                  <span class="console-title">CORPORATE & PRIVATE DISPATCH</span>
+                </div>
+                <div class="bezel-right">
+                  <span class="status-pulse-dot" aria-hidden="true"></span>
+                  <span class="console-status-live">CARRIER ACTIVE // 24/7 PRIORITY</span>
+                  <span class="bezel-screw screw-tr" aria-hidden="true"></span>
+                </div>
+              </div>
+
+              <!-- Console Body Area -->
+              <div class="console-main-bay">
+
+                <!-- The Signature Handwritten Sticky Note with Cellophane Tape -->
+                <div class="console-sticky-note" aria-hidden="true">
+                  <div class="tape-strip" aria-hidden="true"></div>
+                  <span class="postit-pin" aria-hidden="true">📌</span>
                   <p class="postit-text">
                     “If corporate HR calls, swear it's 100% clean comedy. Do NOT give this number to my in-laws! — Amit”
                   </p>
                 </div>
+
+                <!-- Milled Paper Slot & Teletype Dispatch Paper Strip -->
+                <div class="console-teletype-unit">
+                  <!-- Milled CNC Horizontal Paper Exit Slot -->
+                  <div class="milled-paper-slot" aria-hidden="true">
+                    <span class="slot-cavity"></span>
+                    <span class="slot-cutter-bar"></span>
+                  </div>
+
+                  <!-- Continuous Printed Teletype Dispatch Document -->
+                  <div class="teletype-sheet mono" id="teletype-dispatch-sheet" aria-label="Official Corporate Keynote Dispatch">
+                    <div class="sheet-zigzag-edge" aria-hidden="true"></div>
+                    <div class="sheet-sprocket-feed feed-left" aria-hidden="true"></div>
+                    <div class="sheet-sprocket-feed feed-right" aria-hidden="true"></div>
+
+                    <div class="teletype-content">
+                      <div class="teletype-banner">
+                        <span>[ INCOMING DISPATCH // CORPORATE EXECUTIVE BRIEF ]</span>
+                      </div>
+                      <div class="teletype-grid">
+                        <div class="teletype-line">
+                          <span class="teletype-key">&gt;&gt; SUBJECT:</span>
+                          <span class="teletype-val">AMIT TANDON // THE MARRIED GUY</span>
+                        </div>
+                        <div class="teletype-line highlight">
+                          <span class="teletype-key">&gt;&gt; CREDENTIALS:</span>
+                          <span class="teletype-val">B.TECH (MECH) + IIT DELHI MBA</span>
+                        </div>
+                        <div class="teletype-line">
+                          <span class="teletype-key">&gt;&gt; BACKGROUND:</span>
+                          <span class="teletype-val">15 YRS MANAGING DIRECTOR & VP</span>
+                        </div>
+                        <div class="teletype-line">
+                          <span class="teletype-key">&gt;&gt; AUDIENCE:</span>
+                          <span class="teletype-val">CXO RETREATS, ANNUAL SUMMITS & CONFERENCES</span>
+                        </div>
+                        <div class="teletype-line highlight">
+                          <span class="teletype-key">&gt;&gt; SAFETY AUDIT:</span>
+                          <span class="teletype-val">100% CLEAN FAMILY COMEDY · ZERO HR LIABILITIES</span>
+                        </div>
+                        <div class="teletype-line">
+                          <span class="teletype-key">&gt;&gt; TRACK RECORD:</span>
+                          <span class="teletype-val">TRUSTED BY FORTUNE 500 MULTINATIONALS</span>
+                        </div>
+                        <div class="teletype-line">
+                          <span class="teletype-key">&gt;&gt; MGMT DESK:</span>
+                          <span class="teletype-val">+91 9004040003 // READY FOR BOOKING</span>
+                        </div>
+                        <div class="teletype-line end-stop">
+                          <span class="teletype-key">&gt;&gt; DISPATCH CLEARED // STOP</span>
+                        </div>
+                      </div>
+
+                      <!-- Stamped Verification Monogram -->
+                      <div class="teletype-footer-stamps" aria-hidden="true">
+                        <div class="rubber-stamp stamp-bookable mono">
+                          <span>AUDITED</span>
+                          <span>ZERO HR RISK</span>
+                          <span class="stamp-stars">★★★</span>
+                        </div>
+                        <div class="teletype-id-tag">
+                          <span>REC-REF: AT-B2B-2026-CONFIDENTIAL</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
               </div>
 
-              <!-- Coiled Spring Handset Cord -->
-              <div class="phone-coiled-cord" aria-hidden="true"></div>
-
-              <!-- Heavy Bakelite Phone Body -->
-              <div class="phone-body-base">
-                <div class="cradle-plungers" aria-hidden="true">
-                  <span class="plunger plunger-l"></span>
-                  <span class="plunger plunger-r"></span>
-                </div>
-
-                <!-- Interactive Rotary Dial Wheel -->
-                <div class="rotary-dial-assembly" id="rotary-dial-wheel" title="Click or drag to spin the rotary dial!">
-                  <div class="rotary-num-ring mono" aria-hidden="true">
-                    <span class="dial-num num-1">1</span>
-                    <span class="dial-num num-2">2</span>
-                    <span class="dial-num num-3">3</span>
-                    <span class="dial-num num-4">4</span>
-                    <span class="dial-num num-5">5</span>
-                    <span class="dial-num num-6">6</span>
-                    <span class="dial-num num-7">7</span>
-                    <span class="dial-num num-8">8</span>
-                    <span class="dial-num num-9">9</span>
-                    <span class="dial-num num-0">0</span>
-                  </div>
-                  <div class="rotary-glass-cover">
-                    <div class="rotary-finger-holes" aria-hidden="true">
-                      <span class="hole hole-1"></span>
-                      <span class="hole hole-2"></span>
-                      <span class="hole hole-3"></span>
-                      <span class="hole hole-4"></span>
-                      <span class="hole hole-5"></span>
-                      <span class="hole hole-6"></span>
-                      <span class="hole hole-7"></span>
-                      <span class="hole hole-8"></span>
-                      <span class="hole hole-9"></span>
-                      <span class="hole hole-0"></span>
-                    </div>
-                    <div class="rotary-center-cap mono">
-                      <span class="cap-star">★</span>
-                      <span>DIAL</span>
-                    </div>
-                  </div>
-                  <div class="rotary-finger-stop" aria-hidden="true"></div>
-                </div>
-
-                <!-- Engraved Brass Base Plaque -->
-                <div class="phone-brass-plaque mono">
-                  <span class="plaque-title">TANDON PRODUCTIONS // DIRECT DISPATCH</span>
-                  <span class="plaque-sub">HELPLINE: +91 9004040003</span>
-                </div>
-              </div>
-
-              <!-- Direct Hotline Trigger Button -->
-              <div class="phone-action-strip">
+              <!-- Console Bottom Bezel: The Tactile Dispatch Actuator -->
+              <div class="console-bezel-bottom">
                 <a 
                   href="${site.contact.whatsapp}" 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  class="btn-lift-hotline mono"
-                  id="btn-rotary-call"
-                  title="Lift telephone handset to start WhatsApp corporate inquiry"
+                  class="btn-console-actuator mono"
+                  id="btn-console-dispatch"
+                  title="Initiate priority dispatch on WhatsApp"
                 >
-                  <span class="hotline-bell-icon" aria-hidden="true">📞</span>
-                  <span>LIFT HANDSET // WHATSAPP DISPATCH</span>
-                  <span class="btn-arrow" aria-hidden="true">&nearr;</span>
+                  <div class="actuator-left">
+                    <span class="actuator-indicator" aria-hidden="true">
+                      <span class="indicator-glow"></span>
+                    </span>
+                    <div class="actuator-labels">
+                      <span class="actuator-main">INITIATE DIRECT DISPATCH</span>
+                      <span class="actuator-sub">TANDON MGMT // WHATSAPP PRIORITY</span>
+                    </div>
+                  </div>
+                  <div class="actuator-arrow" aria-hidden="true">
+                    <span>CONNECT</span>
+                    <span class="arrow-glyph">&nearr;</span>
+                  </div>
                 </a>
-              </div>
 
-            </div>
-
-            <!-- 2. The Industrial Mechanical Telex Teleprinter Machine -->
-            <div class="telex-machine-pod">
-              <div class="telex-chassis-top">
-                <div class="telex-brand-badge mono">TELEX MK-84 // AUTOMATIC RECEIVER</div>
-                <div class="telex-led-panel mono">
-                  <span class="led-dot red-blink"></span> <span>CARRIER DETECTED</span>
+                <div class="console-direct-line mono">
+                  <span>DIRECT DESK: <strong>+91 90040 40003</strong></span>
+                  <span class="line-divider">·</span>
+                  <span>MGMT: <strong>HELLO@TANDONAMIT.COM</strong></span>
                 </div>
-              </div>
 
-              <!-- Paper Platen & Continuous Curling Ticker Tape -->
-              <div class="telex-paper-feed" aria-label="Incoming Telex Dispatch Tape">
-                <div class="telex-paper-strip mono">
-                  <div class="paper-zigzag-top" aria-hidden="true"></div>
-                  <p class="telex-line">&gt;&gt; INCOMING DISPATCH: CORPORATE KEYNOTE HOTLINE</p>
-                  <p class="telex-line">&gt;&gt; SUBJECT: AMIT TANDON // THE MARRIED GUY</p>
-                  <p class="telex-line highlight">&gt;&gt; CREDENTIALS: B.TECH (MECH) + IIT DELHI MBA</p>
-                  <p class="telex-line">&gt;&gt; EXPERIENCE: 15 YRS CORPORATE MD & VP</p>
-                  <p class="telex-line">&gt;&gt; SUITABLE FOR: CXO RETREATS, ANNUAL SUMMITS & CONFERENCES</p>
-                  <p class="telex-line highlight">&gt;&gt; RATING: 100% CLEAN FAMILY COMEDY · ZERO HR LIABILITIES</p>
-                  <p class="telex-line">&gt;&gt; TRUSTED BY: FORTUNE 500 MULTINATIONALS WORLDWIDE</p>
-                  <p class="telex-line">&gt;&gt; DIRECT MGMT DESK: +91 9004040003 // READY FOR BOOKING</p>
-                  <p class="telex-line">&gt;&gt; DISPATCH CLEARED // STOP</p>
-                </div>
-              </div>
-
-              <!-- Desk Rubber Stamp & Wax Seal -->
-              <div class="telex-desk-stamps" aria-hidden="true">
-                <div class="rubber-stamp stamp-bookable mono">
-                  <span>OFFICIALLY</span>
-                  <span>BOOKABLE</span>
-                  <span class="stamp-stars">★★★</span>
-                </div>
-                <div class="wax-seal-red">
-                  <span class="wax-monogram mono">AT</span>
+                <div class="bezel-corner-screws" aria-hidden="true">
+                  <span class="bezel-screw screw-bl"></span>
+                  <span class="bezel-screw screw-br"></span>
                 </div>
               </div>
 

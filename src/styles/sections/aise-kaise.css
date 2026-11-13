@@ -1163,91 +1163,72 @@
 }
 
 /* --------------------------------------------------------------------------
-   5. Right Wing (40%): The Production Hotline & Teleprinter Dispatch Desk
+   5. Right Wing (40%): Direction 1 — The Industrial Executive Dispatch Console
    -------------------------------------------------------------------------- */
 .hotline-dispatch-wing {
   position: relative;
-  background: radial-gradient(circle at 60% 30%, #161D19 0%, #0E1210 60%, #080A09 100%);
-  border: 2px solid #222B25;
-  border-radius: 16px;
-  padding: 2.25rem 2rem;
-  box-shadow: 
-    inset 0 2px 20px rgba(0, 0, 0, 0.8),
-    0 15px 40px rgba(0, 0, 0, 0.7);
   display: flex;
   flex-direction: column;
-  gap: 2.25rem;
-  overflow: hidden;
+  overflow: visible;
 }
 
-/* Banker's Brass Desk Lamp Hardware & Glow */
-.desk-brass-lamp {
-  position: absolute;
-  top: -20px;
-  right: -10px;
-  width: 240px;
-  height: 240px;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.lamp-shade {
-  position: absolute;
-  top: 15px;
-  right: 25px;
-  width: 90px;
-  height: 42px;
-  background: linear-gradient(135deg, #1C4D2E 0%, #0E2918 60%, #06170D 100%);
-  border: 1.5px solid #6E531B;
-  border-radius: 40px 40px 10px 10px;
+/* 5.1 Industrial Console Chassis */
+.console-chassis {
+  position: relative;
+  background: linear-gradient(180deg, #161821 0%, #101217 55%, #0B0D11 100%);
+  border: 1.5px solid #282C3A;
+  border-radius: 14px;
   box-shadow: 
-    inset 0 2px 4px rgba(255, 255, 255, 0.4),
-    0 8px 18px rgba(0, 0, 0, 0.8),
-    0 0 25px rgba(34, 197, 94, 0.2);
-  z-index: 2;
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    inset 0 0 35px rgba(0, 0, 0, 0.75),
+    0 18px 45px rgba(0, 0, 0, 0.8);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
-.lamp-arm {
+/* Corner Precision Hex Screws */
+.bezel-screw {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #D4AF37 0%, #8A6E1E 70%, #3B2E0A 100%);
+  box-shadow: 
+    inset 0 1px 1px rgba(255, 255, 255, 0.7),
+    0 1px 3px rgba(0, 0, 0, 0.8);
+  position: relative;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.bezel-screw::after {
+  content: "";
   position: absolute;
-  top: 50px;
-  right: 65px;
-  width: 8px;
-  height: 55px;
-  background: linear-gradient(90deg, #E5C378 0%, #A67D28 50%, #5C4310 100%);
-  border-radius: 4px;
-  box-shadow: 2px 4px 8px rgba(0,0,0,0.7);
-  z-index: 1;
+  top: 50%;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  transform: translate(-50%, -50%);
+  background: #1B1506;
+  border-radius: 1px;
 }
 
-.lamp-warm-pool {
-  position: absolute;
-  top: 30px;
-  right: 0;
-  width: 220px;
-  height: 220px;
-  background: radial-gradient(circle, rgba(255, 215, 120, 0.22) 0%, rgba(255, 180, 50, 0.08) 40%, transparent 70%);
-  filter: blur(40px);
-}
-
-.hotline-wing-header {
+/* 5.2 Console Top Bezel / Header Strip */
+.console-bezel-top {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 0.85rem 1.15rem;
+  background: #0B0D13;
+  border-bottom: 1px solid #1F2330;
   font-size: 0.72rem;
   letter-spacing: 0.12em;
-  color: #A3A3B0;
-  padding-bottom: 0.85rem;
-  border-bottom: 1px dashed rgba(255, 255, 255, 0.12);
-  position: relative;
-  z-index: 2;
 }
 
-.hotline-header-left {
+.bezel-left {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-  font-weight: 700;
-  color: #FFFFFF;
+  gap: 0.65rem;
 }
 
 .hotline-badge-red {
@@ -1256,422 +1237,159 @@
   padding: 0.18rem 0.5rem;
   border-radius: 3px;
   font-weight: 900;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
 }
 
-.hotline-status-live {
-  color: #22C55E;
+.console-title {
+  font-weight: 700;
+  color: #E2E4EE;
+}
+
+.bezel-right {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.status-pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10B981;
+  box-shadow: 0 0 10px #10B981, 0 0 2px #FFFFFF;
+  animation: carrierPulse 1.8s infinite ease-in-out;
+}
+
+@keyframes carrierPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.45; transform: scale(0.85); }
+}
+
+.console-status-live {
+  color: #10B981;
+  font-size: 0.64rem;
   font-weight: 800;
-  text-shadow: 0 0 8px rgba(34, 197, 94, 0.6);
+  letter-spacing: 0.1em;
 }
 
-/* 5.1 The 3D Vermilion Red Rotary Desk Telephone */
-.vintage-rotary-phone {
-  position: relative;
+/* 5.3 Console Main Bay */
+.console-main-bay {
+  padding: 1.4rem 1.35rem 1.1rem;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 1.5rem;
-  z-index: 2;
-  margin-top: 0.5rem;
-}
-
-/* Handset Assembly */
-.phone-handset-assembly {
+  gap: 1.25rem;
   position: relative;
-  width: 250px;
-  height: 62px;
-  background: linear-gradient(180deg, #FF3B30 0%, #D3101B 45%, #8B0A11 100%);
-  border-radius: 32px;
-  box-shadow: 
-    0 18px 30px -5px rgba(0, 0, 0, 0.85),
-    inset 0 3px 6px rgba(255, 255, 255, 0.4),
-    inset 0 -4px 8px rgba(0, 0, 0, 0.6);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 1.25rem;
 }
 
-.handset-earpiece, .handset-mouthpiece {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, #FF4D4D 0%, #C40E19 65%, #66080D 100%);
-  box-shadow: 
-    inset 0 2px 4px rgba(255, 255, 255, 0.4),
-    0 4px 8px rgba(0, 0, 0, 0.6);
-}
-
-.handset-handle {
-  flex: 1;
-  height: 22px;
-  background: linear-gradient(180deg, #FF3B30 0%, #A50C14 100%);
-  margin: 0 0.5rem;
-  border-radius: 11px;
-}
-
-/* The Jimmy Oye Signature: Yellow Post-it Note Stuck Across Handset */
-.handset-postit-note {
-  position: absolute;
-  top: -26px;
-  right: -24px;
-  width: 175px;
-  background: #FFF9A6;
-  color: #141414;
-  padding: 0.75rem 0.85rem;
+/* The Handwritten Sticky Note with Cellophane Tape */
+.console-sticky-note {
+  position: relative;
+  background: linear-gradient(135deg, #FFF999 0%, #FEE56A 100%);
+  color: #18191E;
+  padding: 0.95rem 1.15rem;
   border-radius: 2px;
+  border-left: 3.5px solid #E2CD40;
   box-shadow: 
-    3px 8px 18px rgba(0, 0, 0, 0.45),
-    0 1px 2px rgba(0, 0, 0, 0.2);
-  transform: rotate(-4.5deg);
-  z-index: 10;
-  border-left: 3px solid #E6DE7A;
-  pointer-events: auto;
+    0 10px 25px rgba(0, 0, 0, 0.55),
+    0 1px 3px rgba(0, 0, 0, 0.25);
+  transform: rotate(-2deg);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+  cursor: pointer;
+  z-index: 4;
+}
+
+.console-sticky-note:hover {
+  transform: rotate(0deg) scale(1.02);
+  box-shadow: 
+    0 14px 32px rgba(0, 0, 0, 0.65),
+    0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.tape-strip {
+  position: absolute;
+  top: -9px;
+  left: 36%;
+  width: 60px;
+  height: 18px;
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(2px);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  transform: rotate(1deg);
+  pointer-events: none;
 }
 
 .postit-pin {
   position: absolute;
   top: -8px;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 14px;
   font-size: 0.95rem;
   filter: drop-shadow(0 2px 2px rgba(0,0,0,0.4));
+  pointer-events: none;
 }
 
 .postit-text {
   margin: 0;
   font-family: "Caveat", cursive, sans-serif;
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   font-weight: 700;
-  line-height: 1.25;
-  color: #1F2228;
+  line-height: 1.32;
+  color: #14161C;
 }
 
-/* Coiled Handset Cord */
-.phone-coiled-cord {
-  position: absolute;
-  top: 50px;
-  right: 15px;
-  width: 22px;
-  height: 85px;
-  background: repeating-linear-gradient(
-    180deg,
-    #252834 0px,
-    #252834 5px,
-    #0E0F14 5px,
-    #0E0F14 9px,
-    #3D4255 9px,
-    #3D4255 11px
-  );
-  border-radius: 11px;
-  transform: rotate(20deg);
-  box-shadow: 4px 6px 14px rgba(0,0,0,0.7);
-  pointer-events: none;
-  z-index: 1;
-}
-
-/* Heavy Telephone Body Base */
-.phone-body-base {
-  position: relative;
-  width: 220px;
-  background: radial-gradient(circle at 45% 30%, #E81A24 0%, #C40E19 50%, #7A080E 100%);
-  border-radius: 24px 24px 18px 18px;
-  padding: 1.5rem 1.25rem 1.25rem;
+/* 5.4 Milled Paper Slot & Continuous Teletype Feed */
+.console-teletype-unit {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 1.2rem;
-  box-shadow: 
-    0 25px 45px rgba(0, 0, 0, 0.9),
-    inset 0 3px 6px rgba(255, 255, 255, 0.4),
-    inset 0 -6px 12px rgba(0, 0, 0, 0.7);
+  position: relative;
 }
 
-.cradle-plungers {
+/* CNC Milled Exit Slot */
+.milled-paper-slot {
+  height: 10px;
+  background: #06070A;
+  border: 1px solid #1C1F2B;
+  border-radius: 4px;
+  box-shadow: inset 0 3px 6px #000;
+  margin-bottom: -4px;
+  position: relative;
+  z-index: 3;
+}
+
+.slot-cutter-bar {
   position: absolute;
-  top: -10px;
+  bottom: 0;
   left: 0;
   right: 0;
-  display: flex;
-  justify-content: space-around;
-  padding: 0 2rem;
+  height: 2px;
+  background: linear-gradient(90deg, #2E3342 0%, #4D546C 50%, #2E3342 100%);
 }
 
-.cradle-plungers .plunger {
-  width: 14px;
-  height: 12px;
-  background: #4A4E5C;
-  border-radius: 3px 3px 0 0;
-  box-shadow: inset 0 1px 1px #FFF, 0 2px 4px rgba(0,0,0,0.8);
-}
-
-/* Interactive Rotary Dial Assembly */
-.rotary-dial-assembly {
-  position: relative;
-  width: 130px;
-  height: 130px;
-  border-radius: 50%;
-  background: #FFFFFF;
-  box-shadow: 
-    0 8px 16px rgba(0, 0, 0, 0.6),
-    inset 0 2px 6px rgba(0, 0, 0, 0.25);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: grab;
-  user-select: none;
-  transform-origin: center center;
-}
-
-.rotary-dial-assembly:active {
-  cursor: grabbing;
-}
-
-.rotary-num-ring {
-  position: absolute;
-  inset: 0;
-}
-
-.dial-num {
-  position: absolute;
-  font-size: 0.82rem;
-  font-weight: 800;
-  color: #1A1C24;
-  transform-origin: center center;
-}
-
-/* Number Dial Positions around Clockface */
-.dial-num.num-1 { top: 22px; right: 28px; }
-.dial-num.num-2 { top: 44px; right: 14px; }
-.dial-num.num-3 { top: 70px; right: 16px; }
-.dial-num.num-4 { bottom: 30px; right: 28px; }
-.dial-num.num-5 { bottom: 16px; right: 54px; }
-.dial-num.num-6 { bottom: 22px; left: 36px; }
-.dial-num.num-7 { bottom: 44px; left: 18px; }
-.dial-num.num-8 { top: 68px; left: 16px; }
-.dial-num.num-9 { top: 42px; left: 24px; }
-.dial-num.num-0 { top: 20px; left: 46px; }
-
-.rotary-glass-cover {
-  position: absolute;
-  inset: 8px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Transparent Finger Hole Cutouts */
-.rotary-finger-holes {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-
-.hole {
-  position: absolute;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.55);
-  box-shadow: inset 0 1px 3px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,0,0,0.25);
-}
-
-.hole.hole-1 { top: 18px; right: 24px; }
-.hole.hole-2 { top: 40px; right: 10px; }
-.hole.hole-3 { top: 66px; right: 12px; }
-.hole.hole-4 { bottom: 26px; right: 24px; }
-.hole.hole-5 { bottom: 12px; right: 50px; }
-.hole.hole-6 { bottom: 18px; left: 32px; }
-.hole.hole-7 { bottom: 40px; left: 14px; }
-.hole.hole-8 { top: 64px; left: 12px; }
-.hole.hole-9 { top: 38px; left: 20px; }
-.hole.hole-0 { top: 16px; left: 42px; }
-
-.rotary-center-cap {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #E5C378 0%, #A67D28 100%);
-  border: 2px solid #5C4310;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6), inset 0 1px 2px #FFF;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.58rem;
-  font-weight: 900;
-  color: #332104;
-  letter-spacing: 0.08em;
-}
-
-.cap-star {
-  font-size: 0.72rem;
-  line-height: 1;
-}
-
-.rotary-finger-stop {
-  position: absolute;
-  bottom: 12px;
-  right: 18px;
-  width: 14px;
-  height: 6px;
-  background: #C4A559;
-  border-radius: 2px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.6);
-  z-index: 5;
-}
-
-/* Engraved Brass Base Plaque */
-.phone-brass-plaque {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: linear-gradient(180deg, #E5C57D 0%, #B28D35 100%);
-  border: 1.5px solid #634A14;
-  border-radius: 4px;
-  padding: 0.35rem 0.75rem;
-  box-shadow: 
-    inset 0 1px 1px rgba(255, 255, 255, 0.8),
-    0 3px 6px rgba(0, 0, 0, 0.6);
-}
-
-.plaque-title {
-  font-size: 0.58rem;
-  font-weight: 900;
-  color: #2D2005;
-  letter-spacing: 0.1em;
-}
-
-.plaque-sub {
-  font-size: 0.65rem;
-  font-weight: 800;
-  color: #0E0A02;
-  letter-spacing: 0.08em;
-}
-
-/* Action Trigger */
-.phone-action-strip {
-  width: 100%;
-}
-
-.btn-lift-hotline {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.65rem;
-  background: #25D366;
-  color: #0A2E14;
-  font-size: 0.78rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  padding: 0.85rem 1.25rem;
-  border-radius: 8px;
-  text-decoration: none;
-  box-shadow: 0 8px 20px rgba(37, 211, 102, 0.35);
-  transition: all 0.25s ease;
-}
-
-.btn-lift-hotline:hover {
-  background: #28EA70;
-  transform: translateY(-2px);
-  box-shadow: 0 12px 28px rgba(37, 211, 102, 0.5);
-  color: #051A0B;
-}
-
-.hotline-bell-icon {
-  font-size: 1.1rem;
-}
-
-/* 5.2 The Industrial Mechanical Telex Teleprinter */
-.telex-machine-pod {
-  background: #12151E;
-  border: 2px solid #252A3B;
-  border-radius: 12px;
-  padding: 1.4rem;
-  box-shadow: 
-    inset 0 2px 10px rgba(0,0,0,0.8),
-    0 10px 25px rgba(0,0,0,0.5);
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  position: relative;
-}
-
-.telex-chassis-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 0.68rem;
-  letter-spacing: 0.1em;
-  color: #7E8398;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid #1E2232;
-}
-
-.telex-brand-badge {
-  font-weight: 800;
-  color: #D1D5E0;
-}
-
-.telex-led-panel {
-  display: flex;
-  align-items: center;
-  gap: 0.45rem;
-  color: #FF5A60;
-  font-size: 0.62rem;
-  font-weight: 700;
-}
-
-.red-blink {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #E50914;
-  box-shadow: 0 0 8px #E50914;
-  animation: telexBlink 1.2s infinite steps(2, start);
-}
-
-@keyframes telexBlink {
-  to { visibility: hidden; }
-}
-
-/* Continuous Curling Paper Tape */
-.telex-paper-feed {
-  background: #090A10;
-  border: 1px solid #1D2130;
-  border-radius: 6px;
-  padding: 0.85rem;
-  box-shadow: inset 0 3px 8px rgba(0,0,0,0.8);
-}
-
-.telex-paper-strip {
-  background: #F4EEDD;
-  color: #1A1D24;
-  padding: 1rem 1.15rem;
+/* The Continuous Teletype Paper Document */
+.teletype-sheet {
+  background: #FAF7EF;
+  color: #17181D;
+  padding: 1.25rem 1.4rem;
   border-radius: 2px;
   box-shadow: 
-    0 6px 14px rgba(0, 0, 0, 0.4),
-    inset 0 0 10px rgba(0, 0, 0, 0.05);
+    0 12px 28px rgba(0, 0, 0, 0.65),
+    inset 0 0 12px rgba(0, 0, 0, 0.04);
   font-family: "Courier Prime", monospace;
   font-size: 0.68rem;
-  line-height: 1.5;
-  letter-spacing: 0.04em;
-  font-weight: 600;
+  line-height: 1.55;
+  letter-spacing: 0.03em;
   position: relative;
-  cursor: pointer;
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+  cursor: pointer;
+  z-index: 2;
 }
 
-.telex-paper-strip:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.5);
+.teletype-sheet:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.75);
 }
 
-.paper-zigzag-top {
+.sheet-zigzag-edge {
   position: absolute;
   top: -6px;
   left: 0;
@@ -1679,99 +1397,249 @@
   height: 6px;
   background: repeating-linear-gradient(
     45deg,
-    #F4EEDD,
-    #F4EEDD 4px,
+    #FAF7EF,
+    #FAF7EF 4px,
     transparent 4px,
     transparent 8px
   );
 }
 
-.telex-line {
-  margin: 0.15rem 0;
+/* Continuous Edge Sprocket Feed Holes */
+.sheet-sprocket-feed {
+  position: absolute;
+  top: 12px;
+  bottom: 12px;
+  width: 8px;
+  background-image: radial-gradient(circle, #CDC7B5 1.5px, transparent 2px);
+  background-size: 8px 14px;
+  background-repeat: repeat-y;
+  opacity: 0.75;
 }
 
-.telex-line.highlight {
-  color: #A81B22;
+.sheet-sprocket-feed.feed-left { left: 4px; }
+.sheet-sprocket-feed.feed-right { right: 4px; }
+
+.teletype-content {
+  padding: 0 0.5rem;
+}
+
+.teletype-banner {
+  font-size: 0.62rem;
   font-weight: 800;
+  letter-spacing: 0.1em;
+  color: #7B8196;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.15);
+  margin-bottom: 0.65rem;
 }
 
-/* Stamps & Wax Seal */
-.telex-desk-stamps {
+.teletype-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.28rem;
+}
+
+.teletype-line {
+  display: flex;
+  gap: 0.45rem;
+  align-items: baseline;
+}
+
+.teletype-key {
+  color: #6A7085;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.teletype-val {
+  color: #17181D;
+  font-weight: 700;
+}
+
+.teletype-line.highlight .teletype-key {
+  color: #B91C1C;
+}
+
+.teletype-line.highlight .teletype-val {
+  color: #B91C1C;
+  font-weight: 900;
+}
+
+.teletype-line.end-stop {
+  color: #7E8398;
+  font-style: italic;
+  margin-top: 0.2rem;
+}
+
+/* Stamped Verification Seal in Footer */
+.teletype-footer-stamps {
   display: flex;
   align-items: center;
-  justify-content: space-around;
-  margin-top: 0.5rem;
-  padding-top: 0.5rem;
+  justify-content: space-between;
+  margin-top: 0.85rem;
+  padding-top: 0.65rem;
+  border-top: 1px dashed rgba(0, 0, 0, 0.12);
 }
 
 .rubber-stamp.stamp-bookable {
-  border: 2.5px solid #C41822;
-  color: #C41822;
-  font-size: 0.65rem;
+  border: 2px solid #B91C1C;
+  color: #B91C1C;
+  font-size: 0.62rem;
   font-weight: 900;
-  letter-spacing: 0.12em;
-  padding: 0.35rem 0.75rem;
+  letter-spacing: 0.14em;
+  padding: 0.3rem 0.65rem;
   border-radius: 4px;
-  transform: rotate(-9deg);
+  transform: rotate(-6deg);
   display: flex;
   flex-direction: column;
   align-items: center;
   line-height: 1.1;
-  opacity: 0.85;
-  mask-image: radial-gradient(circle, rgba(0,0,0,1) 70%, rgba(0,0,0,0.6) 100%);
+  opacity: 0.9;
   cursor: pointer;
-  pointer-events: auto;
   user-select: none;
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .rubber-stamp.stamp-bookable:hover {
-  transform: rotate(-6deg) scale(1.06);
-  opacity: 1;
+  transform: rotate(-4deg) scale(1.06);
 }
 
-.rubber-stamp.stamp-bookable:active {
-  transform: rotate(-10deg) scale(0.95) translateY(2px);
+.teletype-id-tag {
+  font-size: 0.58rem;
+  color: #8C92A6;
+  letter-spacing: 0.08em;
 }
 
-.stamp-stars {
-  font-size: 0.6rem;
-  letter-spacing: 2px;
-  margin-top: 2px;
+/* 5.5 Console Bottom Bezel: The Tactile Dispatch Actuator */
+.console-bezel-bottom {
+  padding: 1.2rem 1.35rem 1.25rem;
+  background: #0E1016;
+  border-top: 1px solid #1F2332;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  position: relative;
 }
 
-.wax-seal-red {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, #D61A24 0%, #A50C14 60%, #520509 100%);
-  border: 2px solid #420407;
+/* The Milled Executive Actuator Bar (Replaces bright neon green button) */
+.btn-console-actuator {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.95rem 1.25rem;
+  background: linear-gradient(180deg, #1E2330 0%, #131720 100%);
+  border: 1.5px solid rgba(255, 235, 200, 0.18);
+  border-radius: 8px;
+  text-decoration: none;
   box-shadow: 
-    0 6px 12px rgba(0,0,0,0.6),
-    inset 0 2px 4px rgba(255,255,255,0.4);
+    0 8px 20px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-console-actuator:hover {
+  background: linear-gradient(180deg, #262D3E 0%, #171C28 100%);
+  border-color: rgba(16, 185, 129, 0.6);
+  transform: translateY(-2px);
+  box-shadow: 
+    0 12px 28px rgba(16, 185, 129, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.btn-console-actuator:active {
+  transform: translateY(0);
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.8),
+    inset 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.actuator-left {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+/* Illuminated Status Jewel Dot */
+.actuator-indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #10B981;
+  box-shadow: 0 0 10px #10B981, inset 0 1px 2px #FFF;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.actuator-labels {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.actuator-main {
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: #FFFFFF;
+}
+
+.actuator-sub {
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #10B981;
+}
+
+.actuator-arrow {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: #E2E5F0;
+}
+
+.arrow-glyph {
+  font-size: 1rem;
+  color: #10B981;
+  transition: transform 0.2s ease;
+}
+
+.btn-console-actuator:hover .arrow-glyph {
+  transform: translate(2px, -2px);
+}
+
+/* Direct Helpline Info Below Button */
+.console-direct-line {
   display: flex;
   align-items: center;
   justify-content: center;
-  transform: rotate(14deg);
-  cursor: pointer;
-  pointer-events: auto;
-  user-select: none;
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
+  gap: 0.65rem;
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  color: #7D8296;
 }
 
-.wax-seal-red:hover {
-  transform: rotate(18deg) scale(1.08);
+.console-direct-line strong {
+  color: #D1D5E4;
 }
 
-.wax-seal-red:active {
-  transform: rotate(10deg) scale(0.95) translateY(2px);
+.line-divider {
+  color: #383E52;
 }
 
-.wax-monogram {
-  font-size: 0.95rem;
-  font-weight: 900;
-  color: #57060A;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
+/* Corner Screws for Bottom Bezel */
+.bezel-corner-screws {
+  position: absolute;
+  bottom: 8px;
+  left: 12px;
+  right: 12px;
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none;
 }
 
 /* --------------------------------------------------------------------------

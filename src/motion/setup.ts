@@ -747,12 +747,10 @@ function setupEvidenceDeskMotion(reduce: boolean): void {
   if (!section) return;
 
   // 1. Evidence Case Docket Page Flipping (Physical Document Interaction)
-  const docketStack = section.querySelector<HTMLElement>("#case-docket-stack");
   const tabBtns = section.querySelectorAll<HTMLButtonElement>(".case-index-tab");
   const sheets = section.querySelectorAll<HTMLElement>(".case-evidence-sheet");
   const waxSeal = section.querySelector<HTMLElement>(".dock-wax-seal");
   const customsStamps = section.querySelectorAll<HTMLElement>(".customs-stamp");
-  const dogEar = section.querySelector<HTMLElement>(".dog-ear-corner");
 
   let currentSheetIdx = 0;
   const totalSheets = sheets.length;
@@ -806,24 +804,17 @@ function setupEvidenceDeskMotion(reduce: boolean): void {
     });
   });
 
-  // Clicking anywhere on the Right Page Docket flips to next exhibit!
-  if (docketStack) {
-    docketStack.addEventListener("click", (e) => {
-      const target = e.target as HTMLElement;
-      // Do not flip page if clicking direct links like WhatsApp
-      if (target.closest("[data-stop-propagation='true']") || target.closest("a")) {
-        return;
-      }
-      goToSheet(currentSheetIdx + 1);
-    });
-  }
-
-  // Dog-ear corner hover rustle
-  if (dogEar) {
-    dogEar.addEventListener("pointerenter", () => {
+  // Dog-ear corner page turn (dedicated page turn control — avoids conflict with stamping paper sheets)
+  const dogEars = section.querySelectorAll<HTMLElement>(".dog-ear-corner");
+  dogEars.forEach((de) => {
+    de.addEventListener("pointerenter", () => {
       foley.playPaperRustle(0.9);
     });
-  }
+    de.addEventListener("click", (e) => {
+      e.stopPropagation();
+      goToSheet(currentSheetIdx + 1);
+    });
+  });
 
   // Wax seal interaction
   if (waxSeal) {
@@ -1757,6 +1748,9 @@ function setupInteractiveStamps(): void {
         return;
       }
 
+      // Stop bubbling so nested containers don't trigger double stamps
+      e.stopPropagation();
+
       // Compute click position relative to container
       const rect = container.getBoundingClientRect();
       const x = e.clientX - rect.left;
@@ -1844,7 +1838,7 @@ function setupInteractiveStamps(): void {
       tl.to(
         container,
         {
-          y: 2,
+          y: '+=2',
           duration: 0.04,
           ease: 'power1.in',
           yoyo: true,

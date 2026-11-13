@@ -1746,27 +1746,33 @@
    ============================================================ */
 
 /* --- Stampable Surface Indicator --- */
-.teletype-sheet[data-stampable="true"] {
-  cursor: crosshair;
+[data-stampable="true"] {
+  cursor: crosshair !important;
+}
+
+[data-stampable="true"] a,
+[data-stampable="true"] button,
+[data-stampable="true"] [data-stop-propagation="true"],
+[data-stampable="true"] .dog-ear-corner,
+[data-stampable="true"] .rubber-stamp {
+  cursor: pointer !important;
 }
 
 .stamp-hint {
-  position: absolute;
-  bottom: 6px;
-  right: 12px;
-  font-size: 0.5rem;
+  font-size: 0.52rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   color: rgba(123, 129, 150, 0.45);
   pointer-events: none;
   user-select: none;
-  z-index: 3;
-  transition: opacity 0.3s ease;
+  z-index: 10;
+  transition: opacity 0.3s ease, color 0.3s ease;
+  opacity: 0.5;
 }
 
-.teletype-sheet[data-stampable="true"]:hover .stamp-hint {
+[data-stampable="true"]:hover .stamp-hint {
   opacity: 1;
-  color: rgba(185, 28, 28, 0.5);
+  color: rgba(185, 28, 28, 0.75);
 }
 
 /* --- Rubber Stamp Apparatus (Temporary Slamming Element) --- */
@@ -1839,7 +1845,7 @@
 .stamped-ink-imprint {
   position: absolute;
   pointer-events: none;
-  z-index: 10;
+  z-index: 45;
   border: 2.5px solid #B91C1C;
   border-radius: 4px;
   padding: 5px 10px;

@@ -18,6 +18,7 @@ export function renderPerspective(site: SiteContent): string {
         class="case-evidence-sheet ${isActive ? 'is-active' : ''}" 
         id="evidence-sheet-${index}" 
         data-index="${index}"
+        data-stampable="true"
         role="tabpanel"
         aria-labelledby="case-tab-${index}"
         ${isActive ? '' : 'hidden'}
@@ -80,12 +81,13 @@ export function renderPerspective(site: SiteContent): string {
                 <span>FORWARD GYAN TO WHATSAPP ↗</span>
               </a>
               <span class="sheet-verified-seal mono">CONFISCATED GYAN // 100% AUTHENTIC</span>
+              <span class="stamp-hint mono" aria-hidden="true">[ ✎ CLICK TO STAMP ]</span>
             </div>
           </div>
         </div>
 
         <!-- Realistic Dog-Eared Page Curl (Click to Flip) -->
-        <div class="dog-ear-corner" title="Click anywhere on page to turn to next exhibit">
+        <div class="dog-ear-corner" data-stop-propagation="true" title="Click to turn to next exhibit">
           <span class="dog-ear-curl" aria-hidden="true"></span>
           <span class="dog-ear-prompt mono">CLICK TO TURN PAGE (${index + 1}/3) ➔</span>
         </div>
@@ -128,10 +130,10 @@ export function renderPerspective(site: SiteContent): string {
       <div class="folder-inner-spread">
         
         <!-- Left Page: The Executive Subject File -->
-        <div class="folder-page-left">
+        <div class="folder-page-left" data-stampable="true">
           
           <!-- Heavy Brass Binder Clamp Fastener Gripping the Photo Frame -->
-          <div class="brass-binder-clamp" aria-hidden="true"></div>
+          <div class="brass-binder-clamp" aria-hidden="true" data-stop-propagation="true"></div>
 
           <!-- Large 35mm Subject Photo -->
           <div class="subject-photo-frame">
@@ -150,7 +152,10 @@ export function renderPerspective(site: SiteContent): string {
 
           <!-- Subject Dossier Data -->
           <div class="subject-dossier-body">
-            <span class="dossier-tag mono">CONFIDENTIAL GYAN DOSSIER</span>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span class="dossier-tag mono">CONFIDENTIAL GYAN DOSSIER</span>
+              <span class="stamp-hint mono" aria-hidden="true">[ ✎ CLICK TO STAMP ]</span>
+            </div>
             <h3 class="subject-headline">SUBJECT: EXECUTIVE TURNED COMEDIAN</h3>
 
             <dl class="subject-specs-list mono">
@@ -178,7 +183,7 @@ export function renderPerspective(site: SiteContent): string {
 
             <!-- Realistic Distressed Ink Rubber Stamp Block -->
             <div class="subject-stamp-block">
-              <div class="rubber-ink-stamp stamp-resigned mono">
+              <div class="rubber-ink-stamp stamp-resigned mono" data-stop-propagation="true">
                 <div class="stamp-inner-border">
                   <span class="stamp-header">OFFICIALLY AUDITED GYAN</span>
                   <strong class="stamp-main-year">★ RULE #41 ★</strong>
@@ -197,7 +202,7 @@ export function renderPerspective(site: SiteContent): string {
         <!-- Right Page: Physical Stacked Case Docket (Interactive Page Flip) -->
         <div class="folder-page-right">
           
-          <div class="case-docket-stack" id="case-docket-stack" title="Click anywhere to turn page">
+          <div class="case-docket-stack" id="case-docket-stack" title="Official Case Evidence Docket">
             
             <!-- Stacked Physical Paper Underlays (Creates Real Paper Thickness & Depth) -->
             <div class="docket-underlay-page docket-underlay-2" aria-hidden="true"></div>

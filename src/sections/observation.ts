@@ -23,25 +23,26 @@ export function renderObservation(_site: SiteContent): string {
   <div class="audit-artboard-container">
     
     <!-- The Manilla Case File (Layer 1) -->
-    <div class="dossier-manilla-folder" id="dossier-folder">
+    <div class="dossier-manilla-folder" id="dossier-folder" data-stampable="true">
       
       <!-- Brass Paperclip Top-Left -->
-      <div class="brass-paperclip clip-top" aria-hidden="true"></div>
-      <div class="brass-paperclip clip-left" aria-hidden="true"></div>
+      <div class="brass-paperclip clip-top" aria-hidden="true" data-stop-propagation="true"></div>
+      <div class="brass-paperclip clip-left" aria-hidden="true" data-stop-propagation="true"></div>
 
       <!-- Dossier Header & Stamped Red Ink Seals -->
       <div class="dossier-folder-header">
         <div class="dossier-case-label mono">
           <span class="case-badge">CASE #41</span>
           <span class="case-title">DOMESTIC ARBITRATION // CONFIDENTIAL</span>
+          <span class="stamp-hint mono" aria-hidden="true">[ ✎ CLICK TO STAMP ]</span>
         </div>
 
         <div class="dossier-rubber-stamps" aria-hidden="true">
-          <div class="rubber-stamp stamp-audited">
+          <div class="rubber-stamp stamp-audited" data-stop-propagation="true">
             <span>OFFICIALLY</span>
             <span>AUDITED</span>
           </div>
-          <div class="rubber-stamp stamp-filter">
+          <div class="rubber-stamp stamp-filter" data-stop-propagation="true">
             <span>ZERO</span>
             <span>FILTER</span>
           </div>
@@ -113,13 +114,13 @@ export function renderObservation(_site: SiteContent): string {
           <div class="silver-tape tape-photo-bottom" aria-hidden="true"></div>
           
           <!-- Red Rubber Ink Tour & Quality Verification Stamps -->
-          <div class="rubber-stamp photo-rubber-stamp stamp-tour-cities" aria-hidden="true" title="Tour Verification Stamp">
+          <div class="rubber-stamp photo-rubber-stamp stamp-tour-cities" aria-hidden="true" data-stop-propagation="true" title="Tour Verification Stamp">
             <span class="stamp-sub-label">TOUR VERIFIED</span>
             <span class="stamp-main-val">33 CITIES</span>
             <span class="stamp-route">GLOBAL // CLEARED</span>
           </div>
 
-          <div class="rubber-stamp photo-rubber-stamp stamp-clean-comedy" aria-hidden="true" title="Quality Inspection Stamp">
+          <div class="rubber-stamp photo-rubber-stamp stamp-clean-comedy" aria-hidden="true" data-stop-propagation="true" title="Quality Inspection Stamp">
             <span class="stamp-star-row">★ ★ ★</span>
             <span class="stamp-main-val">100% CLEAN</span>
             <span class="stamp-sub-label">FAMILY COMEDY</span>

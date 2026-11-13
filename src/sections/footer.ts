@@ -89,7 +89,7 @@ export function renderFooter(site: SiteContent): string {
       </div>
 
       <!-- Master Manilla Case Cardstock Sheet -->
-      <div class="docket-closing-card">
+      <div class="docket-closing-card" data-stampable="true">
         
         <!-- Red Corner Gaffer / Customs Tape Flag -->
         <div class="closing-tape-flag mono" aria-hidden="true">
@@ -100,6 +100,7 @@ export function renderFooter(site: SiteContent): string {
           <div class="closing-status-tag mono">
             <span class="closing-dot" aria-hidden="true"></span>
             <span>OFFICIAL EVIDENCE DOSSIER // CASE FILE #41 CONCLUDED</span>
+            <span class="stamp-hint mono" aria-hidden="true">[ ✎ CLICK TO STAMP ]</span>
           </div>
           
           <h4 class="closing-heading display">CASE FILE #41: DOCKET CONCLUDED.</h4>
@@ -136,7 +137,7 @@ export function renderFooter(site: SiteContent): string {
           </button>
 
           <!-- Authentic Heavy Red Wax Seal -->
-          <div class="wax-seal-closing" id="footer-wax-seal" title="Authentic Wax Monogram — Click to inspect">
+          <div class="wax-seal-closing" id="footer-wax-seal" data-stop-propagation="true" title="Authentic Wax Monogram — Click to inspect">
             <span class="wax-monogram">AT</span>
           </div>
         </div>

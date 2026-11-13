@@ -148,6 +148,7 @@ function setupPosterHero(reduce: boolean): void {
 
   // Entrance Stagger Animation
   if (!reduce) {
+    const isMobile = window.innerWidth <= 768;
     const billboard = heroSection.querySelector(".billboard-giant-word");
     const folder = heroSection.querySelector(".dossier-manilla-folder");
     const receipt = heroSection.querySelector(".thermal-receipt-artifact");
@@ -156,10 +157,10 @@ function setupPosterHero(reduce: boolean): void {
     const bottomBand = heroSection.querySelector(".panoramic-bottom-band");
     const tl = gsap.timeline({ delay: 0.1 });
     if (billboard) tl.fromTo(billboard, { autoAlpha: 0, y: 50, scale: 0.94 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.9, ease: "power3.out" });
-    if (folder) tl.fromTo(folder, { autoAlpha: 0, y: 60, rotation: -6, scale: 0.92 }, { autoAlpha: 1, y: 0, rotation: -1.5, scale: 1, duration: 1.0, ease: "power3.out" }, "-=0.5");
-    if (receipt) tl.fromTo(receipt, { autoAlpha: 0, x: -30, rotation: -8 }, { autoAlpha: 1, x: 0, rotation: 3.5, duration: 0.7, ease: "back.out(1.4)" }, "-=0.6");
+    if (folder) tl.fromTo(folder, { autoAlpha: 0, y: 60, rotation: isMobile ? 0 : -6, scale: 0.92 }, { autoAlpha: 1, y: 0, rotation: isMobile ? 0 : -1.5, scale: 1, duration: 1.0, ease: "power3.out" }, "-=0.5");
+    if (receipt) tl.fromTo(receipt, { autoAlpha: 0, x: -30, rotation: isMobile ? 0 : -8 }, { autoAlpha: 1, x: 0, rotation: isMobile ? 0 : 3.5, duration: 0.7, ease: "back.out(1.4)" }, "-=0.6");
     if (photo) tl.fromTo(photo, { autoAlpha: 0, scale: 0.85, y: 20 }, { autoAlpha: 1, scale: 1, y: 0, duration: 0.8, ease: "back.out(1.2)" }, "-=0.6");
-    if (tag) tl.fromTo(tag, { autoAlpha: 0, x: 30, rotation: 12 }, { autoAlpha: 1, x: 0, rotation: 4, duration: 0.7, ease: "back.out(1.4)" }, "-=0.6");
+    if (tag) tl.fromTo(tag, { autoAlpha: 0, x: 30, rotation: isMobile ? 0 : 12 }, { autoAlpha: 1, x: 0, rotation: isMobile ? 0 : 4, duration: 0.7, ease: "back.out(1.4)" }, "-=0.6");
     if (bottomBand) tl.fromTo(bottomBand, { autoAlpha: 0, y: 25 }, { autoAlpha: 1, y: 0, duration: 0.6, ease: "power2.out" }, "-=0.4");
 
   }
@@ -167,6 +168,7 @@ function setupPosterHero(reduce: boolean): void {
 
 /** 60fps Asymmetric Physics & Tactile Mouse Parallax for Audit Collage */
 function setupAuditCollagePhysics(heroSection: HTMLElement, _playSound?: () => void): void {
+  if (window.innerWidth <= 768) return; // Dedicated to desktop pointer hover
   const folder = heroSection.querySelector<HTMLElement>(".dossier-manilla-folder");
   const receipt = heroSection.querySelector<HTMLElement>(".thermal-receipt-artifact");
   const photo = heroSection.querySelector<HTMLElement>(".photo-candid-artifact");

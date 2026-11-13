@@ -1744,6 +1744,19 @@
   }
 }
 
+@media (max-width: 480px) {
+  .stamped-ink-imprint {
+    font-size: 0.58rem;
+    padding: 6px 10px;
+    letter-spacing: 0.08em;
+  }
+
+  .rubber-stamp-apparatus {
+    width: 220px;
+    height: 44px;
+  }
+}
+
 
 /* ============================================================
    INTERACTIVE STAMP ANIMATION SYSTEM

@@ -1229,7 +1229,7 @@
    ========================================================================== */
 @media (max-width: 1180px) {
   .folder-inner-spread {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .folder-center-crease {
@@ -1237,19 +1237,37 @@
   }
 
   .folder-page-left {
+    min-width: 0;
+    max-width: 100%;
     border-bottom: 1px dashed rgba(0, 0, 0, 0.15);
     padding: 1.75rem 1.5rem;
   }
 
   .folder-page-right {
+    min-width: 0;
+    max-width: 100%;
     padding: 1.25rem 1.5rem;
   }
 
+  .case-docket-stack {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .notebook-spiral-spine {
+    display: none;
+  }
+
   .case-index-tabs {
+    order: -1;
     position: static;
+    display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     margin-bottom: 0.75rem;
     gap: 8px;
+    width: 100%;
+    max-width: 100%;
   }
 
   .case-index-tab {
@@ -1257,7 +1275,10 @@
     transform: none;
     border: 1px solid rgba(0, 0, 0, 0.15);
     border-radius: 6px;
-    padding: 6px 12px;
+    padding: 6px 10px;
+    font-size: 0.68rem;
+    flex: 1 1 auto;
+    text-align: center;
   }
 
   .dock-customs-stamps {
@@ -1293,6 +1314,21 @@
     height: 200px;
   }
 
+  .subject-dossier-body {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .subject-specs-list {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .subject-specs-list .spec-row {
+    flex-wrap: wrap;
+    gap: 0.25rem 0.5rem;
+  }
+
   .sheet-inner-body {
     flex-direction: column;
   }
@@ -1309,5 +1345,19 @@
     flex-direction: column;
     text-align: center;
     padding: 1rem 0.85rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .case-index-tabs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+  }
+
+  .case-index-tab {
+    padding: 6px 4px;
+    font-size: 0.58rem;
+    letter-spacing: 0.02em;
   }
 }

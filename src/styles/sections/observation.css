@@ -1078,6 +1078,8 @@
   }
 
   .dossier-manilla-folder {
+    width: min(980px, 92vw);
+    max-width: 100%;
     transform: rotate(0deg);
     padding: 1.5rem 1.25rem 2rem;
   }
@@ -1086,6 +1088,11 @@
   .thermal-receipt-artifact,
   .luggage-tag-artifact {
     transform: rotate(0deg);
+    max-width: 100%;
+  }
+
+  .tag-body {
+    max-width: 100%;
   }
 
   .billboard-giant-word {

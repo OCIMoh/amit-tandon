@@ -1,12 +1,82 @@
 import type { ShowEvent, SiteContent } from "../lib/types";
 import { formatShowDate, parseShowDate, getTicketingPlatform, getShowStatus, getRegion } from "../lib/format";
 
-export function renderAiseKaise(site: SiteContent, events: ShowEvent[]): string {
-  // Find verified flagship events for the 4 featured ticket-stub cards
+export function renderAiseKaise(_site: SiteContent, events: ShowEvent[]): string {
+  // Find verified flagship events for the 3D coverflow carousel cards
   const londonEv = events.find(e => e.city.toLowerCase().includes("london")) || events[2];
   const mumbaiEv = events.find(e => e.city.toLowerCase().includes("mumbai")) || events[22];
   const sydneyEv = events.find(e => e.city.toLowerCase().includes("sydney")) || events[28];
   const dohaEv = events.find(e => e.city.toLowerCase().includes("doha")) || events[18];
+
+  // 6 Flagship Tour Stops for the 3D Coverflow Carousel (matching Concept 2)
+  const flagshipTickets = [
+    {
+      city: "NEW YORK",
+      venue: "The Comedy Cellar / Town Hall",
+      dateFormatted: "NOV 21, 2026",
+      code: "AT-NYC-2026-41",
+      category: "STAND-UP",
+      stamp: "ON SALE",
+      stampClass: "stamp-on-sale",
+      image: "/images/cities/new-york.jpg",
+      href: "https://www.ticketmaster.com",
+    },
+    {
+      city: "LONDON",
+      venue: londonEv.venueHint || "Southbank Centre · Queen Elizabeth Hall",
+      dateFormatted: formatShowDate(londonEv.date),
+      code: "AT-LDN-2026-01",
+      category: "STAND-UP",
+      stamp: "SELLING FAST",
+      stampClass: "stamp-selling-fast",
+      image: "/images/cities/london.jpg",
+      href: londonEv.href,
+    },
+    {
+      city: "TORONTO",
+      venue: "Massey Hall · Elgin Theatre",
+      dateFormatted: "DEC 05, 2026",
+      code: "AT-YYZ-2026-14",
+      category: "STAND-UP",
+      stamp: "LIMITED",
+      stampClass: "stamp-limited",
+      image: "/images/cities/toronto.jpg",
+      href: "https://www.ticketmaster.ca",
+    },
+    {
+      city: "MUMBAI",
+      venue: mumbaiEv.venueHint || "NCPA Tata Theatre",
+      dateFormatted: formatShowDate(mumbaiEv.date),
+      code: "AT-BOM-2026-02",
+      category: "STAND-UP",
+      stamp: "SOLD OUT",
+      stampClass: "stamp-sold-out",
+      image: "/images/cities/mumbai.jpg",
+      href: mumbaiEv.href,
+    },
+    {
+      city: "SYDNEY",
+      venue: sydneyEv.venueHint || "Sydney Opera House",
+      dateFormatted: formatShowDate(sydneyEv.date),
+      code: "AT-SYD-2027-03",
+      category: "STAND-UP",
+      stamp: "SELLING FAST",
+      stampClass: "stamp-selling-fast",
+      image: "/images/cities/sydney.jpg",
+      href: sydneyEv.href,
+    },
+    {
+      city: "DUBAI",
+      venue: "Dubai Opera House",
+      dateFormatted: "FEB 08, 2027",
+      code: "AT-DXB-2027-04",
+      category: "STAND-UP",
+      stamp: "ON SALE",
+      stampClass: "stamp-on-sale",
+      image: "/images/cities/dubai.jpg",
+      href: dohaEv.href,
+    },
+  ];
 
   // Pre-calculate region counts for the filter tabs
   let ukCount = 0;
@@ -95,23 +165,20 @@ export function renderAiseKaise(site: SiteContent, events: ShowEvent[]): string 
 
   <div class="wrap dispatch-wrap">
     
-    <!-- 1. The Dispatch Room Masthead -->
+    <!-- 1. The Dispatch Room Masthead (Matching Concept 2) -->
     <header class="dispatch-masthead" data-reveal>
-      <div class="dispatch-status-bar mono">
-        <div class="status-dispatch-tag">
-          <span class="dispatch-led-bulb" aria-hidden="true"></span>
-          <span>BACKSTAGE TOUR DISPATCH & OFFICIAL BOX OFFICE // DESK #04</span>
-        </div>
-        <div class="status-cleared mono">190 COUNTRIES CLEARED · 32 STAGES ACTIVE</div>
-        <div class="status-hotline mono">DIRECT MGMT DESK: +91 9004040003</div>
-      </div>
+      <div class="dispatch-concept-badge mono">[ CONCEPT 2 ]</div>
 
       <div class="dispatch-title-row">
         <h2 class="dispatch-main-title display">
-          <span class="title-white">WORLD TOUR DISPATCH </span>
-          <span class="title-red highlight-red">& BOX OFFICE.</span>
+          <span class="title-white">WORLD TOUR DISPATCH &amp; </span>
+          <span class="title-red highlight-red">BOX OFFICE.</span>
         </h2>
         
+        <p class="dispatch-subheading mono">
+          GRAB YOUR TICKETS &bull; BE PART OF THE JOURNEY
+        </p>
+
         <p class="dispatch-lead-copy">
           Over 2,000 live shows across 30+ countries. Direct verified ticketing for live international auditorium dates, paired with the direct executive management hotline for corporate keynotes and private galas.
         </p>
@@ -136,129 +203,91 @@ export function renderAiseKaise(site: SiteContent, events: ShowEvent[]): string 
       </div>
     </header>
 
-    <!-- 2. The 1,520px-Wide Master Backstage Command Desk -->
-    <div class="dispatch-command-desk" data-reveal>
-      
-      <!-- Top Brushed Metal Desk Trim with Millimeter Ruler -->
-      <div class="desk-metal-trim" aria-hidden="true">
-        <div class="aluminum-ruler mono">
-          <span>| 00 | 10 | 20 | 30 | 40 | 50 | 60 | 70 | 80 | 90 | 100 | 110 | 120 | 130 | 140 | 150 CM | WORLD TOUR FLIGHT DESK · TANDON MGMT</span>
-        </div>
-        <div class="desk-screws">
-          <span class="screw" title="Milled Machine Screw"></span>
-          <span class="screw" title="Milled Machine Screw"></span>
-          <span class="screw" title="Milled Machine Screw"></span>
-        </div>
-      </div>
+    <!-- 2. 3D Coverflow Ticket Carousel Showcase (Concept 2) -->
+    <div class="theatrical-ticket-carousel-container" id="theatrical-ticket-carousel" aria-label="3D World Tour Box Office Carousel">
+          <div class="coverflow-stage" id="tour-coverflow-stage">
+            <!-- Previous Button -->
+            <button type="button" class="carousel-nav-btn btn-prev" id="coverflow-prev-btn" aria-label="Previous tour stop">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="15 18 9 12 15 6"></polyline>
+              </svg>
+            </button>
 
-      <!-- Main Operational Desk Surface: 60% Left Wing (Tour Terminal) + 40% Right Wing (Hotline & Telex) -->
-      <div class="dispatch-desk-surface">
-        <div class="dispatch-dual-grid">
-          
-          <!-- LEFT WING (60%): The Global Tour Solari Departure Terminal -->
-          <div class="solari-terminal-wing">
+            <!-- 3D Track -->
+            <div class="coverflow-track" id="coverflow-track">
+              ${flagshipTickets.map((t, idx) => `
+                <article 
+                  class="theatrical-ticket-card ${idx === 0 ? "pos-center" : idx === 1 ? "pos-next-1" : idx === 2 ? "pos-next-2" : idx === flagshipTickets.length - 1 ? "pos-prev-1" : idx === flagshipTickets.length - 2 ? "pos-prev-2" : "pos-hidden"}" 
+                  data-ticket-index="${idx}"
+                  data-city="${t.city}"
+                  data-href="${t.href}"
+                  role="group"
+                  aria-label="${t.city} Show Ticket"
+                >
+                  <div class="stub-left">
+                    <div class="stub-photo-frame">
+                      <img src="${t.image}" alt="Amit Tandon performing live" loading="lazy" />
+                    </div>
+                    <div class="stub-barcode" aria-hidden="true">
+                      <div class="barcode-lines"></div>
+                      <span class="barcode-text mono">${t.code}</span>
+                    </div>
+                  </div>
+                  <div class="stub-right">
+                    <div class="stub-info-block">
+                      <div class="ticket-badge-row">
+                        <span class="live-pill mono">LIVE</span>
+                        <span class="category-text mono">${t.category}</span>
+                      </div>
+                      <h3 class="ticket-city display">${t.city}</h3>
+                      <p class="ticket-venue">${t.venue}</p>
+                      <div class="ticket-date-row mono">
+                        <span class="cal-icon" aria-hidden="true">📅</span>
+                        <span>${t.dateFormatted}</span>
+                      </div>
+                    </div>
+                    <div class="stamp-box ${t.stampClass} mono" aria-label="Status: ${t.stamp}">
+                      <span>${t.stamp}</span>
+                    </div>
+                  </div>
+                </article>
+              `).join("")}
+            </div>
+
+            <!-- Next Button -->
+            <button type="button" class="carousel-nav-btn btn-next" id="coverflow-next-btn" aria-label="Next tour stop">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Pagination Dots -->
+          <div class="carousel-pagination" id="coverflow-pagination" role="tablist" aria-label="Select tour city">
+            ${flagshipTickets.map((t, idx) => `
+              <button 
+                type="button" 
+                class="carousel-dot ${idx === 0 ? "active" : ""}" 
+                data-dot-index="${idx}" 
+                aria-label="View ${t.city} tour stop"
+                role="tab"
+              ></button>
+            `).join("")}
+          </div>
+
+          <!-- View All Tour Dates Trigger Pill Button -->
+          <div class="coverflow-bottom-actions">
+            <button type="button" class="tour-view-all-btn" id="coverflow-view-all-btn" aria-expanded="false" aria-controls="tour-schedule-manifest-drawer">
+              <span>VIEW ALL 32 TOUR DATES</span>
+              <span class="btn-arrow" aria-hidden="true">&darr;</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Collapsible Full-Width 32-City Itinerary Manifest Drawer -->
+        <div class="tour-schedule-manifest-drawer" id="tour-schedule-manifest-drawer" aria-hidden="true">
+          <div class="manifest-drawer-inner">
             
-            <!-- Terminal Header -->
-            <div class="terminal-header-strip mono">
-              <div class="terminal-badge">
-                <span class="solari-status-dot"></span>
-                <span>INTERNATIONAL DEPARTURE TERMINAL // SOLARI MK-IV</span>
-              </div>
-              <span class="terminal-clock mono" id="terminal-live-time">UTC+05:30 · ALL GATES REPORTING</span>
-            </div>
-
-            <!-- Mechanical Solari Split-Flap Departure Sign -->
-            <div class="solari-split-flap-board" aria-label="International Tour Departure Board">
-              
-              <div class="solari-columns-header mono" aria-hidden="true">
-                <span class="col-flight">ROUTE / FLT</span>
-                <span class="col-destination">DESTINATION & VENUE</span>
-                <span class="col-status">GATE STATUS</span>
-                <span class="col-remarks">DOMESTIC REMARKS / LORE</span>
-              </div>
-
-              <div class="solari-flaps-track" id="solari-flaps-track">
-                
-                <!-- Flap Row 1: London -->
-                <div class="solari-row mono" data-region="uk-europe">
-                  <div class="solari-cell cell-route">
-                    <span class="flap-tile">D</span><span class="flap-tile">E</span><span class="flap-tile">L</span>
-                    <span class="flap-arrow">➔</span>
-                    <span class="flap-tile highlight">L</span><span class="flap-tile highlight">H</span><span class="flap-tile highlight">R</span>
-                  </div>
-                  <div class="solari-cell cell-dest">
-                    <span class="dest-city">LONDON</span>
-                    <span class="dest-venue">SOUTHBANK CENTRE</span>
-                  </div>
-                  <div class="solari-cell cell-status">
-                    <span class="solari-gate-tag status-fast">BOARDING // FAST</span>
-                  </div>
-                  <div class="solari-cell cell-remarks">
-                    <span class="remarks-text">WIFE PACKED 4 BAGS · 2-DAY TRIP</span>
-                  </div>
-                </div>
-
-                <!-- Flap Row 2: Mumbai -->
-                <div class="solari-row mono" data-region="india">
-                  <div class="solari-cell cell-route">
-                    <span class="flap-tile">D</span><span class="flap-tile">E</span><span class="flap-tile">L</span>
-                    <span class="flap-arrow">➔</span>
-                    <span class="flap-tile highlight">B</span><span class="flap-tile highlight">O</span><span class="flap-tile highlight">M</span>
-                  </div>
-                  <div class="solari-cell cell-dest">
-                    <span class="dest-city">MUMBAI</span>
-                    <span class="dest-venue">NCPA TATA THEATRE</span>
-                  </div>
-                  <div class="solari-cell cell-status">
-                    <span class="solari-gate-tag status-sold">SOLD OUT // FULL</span>
-                  </div>
-                  <div class="solari-cell cell-remarks">
-                    <span class="remarks-text">15 YRS MARRIED · ZERO HOPE</span>
-                  </div>
-                </div>
-
-                <!-- Flap Row 3: Sydney -->
-                <div class="solari-row mono" data-region="australia">
-                  <div class="solari-cell cell-route">
-                    <span class="flap-tile">D</span><span class="flap-tile">E</span><span class="flap-tile">L</span>
-                    <span class="flap-arrow">➔</span>
-                    <span class="flap-tile highlight">S</span><span class="flap-tile highlight">Y</span><span class="flap-tile highlight">D</span>
-                  </div>
-                  <div class="solari-cell cell-dest">
-                    <span class="dest-city">SYDNEY</span>
-                    <span class="dest-venue">SYDNEY OPERA HOUSE</span>
-                  </div>
-                  <div class="solari-cell cell-status">
-                    <span class="solari-gate-tag status-fast">SELLING FAST</span>
-                  </div>
-                  <div class="solari-cell cell-remarks">
-                    <span class="remarks-text">MIDDLE SEAT GENERAL RELATIVITY</span>
-                  </div>
-                </div>
-
-                <!-- Flap Row 4: Dubai -->
-                <div class="solari-row mono" data-region="middle-east-asia">
-                  <div class="solari-cell cell-route">
-                    <span class="flap-tile">D</span><span class="flap-tile">E</span><span class="flap-tile">L</span>
-                    <span class="flap-arrow">➔</span>
-                    <span class="flap-tile highlight">D</span><span class="flap-tile highlight">X</span><span class="flap-tile highlight">B</span>
-                  </div>
-                  <div class="solari-cell cell-dest">
-                    <span class="dest-city">DUBAI</span>
-                    <span class="dest-venue">DUBAI OPERA HOUSE</span>
-                  </div>
-                  <div class="solari-cell cell-status">
-                    <span class="solari-gate-tag status-final">FINAL CALL</span>
-                  </div>
-                  <div class="solari-cell cell-remarks">
-                    <span class="remarks-text">GOLD SOUK NEGOTIATION PROTOCOL</span>
-                  </div>
-                </div>
-
-              </div>
-
-            </div>
-
             <!-- Instant Search Field & Region Filter Navigation -->
             <div class="terminal-filter-cockpit">
               <div class="tour-search-field">
@@ -301,160 +330,12 @@ export function renderAiseKaise(site: SiteContent, events: ShowEvent[]): string 
               </div>
             </div>
 
-            <!-- Flagship Perforated Boarding Passes (2x2 Grid) -->
-            <div class="terminal-boarding-deck">
-              <div class="deck-title-bar mono">
-                <span>FLAGSHIP ARENA BOARDING PASSES // HIGH-DEMAND HEADLINERS</span>
-                <span class="deck-count mono" id="tour-search-count">SHOWING 32 OF 32 DATES</span>
-              </div>
-
-              <div class="featured-cities-grid" id="featured-cities-grid">
-                
-                <!-- London Boarding Pass -->
-                <article class="featured-tour-card" data-region="uk-europe">
-                  <span class="stub-notch notch-top" aria-hidden="true"></span>
-                  <span class="stub-notch notch-bottom" aria-hidden="true"></span>
-                  <div class="tour-card-body">
-                    <div class="tour-card-top">
-                      <span class="tour-card-flag mono">🇬🇧 UNITED KINGDOM</span>
-                      <span class="tour-stub-code mono">FLT #AT-LDN-01</span>
-                      <span class="tour-status-pill status-fast mono">SELLING FAST</span>
-                    </div>
-                    <h3 class="tour-card-city">LONDON</h3>
-                    <p class="tour-card-venue">${londonEv.venueHint || "Southbank Centre · Queen Elizabeth Hall"}</p>
-                    <div class="tour-card-meta">
-                      <span class="tour-meta-date mono">📅 ${formatShowDate(londonEv.date)}</span>
-                      <span class="tour-meta-time mono">🕒 16:00 & 19:30</span>
-                      <span class="tour-partner-pill mono">Southbank Box Office</span>
-                    </div>
-                    <div class="tour-card-action">
-                      <a class="btn btn-primary btn-sm tour-card-btn" href="${londonEv.href}" target="_blank" rel="noopener noreferrer">
-                        <span>BOOK BOARDING PASS</span>
-                        <span class="btn-arrow" aria-hidden="true">&rarr;</span>
-                      </a>
-                    </div>
-                  </div>
-                  <div class="ticket-stub-tearoff mono" aria-hidden="true">
-                    <div class="stub-perforated-border"></div>
-                    <div class="stub-barcode-column">
-                      <span class="stub-admit-tag">ADMIT 01</span>
-                      <span class="stub-vert-code">||||||||||||||</span>
-                      <span class="stub-serial">LDN-2026-41</span>
-                    </div>
-                  </div>
-                </article>
-
-                <!-- Mumbai Boarding Pass -->
-                <article class="featured-tour-card" data-region="india">
-                  <span class="stub-notch notch-top" aria-hidden="true"></span>
-                  <span class="stub-notch notch-bottom" aria-hidden="true"></span>
-                  <div class="tour-card-body">
-                    <div class="tour-card-top">
-                      <span class="tour-card-flag mono">🇮🇳 INDIA</span>
-                      <span class="tour-stub-code mono">FLT #AT-BOM-02</span>
-                      <span class="tour-status-pill status-festive mono">CHRISTMAS SPECIAL</span>
-                    </div>
-                    <h3 class="tour-card-city">MUMBAI</h3>
-                    <p class="tour-card-venue">${mumbaiEv.venueHint || "NCPA Tata Theatre / St. Andrew's"}</p>
-                    <div class="tour-card-meta">
-                      <span class="tour-meta-date mono">📅 ${formatShowDate(mumbaiEv.date)}</span>
-                      <span class="tour-meta-time mono">🕒 ${mumbaiEv.time}</span>
-                      <span class="tour-partner-pill mono">BookMyShow Exclusive</span>
-                    </div>
-                    <div class="tour-card-action">
-                      <a class="btn btn-primary btn-sm tour-card-btn" href="${mumbaiEv.href}" target="_blank" rel="noopener noreferrer">
-                        <span>BOOK BOARDING PASS</span>
-                        <span class="btn-arrow" aria-hidden="true">&rarr;</span>
-                      </a>
-                    </div>
-                  </div>
-                  <div class="ticket-stub-tearoff mono" aria-hidden="true">
-                    <div class="stub-perforated-border"></div>
-                    <div class="stub-barcode-column">
-                      <span class="stub-admit-tag">ADMIT 01</span>
-                      <span class="stub-vert-code">||||||||||||||</span>
-                      <span class="stub-serial">BOM-2026-41</span>
-                    </div>
-                  </div>
-                </article>
-
-                <!-- Sydney Boarding Pass -->
-                <article class="featured-tour-card" data-region="australia">
-                  <span class="stub-notch notch-top" aria-hidden="true"></span>
-                  <span class="stub-notch notch-bottom" aria-hidden="true"></span>
-                  <div class="tour-card-body">
-                    <div class="tour-card-top">
-                      <span class="tour-card-flag mono">🇦🇺 AUSTRALIA</span>
-                      <span class="tour-stub-code mono">FLT #AT-SYD-03</span>
-                      <span class="tour-status-pill status-finale mono">TOUR FINALE</span>
-                    </div>
-                    <h3 class="tour-card-city">SYDNEY</h3>
-                    <p class="tour-card-venue">${sydneyEv.venueHint || "Sydney Opera House"}</p>
-                    <div class="tour-card-meta">
-                      <span class="tour-meta-date mono">📅 ${formatShowDate(sydneyEv.date)}</span>
-                      <span class="tour-meta-time mono">🕒 ${sydneyEv.time}</span>
-                      <span class="tour-partner-pill mono">Sydney Opera House Box Office</span>
-                    </div>
-                    <div class="tour-card-action">
-                      <a class="btn btn-primary btn-sm tour-card-btn" href="${sydneyEv.href}" target="_blank" rel="noopener noreferrer">
-                        <span>BOOK BOARDING PASS</span>
-                        <span class="btn-arrow" aria-hidden="true">&rarr;</span>
-                      </a>
-                    </div>
-                  </div>
-                  <div class="ticket-stub-tearoff mono" aria-hidden="true">
-                    <div class="stub-perforated-border"></div>
-                    <div class="stub-barcode-column">
-                      <span class="stub-admit-tag">ADMIT 01</span>
-                      <span class="stub-vert-code">||||||||||||||</span>
-                      <span class="stub-serial">SYD-2026-41</span>
-                    </div>
-                  </div>
-                </article>
-
-                <!-- Doha Boarding Pass -->
-                <article class="featured-tour-card" data-region="middle-east-asia">
-                  <span class="stub-notch notch-top" aria-hidden="true"></span>
-                  <span class="stub-notch notch-bottom" aria-hidden="true"></span>
-                  <div class="tour-card-body">
-                    <div class="tour-card-top">
-                      <span class="tour-card-flag mono">🇶🇦 QATAR</span>
-                      <span class="tour-stub-code mono">FLT #AT-DOH-04</span>
-                      <span class="tour-status-pill status-fast mono">HIGH DEMAND</span>
-                    </div>
-                    <h3 class="tour-card-city">DOHA</h3>
-                    <p class="tour-card-venue">${dohaEv.venueHint || "Qatar National Convention Centre (QNCC)"}</p>
-                    <div class="tour-card-meta">
-                      <span class="tour-meta-date mono">📅 ${formatShowDate(dohaEv.date)}</span>
-                      <span class="tour-meta-time mono">🕒 ${dohaEv.time}</span>
-                      <span class="tour-partner-pill mono">Platinumlist Official</span>
-                    </div>
-                    <div class="tour-card-action">
-                      <a class="btn btn-primary btn-sm tour-card-btn" href="${dohaEv.href}" target="_blank" rel="noopener noreferrer">
-                        <span>BOOK BOARDING PASS</span>
-                        <span class="btn-arrow" aria-hidden="true">&rarr;</span>
-                      </a>
-                    </div>
-                  </div>
-                  <div class="ticket-stub-tearoff mono" aria-hidden="true">
-                    <div class="stub-perforated-border"></div>
-                    <div class="stub-barcode-column">
-                      <span class="stub-admit-tag">ADMIT 01</span>
-                      <span class="stub-vert-code">||||||||||||||</span>
-                      <span class="stub-serial">DOH-2026-41</span>
-                    </div>
-                  </div>
-                </article>
-
-              </div>
-            </div>
-
-            <!-- Full 32-City Itinerary Manifest (Expandable Drawer) -->
+            <!-- Full 32-City Itinerary Manifest Board -->
             <div class="tour-schedule-board-container">
               <div class="schedule-board-header">
                 <div class="board-heading-block">
                   <h4 class="board-title display">WORLD TOUR ITINERARY MANIFEST</h4>
-                  <p class="board-sub mono">32 CITIES · NOVEMBER 2026 THROUGH JULY 2027</p>
+                  <p class="board-sub mono">32 CITIES &bull; NOVEMBER 2026 THROUGH JULY 2027</p>
                 </div>
                 <div class="board-view-status">
                   <span class="status-indicator-dot"></span>
@@ -464,13 +345,6 @@ export function renderAiseKaise(site: SiteContent, events: ShowEvent[]): string 
 
               <div class="tour-schedule-grid" id="schedule-cards-grid">
                 ${allRowsHtml}
-              </div>
-
-              <!-- Expander Button -->
-              <div class="tour-expander-wrap" id="tour-expander-wrap">
-                <button class="btn btn-secondary btn-lg tour-expand-btn" id="toggle-full-schedule-btn" aria-expanded="false" aria-controls="schedule-cards-grid">
-                  <span id="expand-btn-text">EXPLORE ALL 32 GLOBAL TOUR DATES &darr;</span>
-                </button>
               </div>
 
               <!-- No Results State -->
@@ -495,180 +369,21 @@ export function renderAiseKaise(site: SiteContent, events: ShowEvent[]): string 
                   </a>
                 </div>
               </div>
-            </div>
 
-          </div>
-
-
-          <!-- RIGHT WING (40%): The Production Hotline & Teleprinter Dispatch Desk -->
-          <div class="hotline-dispatch-wing" id="booking-hotline-wing">
-
-            <!-- Direction 1: The Industrial Executive Dispatch Console -->
-            <div class="console-chassis" id="console-chassis-pod">
-              
-              <!-- Console Top Bezel / Header Strip -->
-              <div class="console-bezel-top mono">
-                <div class="bezel-left">
-                  <span class="bezel-screw screw-tl" aria-hidden="true"></span>
-                  <span class="hotline-badge-red">HOTLINE #01</span>
-                  <span class="console-title">CORPORATE & PRIVATE DISPATCH</span>
-                </div>
-                <div class="bezel-right">
-                  <span class="status-pulse-dot" aria-hidden="true"></span>
-                  <span class="console-status-live">CARRIER ACTIVE // 24/7 PRIORITY</span>
-                  <span class="bezel-screw screw-tr" aria-hidden="true"></span>
-                </div>
-              </div>
-
-              <!-- Console Body Area -->
-              <div class="console-main-bay">
-
-                <!-- The Signature Handwritten Sticky Note with Cellophane Tape -->
-                <div class="console-sticky-note" aria-hidden="true">
-                  <div class="tape-strip" aria-hidden="true"></div>
-                  <span class="postit-pin" aria-hidden="true">📌</span>
-                  <p class="postit-text">
-                    “If corporate HR calls, swear it's 100% clean comedy. Do NOT give this number to my in-laws! — Amit”
-                  </p>
-                </div>
-
-                <!-- Milled Paper Slot & Teletype Dispatch Paper Strip -->
-                <div class="console-teletype-unit">
-                  <!-- Milled CNC Horizontal Paper Exit Slot -->
-                  <div class="milled-paper-slot" aria-hidden="true">
-                    <span class="slot-cavity"></span>
-                    <span class="slot-cutter-bar"></span>
-                  </div>
-
-                  <!-- Continuous Printed Teletype Dispatch Document -->
-                  <div class="teletype-sheet mono" id="teletype-dispatch-sheet" data-stampable="true" aria-label="Official Corporate Keynote Dispatch">
-                    <span class="stamp-hint mono" aria-hidden="true">[ ✎ CLICK TO STAMP ]</span>
-                    <div class="sheet-zigzag-edge" aria-hidden="true"></div>
-                    <div class="sheet-sprocket-feed feed-left" aria-hidden="true"></div>
-                    <div class="sheet-sprocket-feed feed-right" aria-hidden="true"></div>
-
-                    <div class="teletype-content">
-                      <div class="teletype-banner">
-                        <span>[ INCOMING DISPATCH // CORPORATE EXECUTIVE BRIEF ]</span>
-                      </div>
-                      <div class="teletype-grid">
-                        <div class="teletype-line">
-                          <span class="teletype-key">&gt;&gt; SUBJECT:</span>
-                          <span class="teletype-val">AMIT TANDON // THE MARRIED GUY</span>
-                        </div>
-                        <div class="teletype-line highlight">
-                          <span class="teletype-key">&gt;&gt; CREDENTIALS:</span>
-                          <span class="teletype-val">B.TECH (MECH) + IIT DELHI MBA</span>
-                        </div>
-                        <div class="teletype-line">
-                          <span class="teletype-key">&gt;&gt; BACKGROUND:</span>
-                          <span class="teletype-val">15 YRS MANAGING DIRECTOR & VP</span>
-                        </div>
-                        <div class="teletype-line">
-                          <span class="teletype-key">&gt;&gt; AUDIENCE:</span>
-                          <span class="teletype-val">CXO RETREATS, ANNUAL SUMMITS & CONFERENCES</span>
-                        </div>
-                        <div class="teletype-line highlight">
-                          <span class="teletype-key">&gt;&gt; SAFETY AUDIT:</span>
-                          <span class="teletype-val">100% CLEAN FAMILY COMEDY · ZERO HR LIABILITIES</span>
-                        </div>
-                        <div class="teletype-line">
-                          <span class="teletype-key">&gt;&gt; TRACK RECORD:</span>
-                          <span class="teletype-val">TRUSTED BY FORTUNE 500 MULTINATIONALS</span>
-                        </div>
-                        <div class="teletype-line">
-                          <span class="teletype-key">&gt;&gt; MGMT DESK:</span>
-                          <span class="teletype-val">+91 9004040003 // READY FOR BOOKING</span>
-                        </div>
-                        <div class="teletype-line end-stop">
-                          <span class="teletype-key">&gt;&gt; DISPATCH CLEARED // STOP</span>
-                        </div>
-                      </div>
-
-                      <!-- Stamped Verification Monogram -->
-                      <div class="teletype-footer-stamps" aria-hidden="true">
-                        <div class="rubber-stamp stamp-bookable mono">
-                          <span>AUDITED</span>
-                          <span>ZERO HR RISK</span>
-                          <span class="stamp-stars">★★★</span>
-                        </div>
-                        <div class="teletype-id-tag">
-                          <span>REC-REF: AT-B2B-2026-CONFIDENTIAL</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-
-              <!-- Console Bottom Bezel: The Tactile Dispatch Actuator -->
-              <div class="console-bezel-bottom">
-                <a 
-                  href="${site.contact.whatsapp}" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  class="btn-console-actuator mono"
-                  id="btn-console-dispatch"
-                  title="Initiate priority dispatch on WhatsApp"
-                >
-                  <div class="actuator-left">
-                    <span class="actuator-indicator" aria-hidden="true">
-                      <span class="indicator-glow"></span>
-                    </span>
-                    <div class="actuator-labels">
-                      <span class="actuator-main">INITIATE DIRECT DISPATCH</span>
-                      <span class="actuator-sub">TANDON MGMT // WHATSAPP PRIORITY</span>
-                    </div>
-                  </div>
-                  <div class="actuator-arrow" aria-hidden="true">
-                    <span>CONNECT</span>
-                    <span class="arrow-glyph">&nearr;</span>
-                  </div>
-                </a>
-
-                <div class="console-direct-line mono">
-                  <span>DIRECT DESK: <strong>+91 90040 40003</strong></span>
-                  <span class="line-divider">·</span>
-                  <span>MGMT: <strong>HELLO@TANDONAMIT.COM</strong></span>
-                </div>
-
-                <div class="bezel-corner-screws" aria-hidden="true">
-                  <span class="bezel-screw screw-bl"></span>
-                  <span class="bezel-screw screw-br"></span>
-                </div>
+              <!-- Bottom Drawer Collapse Button -->
+              <div class="tour-drawer-bottom-actions">
+                <button type="button" class="tour-collapse-drawer-btn" id="drawer-collapse-btn">
+                  <span>&uarr; COLLAPSE TOUR DATES</span>
+                </button>
               </div>
 
             </div>
 
           </div>
-
         </div>
-      </div>
-
-      <!-- Desk Metal Base Lip & Perforated Marquee -->
-      <div class="desk-metal-base" aria-hidden="true">
-        <div class="film-ticker-track mono">
-          <span>● 32 GLOBAL CITIES CONFIRMED</span>
-          <span class="ticker-star">★</span>
-          <span>100% CLEAN FAMILY COMEDY</span>
-          <span class="ticker-star">★</span>
-          <span>DIRECT MANAGEMENT HOTLINE: +91 9004040003</span>
-          <span class="ticker-star">★</span>
-          <span>LONDON · MUMBAI · SYDNEY · DUBAI · DOHA · SINGAPORE</span>
-          <span class="ticker-star">★</span>
-          <span>ZERO RESELLER MARKUPS</span>
-          <span class="ticker-star">★</span>
-          <span>● 32 GLOBAL CITIES CONFIRMED</span>
-          <span class="ticker-star">★</span>
-          <span>100% CLEAN FAMILY COMEDY</span>
-        </div>
-      </div>
 
     </div>
 
-  </div>
-
-</section>
+  </section>
 `;
 }

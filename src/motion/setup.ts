@@ -944,7 +944,6 @@ function setupEvidenceDeskMotion(reduce: boolean): void {
 /** Section 4 & 5 Unified: The Backstage Tour Dispatch & Box Office Command Center */
 function setupTourInteractions(): void {
   const filterTabs = document.querySelectorAll<HTMLButtonElement>(".region-tab");
-  const featuredCards = document.querySelectorAll<HTMLElement>(".featured-tour-card");
   const solariRows = document.querySelectorAll<HTMLElement>(".solari-row");
   const schedGrid = document.querySelector<HTMLDivElement>("#schedule-cards-grid");
   const schedRows = document.querySelectorAll<HTMLElement>(".tour-row-card");
@@ -1005,9 +1004,16 @@ function setupTourInteractions(): void {
       triggerSolariTileFlip();
     }
 
-    // Auto-expand the grid if user is searching or has selected a specific region
+    // Auto-expand the manifest drawer if user is searching or has selected a specific region
     const hasActiveFilter = Boolean(q || activeRegionFilter !== "all");
     const shouldBeExpanded = isManuallyExpanded || hasActiveFilter;
+
+    const manifestDrawer = document.querySelector<HTMLElement>("#tour-schedule-manifest-drawer");
+    if (manifestDrawer) {
+      manifestDrawer.classList.toggle("is-open", shouldBeExpanded);
+      manifestDrawer.setAttribute("aria-hidden", shouldBeExpanded ? "false" : "true");
+    }
+
     if (schedGrid) {
       schedGrid.classList.toggle("is-expanded", shouldBeExpanded);
     }
@@ -1018,14 +1024,14 @@ function setupTourInteractions(): void {
         : "EXPLORE ALL 32 GLOBAL TOUR DATES &darr;";
     }
 
-    // Filter featured 4 flagship boarding passes
-    featuredCards.forEach((card) => {
-      const reg = card.dataset.region || "";
-      const text = card.textContent?.toLowerCase() || "";
-      const matchRegion = activeRegionFilter === "all" || reg === activeRegionFilter;
-      const matchSearch = !q || text.includes(q);
-      card.style.display = matchRegion && matchSearch ? "flex" : "none";
-    });
+    const coverflowViewAllBtn = document.querySelector<HTMLButtonElement>("#coverflow-view-all-btn");
+    if (coverflowViewAllBtn) {
+      coverflowViewAllBtn.setAttribute("aria-expanded", shouldBeExpanded ? "true" : "false");
+      coverflowViewAllBtn.classList.toggle("is-active", shouldBeExpanded);
+      coverflowViewAllBtn.innerHTML = shouldBeExpanded
+        ? `<span>COLLAPSE TOUR MANIFEST</span><span class="btn-arrow" aria-hidden="true">&uarr;</span>`
+        : `<span>VIEW ALL 32 TOUR DATES</span><span class="btn-arrow" aria-hidden="true">&darr;</span>`;
+    }
 
     // Filter schedule rows
     schedRows.forEach((row) => {
@@ -1037,11 +1043,7 @@ function setupTourInteractions(): void {
       const matchSearch = !q || city.includes(q) || venue.includes(q) || reg.includes(q);
 
       if (matchRegion && matchSearch) {
-        if (shouldBeExpanded) {
-          row.style.display = "grid";
-        } else {
-          row.style.display = "none";
-        }
+        row.style.display = "grid";
         visibleCount++;
       } else {
         row.style.display = "none";
@@ -1146,145 +1148,149 @@ function setupTourInteractions(): void {
     });
   }
 
-  // --- Physical Prop Interaction: Industrial Executive Dispatch Console ---
-  const consoleActuatorBtn = document.querySelector<HTMLAnchorElement>("#btn-console-dispatch");
-  const teletypeSheet = document.querySelector<HTMLElement>("#teletype-dispatch-sheet");
-  const stickyNote = document.querySelector<HTMLElement>(".console-sticky-note");
-  const bookableStamp = document.querySelector<HTMLElement>(".rubber-stamp.stamp-bookable");
-
-  if (consoleActuatorBtn) {
-    consoleActuatorBtn.addEventListener("mouseenter", () => {
-      foley.playMetalClick();
-      gsap.to(consoleActuatorBtn, { y: -2, duration: 0.18, ease: "power2.out" });
-    });
-    consoleActuatorBtn.addEventListener("mouseleave", () => {
-      gsap.to(consoleActuatorBtn, { y: 0, duration: 0.22, ease: "power2.out" });
-    });
-    consoleActuatorBtn.addEventListener("click", () => {
-      foley.playMetalClick();
+  const coverflowViewAllBtn = document.querySelector<HTMLButtonElement>("#coverflow-view-all-btn");
+  if (coverflowViewAllBtn) {
+    coverflowViewAllBtn.addEventListener("click", () => {
+      isManuallyExpanded = !isManuallyExpanded;
+      applyFilters(false);
+      if (isManuallyExpanded) {
+        const drawer = document.querySelector<HTMLElement>("#tour-schedule-manifest-drawer");
+        if (drawer) {
+          drawer.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+        if (searchInput && window.innerWidth > 768) {
+          setTimeout(() => searchInput.focus(), 250);
+        }
+      }
     });
   }
 
-  if (teletypeSheet) {
-    teletypeSheet.addEventListener("mouseenter", () => {
+  const drawerCollapseBtn = document.querySelector<HTMLButtonElement>("#drawer-collapse-btn");
+  if (drawerCollapseBtn) {
+    drawerCollapseBtn.addEventListener("click", () => {
+      isManuallyExpanded = false;
+      applyFilters(false);
+      const liveSection = document.querySelector<HTMLElement>("#live-shows");
+      if (liveSection) {
+        liveSection.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    });
+  }
+
+  // --- 3D Coverflow Ticket Carousel Controller (Concept 2 Showcase) ---
+  const coverflowStage = document.querySelector<HTMLElement>("#tour-coverflow-stage");
+  const ticketCards = document.querySelectorAll<HTMLElement>(".theatrical-ticket-card");
+  const coverflowPrevBtn = document.querySelector<HTMLButtonElement>("#coverflow-prev-btn");
+  const coverflowNextBtn = document.querySelector<HTMLButtonElement>("#coverflow-next-btn");
+  const coverflowDots = document.querySelectorAll<HTMLButtonElement>(".carousel-dot");
+
+  let currentTicketIdx = 0;
+  const totalTickets = ticketCards.length;
+
+  const updateCoverflow = (targetIdx: number) => {
+    if (totalTickets === 0) return;
+    currentTicketIdx = ((targetIdx % totalTickets) + totalTickets) % totalTickets;
+
+    ticketCards.forEach((card, idx) => {
+      let diff = idx - currentTicketIdx;
+      if (diff > totalTickets / 2) diff -= totalTickets;
+      if (diff < -totalTickets / 2) diff += totalTickets;
+
+      card.classList.remove(
+        "pos-center",
+        "pos-prev-1",
+        "pos-next-1",
+        "pos-prev-2",
+        "pos-next-2",
+        "pos-hidden"
+      );
+
+      if (diff === 0) {
+        card.classList.add("pos-center");
+      } else if (diff === -1) {
+        card.classList.add("pos-prev-1");
+      } else if (diff === 1) {
+        card.classList.add("pos-next-1");
+      } else if (diff === -2) {
+        card.classList.add("pos-prev-2");
+      } else if (diff === 2) {
+        card.classList.add("pos-next-2");
+      } else {
+        card.classList.add("pos-hidden");
+      }
+    });
+
+    coverflowDots.forEach((dot, dotIdx) => {
+      dot.classList.toggle("active", dotIdx === currentTicketIdx);
+    });
+  };
+
+  if (coverflowPrevBtn) {
+    coverflowPrevBtn.addEventListener("click", () => {
+      foley.playMetalClick();
+      updateCoverflow(currentTicketIdx - 1);
+    });
+  }
+
+  if (coverflowNextBtn) {
+    coverflowNextBtn.addEventListener("click", () => {
+      foley.playMetalClick();
+      updateCoverflow(currentTicketIdx + 1);
+    });
+  }
+
+  coverflowDots.forEach((dot, dotIdx) => {
+    dot.addEventListener("click", () => {
       foley.playPaperRustle(0.7);
+      updateCoverflow(dotIdx);
     });
-    // Click animation now handled by setupInteractiveStamps()
-  }
-
-  if (stickyNote) {
-    stickyNote.addEventListener("mouseenter", () => {
-      foley.playPaperRustle(0.85);
-    });
-    stickyNote.addEventListener("click", () => {
-      foley.playPaperRustle(1.0);
-      gsap.fromTo(stickyNote, { rotation: -1, scale: 1.03 }, { rotation: -2, scale: 1.0, duration: 0.35, ease: "back.out(2)" });
-    });
-  }
-
-  if (bookableStamp) {
-    bookableStamp.addEventListener("click", () => {
-      foley.playCustomsStamp();
-      gsap.fromTo(bookableStamp, { scale: 0.92, rotation: -8 }, { scale: 1.0, rotation: -6, duration: 0.3, ease: "elastic.out(1, 0.3)" });
-    });
-  }
-
-  // --- Physical Prop Interaction: Boarding Passes & Perforated Ticket Stubs ---
-  featuredCards.forEach((card) => {
-    const stub = card.querySelector<HTMLElement>(".ticket-stub-tearoff");
-    const bookBtn = card.querySelector<HTMLAnchorElement>(".tour-card-btn");
-
-    if (stub) {
-      stub.addEventListener("pointerenter", () => foley.playPaperRustle(0.9));
-      stub.addEventListener("click", () => {
-        foley.playTicketTear();
-        gsap.fromTo(stub, { x: -4, rotation: 2 }, { x: 0, rotation: 0, duration: 0.3, ease: "elastic.out(1, 0.3)" });
-      });
-    }
-
-    if (bookBtn) {
-      bookBtn.addEventListener("pointerenter", () => foley.playPaperRustle(0.7));
-      bookBtn.addEventListener("click", () => foley.playTicketTear());
-    }
   });
 
-  // --- Physical Prop Interaction: Telex Continuous Paper Rollout & Stamps ---
-  const telexPaper = document.querySelector<HTMLElement>(".telex-paper-strip");
-  if (telexPaper) {
-    telexPaper.addEventListener("pointerenter", () => foley.playTelexChatter());
-    telexPaper.addEventListener("click", () => foley.playTelexChatter());
-
-    gsap.fromTo(
-      telexPaper,
-      { y: 30, opacity: 0.6 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 1.1,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: ".console-chassis",
-          start: "top 85%",
-        },
+  ticketCards.forEach((card, cardIdx) => {
+    card.addEventListener("click", () => {
+      if (cardIdx === currentTicketIdx) {
+        const href = card.dataset.href;
+        if (href) {
+          window.open(href, "_blank", "noopener,noreferrer");
+        }
+      } else {
+        foley.playPaperRustle(0.7);
+        updateCoverflow(cardIdx);
       }
-    );
-  }
-
-  // --- Dynamic Pointer Lighting & 3D Gyroscopic Tilt on Command Desk ---
-  const dispatchDesk = document.querySelector<HTMLElement>(".dispatch-command-desk");
-  const deskSurface = document.querySelector<HTMLElement>(".dispatch-desk-surface");
-  const solariWing = document.querySelector<HTMLElement>(".solari-terminal-wing");
-  const hotlineWing = document.querySelector<HTMLElement>(".hotline-dispatch-wing");
-
-  if (dispatchDesk && deskSurface) {
-    dispatchDesk.addEventListener("pointermove", (e: PointerEvent) => {
-      const surfRect = deskSurface.getBoundingClientRect();
-      const sx = Math.max(0, Math.min(100, ((e.clientX - surfRect.left) / surfRect.width) * 100));
-      const sy = Math.max(0, Math.min(100, ((e.clientY - surfRect.top) / surfRect.height) * 100));
-      deskSurface.style.setProperty("--dispatch-x", `${sx.toFixed(1)}%`);
-      deskSurface.style.setProperty("--dispatch-y", `${sy.toFixed(1)}%`);
-
-      const deskRect = dispatchDesk.getBoundingClientRect();
-      const nx = (e.clientX - deskRect.left) / deskRect.width - 0.5;
-      const ny = (e.clientY - deskRect.top) / deskRect.height - 0.5;
-
-      gsap.to(dispatchDesk, {
-        transformPerspective: 1800,
-        rotationX: -ny * 2.8,
-        rotationY: nx * 3.2,
-        duration: 0.6,
-        ease: "power2.out"
-      });
-
-      if (solariWing) {
-        gsap.to(solariWing, {
-          x: nx * 6,
-          y: ny * 5,
-          duration: 0.5,
-          ease: "power1.out"
-        });
-      }
-
-      if (hotlineWing) {
-        gsap.to(hotlineWing, {
-          x: -nx * 6,
-          y: -ny * 5,
-          duration: 0.55,
-          ease: "power1.out"
-        });
-      }
-    }, { passive: true });
-
-    dispatchDesk.addEventListener("pointerleave", () => {
-      gsap.to(dispatchDesk, {
-        rotationX: 0,
-        rotationY: 0,
-        duration: 0.8,
-        ease: "power2.out"
-      });
-      if (solariWing) gsap.to(solariWing, { x: 0, y: 0, duration: 0.8, ease: "power2.out" });
-      if (hotlineWing) gsap.to(hotlineWing, { x: 0, y: 0, duration: 0.8, ease: "power2.out" });
     });
+  });
+
+  // Touch swipe support for coverflow stage on touch devices
+  if (coverflowStage) {
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    coverflowStage.addEventListener(
+      "touchstart",
+      (e) => {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+      },
+      { passive: true }
+    );
+
+    coverflowStage.addEventListener(
+      "touchend",
+      (e) => {
+        const deltaX = e.changedTouches[0].clientX - touchStartX;
+        const deltaY = e.changedTouches[0].clientY - touchStartY;
+        if (Math.abs(deltaX) > 40 && Math.abs(deltaX) > Math.abs(deltaY)) {
+          if (deltaX < 0) {
+            foley.playPaperRustle(0.7);
+            updateCoverflow(currentTicketIdx + 1);
+          } else {
+            foley.playPaperRustle(0.7);
+            updateCoverflow(currentTicketIdx - 1);
+          }
+        }
+      },
+      { passive: true }
+    );
   }
 }
 

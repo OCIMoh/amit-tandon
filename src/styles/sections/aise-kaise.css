@@ -124,6 +124,21 @@
   border: 1px solid rgba(229, 9, 20, 0.3);
 }
 
+.dispatch-concept-badge {
+  display: inline-block;
+  align-self: flex-start;
+  background: #B91C1C;
+  color: #FFFFFF;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  padding: 0.28rem 0.8rem;
+  border-radius: 3px;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  box-shadow: 0 0 16px rgba(185, 28, 28, 0.4);
+}
+
 .dispatch-title-row {
   max-width: 980px;
 }
@@ -133,7 +148,7 @@
   font-size: clamp(2.4rem, 4.8vw, 4.2rem);
   line-height: 1.02;
   letter-spacing: -0.02em;
-  margin: 0 0 1rem;
+  margin: 0 0 0.5rem;
 }
 
 .title-white {
@@ -141,14 +156,24 @@
 }
 
 .title-red {
-  color: #E50914;
-  text-shadow: 0 0 35px rgba(229, 9, 20, 0.45);
+  color: #EF4444;
+  font-style: italic;
+  text-shadow: 0 0 35px rgba(239, 68, 68, 0.5);
+}
+
+.dispatch-subheading {
+  font-size: 0.85rem;
+  letter-spacing: 0.18em;
+  color: #A3A3B0;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin: 0.5rem 0 1.25rem;
 }
 
 .dispatch-lead-copy {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   line-height: 1.65;
-  color: #A3A3B0;
+  color: #8C8C9A;
   max-width: 840px;
   margin: 0 0 1.5rem;
 }
@@ -257,212 +282,464 @@
   transition: opacity 0.3s ease;
 }
 
-.dispatch-dual-grid {
+.desk-surface-bay {
   position: relative;
   z-index: 2;
-  display: grid;
-  grid-template-columns: 1.45fr 1fr;
-  gap: 2.75rem;
-  align-items: start;
+  display: flex;
+  flex-direction: column;
 }
 
 /* --------------------------------------------------------------------------
-   4. Left Wing (60%): The Solari Split-Flap Departure Terminal
+   4. Theatrical 3D Coverflow Ticket Carousel Showcase (Concept 2)
    -------------------------------------------------------------------------- */
+.theatrical-ticket-carousel-container {
+  position: relative;
+  width: 100%;
+  padding: 3.5rem 0 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  background: 
+    linear-gradient(180deg, rgba(7, 8, 12, 0.82) 0%, rgba(7, 8, 12, 0.35) 45%, rgba(7, 8, 12, 0.92) 100%),
+    radial-gradient(ellipse 90% 70% at 50% 50%, transparent 30%, rgba(7, 8, 12, 0.85) 100%),
+    url('/images/clean-stage-shot.png') center center / cover no-repeat;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.75);
+}
+
+.coverflow-stage {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  height: 420px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1200px;
+  perspective-origin: 50% 50%;
+}
+
+.coverflow-stage::after {
+  content: "";
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 650px;
+  height: 110px;
+  background: radial-gradient(ellipse at center, rgba(239, 68, 68, 0.14) 0%, rgba(220, 38, 38, 0.04) 50%, transparent 80%);
+  pointer-events: none;
+  filter: blur(16px);
+  z-index: 1;
+}
+
+.coverflow-track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-style: preserve-3d;
+}
+
+/* The Perforated Ticket Stub Card (Vintage Cardstock with Stamp Edges) */
+.theatrical-ticket-card {
+  position: absolute;
+  width: 500px;
+  height: 280px;
+  background: #E8DCC4;
+  background-image: 
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.3) 0%, rgba(0, 0, 0, 0.06) 100%),
+    repeating-linear-gradient(45deg, rgba(160, 130, 90, 0.03) 0px, rgba(160, 130, 90, 0.03) 1px, transparent 1px, transparent 4px);
+  display: grid;
+  grid-template-columns: 195px 1fr;
+  padding: 16px 18px;
+  box-sizing: border-box;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.6s ease, filter 0.6s ease;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+
+  /* Scalloped Perforations along all 4 edges */
+  --h-r: 4.5px;
+  --h-s: 14px;
+  -webkit-mask-image: 
+    radial-gradient(circle var(--h-r) at var(--h-r) 0, transparent 98%, black 102%),
+    radial-gradient(circle var(--h-r) at var(--h-r) 100%, transparent 98%, black 102%),
+    radial-gradient(circle var(--h-r) at 0 var(--h-r), transparent 98%, black 102%),
+    radial-gradient(circle var(--h-r) at 100% var(--h-r), transparent 98%, black 102%);
+  -webkit-mask-position: 0 0, 0 100%, 0 0, 100% 0;
+  -webkit-mask-size: var(--h-s) 100%, var(--h-s) 100%, 100% var(--h-s), 100% var(--h-s);
+  -webkit-mask-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+  -webkit-mask-composite: source-in;
+  mask-image: 
+    radial-gradient(circle var(--h-r) at var(--h-r) 0, transparent 98%, black 102%),
+    radial-gradient(circle var(--h-r) at var(--h-r) 100%, transparent 98%, black 102%),
+    radial-gradient(circle var(--h-r) at 0 var(--h-r), transparent 98%, black 102%),
+    radial-gradient(circle var(--h-r) at 100% var(--h-r), transparent 98%, black 102%);
+  mask-position: 0 0, 0 100%, 0 0, 100% 0;
+  mask-size: var(--h-s) 100%, var(--h-s) 100%, 100% var(--h-s), 100% var(--h-s);
+  mask-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+  mask-composite: intersect;
+
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.85);
+}
+
+/* Inner vintage dashed border */
+.theatrical-ticket-card::before {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 1px dashed rgba(120, 85, 45, 0.4);
+  pointer-events: none;
+  border-radius: 2px;
+}
+
+/* 3D Depth Positions */
+.theatrical-ticket-card.pos-center {
+  transform: translateX(0) translateZ(0) rotateY(0deg) scale(1);
+  z-index: 10;
+  opacity: 1;
+  filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.85));
+}
+
+.theatrical-ticket-card.pos-prev-1 {
+  transform: translateX(-280px) translateZ(-160px) rotateY(24deg) scale(0.85);
+  z-index: 7;
+  opacity: 0.55;
+  filter: brightness(0.65) drop-shadow(0 15px 20px rgba(0, 0, 0, 0.85));
+}
+
+.theatrical-ticket-card.pos-next-1 {
+  transform: translateX(280px) translateZ(-160px) rotateY(-24deg) scale(0.85);
+  z-index: 7;
+  opacity: 0.55;
+  filter: brightness(0.65) drop-shadow(0 15px 20px rgba(0, 0, 0, 0.85));
+}
+
+.theatrical-ticket-card.pos-prev-2 {
+  transform: translateX(-500px) translateZ(-320px) rotateY(38deg) scale(0.72);
+  z-index: 4;
+  opacity: 0.25;
+  filter: brightness(0.45) drop-shadow(0 10px 15px rgba(0, 0, 0, 0.9));
+}
+
+.theatrical-ticket-card.pos-next-2 {
+  transform: translateX(500px) translateZ(-320px) rotateY(-38deg) scale(0.72);
+  z-index: 4;
+  opacity: 0.25;
+  filter: brightness(0.45) drop-shadow(0 10px 15px rgba(0, 0, 0, 0.9));
+}
+
+.theatrical-ticket-card.pos-hidden {
+  transform: translateX(0) translateZ(-500px) scale(0.5);
+  z-index: 1;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Ticket Sub-elements */
+.theatrical-ticket-card .stub-left {
+  display: flex;
+  flex-direction: column;
+  padding-right: 14px;
+  border-right: 1px dashed rgba(140, 100, 60, 0.4);
+  position: relative;
+}
+
+.theatrical-ticket-card .stub-photo-frame {
+  width: 100%;
+  height: 175px;
+  background: #151515;
+  border: 2px solid #33261a;
+  overflow: hidden;
+  position: relative;
+}
+
+.theatrical-ticket-card .stub-photo-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: contrast(1.08) saturate(1.1);
+  transition: transform 0.4s ease;
+}
+
+.theatrical-ticket-card .stub-barcode {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.theatrical-ticket-card .barcode-lines {
+  width: 100%;
+  height: 22px;
+  background: repeating-linear-gradient(
+    90deg,
+    #111 0px, #111 2px,
+    transparent 2px, transparent 3px,
+    #111 3px, #111 5px,
+    transparent 5px, transparent 6px,
+    #111 6px, #111 7px,
+    transparent 7px, transparent 9px,
+    #111 9px, #111 12px,
+    transparent 12px, transparent 14px
+  );
+}
+
+.theatrical-ticket-card .barcode-text {
+  font-size: 8px;
+  letter-spacing: 2px;
+  color: #4a3b2c;
+  font-weight: 700;
+}
+
+.theatrical-ticket-card .stub-right {
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
+.theatrical-ticket-card .ticket-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 800;
+  color: #2b231d;
+  letter-spacing: 0.1em;
+}
+
+.theatrical-ticket-card .live-pill {
+  background: #1a1614;
+  color: #fff;
+  padding: 2px 6px;
+  font-size: 10px;
+  border-radius: 2px;
+  letter-spacing: 0.08em;
+}
+
+.theatrical-ticket-card .category-text {
+  font-size: 11px;
+  font-weight: 800;
+  color: #3d3127;
+  letter-spacing: 0.08em;
+}
+
+.theatrical-ticket-card .ticket-city {
+  margin: 4px 0 0;
+  font-size: 34px;
+  line-height: 1;
+  font-weight: 900;
+  color: #1a1512;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  font-family: var(--font-display, "Impact", "Arial Black", -apple-system, sans-serif);
+}
+
+.theatrical-ticket-card .ticket-venue {
+  margin: 4px 0 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #4a3f35;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.theatrical-ticket-card .ticket-date-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: 800;
+  color: #1a1614;
+}
+
+/* Red Rubber Distressed Ink Stamp inside Ticket */
+.theatrical-ticket-card .stamp-box {
+  align-self: flex-start;
+  margin-top: auto;
+  margin-bottom: 4px;
+  padding: 5px 14px;
+  border: 3px solid #B3201F;
+  color: #B3201F;
+  font-family: var(--font-display, "Impact", "Arial Black", sans-serif);
+  font-size: 19px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transform: rotate(-6deg);
+  border-radius: 4px;
+  position: relative;
+  box-shadow: inset 0 0 0 1px rgba(179,32,31,0.25);
+  mix-blend-mode: multiply;
+}
+
+.theatrical-ticket-card .stamp-box.stamp-sold-out {
+  border-color: #555555;
+  color: #555555;
+}
+
+.theatrical-ticket-card .stamp-box.stamp-limited {
+  border-color: #C2410C;
+  color: #C2410C;
+}
+
+/* Floating Navigation Arrows */
+.carousel-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: rgba(18, 20, 26, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 25;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  backdrop-filter: blur(8px);
+}
+
+.carousel-nav-btn:hover {
+  background: rgba(239, 68, 68, 0.88);
+  border-color: #EF4444;
+  color: #FFFFFF;
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.5);
+}
+
+.carousel-nav-btn.btn-prev {
+  left: 20px;
+}
+
+.carousel-nav-btn.btn-next {
+  right: 20px;
+}
+
+/* Pagination Dots */
+.carousel-pagination {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 1.5rem;
+  z-index: 10;
+}
+
+.carousel-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: transparent;
+  border: 1.5px solid rgba(255, 255, 255, 0.32);
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.carousel-dot:hover {
+  border-color: rgba(255, 255, 255, 0.7);
+  transform: scale(1.15);
+}
+
+.carousel-dot.active {
+  background: #EF4444;
+  border-color: #EF4444;
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.75);
+  transform: scale(1.25);
+}
+
+/* Bottom Actions: View All Tour Dates Pill */
+.coverflow-bottom-actions {
+  margin-top: 1.8rem;
+  display: flex;
+  justify-content: center;
+  z-index: 10;
+}
+
+.tour-view-all-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  background: #111317;
+  border: 1.5px solid #B91C1C;
+  border-radius: 6px;
+  color: #FFFFFF;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 0 18px rgba(185, 28, 28, 0.25);
+}
+
+.tour-view-all-btn:hover {
+  background: #B91C1C;
+  color: #FFFFFF;
+  box-shadow: 0 0 25px rgba(239, 68, 68, 0.55);
+  transform: translateY(-2px);
+}
+
+.tour-view-all-btn.is-active {
+  background: #991B1B;
+  border-color: #EF4444;
+  box-shadow: 0 0 22px rgba(239, 68, 68, 0.5);
+}
+
+/* --------------------------------------------------------------------------
+   4.0 Full-Width Collapsible 32-City Itinerary Manifest Drawer
+   -------------------------------------------------------------------------- */
+.tour-schedule-manifest-drawer {
+  display: none;
+  width: 100%;
+  max-width: 1120px;
+  margin: 2.25rem auto 0;
+  animation: drawerFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.tour-schedule-manifest-drawer.is-open {
+  display: block;
+}
+
+@keyframes drawerFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.manifest-drawer-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
 .solari-terminal-wing {
   display: flex;
   flex-direction: column;
   gap: 2rem;
   min-width: 0;
-}
-
-.terminal-header-strip {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  font-size: 0.72rem;
-  letter-spacing: 0.12em;
-  color: #A3A3B0;
-  padding-bottom: 0.75rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.terminal-badge {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-weight: 700;
-  color: #FFFFFF;
-}
-
-.solari-status-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #FFD166;
-  box-shadow: 0 0 10px #FFD166;
-}
-
-.terminal-clock {
-  color: #FFD166;
-  font-weight: 600;
-}
-
-/* Solari Mechanical Split-Flap Sign */
-.solari-split-flap-board {
-  background: #060709;
-  border: 2px solid #1E202B;
-  border-radius: 12px;
-  padding: 1.25rem 1.4rem;
-  box-shadow: 
-    inset 0 2px 10px rgba(0, 0, 0, 0.9),
-    0 12px 30px rgba(0, 0, 0, 0.6);
-  position: relative;
-  overflow: hidden;
-}
-
-.solari-split-flap-board::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255, 209, 102, 0.25), transparent);
-}
-
-.solari-columns-header {
-  display: grid;
-  grid-template-columns: 140px 1.4fr 120px 1.6fr;
-  gap: 0.75rem;
-  font-size: 0.64rem;
-  letter-spacing: 0.14em;
-  color: #64687A;
-  padding-bottom: 0.75rem;
-  margin-bottom: 0.75rem;
-  border-bottom: 1px solid #161822;
-  font-weight: 700;
-}
-
-.solari-flaps-track {
-  display: flex;
-  flex-direction: column;
-  gap: 0.65rem;
-}
-
-.solari-row {
-  display: grid;
-  grid-template-columns: 140px 1.4fr 120px 1.6fr;
-  gap: 0.75rem;
-  align-items: center;
-  padding: 0.55rem 0.65rem;
-  background: #0B0D12;
-  border: 1px solid #181A24;
-  border-radius: 6px;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.solari-row:hover {
-  background: #11141D;
-  border-color: #2F3447;
-  transform: translateX(4px);
-}
-
-/* The Mechanical Split-Flap Letter Tile */
-.solari-cell {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  overflow: hidden;
-}
-
-.flap-tile {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 17px;
-  height: 24px;
-  background: linear-gradient(180deg, #1C1E29 0%, #12131C 49%, #0D0E15 51%, #151722 100%);
-  color: #FFD166;
-  font-size: 0.78rem;
-  font-weight: 800;
-  border-radius: 2px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.12);
-  text-shadow: 0 0 6px rgba(255, 209, 102, 0.4);
-}
-
-/* Horizontal Razor Seam Dividing the Flap in Half */
-.flap-tile::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: #000000;
-  box-shadow: 0 0.5px 0 rgba(255, 255, 255, 0.15);
-  transform: translateY(-50%);
-}
-
-.flap-tile.highlight {
-  color: #FFFFFF;
-  background: linear-gradient(180deg, #2D1416 0%, #1F0D0E 49%, #150809 51%, #240E10 100%);
-  text-shadow: 0 0 8px rgba(229, 9, 20, 0.6);
-}
-
-.flap-arrow {
-  color: #E50914;
-  font-size: 0.8rem;
-  margin: 0 4px;
-}
-
-.dest-city {
-  font-weight: 800;
-  font-size: 0.82rem;
-  color: #FFFFFF;
-  letter-spacing: 0.04em;
-  margin-right: 0.4rem;
-}
-
-.dest-venue {
-  font-size: 0.68rem;
-  color: #7E8295;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.solari-gate-tag {
-  font-size: 0.64rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  padding: 0.2rem 0.5rem;
-  border-radius: 3px;
-  white-space: nowrap;
-}
-
-.solari-gate-tag.status-fast {
-  background: rgba(255, 209, 102, 0.12);
-  color: #FFD166;
-  border: 1px solid rgba(255, 209, 102, 0.35);
-}
-
-.solari-gate-tag.status-sold {
-  background: rgba(229, 9, 20, 0.14);
-  color: #FF5A60;
-  border: 1px solid rgba(229, 9, 20, 0.4);
-}
-
-.remarks-text {
-  font-size: 0.68rem;
-  color: #A3A3B0;
-  letter-spacing: 0.03em;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 /* --------------------------------------------------------------------------
@@ -612,274 +889,7 @@
   box-shadow: 0 4px 15px rgba(229, 9, 20, 0.4);
 }
 
-/* --------------------------------------------------------------------------
-   4.2 Flagship Boarding Deck (2x2 Grid)
-   -------------------------------------------------------------------------- */
-.terminal-boarding-deck {
-  display: flex;
-  flex-direction: column;
-  gap: 1.15rem;
-}
 
-.deck-title-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 0.7rem;
-  letter-spacing: 0.12em;
-  color: #8C90A4;
-  font-weight: 700;
-}
-
-.deck-count {
-  color: #FFD166;
-}
-
-.featured-cities-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.25rem;
-}
-
-/* The Perforated Boarding Pass */
-.featured-tour-card {
-  position: relative;
-  background: linear-gradient(145deg, #161822 0%, #0F1017 100%);
-  border: 1px solid #2A2E40;
-  border-radius: 12px;
-  display: flex;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s, box-shadow 0.25s;
-  overflow: hidden;
-}
-
-.featured-tour-card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(229, 9, 20, 0.5);
-  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.8), 0 0 20px rgba(229, 9, 20, 0.15);
-}
-
-/* Perforation Notches on the Ticket Stub */
-.stub-notch {
-  position: absolute;
-  right: 76px;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: #0E1015;
-  box-shadow: inset 0 0 4px rgba(0,0,0,0.9);
-  z-index: 3;
-}
-
-.stub-notch.notch-top {
-  top: -8px;
-}
-
-.stub-notch.notch-bottom {
-  bottom: -8px;
-}
-
-.tour-card-body {
-  flex: 1;
-  padding: 1.5rem 1.4rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.65rem;
-  min-width: 0;
-}
-
-.tour-card-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  font-size: 0.68rem;
-  letter-spacing: 0.08em;
-}
-
-.tour-card-flag {
-  color: #A3A3B0;
-  font-weight: 700;
-}
-
-.tour-stub-code {
-  color: #6A6E82;
-  font-weight: 600;
-}
-
-/* Status Pills */
-.tour-status-pill {
-  font-size: 0.62rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  padding: 0.18rem 0.5rem;
-  border-radius: 3px;
-  white-space: nowrap;
-}
-
-.tour-status-pill.status-fast {
-  background: rgba(255, 209, 102, 0.15);
-  color: #FFD166;
-  border: 1px solid rgba(255, 209, 102, 0.4);
-}
-
-.tour-status-pill.status-seats {
-  background: rgba(249, 115, 22, 0.15);
-  color: #FB923C;
-  border: 1px solid rgba(249, 115, 22, 0.4);
-}
-
-.tour-status-pill.status-extra {
-  background: rgba(56, 189, 248, 0.15);
-  color: #38BDF8;
-  border: 1px solid rgba(56, 189, 248, 0.4);
-}
-
-.tour-status-pill.status-festive {
-  background: rgba(34, 197, 94, 0.15);
-  color: #4ADE80;
-  border: 1px solid rgba(34, 197, 94, 0.4);
-}
-
-.tour-status-pill.status-finale {
-  background: rgba(229, 9, 20, 0.18);
-  color: #FF5A60;
-  border: 1px solid rgba(229, 9, 20, 0.5);
-}
-
-.tour-card-city {
-  font-family: var(--font-display, "Archivo Black", sans-serif);
-  font-size: 1.6rem;
-  line-height: 1.1;
-  color: #FFFFFF;
-  margin: 0;
-  letter-spacing: -0.01em;
-}
-
-.tour-card-venue {
-  font-size: 0.82rem;
-  color: #8E92A8;
-  margin: 0;
-  line-height: 1.4;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.tour-card-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.65rem;
-  font-size: 0.72rem;
-  color: #D1D5DB;
-  margin-top: 0.35rem;
-}
-
-.tour-partner-pill {
-  color: #8C90A4;
-  background: rgba(255, 255, 255, 0.04);
-  padding: 0.15rem 0.45rem;
-  border-radius: 3px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.tour-card-action {
-  margin-top: 0.65rem;
-}
-
-.tour-card-btn {
-  width: 100%;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  background: #E50914;
-  color: #FFFFFF;
-  font-weight: 800;
-  font-size: 0.78rem;
-  letter-spacing: 0.08em;
-  padding: 0.65rem 1rem;
-  border-radius: 6px;
-  text-decoration: none;
-  box-shadow: 0 4px 15px rgba(229, 9, 20, 0.35);
-  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
-}
-
-.tour-card-btn:hover {
-  background: #F40612;
-  transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(229, 9, 20, 0.5);
-}
-
-/* Tear-off Ticket Stub */
-.ticket-stub-tearoff {
-  position: relative;
-  width: 84px;
-  border-left: 2px dashed rgba(255, 255, 255, 0.14);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.5rem 0;
-  background: rgba(0, 0, 0, 0.28);
-  cursor: pointer;
-  pointer-events: auto;
-  user-select: none;
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease;
-}
-
-.ticket-stub-tearoff:hover {
-  transform: translateX(-3px) rotate(1.5deg);
-  background: rgba(229, 9, 20, 0.15);
-}
-
-.ticket-stub-tearoff:active {
-  transform: translateX(1px) rotate(-1deg) scale(0.97);
-}
-
-.stub-perforated-border {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: -2px;
-  width: 2px;
-  background: repeating-linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.25) 0px,
-    rgba(255, 255, 255, 0.25) 4px,
-    transparent 4px,
-    transparent 8px
-  );
-}
-
-.stub-barcode-column {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.45rem;
-}
-
-.stub-admit-tag {
-  font-size: 0.6rem;
-  font-weight: 800;
-  color: #FFD166;
-  letter-spacing: 0.12em;
-}
-
-.stub-vert-code {
-  font-size: 1.1rem;
-  letter-spacing: 2px;
-  color: #8C90A4;
-  transform: rotate(90deg);
-  margin: 1.1rem 0;
-}
-
-.stub-serial {
-  font-size: 0.55rem;
-  color: #55596D;
-  letter-spacing: 0.06em;
-}
 
 /* --------------------------------------------------------------------------
    4.3 Expandable 32-City Itinerary Manifest
@@ -935,23 +945,25 @@
 }
 
 .tour-schedule-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 0.65rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
 }
 
-.tour-schedule-grid:not(.is-expanded) {
-  display: none;
+@media (max-width: 860px) {
+  .tour-schedule-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Individual Schedule Card in Manifest */
 .tour-row-card {
   position: relative;
   display: grid;
-  grid-template-columns: 88px 1fr 140px;
-  gap: 1.25rem;
+  grid-template-columns: 80px 1fr auto;
+  gap: 1rem;
   align-items: center;
-  padding: 0.85rem 1.25rem;
+  padding: 0.8rem 1.15rem;
   background: #11131C;
   border: 1px solid #202332;
   border-radius: 8px;
@@ -987,13 +999,41 @@
 }
 
 .tour-row-card.in-extended-fold {
-  display: none;
+  display: grid;
 }
 
-/* Support both .is-expanded and .expanded */
-.tour-schedule-grid.is-expanded .tour-row-card.in-extended-fold,
-.tour-schedule-grid.expanded .tour-row-card.in-extended-fold {
-  display: grid;
+/* Drawer Bottom Actions */
+.tour-drawer-bottom-actions {
+  display: flex;
+  justify-content: center;
+  padding-top: 1.25rem;
+  margin-top: 0.75rem;
+  border-top: 1px solid #161822;
+}
+
+.tour-collapse-drawer-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 22px;
+  background: #111319;
+  border: 1.5px solid #282C3D;
+  border-radius: 6px;
+  color: #9AA0B4;
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tour-collapse-drawer-btn:hover {
+  background: #1A1D27;
+  color: #FFFFFF;
+  border-color: #EF4444;
+  box-shadow: 0 0 15px rgba(239, 68, 68, 0.35);
 }
 
 .tour-date-cell .date-badge-box {
@@ -1167,18 +1207,44 @@
 }
 
 /* --------------------------------------------------------------------------
-   5. Right Wing (40%): Direction 1 — The Industrial Executive Dispatch Console
+   5. Direction 1 — The Industrial Executive Dispatch Console
    -------------------------------------------------------------------------- */
+.hotline-dispatch-section,
 .hotline-dispatch-wing {
   position: relative;
+  width: 100%;
+  max-width: 880px;
+  margin: 3.8rem auto 0;
   display: flex;
   flex-direction: column;
   overflow: visible;
 }
 
+.console-section-header {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+  opacity: 0.85;
+}
+
+.console-header-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.16), transparent);
+}
+
+.console-section-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  color: #9AA0B4;
+  white-space: nowrap;
+}
+
 /* 5.1 Industrial Console Chassis */
 .console-chassis {
   position: relative;
+  width: 100%;
   background: linear-gradient(180deg, #161821 0%, #101217 55%, #0B0D11 100%);
   border: 1.5px solid #282C3A;
   border-radius: 14px;
@@ -1289,6 +1355,7 @@
 /* The Handwritten Sticky Note with Cellophane Tape */
 .console-sticky-note {
   position: relative;
+  max-width: 440px;
   background: linear-gradient(135deg, #FFF999 0%, #FEE56A 100%);
   color: #18191E;
   padding: 0.95rem 1.15rem;
@@ -1681,30 +1748,50 @@
    7. Responsive Breakpoints
    -------------------------------------------------------------------------- */
 @media (max-width: 1200px) {
-  .dispatch-dual-grid {
-    grid-template-columns: 1fr;
-    gap: 3rem;
+  .hotline-dispatch-section,
+  .hotline-dispatch-wing {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 1024px) {
+  .coverflow-stage {
+    height: 350px;
   }
 
-  .solari-columns-header, .solari-row {
-    grid-template-columns: 110px 1.2fr 110px 1fr;
+  .theatrical-ticket-card {
+    width: 420px;
+    height: 240px;
+    grid-template-columns: 160px 1fr;
+    padding: 14px;
+  }
+
+  .theatrical-ticket-card .stub-photo-frame {
+    height: 140px;
+  }
+
+  .theatrical-ticket-card .ticket-city {
+    font-size: 26px;
+  }
+
+  .theatrical-ticket-card.pos-prev-1 {
+    transform: translateX(-200px) translateZ(-140px) rotateY(20deg) scale(0.82);
+  }
+
+  .theatrical-ticket-card.pos-next-1 {
+    transform: translateX(200px) translateZ(-140px) rotateY(-20deg) scale(0.82);
+  }
+
+  .theatrical-ticket-card.pos-prev-2 {
+    transform: translateX(-360px) translateZ(-260px) rotateY(32deg) scale(0.68);
+  }
+
+  .theatrical-ticket-card.pos-next-2 {
+    transform: translateX(360px) translateZ(-260px) rotateY(-32deg) scale(0.68);
   }
 }
 
 @media (max-width: 860px) {
-  .featured-cities-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .solari-columns-header {
-    display: none;
-  }
-
-  .solari-row {
-    grid-template-columns: 1fr;
-    gap: 0.5rem;
-  }
-
   .tour-row-card {
     grid-template-columns: 1fr;
     gap: 0.75rem;
@@ -1720,27 +1807,76 @@
   }
 }
 
+@media (max-width: 680px) {
+  .theatrical-ticket-carousel-container {
+    padding: 0.5rem 0 1.8rem;
+  }
+
+  .coverflow-stage {
+    height: 270px;
+  }
+
+  .theatrical-ticket-card {
+    width: clamp(270px, 78vw, 320px);
+    height: 205px;
+    grid-template-columns: 110px 1fr;
+    padding: 9px;
+  }
+
+  .theatrical-ticket-card .stub-photo-frame {
+    height: 115px;
+  }
+
+  .theatrical-ticket-card .ticket-city {
+    font-size: 20px;
+  }
+
+  .theatrical-ticket-card .ticket-venue {
+    font-size: 11px;
+  }
+
+  .theatrical-ticket-card .ticket-date-row {
+    font-size: 11px;
+    margin-top: 6px;
+  }
+
+  .theatrical-ticket-card .stamp-box {
+    font-size: 14px;
+    padding: 3px 8px;
+  }
+
+  .theatrical-ticket-card.pos-prev-1 {
+    transform: translateX(-110px) translateZ(-100px) rotateY(16deg) scale(0.75);
+    opacity: 0.25;
+  }
+
+  .theatrical-ticket-card.pos-next-1 {
+    transform: translateX(110px) translateZ(-100px) rotateY(-16deg) scale(0.75);
+    opacity: 0.25;
+  }
+
+  .theatrical-ticket-card.pos-prev-2,
+  .theatrical-ticket-card.pos-next-2 {
+    display: none;
+  }
+
+  .carousel-nav-btn {
+    width: 34px;
+    height: 34px;
+    background: rgba(18, 20, 26, 0.9);
+  }
+
+  .carousel-nav-btn.btn-prev { left: 2px; }
+  .carousel-nav-btn.btn-next { right: 2px; }
+}
+
 @media (max-width: 600px) {
   .dispatch-command-desk {
     border-radius: 12px;
   }
 
   .dispatch-desk-surface {
-    padding: 1.5rem 1rem;
-  }
-
-  .stub-notch, .ticket-stub-tearoff {
-    display: none;
-  }
-
-  .phone-handset-assembly {
-    width: 210px;
-  }
-
-  .handset-postit-note {
-    width: 140px;
-    top: -20px;
-    right: -10px;
+    padding: 1.25rem 0.75rem;
   }
 }
 

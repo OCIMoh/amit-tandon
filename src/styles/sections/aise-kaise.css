@@ -1786,8 +1786,8 @@
 /* --- Rubber Stamp Apparatus (Temporary Slamming Tool) --- */
 .rubber-stamp-apparatus {
   position: absolute;
-  width: 236px;
-  height: 44px;
+  width: 284px;
+  height: 56px;
   pointer-events: none;
   z-index: 100;
   transform-origin: center center;
@@ -1885,15 +1885,15 @@
   position: absolute;
   pointer-events: none;
   z-index: 45;
-  border: 2px solid #B3201F;
+  border: 2.2px solid #B3201F;
   border-radius: 3.5px 4.5px 3px 5px / 4px 3px 5px 3.5px;
   box-shadow: inset 0 0 0 1px rgba(179, 32, 31, 0.22);
-  padding: 6px 14px;
+  padding: 10px 18px;
   font-family: "Courier Prime", monospace;
-  font-size: 0.62rem;
+  font-size: 0.74rem;
   font-weight: 700;
-  letter-spacing: 0.14em;
-  line-height: 1.25;
+  letter-spacing: 0.11em;
+  line-height: 1.35;
   color: #B3201F;
   text-align: center;
   text-transform: uppercase;
@@ -1901,12 +1901,12 @@
   white-space: nowrap;
   opacity: 0;
   mix-blend-mode: multiply;
-  text-shadow: 0 0 0.5px #B3201F;
+  text-shadow: 0 0 0.4px #B3201F;
   transition: text-shadow 1.5s ease-out;
 
   /* Ink Dropouts via inline SVG: feTurbulence + feComponentTransfer step threshold */
-  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='3' stitchTiles='stitch'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='9' intercept='-2.6'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23f)' fill='black'/%3E%3C/svg%3E");
-  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='3' stitchTiles='stitch'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='9' intercept='-2.6'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23f)' fill='black'/%3E%3C/svg%3E");
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.5' numOctaves='3' stitchTiles='stitch'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='8.5' intercept='-2.1'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23f)' fill='black'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.5' numOctaves='3' stitchTiles='stitch'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='8.5' intercept='-2.1'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23f)' fill='black'/%3E%3C/svg%3E");
   -webkit-mask-size: 160px 160px;
   mask-size: 160px 160px;
   -webkit-mask-repeat: repeat;
@@ -1921,12 +1921,12 @@
 
 .stamped-ink-imprint .stamp-star {
   color: #B3201F;
-  font-size: 0.65rem;
+  font-size: 0.76rem;
 }
 
 /* Wet Ink (unclipped inside text-shadow aura, settling over 1.5s to dry state) */
 .stamped-ink-imprint.stamp-fresh {
-  text-shadow: 0 0 2px rgba(179, 32, 31, 0.45), 0 0 0.5px #B3201F;
+  text-shadow: 0 0 2px rgba(179, 32, 31, 0.45), 0 0 0.4px #B3201F;
 }
 
 /* Fading oldest stamp when max count is exceeded */

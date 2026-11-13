@@ -1797,8 +1797,8 @@ function setupInteractiveStamps(): void {
       }
 
       // Match tool footprint to the rendered imprint dimensions
-      const imprintWidth = imprint.offsetWidth || 230;
-      const imprintHeight = imprint.offsetHeight || 44;
+      const imprintWidth = imprint.offsetWidth || 282;
+      const imprintHeight = imprint.offsetHeight || 56;
 
       // --- Create the Stamp Apparatus (with separate shadow & head elements) ---
       const apparatus = document.createElement('div');

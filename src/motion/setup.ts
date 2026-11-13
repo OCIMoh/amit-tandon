@@ -34,6 +34,7 @@ export async function setupMotion(): Promise<void> {
   setupAmbientSpotlight(reduce);
   setupMicAudioWaveClick();
   setupFooterArchivalStamp();
+  setupInteractiveStamps();
 }
 
 /** Section 11.A: Compact Dark Navigation on Scroll */
@@ -1145,10 +1146,7 @@ function setupTourInteractions(): void {
     teletypeSheet.addEventListener("mouseenter", () => {
       foley.playPaperRustle(0.7);
     });
-    teletypeSheet.addEventListener("click", () => {
-      foley.playTelexChatter();
-      gsap.fromTo(teletypeSheet, { y: -2 }, { y: 0, duration: 0.25, ease: "elastic.out(1, 0.4)" });
-    });
+    // Click animation now handled by setupInteractiveStamps()
   }
 
   if (stickyNote) {
@@ -1726,4 +1724,157 @@ function setupFooterArchivalStamp(): void {
       gsap.fromTo(waxSeal, { scale: 0.92, rotation: 8 }, { scale: 1, rotation: 12, duration: 0.35, ease: "back.out(2)" });
     });
   }
+}
+
+
+/** Interactive Rubber Stamp Animation (Option A) — No Audio */
+function setupInteractiveStamps(): void {
+  const STAMP_PHRASES = [
+    ['★ 100% CLEAN FAMILY COMEDY', 'ZERO HR LIABILITIES // VERIFIED'],
+    ['★ 15 YEARS OF MARRIAGE', 'SURVIVAL & SANITY CERTIFIED'],
+    ['★ CONFIDENTIAL DOMESTIC GYAN', 'STRICTLY NO IN-LAWS ALLOWED'],
+    ['★ OFFICIALLY AUDITED & CLEARED', 'SHARMA JI & PARENTS APPROVED'],
+  ];
+  const MAX_STAMPS = 6;
+  let phraseIndex = 0;
+
+  const stampables = document.querySelectorAll<HTMLElement>('[data-stampable="true"]');
+  if (!stampables.length) return;
+
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  stampables.forEach((container) => {
+    const stamps: HTMLElement[] = [];
+
+    container.addEventListener('click', (e: MouseEvent) => {
+      // Don't stamp on interactive elements
+      const target = e.target as HTMLElement;
+      if (
+        target.closest('a') ||
+        target.closest('button') ||
+        target.closest('[data-stop-propagation]')
+      ) {
+        return;
+      }
+
+      // Compute click position relative to container
+      const rect = container.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      // Enforce max stamps — fade and remove the oldest
+      if (stamps.length >= MAX_STAMPS) {
+        const oldest = stamps.shift();
+        if (oldest) {
+          oldest.classList.add('stamp-fading');
+          setTimeout(() => oldest.remove(), 650);
+        }
+      }
+
+      // Get the current phrase pair
+      const phrase = STAMP_PHRASES[phraseIndex % STAMP_PHRASES.length];
+      phraseIndex++;
+
+      // Random rotation between -7° and +7°
+      const angle = Math.random() * 14 - 7;
+
+      // --- Create the Ink Imprint (stays permanently) ---
+      const imprint = document.createElement('div');
+      imprint.className = 'stamped-ink-imprint stamp-fresh';
+      imprint.setAttribute('aria-hidden', 'true');
+      imprint.innerHTML = `<span class="stamp-line">${phrase[0]}</span><span class="stamp-line">${phrase[1]}</span>`;
+      imprint.style.left = `${x}px`;
+      imprint.style.top = `${y}px`;
+      imprint.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
+      container.appendChild(imprint);
+      stamps.push(imprint);
+
+      if (reduce) {
+        // In reduced motion mode, just show the imprint immediately
+        imprint.style.opacity = '0.85';
+        return;
+      }
+
+      // --- Create the Stamp Apparatus (temporary — gets removed) ---
+      const apparatus = document.createElement('div');
+      apparatus.className = 'rubber-stamp-apparatus';
+      apparatus.setAttribute('aria-hidden', 'true');
+      apparatus.innerHTML = '<div class="stamp-head"></div>';
+      apparatus.style.left = `${x}px`;
+      apparatus.style.top = `${y}px`;
+      apparatus.style.transform = 'translate(-50%, -50%)';
+      container.appendChild(apparatus);
+
+      // --- GSAP Timeline: Slam → Show Ink → Micro-shake → Lift ---
+      const tl = gsap.timeline({
+        onComplete: () => {
+          apparatus.remove();
+          // Remove 'fresh' glow after a beat
+          setTimeout(() => imprint.classList.remove('stamp-fresh'), 800);
+        },
+      });
+
+      // 1. Slam down from above (scale 2.2 → 1.0)
+      tl.fromTo(
+        apparatus,
+        {
+          scale: 2.2,
+          opacity: 0,
+          y: -40,
+        },
+        {
+          scale: 1.0,
+          opacity: 1,
+          y: 0,
+          duration: 0.14,
+          ease: 'power4.in',
+        }
+      );
+
+      // 2. At the contact moment: show ink imprint + micro-shake paper
+      tl.to(
+        imprint,
+        {
+          opacity: 0.85,
+          duration: 0.05,
+        },
+        '>'
+      );
+
+      tl.to(
+        container,
+        {
+          y: 2,
+          duration: 0.04,
+          ease: 'power1.in',
+          yoyo: true,
+          repeat: 1,
+        },
+        '<'
+      );
+
+      // Collapse the stamp shadow at contact
+      tl.to(
+        apparatus.querySelector('.stamp-head'),
+        {
+          boxShadow: '0 4px 8px rgba(0,0,0,0.5), inset 0 2px 0 rgba(255,235,200,0.2), inset 0 -1px 0 rgba(0,0,0,0.4)',
+          duration: 0.08,
+        },
+        '<'
+      );
+
+      // 3. Lift the stamp away
+      tl.to(
+        apparatus,
+        {
+          scale: 1.3,
+          opacity: 0,
+          y: -30,
+          duration: 0.22,
+          ease: 'power2.out',
+        },
+        '+=0.06'
+      );
+    });
+  });
 }

@@ -542,7 +542,8 @@ export function renderAiseKaise(site: SiteContent, events: ShowEvent[]): string 
                   </div>
 
                   <!-- Continuous Printed Teletype Dispatch Document -->
-                  <div class="teletype-sheet mono" id="teletype-dispatch-sheet" aria-label="Official Corporate Keynote Dispatch">
+                  <div class="teletype-sheet mono" id="teletype-dispatch-sheet" data-stampable="true" aria-label="Official Corporate Keynote Dispatch">
+                    <span class="stamp-hint mono" aria-hidden="true">[ ✎ CLICK TO STAMP ]</span>
                     <div class="sheet-zigzag-edge" aria-hidden="true"></div>
                     <div class="sheet-sprocket-feed feed-left" aria-hidden="true"></div>
                     <div class="sheet-sprocket-feed feed-right" aria-hidden="true"></div>

@@ -181,29 +181,76 @@
   margin: 0 0 1.5rem;
 }
 
-/* Trust Strip */
+/* Tour Accreditation Strip (Aesthetic Editorial Styling) */
 .tour-trust-strip {
   display: inline-flex;
   align-items: center;
-  gap: 1.25rem;
-  padding: 0.65rem 1.25rem;
-  background: rgba(255, 255, 255, 0.03);
+  gap: 1.5rem;
+  padding: 0.6rem 1.35rem;
+  background: rgba(14, 16, 22, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 6px;
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
-  color: #A3A3B0;
+  border-radius: 9999px;
+  width: fit-content;
+  max-width: 100%;
   flex-wrap: wrap;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
 .trust-item {
   display: flex;
   align-items: center;
-  gap: 0.45rem;
+  gap: 0.65rem;
+}
+
+.trust-icon-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgba(229, 9, 20, 0.12);
+  color: #FF3B30;
+  border: 1px solid rgba(229, 9, 20, 0.25);
+  flex-shrink: 0;
+}
+
+.trust-item-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+}
+
+.trust-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #FFFFFF;
+}
+
+.trust-sub {
+  font-size: 0.65rem;
+  color: #8E8E98;
+  letter-spacing: 0.02em;
 }
 
 .trust-sep {
-  color: rgba(255, 255, 255, 0.2);
+  width: 1px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+@media (max-width: 768px) {
+  .tour-trust-strip {
+    border-radius: 12px;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+  }
+  .trust-sep {
+    display: none;
+  }
 }
 
 /* --------------------------------------------------------------------------

@@ -182,21 +182,50 @@ export function renderAiseKaise(_site: SiteContent, events: ShowEvent[]): string
         </p>
       </div>
 
-      <!-- Trust Badges Strip -->
-      <div class="tour-trust-strip mono" aria-label="Official Box Office Trust Badges">
+      <!-- Tour Accreditation Strip (Aesthetic Editorial Styling) -->
+      <div class="tour-trust-strip" aria-label="Official Box Office Standards">
         <div class="trust-item">
-          <span class="trust-icon">🛡️</span>
-          <span>100% VERIFIED BOX OFFICE LINKS (ZERO RESELLER MARKUPS)</span>
+          <span class="trust-icon-box">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <path d="m9 12 2 2 4-4"/>
+            </svg>
+          </span>
+          <div class="trust-item-text">
+            <span class="trust-label mono">VERIFIED BOX OFFICE</span>
+            <span class="trust-sub">Direct Primary Ticketing</span>
+          </div>
         </div>
-        <span class="trust-sep" aria-hidden="true">&bull;</span>
+
+        <span class="trust-sep" aria-hidden="true"></span>
+
         <div class="trust-item">
-          <span class="trust-icon">👨‍👩‍👧‍👦</span>
-          <span>100% CLEAN FAMILY COMEDY (3 GENERATIONS SAFE)</span>
+          <span class="trust-icon-box">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+              <line x1="9" y1="9" x2="9.01" y2="9"/>
+              <line x1="15" y1="9" x2="15.01" y2="9"/>
+            </svg>
+          </span>
+          <div class="trust-item-text">
+            <span class="trust-label mono">100% CLEAN COMEDY</span>
+            <span class="trust-sub">Multi-Generation Safe</span>
+          </div>
         </div>
-        <span class="trust-sep" aria-hidden="true">&bull;</span>
+
+        <span class="trust-sep" aria-hidden="true"></span>
+
         <div class="trust-item">
-          <span class="trust-icon">⚡</span>
-          <span>INSTANT MANAGEMENT DISPATCH (&lt; 15 MINS RESPONSE)</span>
+          <span class="trust-icon-box">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+            </svg>
+          </span>
+          <div class="trust-item-text">
+            <span class="trust-label mono">DIRECT DISPATCH</span>
+            <span class="trust-sub">Global Tour &amp; VIP Hotline</span>
+          </div>
         </div>
       </div>
     </header>
